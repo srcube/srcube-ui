@@ -1,0 +1,36 @@
+{
+  "name": "srcube-ui",
+  "version": "0.0.0",
+  "description": "A UI library",
+  "keywords": [
+    "UI",
+    "React UI",
+    "MiniProgram UI"
+  ],
+  "author": "chioio",
+  "license": "MIT",
+  "engines": {
+    "pnpm": ">=10 <11"
+  },
+  "type": "module",
+  "packageManager": "pnpm@10.28.2",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "biome check .",
+    "lint:fix": "biome check . --write",
+    "format": "biome format . --write",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "catalog:",
+    "@biomejs/biome": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:",
+    "tsdown": "catalog:",
+    "vitest": "catalog:"
+  }
+}

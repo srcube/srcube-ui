@@ -1,0 +1,48 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# build output
+dist
+build
+lib
+.esbuild
+.turbo
+.next
+.nuxt
+.out
+.svelte-kit
+.storybook-static
+.vite
+.vite-deps
+.cache
+.parcel-cache
+.astro
+.output
+coverage
+*.tsbuildinfo
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# env
+.env
+.env.*
+!.env.example
+
+# hosting
+.vercel
+.netlify
+
+# misc
+.DS_Store
+Thumbs.db
+_bmad
+_bmad-output
+
+# editor
+.vscode
+.idea

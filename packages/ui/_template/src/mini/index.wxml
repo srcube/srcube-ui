@@ -1,0 +1,4 @@
+<!-- TODO: implement MiniProgram template -->
+<view class="{{className}}">
+  <slot></slot>
+</view>
