@@ -6,4 +6,5 @@ export default defineConfig({
   },
   dts: true,
   sourcemap: true,
+  fixedExtension: false,
 });

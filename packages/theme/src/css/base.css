@@ -1,0 +1,8 @@
+@layer base {
+  :root {
+    --default-animation-duration: 0.3s;
+    --default-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --default-animation-dely: 0s;
+    --default-animation-delay: 0s;
+  }
+}

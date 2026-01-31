@@ -1,0 +1,453 @@
+@keyframes blink-caret {
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes drawer-from-right-in {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-from-right-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes drawer-from-left-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawer-from-left-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes drawer-from-top-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawer-from-top-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes drawer-from-bottom-in {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawer-from-bottom-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+@keyframes dialog-in {
+  0% {
+    opacity: 0;
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes dialog-out {
+  0% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+}
+
+@keyframes modal-in {
+  0% {
+    opacity: 0;
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes modal-out {
+  0% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes toast-from-top-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes toast-from-top-out {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.85) translateY(-100%);
+  }
+}
+
+@keyframes toast-from-bottom-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes toast-from-bottom-out {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.85) translateY(100%);
+  }
+}
+
+@keyframes toast-from-center-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes toast-from-center-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes slide-in-from-top {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slide-out-to-top {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.85) translateY(-100%);
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slide-out-to-bottom {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.85) translateY(100%);
+  }
+}
+
+@utility animate-blink-caret {
+  animation: blink-caret var(--default-animation-duration, 1s)
+    var(--default-animation-timing-function, steps(1, start))
+    var(--default-animation-dely, 0s) infinite both;
+}
+
+@utility animate-drawer-from-right-in {
+  animation: drawer-from-right-in
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-drawer-from-right-out {
+  animation: drawer-from-right-out
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-drawer-from-left-in {
+  animation: drawer-from-left-in
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-drawer-from-left-out {
+  animation: drawer-from-left-out
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-drawer-from-top-in {
+  animation: drawer-from-top-in
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-drawer-from-top-out {
+  animation: drawer-from-top-out
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-drawer-from-bottom-in {
+  animation: drawer-from-bottom-in
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-drawer-from-bottom-out {
+  animation: drawer-from-bottom-out
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-dialog-in {
+  animation: dialog-in var(--default-animation-duration, 0.5s)
+    var(--default-animation-timing-function, ease)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-dialog-out {
+  animation: dialog-out var(--default-animation-duration, 0.5s)
+    var(--default-animation-timing-function, ease)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-modal-in {
+  animation: modal-in var(--default-animation-duration, 0.5s)
+    var(--default-animation-timing-function, ease)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-modal-out {
+  animation: modal-out var(--default-animation-duration, 0.5s)
+    var(--default-animation-timing-function, ease)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-fade-in {
+  animation: fade-in var(--default-animation-duration, 0.5s)
+    var(--default-animation-timing-function, ease)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-fade-out {
+  animation: fade-out var(--default-animation-duration, 0.5s)
+    var(--default-animation-timing-function, ease)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-toast-from-top-in {
+  animation: toast-from-top-in var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-out)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-toast-from-top-out {
+  animation: toast-from-top-out var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-in)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-toast-from-bottom-in {
+  animation: toast-from-bottom-in var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-out)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-toast-from-bottom-out {
+  animation: toast-from-bottom-out var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-in)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-toast-from-center-in {
+  animation: toast-from-center-in var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-out)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-toast-from-center-out {
+  animation: toast-from-center-out var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-in)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-slide-in-from-top {
+  animation: slide-in-from-top var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-out)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-slide-out-to-top {
+  animation: slide-out-to-top var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-in)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-slide-in-from-bottom {
+  animation: slide-in-from-bottom var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-out)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-slide-out-to-bottom {
+  animation: slide-out-to-bottom var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, ease-in)
+    var(--default-animation-dely, 0s) both;
+}

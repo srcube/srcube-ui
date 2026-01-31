@@ -1,1 +1,1 @@
-// TODO: export theme tokens and Tailwind plugin helpers.
+export type { VariantProps } from "tailwind-variants";

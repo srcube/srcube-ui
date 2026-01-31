@@ -17,6 +17,7 @@
     "build": "tsdown"
   },
   "devDependencies": {
+    "@srcube-ui/config": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }

@@ -1,0 +1,16 @@
+{
+  "name": "@srcube-ui/config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./tsconfig.react.json": "./tsconfig.react.json",
+    "./tsconfig.mini.json": "./tsconfig.mini.json"
+  },
+  "files": [
+    "tsconfig.base.json",
+    "tsconfig.react.json",
+    "tsconfig.mini.json"
+  ]
+}

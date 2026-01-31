@@ -30,9 +30,12 @@
   "peerDependencies": {
     "@srcube-ui/mini": "workspace:*",
     "@srcube-ui/react": "workspace:*",
-    "@srcube-ui/theme": "workspace:*"
+    "@srcube-ui/theme": "workspace:*",
+    "react-aria-components": "catalog:"
   },
   "devDependencies": {
+    "@srcube-ui/config": "workspace:*",
+    "react-aria-components": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }

@@ -7,7 +7,20 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./tv": {
+      "types": "./dist/tv.d.ts",
+      "import": "./dist/tv.js"
+    },
+    "./tv-mini": {
+      "types": "./dist/tv-mini.d.ts",
+      "import": "./dist/tv-mini.js"
+    },
+    "./tv-web": {
+      "types": "./dist/tv-web.d.ts",
+      "import": "./dist/tv-web.js"
+    },
+    "./index.css": "./dist/index.css"
   },
   "types": "./dist/index.d.ts",
   "files": [
@@ -16,7 +29,13 @@
   "scripts": {
     "build": "tsdown"
   },
+  "dependencies": {
+    "@weapp-tailwindcss/variants": "catalog:",
+    "tailwind-variants": "catalog:",
+    "tailwindcss": "catalog:"
+  },
   "devDependencies": {
+    "@srcube-ui/config": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }

@@ -1,0 +1,27 @@
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+@utility pb-safe-* {
+  /* prettier-ignore */
+  padding-bottom: calc(env(safe-area-inset-bottom) + --value(--spacing-*));
+}
+
+@utility pt-safe-* {
+  /* prettier-ignore */
+  padding-top: calc(env(safe-area-inset-top) + --value(--spacing-*));
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+}
+
+@layer utilities {
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}

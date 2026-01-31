@@ -16,7 +16,12 @@
   "scripts": {
     "build": "tsdown"
   },
+  "dependencies": {
+    "react-aria-components": "catalog:",
+    "tailwind-variants": "catalog:"
+  },
   "devDependencies": {
+    "@srcube-ui/config": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }

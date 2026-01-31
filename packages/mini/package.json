@@ -16,7 +16,15 @@
   "scripts": {
     "build": "tsdown"
   },
+  "dependencies": {
+    "miniprogram-computed": "catalog:"
+  },
+  "peerDependencies": {
+    "miniprogram-api-typings": "catalog:"
+  },
   "devDependencies": {
+    "@srcube-ui/config": "workspace:*",
+    "miniprogram-simulate": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }
