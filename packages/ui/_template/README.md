@@ -18,6 +18,13 @@ src/
 - **props 语义一致**：同名 prop 表达相同含义（允许形态不同）。
 - **Boolean 命名**：必须以 `is/has/should/can` 开头。
 - **样式共享**：仅 `style.ts` 共享，逻辑不共享。
+- **样式规则**：实现层避免直接写 Tailwind 类，统一通过 `style.ts` + slots 输出。
+
+## API 同步规约（必须遵守）
+
+- 组件 README 的 **API 表** 是唯一真相。
+- React 与 Mini 的 API 字段、默认值、语义必须一一对应。
+- 任一端新增/修改 API，必须同步更新另一端与 README。
 
 ## 平台差异说明（必须写入组件 README）
 
@@ -26,10 +33,12 @@ src/
   - `className?: string | ((state) => string)`
   - `state` 为 RAC 提供的 `isPressed/isHovered/...` 等状态
 - **不使用 RAC 时**，`className` 只能是 `string`
+- **RAC 使用边界**：仅交互型组件（Button/Toggle/Slider 等）使用 RAC；展示型组件默认不用 RAC
 
 ### Mini 端
 - `className` 仅支持 `string`
 - `props` 直接用于 `properties`，必须包含原生属性
+- **原生属性策略**：仅保留必要字段，其它按组件场景扩展
 
 ## 默认 props（模板内置）
 
@@ -72,5 +81,7 @@ const styles = button({ variant: "solid" });
 1. 复制模板到 `packages/ui/<component>`
 2. 修改 `package.json` 的 name/exports
 3. 替换 `Component*` 命名
-4. 按端实现 `react/*` 与 `mini/*`
-5. 在组件 README 中补充 **平台差异说明**
+4. 先实现 `style.ts`（variants/tokens）
+5. 再实现 `react/*`（按需使用 RAC）
+6. 最后实现 `mini/*`（补全 properties）
+7. 在组件 README 中补充 **平台差异说明** 与 API 表
