@@ -16,6 +16,8 @@
   "packageManager": "pnpm@10.28.2",
   "scripts": {
     "dev": "turbo run dev",
+    "dev:mini": "pnpm -C apps/sample-mini dev",
+    "dev:react": "pnpm -C apps/sample-react dev",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "biome check .",
@@ -26,11 +28,14 @@
     "changeset:publish": "changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "catalog:",
     "@biomejs/biome": "catalog:",
+    "@changesets/cli": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "tsdown": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:",
-    "tsdown": "catalog:",
     "vitest": "catalog:"
   }
 }

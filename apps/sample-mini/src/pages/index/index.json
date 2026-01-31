@@ -1,0 +1,5 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {},
+  "navigationBarTitleText": "组件示例"
+}

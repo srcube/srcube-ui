@@ -1,0 +1,36 @@
+{
+  "name": "@srcube-app/mini",
+  "type": "module",
+  "version": "1.0.3",
+  "private": true,
+  "description": "\u539f\u751f\u5fae\u4fe1\u5c0f\u7a0b\u5e8f weapp-vite + tailwindcss \u6a21\u677f",
+  "author": "ice breaker <1324318532@qq.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weapp-vite/weapp-vite.git",
+    "directory": "templates/weapp-vite-tailwindcss-template"
+  },
+  "bugs": {
+    "url": "https://github.com/weapp-vite/weapp-vite/issues"
+  },
+  "keywords": [],
+  "scripts": {
+    "dev": "weapp-vite dev",
+    "dev:open": "weapp-vite dev -o",
+    "build": "weapp-vite build",
+    "open": "weapp-vite open",
+    "g": "weapp-vite generate",
+    "postinstall": "weapp-tw patch"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "catalog:",
+    "miniprogram-api-typings": "catalog:",
+    "postcss": "catalog:",
+    "sass": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "weapp-tailwindcss": "catalog:",
+    "weapp-vite": "catalog:"
+  }
+}

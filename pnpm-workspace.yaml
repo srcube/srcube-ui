@@ -3,12 +3,55 @@ packages:
   - packages/**
 
 catalog:
-  "@changesets/cli": ^2.27.1
-  "@biomejs/biome": ^2.3.11
+  '@biomejs/biome': ^2.3.11
+  '@changesets/cli': ^2.27.1
+  '@egoist/tailwindcss-icons': ^1.9.0
+  '@iconify/json': ^2.2.433
+  '@iconify/tailwind4': ^1.2.1
+  '@iconify-json/mdi': ^1.2.3
+  '@tailwindcss/postcss': ^4.1.0
+  '@tailwindcss/vite': ^4.1.18
+  '@tanstack/devtools-vite': ^0.3.11
+  '@tanstack/react-devtools': ^0.7.0
+  '@tanstack/react-router': ^1.157.16
+  '@tanstack/react-router-devtools': ^1.132.0
+  '@tanstack/react-router-ssr-query': ^1.131.7
+  '@tanstack/react-start': ^1.132.0
+  '@tanstack/router-plugin': ^1.132.0
+  '@testing-library/dom': ^10.4.0
+  '@testing-library/react': ^16.2.0
+  '@types/node': ^22.19.7
+  '@types/react': ^19.2.10
+  '@types/react-dom': ^19.2.3
+  '@vitejs/plugin-react': ^4.6.0
+  '@weapp-tailwindcss/variants': ^0.2.0
+  autoprefixer: ^10.4.23
+  jsdom: ^27.0.0
+  lucide-react: ^0.561.0
+  miniprogram-api-typings: ^5.0.0
+  miniprogram-computed: ^5.1.0
+  miniprogram-simulate: ^1.6.1
+  nitro: npm:nitro-nightly@latest
+  postcss: ^8.5.6
+  react: ^19.0.0
+  react-aria-components: ^1.14.0
+  react-dom: ^19.0.0
+  sass: ^1.97.3
+  tailwind-variants: ^3.2.0
+  tailwindcss: ^4.1.0
   tsdown: ^0.20.1
   turbo: ^2.0.0
   typescript: ^5.5.4
+  vite: ^7.3.1
+  vite-tsconfig-paths: ^5.1.4
   vitest: ^3.2.4
+  web-vitals: ^5.1.0
+  weapp-tailwindcss: ^4.9.7
+  weapp-vite: ^6.4.6
+
+catalogs:
+  tailwind3:
+    tailwindcss: ^3.4.19
 
 onlyBuiltDependencies:
   - esbuild

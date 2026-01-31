@@ -1,0 +1,9 @@
+<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
+  <view class="sticky top-0 z-20 bg-white border-b border-slate-200">
+    <view class="p-4">
+      <view class="text-lg font-semibold">Button</view>
+    </view>
+  </view>
+
+  <view class="p-4">Button not implement yet</view>
+</view>
