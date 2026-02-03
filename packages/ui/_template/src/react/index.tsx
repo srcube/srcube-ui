@@ -1,6 +1,6 @@
 import type * as React from "react";
-import { component } from "../style";
 import type { ComponentVariants } from "../style";
+import { component } from "../style";
 import type { ComponentReactProps } from "./props";
 
 export function Component(props: ComponentReactProps) {

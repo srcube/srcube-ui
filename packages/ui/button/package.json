@@ -1,0 +1,49 @@
+{
+  "name": "@srcube-ui/button",
+  "version": "0.0.0",
+  "type": "module",
+  "miniprogram": "dist/mini",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/style.js"
+    },
+    "./mini": {
+      "types": "./dist/mini/index.d.ts",
+      "import": "./dist/mini/index.js"
+    },
+    "./mini/button-group": {
+      "types": "./dist/mini/button-group/index.d.ts",
+      "import": "./dist/mini/button-group/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    }
+  },
+  "devDependencies": {
+    "@srcube-ui/config": "workspace:*",
+    "react-aria-components": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "peerDependencies": {
+    "@srcube-ui/mini": "workspace:*",
+    "@srcube-ui/react": "workspace:*",
+    "@srcube-ui/theme": "workspace:*",
+    "react-aria-components": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}

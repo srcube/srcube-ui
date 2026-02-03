@@ -1,0 +1,10 @@
+.sr-button__native {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* biome-ignore lint/complexity/noImportantStyles: override native injection */
+  width: 100% !important;
+  height: 100%;
+  opacity: 0;
+  z-index: 10;
+}

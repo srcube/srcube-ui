@@ -1,20 +1,23 @@
-import path from 'node:path'
-import { UnifiedViteWeappTailwindcssPlugin } from 'weapp-tailwindcss/vite'
-import { defineConfig } from 'weapp-vite/config'
+import path from "node:path";
+import { UnifiedViteWeappTailwindcssPlugin } from "weapp-tailwindcss/vite";
+import { defineConfig } from "weapp-vite/config";
 
 export default defineConfig({
   weapp: {
-    srcRoot: 'src',
+    srcRoot: "src",
+    npm: {
+      cache: false,
+    },
     // pnpm g 生成的格式
     // https://vite.icebreaker.top/guide/generate.html
     generate: {
       extensions: {
-        js: 'ts',
-        wxss: 'scss',
+        js: "ts",
+        wxss: "scss",
       },
       dirs: {
-        component: 'src/components',
-        page: 'src/pages',
+        component: "src/components",
+        page: "src/pages",
       },
       // 假如你想让默认生成的组件命名为 HelloWorld/index 而不是 HelloWorld/HelloWorld 可以下列选项
       // filenames: {
@@ -26,19 +29,14 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        silenceDeprecations: ['legacy-js-api', 'import'],
+        silenceDeprecations: ["legacy-js-api", "import"],
       },
     },
   },
   plugins: [
-    UnifiedViteWeappTailwindcssPlugin({
+    ...(UnifiedViteWeappTailwindcssPlugin({
       rem2rpx: true,
-      tailwindcss: {
-        version: 4,
-        v4: {
-          cssEntries: [path.resolve(import.meta.dirname, './src/app.css')],
-        },
-      },
-    }) as any,
+      cssEntries: [path.resolve(import.meta.dirname, "./src/app.css")],
+    }) ?? []),
   ],
-})
+});

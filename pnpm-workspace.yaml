@@ -1,6 +1,7 @@
 packages:
   - apps/*
   - packages/**
+  - '!packages/ui.bak/**'
 
 catalog:
   '@biomejs/biome': ^2.3.11

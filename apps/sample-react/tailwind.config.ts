@@ -1,6 +1,6 @@
-import type { Config } from "tailwindcss"
-import { dynamicIconsPlugin } from "@egoist/tailwindcss-icons"
+import { dynamicIconsPlugin } from "@egoist/tailwindcss-icons";
+import type { Config } from "tailwindcss";
 
 export default {
-  plugins: [dynamicIconsPlugin()],
-} satisfies Config
+	plugins: [dynamicIconsPlugin()],
+} satisfies Config;

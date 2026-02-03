@@ -5,5 +5,104 @@
     </view>
   </view>
 
-  <view class="p-4">Button not implement yet</view>
+  <view class="p-4 space-y-6">
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Colors</view>
+      <view class="mt-3 flex flex-wrap gap-2">
+        <s-button color="default">Default</s-button>
+        <s-button color="primary">Primary</s-button>
+        <s-button color="secondary">Secondary</s-button>
+        <s-button color="success">Success</s-button>
+        <s-button color="warning">Warning</s-button>
+        <s-button color="danger">Danger</s-button>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Variants</view>
+      <view class="mt-3 flex flex-wrap gap-2">
+        <s-button variant="solid">Solid</s-button>
+        <s-button variant="outline">Outline</s-button>
+        <s-button variant="flat">Flat</s-button>
+        <s-button variant="text">Text</s-button>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Sizes</view>
+      <view class="mt-3 flex flex-wrap gap-2">
+        <s-button size="sm">Small</s-button>
+        <s-button size="md">Medium</s-button>
+        <s-button size="lg">Large</s-button>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Radius</view>
+      <view class="mt-3 flex flex-wrap gap-2">
+        <s-button radius="none">None</s-button>
+        <s-button radius="sm">Small</s-button>
+        <s-button radius="md">Medium</s-button>
+        <s-button radius="lg">Large</s-button>
+        <s-button radius="full">Full</s-button>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">States</view>
+      <view class="mt-3 flex flex-wrap gap-2">
+        <s-button>Normal</s-button>
+        <s-button isDisabled>Disabled</s-button>
+        <s-button isLoading>Loading</s-button>
+        <s-button isLoading="auto" bind:tap="handleAutoLoading">
+          Auto Loading
+        </s-button>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">OpenType</view>
+      <view class="mt-3 flex flex-wrap gap-2">
+        <s-button openType="share">Share</s-button>
+        <s-button openType="contact">Contact</s-button>
+        <s-button openType="openSetting">Open Setting</s-button>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Icon</view>
+      <view class="mt-3 flex flex-wrap gap-2">
+        <s-button isIcon aria-label="Add">
+          +
+        </s-button>
+        <s-button>
+          +
+          <text>Star</text>
+        </s-button>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Block</view>
+      <view class="mt-3 flex flex-col gap-2">
+        <s-button isBlock>Primary Block</s-button>
+        <s-button isBlock variant="outline">Outline Block</s-button>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">ButtonGroup</view>
+      <view class="mt-3 flex flex-col gap-3">
+        <s-button-group>
+          <s-button>Left</s-button>
+          <s-button>Middle</s-button>
+          <s-button>Right</s-button>
+        </s-button-group>
+        <s-button-group isBlock>
+          <s-button class="flex-1">Yes</s-button>
+          <s-button variant="outline" class="flex-1">No</s-button>
+        </s-button-group>
+      </view>
+    </view>
+  </view>
 </view>

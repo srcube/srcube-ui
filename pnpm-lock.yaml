@@ -152,6 +152,15 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.2.3(@types/react@19.2.10)
+      miniprogram-api-typings:
+        specifier: 'catalog:'
+        version: 5.0.0
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
       tsdown:
         specifier: 'catalog:'
         version: 0.20.1(typescript@5.9.3)
@@ -166,6 +175,19 @@ importers:
         version: 3.2.4(@types/node@22.19.7)(jiti@2.6.1)(jsdom@27.4.0)(lightningcss@1.31.1)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.2)
 
   apps/sample-mini:
+    dependencies:
+      '@srcube-ui/button':
+        specifier: workspace:*
+        version: link:../../packages/ui/button
+      '@srcube-ui/mini':
+        specifier: workspace:*
+        version: link:../../packages/mini
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
+      '@weapp-tailwindcss/variants':
+        specifier: 'catalog:'
+        version: 0.2.0(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
     devDependencies:
       '@tailwindcss/postcss':
         specifier: 'catalog:'
@@ -197,6 +219,15 @@ importers:
       '@iconify/tailwind4':
         specifier: 'catalog:'
         version: 1.2.1(tailwindcss@4.1.18)
+      '@srcube-ui/button':
+        specifier: workspace:*
+        version: link:../../packages/ui/button
+      '@srcube-ui/mini':
+        specifier: workspace:*
+        version: link:../../packages/mini
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../packages/theme
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.1.18(vite@7.3.1(@types/node@22.19.7)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.2))
@@ -218,6 +249,9 @@ importers:
       '@tanstack/router-plugin':
         specifier: 'catalog:'
         version: 1.157.17(@tanstack/react-router@1.157.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.3.1(@types/node@22.19.7)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.2))
+      '@weapp-tailwindcss/variants':
+        specifier: 'catalog:'
+        version: 0.2.0(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
       lucide-react:
         specifier: 'catalog:'
         version: 0.561.0(react@19.2.4)
@@ -372,15 +406,40 @@ importers:
       '@srcube-ui/config':
         specifier: workspace:*
         version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
       react-aria-components:
         specifier: 'catalog:'
         version: 1.14.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      tsdown:
+      react-dom:
         specifier: 'catalog:'
-        version: 0.20.1(typescript@5.9.3)
-      typescript:
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/button:
+    dependencies:
+      '@srcube-ui/mini':
+        specifier: workspace:*
+        version: link:../../mini
+      '@srcube-ui/react':
+        specifier: workspace:*
+        version: link:../../react
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
         specifier: 'catalog:'
-        version: 5.9.3
+        version: 19.2.4
+      react-aria-components:
+        specifier: 'catalog:'
+        version: 1.14.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
 
 packages:
 

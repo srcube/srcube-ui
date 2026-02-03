@@ -1,5 +1,6 @@
 export { tv } from "./tv-web";
-import type { VariantProps, ClassValue } from "tailwind-variants";
+
+import type { ClassValue, VariantProps } from "tailwind-variants";
 
 /**
  * Transform a list of slots into a { slot: classes } map.

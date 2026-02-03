@@ -2,6 +2,15 @@
   "name": "@srcube-ui/__component__",
   "version": "0.0.0",
   "type": "module",
+  "private": true,
+  "miniprogram": "dist/mini",
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsdown"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -20,23 +29,18 @@
       "import": "./dist/react/index.js"
     }
   },
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsdown"
+  "devDependencies": {
+    "@srcube-ui/config": "workspace:*",
+    "react-aria-components": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "peerDependencies": {
     "@srcube-ui/mini": "workspace:*",
     "@srcube-ui/react": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
-    "react-aria-components": "catalog:"
-  },
-  "devDependencies": {
-    "@srcube-ui/config": "workspace:*",
     "react-aria-components": "catalog:",
-    "tsdown": "catalog:",
-    "typescript": "catalog:"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   }
 }

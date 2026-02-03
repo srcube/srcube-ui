@@ -12,6 +12,10 @@
     "check": "biome check"
   },
   "dependencies": {
+    "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/theme": "workspace:*",
+    "@srcube-ui/mini": "workspace:*",
+    "@weapp-tailwindcss/variants": "catalog:",
     "@iconify/tailwind4": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-devtools": "catalog:",

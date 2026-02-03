@@ -1,14 +1,10 @@
 {
   "$schema": "https://vite.icebreaker.top/app.json",
-  "pages": [
-    "pages/index/index"
-  ],
+  "pages": ["pages/index/index"],
   "subPackages": [
     {
       "root": "packages/button",
-      "pages": [
-        "pages/sample/index"
-      ]
+      "pages": ["pages/sample/index"]
     }
   ],
   "window": {},

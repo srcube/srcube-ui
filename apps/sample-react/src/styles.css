@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "@srcube-ui/theme/index.css";
+
+@source "../node_modules/@srcube-ui/*/dist";
+
 @plugin "@iconify/tailwind4";
 
 body {

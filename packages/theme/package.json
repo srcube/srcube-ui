@@ -3,6 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "miniprogram": "dist",
+  "scripts": {
+    "build": "tsdown"
+  },
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -22,13 +30,6 @@
     },
     "./index.css": "./dist/index.css"
   },
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsdown"
-  },
   "dependencies": {
     "@weapp-tailwindcss/variants": "catalog:",
     "tailwind-variants": "catalog:",
@@ -38,5 +39,10 @@
     "@srcube-ui/config": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "@weapp-tailwindcss/variants": "catalog:",
+    "tailwind-variants": "catalog:",
+    "tailwindcss": "catalog:"
   }
 }

@@ -2,8 +2,8 @@ Page({
   data: {
     components: [
       {
-        title: 'Button',
-        url: '/packages/button/pages/sample/index',
+        title: "Button",
+        url: "/packages/button/pages/sample/index",
       },
     ],
   },
@@ -11,4 +11,4 @@ Page({
     const { url } = e.currentTarget.dataset;
     wx.navigateTo({ url });
   },
-})
+});

@@ -3,6 +3,6 @@
   "extends": ["../../biome.json"],
   "root": false,
   "files": {
-    "includes": ["**", "!src/**/*.css"]
+    "includes": ["!src/**/*.css"]
   }
 }

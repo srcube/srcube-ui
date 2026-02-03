@@ -23,6 +23,12 @@
     "g": "weapp-vite generate",
     "postinstall": "weapp-tw patch"
   },
+  "dependencies": {
+    "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/theme": "workspace:*",
+    "@srcube-ui/mini": "workspace:*",
+    "@weapp-tailwindcss/variants": "catalog:"
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "catalog:",
     "miniprogram-api-typings": "catalog:",

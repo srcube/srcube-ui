@@ -1,1 +1,4 @@
-@import "weapp-tailwindcss";
+@import "tailwindcss";
+@import "@srcube-ui/theme/index.css";
+
+@source "../node_modules/@srcube-ui/*/dist";

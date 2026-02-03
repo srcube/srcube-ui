@@ -1,0 +1,42 @@
+<view
+  class="sr-button__wrapper {{$classNames.base}}"
+  style="{{style}}"
+>
+  <text wx:if="{{$isLoading}}" class="{{$classNames._iLoading}}" />
+  <block wx:if="{{!isIcon || !$isLoading}}">
+    <slot />
+  </block>
+  <button
+    id="{{buttonId}}"
+    class="sr-button__native"
+    form-type="{{$isDisabled ? '' : formType}}"
+    open-type="{{$isDisabled ? '' : openType}}"
+    hover-class="{{$isDisabled ? 'none' : (hoverClass ? hoverClass : 'none')}}"
+    hover-stop-propagation="{{hoverStopPropagation}}"
+    hover-start-time="{{hoverStartTime}}"
+    hover-stay-time="{{hoverStayTime}}"
+    lang="{{lang}}"
+    session-from="{{sessionFrom}}"
+    send-message-title="{{sendMessageTitle}}"
+    send-message-path="{{sendMessagePath}}"
+    send-message-img="{{sendMessageImg}}"
+    show-message-card="{{showMessageCard}}"
+    app-parameter="{{appParameter}}"
+    phone-number-no-quota-toast="{{phoneNumberNoQuotaToast}}"
+    need-show-entrance="{{needShowEntrance}}"
+    entrance-path="{{entrancePath}}"
+    aria-label="{{ariaLabel}}"
+    aria-disabled="{{$isDisabled}}"
+    catchtap="handleTap"
+    bindgetuserinfo="onGetUserInfo"
+    bindcontact="onContact"
+    bindgetphonenumber="onGetPhoneNumber"
+    bindgetrealtimephonenumber="onGetRealTimePhoneNumber"
+    binderror="onError"
+    bindopensetting="onOpenSetting"
+    bindlaunchapp="onLaunchApp"
+    bindchooseavatar="onChooseAvatar"
+    bindagreeprivacyauthorization="onAgreePrivacyAuthorization"
+  >
+  </button>
+</view>
