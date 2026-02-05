@@ -25,9 +25,9 @@
   },
   "dependencies": {
     "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/scrollbox": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
-    "@srcube-ui/mini": "workspace:*",
-    "@weapp-tailwindcss/variants": "catalog:"
+    "@srcube-ui/mini": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "catalog:",

@@ -5,6 +5,10 @@
     {
       "root": "packages/button",
       "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/scrollbox",
+      "pages": ["pages/sample/index"]
     }
   ],
   "window": {},

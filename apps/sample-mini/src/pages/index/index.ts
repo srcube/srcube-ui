@@ -5,6 +5,10 @@ Page({
         title: "Button",
         url: "/packages/button/pages/sample/index",
       },
+      {
+        title: "Scrollbox",
+        url: "/packages/scrollbox/pages/sample/index",
+      },
     ],
   },
   handleNavigate(e: WechatMiniprogram.TouchEvent) {

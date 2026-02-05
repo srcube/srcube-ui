@@ -1,0 +1,4 @@
+.sr-scrollbox__scrollview {
+  width: 100%;
+  height: 100%;
+}

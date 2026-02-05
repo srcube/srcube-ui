@@ -1,8 +1,7 @@
 {
-  "name": "@srcube-ui/__component__",
+  "name": "@srcube-ui/scrollbox",
   "version": "0.0.0",
   "type": "module",
-  "private": true,
   "miniprogram": "dist/mini",
   "files": [
     "dist"
@@ -10,7 +9,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsdown",
-    "test": "pnpm -w vitest run --config vitest.config.ts --dir packages/ui/_template"
+    "test": "pnpm -w vitest run --config vitest.config.ts --dir packages/ui/scrollbox"
   },
   "exports": {
     ".": {
@@ -32,16 +31,17 @@
   },
   "devDependencies": {
     "@srcube-ui/config": "workspace:*",
-    "react-aria-components": "catalog:",
+    "@vitest/ui": "4.0.18",
     "react": "catalog:",
+    "react-aria-components": "catalog:",
     "react-dom": "catalog:"
   },
   "peerDependencies": {
     "@srcube-ui/mini": "workspace:*",
     "@srcube-ui/react": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
-    "react-aria-components": "catalog:",
     "react": "catalog:",
+    "react-aria-components": "catalog:",
     "react-dom": "catalog:"
   }
 }

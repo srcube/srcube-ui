@@ -39,6 +39,12 @@
     "vitest": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "miniprogram-api-typings": "catalog:"
+    "miniprogram-api-typings": "catalog:",
+    "@testing-library/dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "jsdom": "catalog:",
+    "miniprogram-simulate": "catalog:",
+    "@vitest/browser-preview": "catalog:",
+    "vitest-browser-react": "catalog:"
   }
 }

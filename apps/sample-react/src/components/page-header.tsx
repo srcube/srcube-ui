@@ -6,7 +6,7 @@ type PageHeaderProps = {
 
 export default function PageHeader({ title }: PageHeaderProps) {
 	return (
-		<div className="flex items-center gap-3 px-4 py-3 bg-white shadow">
+		<div className="sticky top-0 z-20 flex items-center gap-3 border-b border-slate-200 bg-white px-4 py-3">
 			<Link
 				to="/"
 				className="inline-flex h-8 w-8 items-center justify-center text-slate-600 hover:text-slate-900"

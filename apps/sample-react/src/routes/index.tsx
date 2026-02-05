@@ -5,6 +5,7 @@ export const Route = createFileRoute("/")({ component: App });
 function App() {
 	const components: { title: string; to: string }[] = [
 		{ title: "Button", to: "/button" as const },
+		{ title: "Scrollbox", to: "/scrollbox" as const },
 	];
 
 	return (

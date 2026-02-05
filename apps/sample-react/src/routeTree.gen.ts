@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ScrollboxRouteRouteImport } from './routes/scrollbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ScrollboxRouteRoute = ScrollboxRouteRouteImport.update({
+  id: '/scrollbox',
+  path: '/scrollbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ButtonRouteRoute = ButtonRouteRouteImport.update({
   id: '/button',
   path: '/button',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
+  '/scrollbox': typeof ScrollboxRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
+  '/scrollbox': typeof ScrollboxRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
+  '/scrollbox': typeof ScrollboxRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/button'
+  fullPaths: '/' | '/button' | '/scrollbox'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/button'
-  id: '__root__' | '/' | '/button'
+  to: '/' | '/button' | '/scrollbox'
+  id: '__root__' | '/' | '/button' | '/scrollbox'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
+  ScrollboxRouteRoute: typeof ScrollboxRouteRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/scrollbox': {
+      id: '/scrollbox'
+      path: '/scrollbox'
+      fullPath: '/scrollbox'
+      preLoaderRoute: typeof ScrollboxRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/button': {
       id: '/button'
       path: '/button'
@@ -71,16 +88,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ButtonRouteRoute: ButtonRouteRoute,
+  ScrollboxRouteRoute: ScrollboxRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

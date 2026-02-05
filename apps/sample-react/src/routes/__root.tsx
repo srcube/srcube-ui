@@ -1,57 +1,17 @@
-import { TanStackDevtools } from "@tanstack/react-devtools";
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-
-import appCss from "../styles.css?url";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 export const Route = createRootRoute({
-	head: () => ({
-		meta: [
-			{
-				charSet: "utf-8",
-			},
-			{
-				name: "viewport",
-				content: "width=device-width, initial-scale=1",
-			},
-			{
-				title: "TanStack Start Starter",
-			},
-		],
-		links: [
-			{
-				rel: "stylesheet",
-				href: appCss,
-			},
-		],
-	}),
-
-	shellComponent: RootDocument,
+	component: RootLayout,
 });
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootLayout() {
 	return (
-		<html lang="en">
-			<head>
-				<HeadContent />
-			</head>
-			<body className="bg-slate-100">
-				<div className="mx-auto max-h-dvh w-full max-w-[430px] overflow-scroll bg-slate-50">
-					{children}
-				</div>
-				<TanStackDevtools
-					config={{
-						position: "bottom-right",
-					}}
-					plugins={[
-						{
-							name: "Tanstack Router",
-							render: <TanStackRouterDevtoolsPanel />,
-						},
-					]}
-				/>
-				<Scripts />
-			</body>
-		</html>
+		<div className="min-h-dvh bg-slate-100">
+			<div className="mx-auto min-h-dvh w-full max-w-[430px] bg-slate-50">
+				<Outlet />
+			</div>
+			<TanStackRouterDevtools position="bottom-right" />
+		</div>
 	);
 }
