@@ -1,6 +1,6 @@
-export { tv } from "./tv-web";
+export { tv } from './tv-web';
 
-import type { ClassValue, VariantProps } from "tailwind-variants";
+import type { ClassValue, VariantProps } from 'tailwind-variants';
 
 /**
  * Transform a list of slots into a { slot: classes } map.
@@ -16,7 +16,7 @@ export type ExcludePrivateSlotKeys<T extends string> = T extends `_${string}`
   ? never
   : T;
 
-type BaseSlotKey<B> = B extends undefined ? never : "base";
+type BaseSlotKey<B> = B extends undefined ? never : 'base';
 
 type SlotKeys<S> = S extends Record<string, ClassValue> ? keyof S : never;
 

@@ -1,7 +1,7 @@
-import * as simulate from "miniprogram-simulate";
-import { beforeAll, expect, it, vi } from "vitest";
+import * as simulate from 'miniprogram-simulate';
+import { beforeAll, expect, it, vi } from 'vitest';
 // @ts-expect-error -- raw wxml import for tests
-import template from "../src/mini/index.wxml?raw";
+import template from '../src/mini/index.wxml?raw';
 
 let definition: Record<string, unknown> | undefined;
 
@@ -18,7 +18,7 @@ type ScrollboxInstance = {
   updateMasks: (metrics: ScrollboxMetrics) => void;
 };
 
-vi.doMock("@srcube-ui/mini", () => ({
+vi.doMock('@srcube-ui/mini', () => ({
   UIComponent: (def: Record<string, unknown>) => {
     definition = def;
     return def;
@@ -26,12 +26,12 @@ vi.doMock("@srcube-ui/mini", () => ({
 }));
 
 beforeAll(async () => {
-  await import("../src/mini/index");
+  await import('../src/mini/index');
 });
 
 function renderScrollbox(props: Record<string, unknown> = {}) {
   if (!definition) {
-    throw new Error("Scrollbox mini definition not captured");
+    throw new Error('Scrollbox mini definition not captured');
   }
 
   const id = simulate.load({
@@ -44,7 +44,7 @@ function renderScrollbox(props: Record<string, unknown> = {}) {
   return comp;
 }
 
-it("updates mask state from metrics", () => {
+it('updates mask state from metrics', () => {
   const comp = renderScrollbox();
   const instance = comp.instance as unknown as ScrollboxInstance;
 
@@ -63,7 +63,7 @@ it("updates mask state from metrics", () => {
   comp.detach();
 });
 
-it("respects hideMasks", () => {
+it('respects hideMasks', () => {
   const comp = renderScrollbox({ hideMasks: true });
   const instance = comp.instance as unknown as ScrollboxInstance;
 

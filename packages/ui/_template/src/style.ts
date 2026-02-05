@@ -2,18 +2,18 @@ import {
   tv,
   type VariantClasses,
   type VariantProps,
-} from "@srcube-ui/theme/tv";
+} from '@srcube-ui/theme/tv';
 
 // Shared Tailwind class tokens only. No platform logic here.
 export const component = tv({
   slots: {
-    base: "",
-    _private: "",
+    base: '',
+    _private: '',
   },
   variants: {
     color: {
       primary: {
-        base: "",
+        base: '',
       },
     },
   },

@@ -1,4 +1,4 @@
-import type { ComponentClasses, ComponentVariants } from "../style";
+import type { ComponentClasses, ComponentVariants } from '../style';
 
 // TODO: rename Component* to the real component name.
 export type ComponentMiniProps = ComponentVariants & {
@@ -12,16 +12,16 @@ export type ComponentMiniProps = ComponentVariants & {
 export const componentMiniProps = {
   id: {
     type: String,
-    value: "",
+    value: '',
   },
   className: {
     type: String,
-    value: "",
+    value: '',
   },
   classNames: Object,
   style: {
     type: String,
-    value: "",
+    value: '',
   },
   isDisabled: {
     type: Boolean,
@@ -29,6 +29,6 @@ export const componentMiniProps = {
   },
   color: {
     type: String,
-    value: "primary",
+    value: 'primary',
   },
 } as const;

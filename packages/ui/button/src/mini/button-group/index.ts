@@ -1,16 +1,16 @@
-import { UIComponent } from "@srcube-ui/mini";
-import { buttonGroup } from "../../style";
+import { UIComponent } from '@srcube-ui/mini';
+import { buttonGroup } from '../../style';
 
 UIComponent({
   options: {
     multipleSlots: true,
-    styleIsolation: "shared",
+    styleIsolation: 'shared',
     virtualHost: true,
   },
 
   relations: {
-    "../index": {
-      type: "descendant",
+    '../index': {
+      type: 'descendant',
       linked() {
         this._updateChildren();
       },
@@ -24,14 +24,14 @@ UIComponent({
   },
 
   properties: {
-    color: { type: null, value: "primary" },
-    variant: { type: null, value: "solid" },
-    size: { type: null, value: "md" },
-    radius: { type: null, value: "md" },
+    color: { type: null, value: 'primary' },
+    variant: { type: null, value: 'solid' },
+    size: { type: null, value: 'md' },
+    radius: { type: null, value: 'md' },
     isBlock: { type: Boolean, value: false },
     isDisabled: { type: Boolean, value: false },
-    className: { type: String, value: "" },
-    style: { type: String, value: "" },
+    className: { type: String, value: '' },
+    style: { type: String, value: '' },
   },
 
   computed: {
@@ -42,29 +42,29 @@ UIComponent({
   },
 
   observers: {
-    "color, variant, size, radius, isBlock, isDisabled": function () {
+    'color, variant, size, radius, isBlock, isDisabled': function () {
       this._updateChildren();
     },
   },
 
   methods: {
     _updateChildren() {
-      const children = this.getRelationNodes("../index");
+      const children = this.getRelationNodes('../index');
       if (!children || children.length === 0) return;
 
       children.forEach((child, index) => {
         const isFirst = index === 0;
         const isLast = index === children.length - 1;
 
-        let groupPosition = "none";
+        let groupPosition = 'none';
 
         if (children.length > 1) {
           if (isFirst) {
-            groupPosition = "first";
+            groupPosition = 'first';
           } else if (isLast) {
-            groupPosition = "last";
+            groupPosition = 'last';
           } else {
-            groupPosition = "middle";
+            groupPosition = 'middle';
           }
         }
 
@@ -80,7 +80,7 @@ UIComponent({
           groupRadius: radius,
           groupIsDisabled: isDisabled,
           groupIsBlock: isBlock,
-          className: childData.className || "",
+          className: childData.className || '',
         });
       });
     },

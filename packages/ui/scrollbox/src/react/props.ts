@@ -1,8 +1,8 @@
-import type * as React from "react";
-import type { ScrollboxClasses, ScrollboxVariants } from "../style";
+import type * as React from 'react';
+import type { ScrollboxClasses, ScrollboxVariants } from '../style';
 
 export type ScrollboxReactProps = ScrollboxVariants &
-  Omit<React.HTMLAttributes<HTMLDivElement>, "onScroll"> & {
+  Omit<React.HTMLAttributes<HTMLDivElement>, 'onScroll'> & {
     classNames?: ScrollboxClasses;
 
     scrollX?: boolean | null;

@@ -1,10 +1,10 @@
-import type * as React from "react";
-import type { ComponentClasses, ComponentVariants } from "../style";
+import type * as React from 'react';
+import type { ComponentClasses, ComponentVariants } from '../style';
 
 // TODO: rename Component* to the real component name.
 type ComponentNativeProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
-  "className" | "style" | keyof ComponentVariants
+  'className' | 'style' | keyof ComponentVariants
 >;
 
 export type ComponentReactProps = ComponentVariants &

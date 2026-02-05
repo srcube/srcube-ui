@@ -1,4 +1,4 @@
-import type { ScrollboxClasses, ScrollboxVariants } from "../style";
+import type { ScrollboxClasses, ScrollboxVariants } from '../style';
 
 export type ScrollboxMiniProps = ScrollboxVariants & {
   className?: string;
@@ -29,7 +29,7 @@ export type ScrollboxMiniProps = ScrollboxVariants & {
 };
 
 export const scrollboxMiniProps = {
-  orientation: { type: null, value: "y" },
+  orientation: { type: null, value: 'y' },
   hideMasks: { type: Boolean, value: false },
 
   className: String,

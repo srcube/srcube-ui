@@ -1,1 +1,1 @@
-export { composeSlotClassName, composeTwRenderProps } from "./compose";
+export { composeSlotClassName, composeTwRenderProps } from './compose';

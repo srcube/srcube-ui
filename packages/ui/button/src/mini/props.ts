@@ -1,4 +1,4 @@
-import type { ButtonClasses, ButtonVariants } from "../style";
+import type { ButtonClasses, ButtonVariants } from '../style';
 
 export type ButtonMiniProps = ButtonVariants & {
   buttonId?: string;
@@ -6,7 +6,7 @@ export type ButtonMiniProps = ButtonVariants & {
   classNames?: ButtonClasses;
   style?: string;
   isDisabled?: boolean;
-  isLoading?: boolean | "auto";
+  isLoading?: boolean | 'auto';
   isIcon?: boolean;
 
   formType?: string;
@@ -38,7 +38,7 @@ export const buttonMiniProps = {
   isLoading: { type: null, value: false },
   isDisabled: { type: null, value: null },
   isInGroup: { type: Boolean, value: false },
-  groupPosition: { type: null, value: "none" },
+  groupPosition: { type: null, value: 'none' },
 
   buttonId: String,
   className: String,
@@ -46,7 +46,7 @@ export const buttonMiniProps = {
   style: String,
   formType: String,
   openType: String,
-  hoverClass: { type: String, value: "none" },
+  hoverClass: { type: String, value: 'none' },
   hoverStopPropagation: Boolean,
   hoverStartTime: Number,
   hoverStayTime: Number,

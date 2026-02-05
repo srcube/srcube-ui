@@ -2,8 +2,6 @@
 
 ## 项目概览
 - 移动端组件库：React Web 与 Mini 独立实现。
-- 单组件包多端实现：仅共享样式 tokens/variants，不共享逻辑与 props 类型。
-- Boolean 命名：`is/has/should/can`。
 
 ## 开发环境
 - Install deps: `pnpm install`
@@ -16,9 +14,11 @@
 - Test: `pnpm test`
 
 ## 代码风格与规范
+- 单组件包多端实现：仅共享样式 tokens/variants，不共享逻辑与 props 类型。
 - 样式统一通过 `style.ts` + slots 输出，避免在实现层直接写 Tailwind 类。
 - React 端仅交互型组件使用 RAC（Button/Toggle/Slider 等）。
 - Mini 端 props 只保留必要原生字段，其它按组件场景扩展。
+- Boolean 命名：`is/has/should/can`。
 
 ## Template 规则
 - README 的 API 表为唯一真相；React/Mini 必须一一对应（字段/默认值/语义）。

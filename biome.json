@@ -7,8 +7,7 @@
       "!**/node_modules",
       "!**/dist",
       "!**/.turbo",
-      "!**/_bmad-output",
-      "!apps/sample-mini/src/app.css"
+      "!**/_bmad-output"
     ]
   },
   "formatter": {
@@ -18,6 +17,11 @@
   "linter": {
     "rules": {
       "recommended": true
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
     }
   }
 }

@@ -1,8 +1,8 @@
-import { UIComponent } from "@srcube-ui/mini";
-import { scrollbox } from "../style";
-import { scrollboxMiniProps } from "./props";
+import { UIComponent } from '@srcube-ui/mini';
+import { scrollbox } from '../style';
+import { scrollboxMiniProps } from './props';
 
-type ScrollboxOrientation = "x" | "y" | "xy";
+type ScrollboxOrientation = 'x' | 'y' | 'xy';
 
 type ScrollboxMaskState = {
   showMaskTop: boolean;
@@ -32,13 +32,13 @@ const EDGE_EPSILON = 1;
 function resolveScrollboxOrientation(
   value?: ScrollboxOrientation | null,
 ): ScrollboxOrientation {
-  return value ?? "y";
+  return value ?? 'y';
 }
 
 function getScrollboxAxes(orientation: ScrollboxOrientation) {
   return {
-    scrollX: orientation === "x" || orientation === "xy",
-    scrollY: orientation === "y" || orientation === "xy",
+    scrollX: orientation === 'x' || orientation === 'xy',
+    scrollY: orientation === 'y' || orientation === 'xy',
   };
 }
 
@@ -83,7 +83,7 @@ function getScrollboxMaskState({
 UIComponent({
   options: {
     multipleSlots: true,
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
   },
 
   properties:
@@ -160,8 +160,8 @@ UIComponent({
   methods: {
     measure() {
       const query = this.createSelectorQuery();
-      query.select(".sr-scrollbox__scrollview").boundingClientRect();
-      query.select(".sr-scrollbox__content").boundingClientRect();
+      query.select('.sr-scrollbox__scrollview').boundingClientRect();
+      query.select('.sr-scrollbox__content').boundingClientRect();
       query.exec(
         (
           rects: Array<WechatMiniprogram.BoundingClientRectCallbackResult | null>,
@@ -275,35 +275,35 @@ UIComponent({
       };
 
       this.updateMasks(metrics);
-      this.triggerEvent("scroll", e);
+      this.triggerEvent('scroll', e);
     },
 
     handleScrollToUpper(e: WechatMiniprogram.CustomEvent) {
-      this.triggerEvent("scrolltoupper", e);
+      this.triggerEvent('scrolltoupper', e);
     },
 
     handleScrollToLower(e: WechatMiniprogram.CustomEvent) {
-      this.triggerEvent("scrolltolower", e);
+      this.triggerEvent('scrolltolower', e);
     },
 
     onRefresherPulling(e: WechatMiniprogram.CustomEvent) {
-      this.triggerEvent("refresherpulling", e);
+      this.triggerEvent('refresherpulling', e);
     },
 
     onRefresherRefresh(e: WechatMiniprogram.CustomEvent) {
-      this.triggerEvent("refresherrefresh", e);
+      this.triggerEvent('refresherrefresh', e);
     },
 
     onRefresherRestore(e: WechatMiniprogram.CustomEvent) {
-      this.triggerEvent("refresherrestore", e);
+      this.triggerEvent('refresherrestore', e);
     },
 
     onRefresherAbort(e: WechatMiniprogram.CustomEvent) {
-      this.triggerEvent("refresherabort", e);
+      this.triggerEvent('refresherabort', e);
     },
   },
 });
 
-export { scrollbox } from "../style";
-export type { ScrollboxMiniProps } from "./props";
-export { scrollboxMiniProps } from "./props";
+export { scrollbox } from '../style';
+export type { ScrollboxMiniProps } from './props';
+export { scrollboxMiniProps } from './props';

@@ -1,2 +1,2 @@
-export type { ScrollboxReactProps } from "./props";
-export { Scrollbox } from "./scrollbox";
+export type { ScrollboxReactProps } from './props';
+export { Scrollbox } from './scrollbox';

@@ -1,9 +1,9 @@
-import { composeTwRenderProps } from "@srcube-ui/react";
-import * as React from "react";
-import { Button as AriaButton } from "react-aria-components";
-import { button } from "../style";
-import { useButtonGroupContext } from "./button-group";
-import type { ButtonReactProps } from "./props";
+import { composeTwRenderProps } from '@srcube-ui/react';
+import * as React from 'react';
+import { Button as AriaButton } from 'react-aria-components';
+import { button } from '../style';
+import { useButtonGroupContext } from './button-group';
+import type { ButtonReactProps } from './props';
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
   (props, ref) => {
@@ -27,18 +27,18 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
       ...rest
     } = props;
 
-    const resolvedColor = color ?? group?.color ?? "primary";
-    const resolvedVariant = variant ?? group?.variant ?? "solid";
-    const resolvedSize = size ?? group?.size ?? "md";
-    const resolvedRadius = radius ?? group?.radius ?? "md";
+    const resolvedColor = color ?? group?.color ?? 'primary';
+    const resolvedVariant = variant ?? group?.variant ?? 'solid';
+    const resolvedSize = size ?? group?.size ?? 'md';
+    const resolvedRadius = radius ?? group?.radius ?? 'md';
     const resolvedIsBlock = isBlock ?? group?.isBlock ?? false;
     const resolvedIsDisabled = isDisabled ?? group?.isDisabled ?? false;
 
-    const isAutoLoading = isLoading === "auto";
+    const isAutoLoading = isLoading === 'auto';
     const [autoLoading, setAutoLoading] = React.useState(false);
     const resolvedIsLoading = isAutoLoading ? autoLoading : Boolean(isLoading);
 
-    const resolvedGroupPosition = radius ? "none" : (groupPosition ?? "none");
+    const resolvedGroupPosition = radius ? 'none' : (groupPosition ?? 'none');
     const resolvedIsInGroup = Boolean(group);
 
     const slots = React.useMemo(
@@ -77,7 +77,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
     );
 
     const handlePress = React.useCallback(
-      async (event: Parameters<NonNullable<ButtonReactProps["onTap"]>>[0]) => {
+      async (event: Parameters<NonNullable<ButtonReactProps['onTap']>>[0]) => {
         if (resolvedIsDisabled || resolvedIsLoading) return;
         if (!onTap) return;
 
@@ -89,7 +89,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
             try {
               await result;
             } catch (error) {
-              console.error("Button async error:", error);
+              console.error('Button async error:', error);
             } finally {
               setAutoLoading(false);
             }
@@ -119,4 +119,4 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
   },
 );
 
-Button.displayName = "Srcube.Button";
+Button.displayName = 'Srcube.Button';

@@ -1,12 +1,12 @@
-import type * as React from "react";
-import type { ComponentVariants } from "../style";
-import { component } from "../style";
-import type { ComponentReactProps } from "./props";
+import type * as React from 'react';
+import type { ComponentVariants } from '../style';
+import { component } from '../style';
+import type { ComponentReactProps } from './props';
 
 export function Component(props: ComponentReactProps) {
   const { className, classNames, style, children, ...rest } = props;
 
-  const styleObj = typeof style === "string" ? undefined : style;
+  const styleObj = typeof style === 'string' ? undefined : style;
   const variantKeys = component.variantKeys ?? [];
   const variantProps: Record<string, unknown> = {};
   const nativeProps: Record<string, unknown> = {};

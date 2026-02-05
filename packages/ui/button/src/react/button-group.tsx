@@ -1,11 +1,11 @@
-import * as React from "react";
-import type { ButtonVariants } from "../style";
-import { buttonGroup } from "../style";
-import type { ButtonGroupReactProps } from "./props";
+import * as React from 'react';
+import type { ButtonVariants } from '../style';
+import { buttonGroup } from '../style';
+import type { ButtonGroupReactProps } from './props';
 
 type ButtonGroupContextValue = Pick<
   ButtonVariants,
-  "color" | "variant" | "size" | "radius" | "isBlock" | "isDisabled"
+  'color' | 'variant' | 'size' | 'radius' | 'isBlock' | 'isDisabled'
 >;
 
 const ButtonGroupContext = React.createContext<
@@ -21,10 +21,10 @@ export const ButtonGroup = React.forwardRef<
   ButtonGroupReactProps
 >((props, ref) => {
   const {
-    color = "primary",
-    variant = "solid",
-    size = "md",
-    radius = "md",
+    color = 'primary',
+    variant = 'solid',
+    size = 'md',
+    radius = 'md',
     isBlock = false,
     isDisabled = false,
     className,
@@ -60,14 +60,14 @@ export const ButtonGroup = React.forwardRef<
       <div ref={ref} className={classes} {...rest}>
         {React.Children.map(children, (child, index) => {
           if (!React.isValidElement(child)) return child;
-          if (typeof child.type === "string") return child;
+          if (typeof child.type === 'string') return child;
 
-          let position: ButtonVariants["groupPosition"] = "none";
+          let position: ButtonVariants['groupPosition'] = 'none';
 
           if (total > 1) {
-            if (index === 0) position = "first";
-            else if (index === total - 1) position = "last";
-            else position = "middle";
+            if (index === 0) position = 'first';
+            else if (index === total - 1) position = 'last';
+            else position = 'middle';
           }
 
           return React.cloneElement(child, { groupPosition: position });
@@ -77,4 +77,4 @@ export const ButtonGroup = React.forwardRef<
   );
 });
 
-ButtonGroup.displayName = "Srcube.ButtonGroup";
+ButtonGroup.displayName = 'Srcube.ButtonGroup';

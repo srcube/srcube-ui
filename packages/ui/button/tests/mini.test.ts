@@ -1,7 +1,7 @@
-import * as simulate from "miniprogram-simulate";
-import { beforeAll, expect, it, vi } from "vitest";
+import * as simulate from 'miniprogram-simulate';
+import { beforeAll, expect, it, vi } from 'vitest';
 // @ts-expect-error -- raw wxml import for tests
-import template from "../src/mini/index.wxml?raw";
+import template from '../src/mini/index.wxml?raw';
 
 let definition: Record<string, unknown> | undefined;
 
@@ -10,7 +10,7 @@ type MiniInstance = {
   handleTap: (e: WechatMiniprogram.TouchEvent) => Promise<void> | void;
 };
 
-vi.doMock("@srcube-ui/mini", () => ({
+vi.doMock('@srcube-ui/mini', () => ({
   UIComponent: (def: Record<string, unknown>) => {
     definition = def;
     return def;
@@ -18,12 +18,12 @@ vi.doMock("@srcube-ui/mini", () => ({
 }));
 
 beforeAll(async () => {
-  await import("../src/mini/index");
+  await import('../src/mini/index');
 });
 
 function renderButton(props: Record<string, unknown> = {}) {
   if (!definition) {
-    throw new Error("Button mini definition not captured");
+    throw new Error('Button mini definition not captured');
   }
 
   const { relations: _relations, ...rest } = definition;
@@ -39,7 +39,7 @@ function renderButton(props: Record<string, unknown> = {}) {
   return comp;
 }
 
-it("skips tap when disabled", async () => {
+it('skips tap when disabled', async () => {
   const comp = renderButton({ isDisabled: true });
   const triggerSpy = vi.fn();
 
@@ -52,16 +52,16 @@ it("skips tap when disabled", async () => {
   comp.detach();
 });
 
-it("supports auto loading wait", async () => {
-  const comp = renderButton({ isLoading: "auto" });
+it('supports auto loading wait', async () => {
+  const comp = renderButton({ isLoading: 'auto' });
 
-  let resolvePromise: () => void;
+  let resolvePromise: (() => void) | undefined;
   const waitPromise = new Promise<void>((resolve) => {
     resolvePromise = resolve;
   });
 
   const triggerSpy = vi.fn((name, detail) => {
-    if (name === "tap") {
+    if (name === 'tap') {
       detail.wait(waitPromise);
     }
   });

@@ -2,12 +2,12 @@ Page({
   data: {
     components: [
       {
-        title: "Button",
-        url: "/packages/button/pages/sample/index",
+        title: 'Button',
+        url: '/packages/button/pages/sample/index',
       },
       {
-        title: "Scrollbox",
-        url: "/packages/scrollbox/pages/sample/index",
+        title: 'Scrollbox',
+        url: '/packages/scrollbox/pages/sample/index',
       },
     ],
   },

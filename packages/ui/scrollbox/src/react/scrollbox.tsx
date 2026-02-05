@@ -1,4 +1,4 @@
-import type React from "react";
+import type React from 'react';
 import {
   forwardRef,
   useCallback,
@@ -6,11 +6,11 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react";
-import { scrollbox } from "../style";
-import type { ScrollboxReactProps } from "./props";
+} from 'react';
+import { scrollbox } from '../style';
+import type { ScrollboxReactProps } from './props';
 
-type ScrollboxOrientation = "x" | "y" | "xy";
+type ScrollboxOrientation = 'x' | 'y' | 'xy';
 
 type ScrollboxMaskState = {
   showMaskTop: boolean;
@@ -33,13 +33,13 @@ const EDGE_EPSILON = 1;
 function resolveScrollboxOrientation(
   value?: ScrollboxOrientation | null,
 ): ScrollboxOrientation {
-  return value ?? "y";
+  return value ?? 'y';
 }
 
 function getScrollboxAxes(orientation: ScrollboxOrientation) {
   return {
-    scrollX: orientation === "x" || orientation === "xy",
-    scrollY: orientation === "y" || orientation === "xy",
+    scrollX: orientation === 'x' || orientation === 'xy',
+    scrollY: orientation === 'y' || orientation === 'xy',
   };
 }
 
@@ -133,9 +133,9 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
     const setScrollRef = useCallback(
       (node: HTMLDivElement | null) => {
         scrollRef.current = node;
-        if (typeof scrollRefProp === "function") {
+        if (typeof scrollRefProp === 'function') {
           scrollRefProp(node);
-        } else if (scrollRefProp && "current" in scrollRefProp) {
+        } else if (scrollRefProp && 'current' in scrollRefProp) {
           scrollRefProp.current = node;
         }
       },
@@ -170,7 +170,7 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
 
     useEffect(() => {
       const node = scrollRef.current;
-      if (!node || typeof ResizeObserver === "undefined") return;
+      if (!node || typeof ResizeObserver === 'undefined') return;
       const observer = new ResizeObserver(() => updateMasks());
       observer.observe(node);
       return () => observer.disconnect();
@@ -204,18 +204,18 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
 
     const scrollViewClassName = [
       classes.scrollview({ class: classNames?.scrollview }),
-      axes.scrollY && !axes.scrollX && "overflow-y-auto overflow-x-hidden",
-      axes.scrollX && !axes.scrollY && "overflow-x-auto overflow-y-hidden",
-      axes.scrollX && axes.scrollY && "overflow-auto",
-      showScrollbar === false && "scrollbar-none",
+      axes.scrollY && !axes.scrollX && 'overflow-y-auto overflow-x-hidden',
+      axes.scrollX && !axes.scrollY && 'overflow-x-auto overflow-y-hidden',
+      axes.scrollX && axes.scrollY && 'overflow-auto',
+      showScrollbar === false && 'scrollbar-none',
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
     const scrollViewStyle = useMemo<React.CSSProperties | undefined>(() => {
       if (scrollAnchoring === undefined) return undefined;
       return {
-        overflowAnchor: scrollAnchoring ? "auto" : "none",
+        overflowAnchor: scrollAnchoring ? 'auto' : 'none',
       };
     }, [scrollAnchoring]);
 
@@ -227,7 +227,7 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
       node.scrollTo({
         top: scrollTop ?? node.scrollTop,
         left: scrollLeft ?? node.scrollLeft,
-        behavior: scrollWithAnimation ? "smooth" : "auto",
+        behavior: scrollWithAnimation ? 'smooth' : 'auto',
       });
 
       updateMasks();
@@ -238,16 +238,16 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
       if (!node || !scrollIntoView) return;
 
       const selector =
-        typeof CSS !== "undefined" && typeof CSS.escape === "function"
+        typeof CSS !== 'undefined' && typeof CSS.escape === 'function'
           ? `#${CSS.escape(scrollIntoView)}`
           : `#${scrollIntoView}`;
       const target = node.querySelector<HTMLElement>(selector);
       if (!target) return;
 
       target.scrollIntoView({
-        behavior: scrollWithAnimation ? "smooth" : "auto",
-        block: "nearest",
-        inline: "nearest",
+        behavior: scrollWithAnimation ? 'smooth' : 'auto',
+        block: 'nearest',
+        inline: 'nearest',
       });
 
       updateMasks();
@@ -350,4 +350,4 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
   },
 );
 
-Scrollbox.displayName = "Srcube.Scrollbox";
+Scrollbox.displayName = 'Srcube.Scrollbox';

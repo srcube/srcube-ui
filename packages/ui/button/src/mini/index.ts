@@ -1,16 +1,16 @@
-import { UIComponent } from "@srcube-ui/mini";
-import { button } from "../style";
-import { buttonMiniProps } from "./props";
+import { UIComponent } from '@srcube-ui/mini';
+import { button } from '../style';
+import { buttonMiniProps } from './props';
 
 UIComponent({
   options: {
     multipleSlots: true,
-    styleIsolation: "apply-shared",
+    styleIsolation: 'apply-shared',
   },
 
   relations: {
-    "./button-group/index": {
-      type: "ancestor",
+    './button-group/index': {
+      type: 'ancestor',
     },
   },
 
@@ -30,11 +30,11 @@ UIComponent({
   computed: {
     $isLoading(data) {
       const { isLoading, _autoLoading } = data;
-      return isLoading === "auto" ? _autoLoading : isLoading;
+      return isLoading === 'auto' ? _autoLoading : isLoading;
     },
     $isDisabled(data) {
       const { isDisabled, isLoading, _autoLoading, groupIsDisabled } = data;
-      const loading = isLoading === "auto" ? _autoLoading : isLoading;
+      const loading = isLoading === 'auto' ? _autoLoading : isLoading;
       const disabled = isDisabled || groupIsDisabled || loading;
       return disabled;
     },
@@ -61,12 +61,12 @@ UIComponent({
         groupIsDisabled,
       } = data;
 
-      const resolvedColor = color ?? groupColor ?? "primary";
-      const resolvedVariant = variant ?? groupVariant ?? "solid";
-      const resolvedSize = size ?? groupSize ?? "md";
-      const resolvedRadius = radius ?? groupRadius ?? "md";
+      const resolvedColor = color ?? groupColor ?? 'primary';
+      const resolvedVariant = variant ?? groupVariant ?? 'solid';
+      const resolvedSize = size ?? groupSize ?? 'md';
+      const resolvedRadius = radius ?? groupRadius ?? 'md';
       const resolvedIsBlock = isBlock ?? groupIsBlock ?? false;
-      const loading = isLoading === "auto" ? _autoLoading : isLoading;
+      const loading = isLoading === 'auto' ? _autoLoading : isLoading;
       const disabled = isDisabled || groupIsDisabled || loading;
 
       const slots = button({
@@ -80,7 +80,7 @@ UIComponent({
         isDisabled: disabled,
         isInGroup,
         groupIsBlock: groupIsBlock ?? false,
-        groupPosition: radius ? "none" : groupPosition,
+        groupPosition: radius ? 'none' : groupPosition,
       });
 
       return {
@@ -94,11 +94,11 @@ UIComponent({
     async handleTap(e: WechatMiniprogram.TouchEvent) {
       const { isDisabled, isLoading, _autoLoading } = this.data;
 
-      const currentLoading = isLoading === "auto" ? _autoLoading : isLoading;
+      const currentLoading = isLoading === 'auto' ? _autoLoading : isLoading;
 
       if (isDisabled || currentLoading) return;
 
-      if (isLoading === "auto") {
+      if (isLoading === 'auto') {
         let promiseToWait: Promise<unknown> | undefined;
 
         const detail = {
@@ -108,63 +108,63 @@ UIComponent({
             promiseOrFactory: Promise<unknown> | (() => Promise<unknown>),
           ) => {
             const resolvedPromise =
-              typeof promiseOrFactory === "function"
+              typeof promiseOrFactory === 'function'
                 ? promiseOrFactory()
                 : promiseOrFactory;
 
-            if (resolvedPromise && typeof resolvedPromise.then === "function") {
+            if (resolvedPromise && typeof resolvedPromise.then === 'function') {
               promiseToWait = resolvedPromise;
             }
           },
         };
 
-        this.triggerEvent("tap", detail);
+        this.triggerEvent('tap', detail);
 
         if (promiseToWait) {
           this.setData({ _autoLoading: true });
           try {
             await promiseToWait;
           } catch (err) {
-            console.error("Button async error:", err);
+            console.error('Button async error:', err);
           } finally {
             this.setData({ _autoLoading: false });
           }
         }
       } else {
-        this.triggerEvent("tap", e);
+        this.triggerEvent('tap', e);
       }
     },
 
     onGetUserInfo(e: WechatMiniprogram.TouchEvent) {
-      this.triggerEvent("getuserinfo", e);
+      this.triggerEvent('getuserinfo', e);
     },
     onContact(e: WechatMiniprogram.TouchEvent) {
-      this.triggerEvent("contact", e);
+      this.triggerEvent('contact', e);
     },
     onGetPhoneNumber(e: WechatMiniprogram.TouchEvent) {
-      this.triggerEvent("getphonenumber", e);
+      this.triggerEvent('getphonenumber', e);
     },
     onGetRealTimePhoneNumber(e: WechatMiniprogram.TouchEvent) {
-      this.triggerEvent("getrealtimephonenumber", e);
+      this.triggerEvent('getrealtimephonenumber', e);
     },
     onError(e: WechatMiniprogram.TouchEvent) {
-      this.triggerEvent("error", e);
+      this.triggerEvent('error', e);
     },
     onOpenSetting(e: WechatMiniprogram.TouchEvent) {
-      this.triggerEvent("opensetting", e);
+      this.triggerEvent('opensetting', e);
     },
     onLaunchApp(e: WechatMiniprogram.TouchEvent) {
-      this.triggerEvent("launchapp", e);
+      this.triggerEvent('launchapp', e);
     },
     onChooseAvatar(e: WechatMiniprogram.TouchEvent) {
-      this.triggerEvent("chooseavatar", e);
+      this.triggerEvent('chooseavatar', e);
     },
     onAgreePrivacyAuthorization(e: WechatMiniprogram.TouchEvent) {
-      this.triggerEvent("agreeprivacyauthorization", e);
+      this.triggerEvent('agreeprivacyauthorization', e);
     },
   },
 });
 
-export { button } from "../style";
-export type { ButtonMiniProps } from "./props";
-export { buttonMiniProps } from "./props";
+export { button } from '../style';
+export type { ButtonMiniProps } from './props';
+export { buttonMiniProps } from './props';

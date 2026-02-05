@@ -1,3 +1,3 @@
-import { ComponentWithComputed } from "miniprogram-computed";
+import { ComponentWithComputed } from 'miniprogram-computed';
 
 export const UIComponent = ComponentWithComputed;
