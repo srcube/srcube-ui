@@ -14,6 +14,10 @@ Page({
         url: '/packages/radio/pages/sample/index',
       },
       {
+        title: 'Modal',
+        url: '/packages/modal/pages/sample/index',
+      },
+      {
         title: 'Scrollbox',
         url: '/packages/scrollbox/pages/sample/index',
       },

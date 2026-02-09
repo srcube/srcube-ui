@@ -212,6 +212,9 @@ importers:
       '@srcube-ui/mini':
         specifier: workspace:*
         version: link:../../packages/mini
+      '@srcube-ui/modal':
+        specifier: workspace:*
+        version: link:../../packages/ui/modal
       '@srcube-ui/radio':
         specifier: workspace:*
         version: link:../../packages/ui/radio
@@ -264,6 +267,9 @@ importers:
       '@srcube-ui/mini':
         specifier: workspace:*
         version: link:../../packages/mini
+      '@srcube-ui/modal':
+        specifier: workspace:*
+        version: link:../../packages/ui/modal
       '@srcube-ui/radio':
         specifier: workspace:*
         version: link:../../packages/ui/radio
@@ -507,6 +513,28 @@ importers:
       react-aria-components:
         specifier: 'catalog:'
         version: 1.14.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/modal:
+    dependencies:
+      '@srcube-ui/mini':
+        specifier: workspace:*
+        version: link:../../mini
+      '@srcube-ui/react':
+        specifier: workspace:*
+        version: link:../../react
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
       react-dom:
         specifier: 'catalog:'
         version: 19.2.4(react@19.2.4)

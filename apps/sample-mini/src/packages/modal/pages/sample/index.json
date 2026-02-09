@@ -1,0 +1,9 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-modal": "@srcube-ui/modal/index",
+    "s-button": "@srcube-ui/button/index"
+  },
+  "navigationBarTitleText": "Modal",
+  "backgroundColor": "#ffffff"
+}

@@ -30,7 +30,8 @@
     "@srcube-ui/radio": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "@srcube-ui/mini": "workspace:*",
-    "@iconify/tailwind4": "catalog:"
+    "@iconify/tailwind4": "catalog:",
+    "@srcube-ui/modal": "workspace:*"
   },
   "devDependencies": {
     "@iconify/json": "catalog:",

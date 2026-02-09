@@ -32,7 +32,8 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "tailwindcss": "catalog:",
-    "vite-tsconfig-paths": "catalog:"
+    "vite-tsconfig-paths": "catalog:",
+    "@srcube-ui/modal": "workspace:*"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",

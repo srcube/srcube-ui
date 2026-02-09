@@ -72,3 +72,9 @@ packages/
 
 ## 7. 文档位置
 - BMAD 产物统一放在 `_bmad-output/`（包含 prd / architecture / sprint / stories）
+
+
+## 8. 层级规范
+- Overlay/Modal 类组件遮罩层从 `z-index: 1000` 开始。
+- 弹窗内容层为遮罩层 `+1`（默认 `1001`）。
+

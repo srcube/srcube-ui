@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ScrollboxRouteRouteImport } from './routes/scrollbox/route'
 import { Route as RadioRouteRouteImport } from './routes/radio/route'
+import { Route as ModalRouteRouteImport } from './routes/modal/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const ScrollboxRouteRoute = ScrollboxRouteRouteImport.update({
 const RadioRouteRoute = RadioRouteRouteImport.update({
   id: '/radio',
   path: '/radio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModalRouteRoute = ModalRouteRouteImport.update({
+  id: '/modal',
+  path: '/modal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckboxRouteRoute = CheckboxRouteRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/modal': typeof ModalRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/modal': typeof ModalRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
 }
@@ -60,21 +68,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/modal': typeof ModalRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/button' | '/checkbox' | '/radio' | '/scrollbox'
+  fullPaths: '/' | '/button' | '/checkbox' | '/modal' | '/radio' | '/scrollbox'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/button' | '/checkbox' | '/radio' | '/scrollbox'
-  id: '__root__' | '/' | '/button' | '/checkbox' | '/radio' | '/scrollbox'
+  to: '/' | '/button' | '/checkbox' | '/modal' | '/radio' | '/scrollbox'
+  id:
+    | '__root__'
+    | '/'
+    | '/button'
+    | '/checkbox'
+    | '/modal'
+    | '/radio'
+    | '/scrollbox'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
+  ModalRouteRoute: typeof ModalRouteRoute
   RadioRouteRoute: typeof RadioRouteRoute
   ScrollboxRouteRoute: typeof ScrollboxRouteRoute
 }
@@ -93,6 +110,13 @@ declare module '@tanstack/react-router' {
       path: '/radio'
       fullPath: '/radio'
       preLoaderRoute: typeof RadioRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/modal': {
+      id: '/modal'
+      path: '/modal'
+      fullPath: '/modal'
+      preLoaderRoute: typeof ModalRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkbox': {
@@ -123,6 +147,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
+  ModalRouteRoute: ModalRouteRoute,
   RadioRouteRoute: RadioRouteRoute,
   ScrollboxRouteRoute: ScrollboxRouteRoute,
 }

@@ -7,6 +7,7 @@ function App() {
     { title: 'Button', to: '/button' as const },
     { title: 'Checkbox', to: '/checkbox' as const },
     { title: 'Radio', to: '/radio' as const },
+    { title: 'Modal', to: '/modal' as const },
     { title: 'Scrollbox', to: '/scrollbox' as const },
   ];
 
