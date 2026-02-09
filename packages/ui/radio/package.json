@@ -1,0 +1,50 @@
+{
+  "name": "@srcube-ui/radio",
+  "version": "0.0.0",
+  "type": "module",
+  "miniprogram": "dist/mini",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "test": "pnpm -w vitest run --config vitest.config.ts --dir packages/ui/radio"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/style.js"
+    },
+    "./mini": {
+      "types": "./dist/mini/index.d.ts",
+      "import": "./dist/mini/index.js"
+    },
+    "./mini/radio-group": {
+      "types": "./dist/mini/radio-group/index.d.ts",
+      "import": "./dist/mini/radio-group/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    }
+  },
+  "devDependencies": {
+    "@srcube-ui/config": "workspace:*",
+    "react-aria-components": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "peerDependencies": {
+    "@srcube-ui/mini": "workspace:*",
+    "@srcube-ui/react": "workspace:*",
+    "@srcube-ui/theme": "workspace:*",
+    "react-aria-components": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}

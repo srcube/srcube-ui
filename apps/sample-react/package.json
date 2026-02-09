@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/checkbox": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "@srcube-ui/mini": "workspace:*",
     "@srcube-ui/scrollbox": "workspace:*",
+    "@srcube-ui/radio": "workspace:*",
     "@weapp-tailwindcss/variants": "catalog:",
     "@iconify/tailwind4": "catalog:",
     "@tailwindcss/vite": "catalog:",

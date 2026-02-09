@@ -1,0 +1,9 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-radio": "@srcube-ui/radio/index",
+    "sr-radio-group": "@srcube-ui/radio/radio-group/index"
+  },
+  "navigationBarTitleText": "Radio",
+  "backgroundColor": "#ffffff"
+}

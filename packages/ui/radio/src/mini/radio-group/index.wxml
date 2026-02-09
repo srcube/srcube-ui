@@ -1,0 +1,3 @@
+<view class="sr-radio-group {{$className}}" style="{{style}}">
+  <slot />
+</view>

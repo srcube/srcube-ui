@@ -1,0 +1,9 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-checkbox": "@srcube-ui/checkbox/index",
+    "sr-checkbox-group": "@srcube-ui/checkbox/checkbox-group/index"
+  },
+  "navigationBarTitleText": "Checkbox",
+  "backgroundColor": "#ffffff"
+}

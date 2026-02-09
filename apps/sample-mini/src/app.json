@@ -7,7 +7,15 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/checkbox",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/scrollbox",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/radio",
       "pages": ["pages/sample/index"]
     }
   ],

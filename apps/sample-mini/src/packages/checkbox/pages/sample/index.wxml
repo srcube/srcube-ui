@@ -1,0 +1,106 @@
+<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
+  <view class="sticky top-0 z-20 bg-white border-b border-slate-200">
+    <view class="p-4">
+      <view class="text-lg font-semibold">Checkbox</view>
+    </view>
+  </view>
+
+  <view class="p-4 space-y-6">
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Colors</view>
+      <view class="mt-3">
+        <sr-checkbox-group
+          value="{{colorValue}}"
+          bind:change="handleColorChange"
+          orientation="y"
+          isBlock
+        >
+          <sr-checkbox
+            wx:for="{{colors}}"
+            wx:key="value"
+            value="{{item.value}}"
+            color="{{item.value}}"
+          >
+            {{item.label}}
+          </sr-checkbox>
+        </sr-checkbox-group>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Sizes</view>
+      <view class="mt-3">
+        <sr-checkbox-group
+          value="{{sizeValue}}"
+          bind:change="handleSizeChange"
+          orientation="y"
+          isBlock
+        >
+          <sr-checkbox
+            wx:for="{{sizes}}"
+            wx:key="value"
+            value="{{item.value}}"
+            size="{{item.value}}"
+          >
+            {{item.label}}
+          </sr-checkbox>
+        </sr-checkbox-group>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Radius</view>
+      <view class="mt-3">
+        <sr-checkbox-group
+          value="{{radiusValue}}"
+          bind:change="handleRadiusChange"
+          orientation="y"
+          isBlock
+        >
+          <sr-checkbox
+            wx:for="{{radii}}"
+            wx:key="value"
+            value="{{item.value}}"
+            radius="{{item.value}}"
+          >
+            {{item.label}}
+          </sr-checkbox>
+        </sr-checkbox-group>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">States</view>
+      <view class="mt-3 flex flex-wrap gap-4">
+        <sr-checkbox defaultSelected>Normal</sr-checkbox>
+        <sr-checkbox isDisabled>Disabled</sr-checkbox>
+        <sr-checkbox isLoading>Loading</sr-checkbox>
+        <sr-checkbox isLoading="auto" bind:tap="handleAutoLoading">
+          Auto Loading
+        </sr-checkbox>
+        <sr-checkbox isIndeterminate>Mixed</sr-checkbox>
+        <sr-checkbox defaultSelected isLineThrough>Line Through</sr-checkbox>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Group</view>
+      <view class="mt-3 space-y-4">
+        <sr-checkbox-group
+          value="{{groupValue}}"
+          bind:change="handleGroupChange"
+          orientation="y"
+          isBlock
+        >
+          <sr-checkbox value="left">Left</sr-checkbox>
+          <sr-checkbox value="middle">Middle</sr-checkbox>
+          <sr-checkbox value="right">Right</sr-checkbox>
+        </sr-checkbox-group>
+        <sr-checkbox-group defaultValue="{{groupDefault}}" orientation="x">
+          <sr-checkbox value="a">Option A</sr-checkbox>
+          <sr-checkbox value="b">Option B</sr-checkbox>
+        </sr-checkbox-group>
+      </view>
+    </view>
+  </view>
+</view>

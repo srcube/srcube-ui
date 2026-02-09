@@ -27,6 +27,9 @@
 ## 文档与产出
 - BMAD 产物统一放在 `_bmad-output/`。
 
+## Workflows
+- 组件生成工作流：`workflows/ui.md`
+
 ## 示例应用
 - `apps/sample-react` / `apps/sample-mini` 用于验证与回归。
 

@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.3",
   "private": true,
-  "description": "\u539f\u751f\u5fae\u4fe1\u5c0f\u7a0b\u5e8f weapp-vite + tailwindcss \u6a21\u677f",
+  "description": "原生微信小程序 weapp-vite + tailwindcss 模板",
   "author": "ice breaker <1324318532@qq.com>",
   "license": "MIT",
   "repository": {
@@ -25,11 +25,15 @@
   },
   "dependencies": {
     "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/checkbox": "workspace:*",
     "@srcube-ui/scrollbox": "workspace:*",
+    "@srcube-ui/radio": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
-    "@srcube-ui/mini": "workspace:*"
+    "@srcube-ui/mini": "workspace:*",
+    "@iconify/tailwind4": "catalog:"
   },
   "devDependencies": {
+    "@iconify/json": "catalog:",
     "@tailwindcss/postcss": "catalog:",
     "miniprogram-api-typings": "catalog:",
     "postcss": "catalog:",

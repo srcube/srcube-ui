@@ -1,0 +1,29 @@
+<view
+  class="sr-checkbox__wrapper {{$classNames.base}}"
+  style="{{style}}"
+  bindtap="handleTap"
+>
+  <checkbox
+    class="sr-checkbox__native {{$classNames.nCheckbox}}"
+    value="{{value}}"
+    checked="{{$isSelected}}"
+    disabled="{{$isDisabled}}"
+  />
+  <view class="sr-checkbox__control {{$classNames.checkbox}}">
+    <block wx:if="{{$isLoading}}">
+      <text class="{{$classNames.spinner}}" />
+    </block>
+    <block wx:else>
+      <view class="{{$classNames.iconWrapper}}">
+        <text
+          wx:if="{{isIndeterminate}}"
+          class="{{$classNames.iIndeterminate}}"
+        />
+        <text wx:else class="{{$classNames.iDefault}}" />
+      </view>
+    </block>
+  </view>
+  <view class="{{$classNames.content}}">
+    <slot />
+  </view>
+</view>
