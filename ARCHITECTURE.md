@@ -42,6 +42,7 @@ packages/
 - **API 同步**：组件 README 的 API 表为唯一真相；React/Mini 必须一一对应。
 - **RAC 使用边界**：仅交互型组件使用 RAC（Button/Toggle/Slider 等）。
 - **样式规则**：实现层避免直接写 Tailwind 类，统一通过 `style.ts` + slots 输出。
+- **`$xxx` slots 规则**：`$` 前缀 slot 为适配层专用命名，仅用于小程序实现里“组件套组件”场景下给子组件节点本身挂载 class（例如 `$scrollbox`）；React 侧不消费这类 slot。非 `$` slot 保持通用语义（用于组件自身结构或透传到子组件公开样式入口，如 `className/classNames`）。
 - **Mini 原生属性策略**：仅保留必要字段，其它按组件场景扩展。
 - **Mini 节点约定**：小程序组件本身就是一个节点，`class/style` 等原生样式需显式加在组件本身；布局依赖（如等分宽度）也应加在组件本身。若存在原生按钮事件，内部使用隐藏原生节点承载事件，外层仅负责样式。
 

@@ -19,6 +19,8 @@ catalog:
   '@tanstack/react-router-ssr-query': ^1.131.7
   '@tanstack/react-start': ^1.132.0
   '@tanstack/router-plugin': ^1.132.0
+  '@tanstack/react-virtual': ^3.13.18
+  '@tanstack/virtual-core': ^3.13.18
   '@testing-library/dom': ^10.4.0
   '@testing-library/react': ^16.2.0
   '@vitest/browser-preview': ^4.0.17
