@@ -14,6 +14,14 @@ Page({
         url: '/packages/radio/pages/sample/index',
       },
       {
+        title: 'Switch',
+        url: '/packages/switch/pages/sample/index',
+      },
+      {
+        title: 'Listbox',
+        url: '/packages/listbox/pages/sample/index',
+      },
+      {
         title: 'Modal',
         url: '/packages/modal/pages/sample/index',
       },

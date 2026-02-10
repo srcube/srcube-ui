@@ -1,0 +1,8 @@
+.sr-switch__native {
+  position: absolute;
+  inset: 0;
+  /* biome-ignore lint/complexity/noImportantStyles: hide native switch */
+  width: 100% !important;
+  height: 100%;
+  opacity: 0;
+}

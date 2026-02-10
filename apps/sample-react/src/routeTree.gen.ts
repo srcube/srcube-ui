@@ -9,13 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SwitchRouteRouteImport } from './routes/switch/route'
 import { Route as ScrollboxRouteRouteImport } from './routes/scrollbox/route'
 import { Route as RadioRouteRouteImport } from './routes/radio/route'
 import { Route as ModalRouteRouteImport } from './routes/modal/route'
+import { Route as ListboxRouteRouteImport } from './routes/listbox/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SwitchRouteRoute = SwitchRouteRouteImport.update({
+  id: '/switch',
+  path: '/switch',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScrollboxRouteRoute = ScrollboxRouteRouteImport.update({
   id: '/scrollbox',
   path: '/scrollbox',
@@ -29,6 +36,11 @@ const RadioRouteRoute = RadioRouteRouteImport.update({
 const ModalRouteRoute = ModalRouteRouteImport.update({
   id: '/modal',
   path: '/modal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ListboxRouteRoute = ListboxRouteRouteImport.update({
+  id: '/listbox',
+  path: '/listbox',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckboxRouteRoute = CheckboxRouteRouteImport.update({
@@ -51,53 +63,86 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
+  '/switch': typeof SwitchRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
+  '/switch': typeof SwitchRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
+  '/switch': typeof SwitchRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/button' | '/checkbox' | '/modal' | '/radio' | '/scrollbox'
+  fullPaths:
+    | '/'
+    | '/button'
+    | '/checkbox'
+    | '/listbox'
+    | '/modal'
+    | '/radio'
+    | '/scrollbox'
+    | '/switch'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/button' | '/checkbox' | '/modal' | '/radio' | '/scrollbox'
+  to:
+    | '/'
+    | '/button'
+    | '/checkbox'
+    | '/listbox'
+    | '/modal'
+    | '/radio'
+    | '/scrollbox'
+    | '/switch'
   id:
     | '__root__'
     | '/'
     | '/button'
     | '/checkbox'
+    | '/listbox'
     | '/modal'
     | '/radio'
     | '/scrollbox'
+    | '/switch'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
+  ListboxRouteRoute: typeof ListboxRouteRoute
   ModalRouteRoute: typeof ModalRouteRoute
   RadioRouteRoute: typeof RadioRouteRoute
   ScrollboxRouteRoute: typeof ScrollboxRouteRoute
+  SwitchRouteRoute: typeof SwitchRouteRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/switch': {
+      id: '/switch'
+      path: '/switch'
+      fullPath: '/switch'
+      preLoaderRoute: typeof SwitchRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/scrollbox': {
       id: '/scrollbox'
       path: '/scrollbox'
@@ -117,6 +162,13 @@ declare module '@tanstack/react-router' {
       path: '/modal'
       fullPath: '/modal'
       preLoaderRoute: typeof ModalRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/listbox': {
+      id: '/listbox'
+      path: '/listbox'
+      fullPath: '/listbox'
+      preLoaderRoute: typeof ListboxRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkbox': {
@@ -147,9 +199,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
+  ListboxRouteRoute: ListboxRouteRoute,
   ModalRouteRoute: ModalRouteRoute,
   RadioRouteRoute: RadioRouteRoute,
   ScrollboxRouteRoute: ScrollboxRouteRoute,
+  SwitchRouteRoute: SwitchRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

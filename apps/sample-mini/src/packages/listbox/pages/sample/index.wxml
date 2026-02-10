@@ -1,0 +1,49 @@
+<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
+  <view class="sticky top-0 z-20 bg-white border-b border-slate-200">
+    <view class="p-4">
+      <view class="text-lg font-semibold">Listbox</view>
+    </view>
+  </view>
+
+  <view class="p-4 space-y-6">
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Virtualized List</view>
+      <view class="mt-1 text-xs text-slate-500">@tanstack/virtual-core (1000 items)</view>
+      <sr-listbox
+        className="mt-3 h-80 rounded-2xl border border-slate-200"
+        items="{{items}}"
+        estimateSize="44"
+        overscan="8"
+        hasDivider
+        selectedKeys="{{selectedKeys}}"
+        bind:selectionchange="handleSelectionChange"
+      />
+      <view class="mt-3 text-xs text-slate-500">
+        Selected: {{selectedKeys.length ? selectedKeys.join(', ') : 'none'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Horizontal</view>
+      <view class="mt-1 text-xs text-slate-500">orientation=x</view>
+      <sr-listbox
+        className="mt-3 h-20 rounded-2xl border border-slate-200"
+        orientation="x"
+        items="{{horizontalItems}}"
+        estimateSize="120"
+        defaultSelectedKeys="{{horizontalSelectedKeys}}"
+      />
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Empty</view>
+      <view class="mt-1 text-xs text-slate-500">locale=zh-CN</view>
+      <sr-listbox
+        className="mt-3 h-32 rounded-2xl border border-slate-200"
+        items="{{emptyItems}}"
+        estimateSize="44"
+        locale="zh-CN"
+      />
+    </view>
+  </view>
+</view>

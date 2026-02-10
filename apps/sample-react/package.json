@@ -18,6 +18,8 @@
     "@srcube-ui/mini": "workspace:*",
     "@srcube-ui/scrollbox": "workspace:*",
     "@srcube-ui/radio": "workspace:*",
+    "@srcube-ui/switch": "workspace:*",
+    "@srcube-ui/listbox": "workspace:*",
     "@weapp-tailwindcss/variants": "catalog:",
     "@iconify/tailwind4": "catalog:",
     "@tailwindcss/vite": "catalog:",

@@ -28,10 +28,13 @@
     "@srcube-ui/checkbox": "workspace:*",
     "@srcube-ui/scrollbox": "workspace:*",
     "@srcube-ui/radio": "workspace:*",
+    "@srcube-ui/switch": "workspace:*",
+    "@srcube-ui/listbox": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "@srcube-ui/mini": "workspace:*",
     "@iconify/tailwind4": "catalog:",
-    "@srcube-ui/modal": "workspace:*"
+    "@srcube-ui/modal": "workspace:*",
+    "@tanstack/virtual-core": "catalog:"
   },
   "devDependencies": {
     "@iconify/json": "catalog:",
