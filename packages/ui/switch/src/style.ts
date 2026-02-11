@@ -13,7 +13,7 @@ export const switchStyle = tv({
       'absolute left-0.5 top-1/2 flex items-center justify-center rounded-full bg-white shadow-sm',
       '-translate-y-1/2 translate-x-0 transition duration-200',
     ],
-    _iThumb: 'text-current',
+    _iThumb: 'flex shrink-0 items-center justify-center leading-none text-current',
     _iLoading: 'icon-spinner text-current',
     content: 'text-sm',
     nSwitch: 'absolute inset-0 opacity-0 pointer-events-none',

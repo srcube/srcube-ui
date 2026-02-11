@@ -12,7 +12,7 @@
         <view class="{{$classNames._iLoading}}" />
       </block>
       <block wx:elif="{{hasIcon}}">
-        <view class="{{$classNames._iThumb}}">
+        <view class="sr-switch__thumb-icon {{$classNames._iThumb}}">
           <slot name="icon" />
         </view>
       </block>

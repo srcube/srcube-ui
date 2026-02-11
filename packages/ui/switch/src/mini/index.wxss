@@ -6,3 +6,11 @@
   height: 100%;
   opacity: 0;
 }
+
+.sr-switch__thumb-icon {
+  line-height: 1;
+}
+
+.sr-switch__thumb-icon view {
+  line-height: 1;
+}
