@@ -5,6 +5,12 @@ Page({
     radiusValue: ['md'],
     groupValue: ['left'],
     groupDefault: ['a'],
+    customCheckClassNames: {
+      iDefault: 'icon-[ion--checkmark]',
+    },
+    customIndeterminateClassNames: {
+      iIndeterminate: 'icon-[ion--remove]',
+    },
     colors: [
       { label: 'Default', value: 'default' },
       { label: 'Primary', value: 'primary' },

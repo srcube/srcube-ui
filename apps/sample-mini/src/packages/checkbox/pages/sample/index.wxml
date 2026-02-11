@@ -8,6 +8,7 @@
   <view class="p-4 space-y-6">
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Colors</view>
+      <view class="mt-1 text-xs text-slate-500">color + group</view>
       <view class="mt-3">
         <sr-checkbox-group
           value="{{colorValue}}"
@@ -29,6 +30,7 @@
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Sizes</view>
+      <view class="mt-1 text-xs text-slate-500">size + group</view>
       <view class="mt-3">
         <sr-checkbox-group
           value="{{sizeValue}}"
@@ -50,6 +52,7 @@
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Radius</view>
+      <view class="mt-1 text-xs text-slate-500">radius + group</view>
       <view class="mt-3">
         <sr-checkbox-group
           value="{{radiusValue}}"
@@ -70,6 +73,22 @@
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Custom Icon</view>
+      <view class="mt-1 text-xs text-slate-500">classNames iDefault / iIndeterminate</view>
+      <view class="mt-3 flex flex-wrap gap-4">
+        <sr-checkbox defaultSelected classNames="{{customCheckClassNames}}">
+          Check
+        </sr-checkbox>
+        <sr-checkbox
+          isIndeterminate
+          classNames="{{customIndeterminateClassNames}}"
+        >
+          Indeterminate
+        </sr-checkbox>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">States</view>
       <view class="mt-3 flex flex-wrap gap-4">
         <sr-checkbox defaultSelected>Normal</sr-checkbox>
@@ -85,6 +104,7 @@
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Group</view>
+      <view class="mt-1 text-xs text-slate-500">orientation + isBlock</view>
       <view class="mt-3 space-y-4">
         <sr-checkbox-group
           value="{{groupValue}}"

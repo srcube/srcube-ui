@@ -8,6 +8,7 @@
   <view class="p-4 space-y-6">
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Colors</view>
+      <view class="mt-1 text-xs text-slate-500">color + controlled</view>
       <view class="mt-3 flex flex-col gap-3">
         <sr-switch
           wx:for="{{colors}}"
@@ -24,6 +25,7 @@
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Sizes</view>
+      <view class="mt-1 text-xs text-slate-500">size + controlled</view>
       <view class="mt-3 flex flex-col gap-3">
         <sr-switch
           wx:for="{{sizes}}"
@@ -40,6 +42,7 @@
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Custom Icon</view>
+      <view class="mt-1 text-xs text-slate-500">Iconify className</view>
       <view class="mt-3 flex flex-col gap-3">
         <sr-switch defaultSelected hasIcon>
           <view slot="icon" class="icon-[ion--checkmark] text-primary text-sm" />
