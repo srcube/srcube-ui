@@ -1,10 +1,14 @@
-import type React from "react";
-import { forwardRef } from "react";
-import { Dialog, Modal as RacModal } from "react-aria-components";
-import { useModalContext } from "./context";
+import { forwardRef } from 'react';
+import {
+  Dialog,
+  type DialogProps,
+  Modal as RacModal,
+} from 'react-aria-components';
+import { useModalContext } from './context';
 
-export interface ModalContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ModalContentProps extends Omit<DialogProps, 'className'> {
+  className?: string;
+}
 
 const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
   (props, ref) => {
@@ -25,6 +29,6 @@ const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
   },
 );
 
-ModalContent.displayName = "Srcube.ModalContent";
+ModalContent.displayName = 'Srcube.ModalContent';
 
 export default ModalContent;

@@ -1,4 +1,4 @@
-import type React from "react";
+import type React from 'react';
 import {
   useCallback,
   useEffect,
@@ -6,33 +6,33 @@ import {
   useMemo,
   useRef,
   useState,
-} from "react";
-import { modal } from "../style";
-import type { ModalClassNames, ModalReactProps, ModalRef } from "./props";
+} from 'react';
+import { modal } from '../style';
+import type { ModalClassNames, ModalReactProps, ModalRef } from './props';
 
 let scrollLockCount = 0;
 let originalBodyOverflow: string | null = null;
 
 function lockPageScroll() {
-  if (typeof document === "undefined") return;
+  if (typeof document === 'undefined') return;
   if (scrollLockCount === 0) {
     originalBodyOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
   }
   scrollLockCount += 1;
 }
 
 function unlockPageScroll() {
-  if (typeof document === "undefined") return;
+  if (typeof document === 'undefined') return;
   scrollLockCount = Math.max(0, scrollLockCount - 1);
   if (scrollLockCount === 0) {
-    document.body.style.overflow = originalBodyOverflow ?? "";
+    document.body.style.overflow = originalBodyOverflow ?? '';
     originalBodyOverflow = null;
   }
 }
 
 export interface UseModalProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "children">,
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>,
     ModalReactProps {
   ref?: React.Ref<ModalRef>;
 }
@@ -106,16 +106,15 @@ export function useModal(props: UseModalProps) {
     }) as ModalRef;
   });
 
-  const getRootPortalProps =
-    useCallback((): React.HTMLAttributes<HTMLDivElement> => {
-      return {
-        ref: domRef,
-        className: slots.rootPortal({
-          class: [classNames?.rootPortal, className],
-        }),
-        ...rest,
-      };
-    }, [className, classNames, rest, slots]);
+  const getRootPortalProps = useCallback(() => {
+    return {
+      ref: domRef,
+      className: slots.rootPortal({
+        class: [classNames?.rootPortal, className],
+      }),
+      ...rest,
+    };
+  }, [className, classNames, rest, slots]);
 
   return {
     domRef,

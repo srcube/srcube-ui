@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { ButtonVariants } from '../style';
 import { buttonGroup } from '../style';
-import type { ButtonGroupReactProps } from './props';
+import type { ButtonGroupReactProps, ButtonReactProps } from './props';
 
 type ButtonGroupContextValue = Pick<
   ButtonVariants,
@@ -59,7 +59,7 @@ export const ButtonGroup = React.forwardRef<
     <ButtonGroupContext.Provider value={context}>
       <div ref={ref} className={classes} {...rest}>
         {React.Children.map(children, (child, index) => {
-          if (!React.isValidElement(child)) return child;
+          if (!React.isValidElement<ButtonReactProps>(child)) return child;
           if (typeof child.type === 'string') return child;
 
           let position: ButtonVariants['groupPosition'] = 'none';

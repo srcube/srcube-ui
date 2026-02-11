@@ -41,8 +41,6 @@ export const CheckboxGroup: React.ForwardRefExoticComponent<
     ...rest
   } = props;
 
-  const resolvedOrientation = orientation === 'x' ? 'horizontal' : 'vertical';
-
   const baseClassName = composeTwRenderProps(
     className,
     checkboxGroup({ orientation, isBlock }),
@@ -73,7 +71,6 @@ export const CheckboxGroup: React.ForwardRefExoticComponent<
         ref={ref}
         value={value ?? undefined}
         defaultValue={defaultValue ?? undefined}
-        orientation={resolvedOrientation}
         isDisabled={isDisabled}
         isReadOnly={isReadOnly}
         className={baseClassName}

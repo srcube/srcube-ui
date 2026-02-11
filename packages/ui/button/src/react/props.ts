@@ -8,7 +8,7 @@ import type {
 
 type ButtonNativeProps = Omit<
   AriaButtonProps,
-  'className' | 'style' | keyof ButtonVariants | 'onPress'
+  'className' | 'style' | keyof ButtonVariants | 'onPress' | 'children'
 >;
 
 export type ButtonTapHandler = (
@@ -19,6 +19,7 @@ export interface ButtonReactProps extends ButtonVariants, ButtonNativeProps {
   className?: AriaButtonProps['className'];
   classNames?: ButtonClasses;
   style?: AriaButtonProps['style'];
+  children?: React.ReactNode;
   onTap?: ButtonTapHandler;
 }
 
