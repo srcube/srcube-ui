@@ -103,27 +103,27 @@ export const radio = tv({
     {
       color: 'primary',
       isSelected: true,
-      class: { radio: 'before:border-primary' },
+      class: { radio: 'before:border-primary-200' },
     },
     {
       color: 'secondary',
       isSelected: true,
-      class: { radio: 'before:border-secondary' },
+      class: { radio: 'before:border-secondary-200' },
     },
     {
       color: 'success',
       isSelected: true,
-      class: { radio: 'before:border-success' },
+      class: { radio: 'before:border-success-200' },
     },
     {
       color: 'warning',
       isSelected: true,
-      class: { radio: 'before:border-warning' },
+      class: { radio: 'before:border-warning-200' },
     },
     {
       color: 'danger',
       isSelected: true,
-      class: { radio: 'before:border-danger' },
+      class: { radio: 'before:border-danger-200' },
     },
     {
       isLoading: true,
