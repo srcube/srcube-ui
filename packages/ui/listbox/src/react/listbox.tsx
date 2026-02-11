@@ -1,6 +1,10 @@
 import type React from 'react';
 import { Scrollbox } from '@srcube-ui/scrollbox/react';
-import { useVirtualizer } from '@tanstack/react-virtual';
+import {
+  defaultRangeExtractor,
+  type Range,
+  useVirtualizer,
+} from '@tanstack/react-virtual';
 import {
   forwardRef,
   useCallback,
@@ -30,6 +34,24 @@ function shouldMeasure(
 
 function getDefaultRender(item: ListboxItem) {
   return item.label;
+}
+
+function resolveActiveStickyIndex(
+  stickyIndexes: number[],
+  startIndex: number,
+): number | null {
+  let activeStickyIndex: number | null = null;
+
+  for (const stickyIndex of stickyIndexes) {
+    if (stickyIndex <= startIndex) {
+      activeStickyIndex = stickyIndex;
+      continue;
+    }
+
+    break;
+  }
+
+  return activeStickyIndex;
 }
 
 type FallbackVirtualItem = {
@@ -98,6 +120,7 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
     );
 
     const scrollElementRef = useRef<HTMLDivElement>(null);
+    const activeStickyIndexRef = useRef<number | null>(null);
 
     const setScrollElementRef = useCallback((node: HTMLDivElement | null) => {
       scrollElementRef.current = node;
@@ -109,6 +132,45 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
       }
       return () => estimateSize;
     }, [estimateSize]);
+
+    const stickyIndexes = useMemo(() => {
+      const indexes: number[] = [];
+
+      items.forEach((item, index) => {
+        if (item.isSticky) {
+          indexes.push(index);
+        }
+      });
+
+      return indexes;
+    }, [items]);
+
+    const rangeExtractor = useCallback(
+      (range: Range) => {
+        const defaultIndexes = defaultRangeExtractor(range);
+
+        if (stickyIndexes.length === 0) {
+          activeStickyIndexRef.current = null;
+          return defaultIndexes;
+        }
+
+        const activeStickyIndex = resolveActiveStickyIndex(
+          stickyIndexes,
+          range.startIndex,
+        );
+
+        activeStickyIndexRef.current = activeStickyIndex;
+
+        if (activeStickyIndex == null) {
+          return defaultIndexes;
+        }
+
+        return Array.from(new Set([...defaultIndexes, activeStickyIndex])).sort(
+          (a, b) => a - b,
+        );
+      },
+      [stickyIndexes],
+    );
 
     const initialRect = useMemo(
       () =>
@@ -125,6 +187,7 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
       horizontal: orientation === 'x',
       overscan,
       initialRect,
+      rangeExtractor,
       getItemKey: (index) =>
         getItemKey ? getItemKey(items[index]!, index) : items[index]!.id,
     });
@@ -219,6 +282,20 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
       [mergedSelectedKeys, onSelectionChange, selectedKeysProp, selectedSet],
     );
 
+    const activeStickyIndex = useMemo(() => {
+      if (stickyIndexes.length === 0) {
+        return null;
+      }
+
+      const rangeStartIndex = virtualizer.range?.startIndex;
+
+      if (typeof rangeStartIndex === 'number') {
+        return resolveActiveStickyIndex(stickyIndexes, rangeStartIndex);
+      }
+
+      return activeStickyIndexRef.current ?? resolveActiveStickyIndex(stickyIndexes, 0);
+    }, [stickyIndexes, virtualizer.range?.startIndex]);
+
     if (items.length === 0 && !hideEmptyContent) {
       return (
         <div
@@ -288,21 +365,37 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
                 return null;
               }
 
-              const itemStyle: React.CSSProperties = {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: isHorizontal ? virtualItem.size : '100%',
-                height: isHorizontal ? '100%' : virtualItem.size,
-                transform: isHorizontal
-                  ? `translateX(${virtualItem.start}px)`
-                  : `translateY(${virtualItem.start}px)`,
-              };
+              const isActiveStickyItem =
+                item.isSticky && virtualItem.index === activeStickyIndex;
+
+              const itemStyle: React.CSSProperties = isActiveStickyItem
+                ? {
+                    position: 'sticky',
+                    zIndex: 20,
+                    top: 0,
+                    left: 0,
+                    width: isHorizontal ? virtualItem.size : '100%',
+                    height: isHorizontal ? '100%' : virtualItem.size,
+                  }
+                : {
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: isHorizontal ? virtualItem.size : '100%',
+                    height: isHorizontal ? '100%' : virtualItem.size,
+                    transform: isHorizontal
+                      ? `translateX(${virtualItem.start}px)`
+                      : `translateY(${virtualItem.start}px)`,
+                  };
 
               const stateClassName = listboxItemState({
                 orientation,
                 isSelected: selectedSet.has(item.id),
                 isDisabled: item.isDisabled,
+              });
+
+              const baseItemClassName = slots.item({
+                class: [itemClassName, classNames?.item, stateClassName],
               });
 
               return (
@@ -317,9 +410,13 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
                   role="option"
                   aria-selected={selectedSet.has(item.id)}
                   data-index={virtualItem.index}
-                  className={slots.item({
-                    class: [itemClassName, classNames?.item, stateClassName],
-                  })}
+                  className={
+                    isActiveStickyItem
+                      ? slots.stickyItem({
+                          class: [baseItemClassName, classNames?.stickyItem],
+                        })
+                      : baseItemClassName
+                  }
                   style={itemStyle}
                   onClick={() => handleSelect(item)}
                 >

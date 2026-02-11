@@ -49,7 +49,7 @@
         wx:for="{{renderItems}}"
         wx:key="virtualKey"
         data-index="{{item.index}}"
-        class="sr-listbox__item {{$classNames.item}} {{item.className}}"
+        class="sr-listbox__item {{$classNames.item}} {{item.className}} {{item.isActiveSticky ? $classNames.stickyItem : ''}}"
         style="{{item.style}}"
         bindtap="handleItemTap"
       >

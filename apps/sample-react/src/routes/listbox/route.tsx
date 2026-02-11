@@ -1,6 +1,6 @@
-import type React from 'react';
 import { Listbox } from '@srcube-ui/listbox';
 import { createFileRoute } from '@tanstack/react-router';
+import type React from 'react';
 import { useMemo, useState } from 'react';
 import PageHeader from '@/components/page-header';
 
@@ -9,9 +9,10 @@ export const Route = createFileRoute('/listbox')({
 });
 
 type DemoItem = {
-  id: number;
+  id: string | number;
   label: string;
   isDisabled?: boolean;
+  isSticky?: boolean;
 };
 
 function Section({
@@ -34,10 +35,79 @@ function Section({
   );
 }
 
-function ListboxDemo() {
-  const [selectedKeys, setSelectedKeys] = useState<Array<string | number>>([2]);
+function createStickyVerticalItems() {
+  const items: DemoItem[] = [];
 
-  const items = useMemo<DemoItem[]>(
+  for (let sectionIndex = 0; sectionIndex < 20; sectionIndex += 1) {
+    const sectionNo = sectionIndex + 1;
+
+    items.push({
+      id: `section-${sectionNo}`,
+      label: `Section ${sectionNo}`,
+      isSticky: true,
+    });
+
+    for (let row = 0; row < 40; row += 1) {
+      const absoluteIndex = sectionIndex * 40 + row + 1;
+
+      items.push({
+        id: `item-${absoluteIndex}`,
+        label: `Option ${absoluteIndex}`,
+        isDisabled: absoluteIndex % 37 === 0,
+      });
+    }
+  }
+
+  return items;
+}
+
+function createStickyHorizontalItems() {
+  const items: DemoItem[] = [];
+
+  for (let groupIndex = 0; groupIndex < 10; groupIndex += 1) {
+    const groupNo = groupIndex + 1;
+
+    items.push({
+      id: `group-${groupNo}`,
+      label: `Group ${groupNo}`,
+      isSticky: true,
+    });
+
+    for (let tab = 0; tab < 12; tab += 1) {
+      const absoluteIndex = groupIndex * 12 + tab + 1;
+
+      items.push({
+        id: `tab-${absoluteIndex}`,
+        label: `Tab ${absoluteIndex}`,
+      });
+    }
+  }
+
+  return items;
+}
+
+function ListboxDemo() {
+  const [stickySelectedKeys, setStickySelectedKeys] = useState<
+    Array<string | number>
+  >(['item-2']);
+  const [horizontalSelectedKeys, setHorizontalSelectedKeys] = useState<
+    Array<string | number>
+  >(['tab-2']);
+  const [plainSelectedKeys, setPlainSelectedKeys] = useState<
+    Array<string | number>
+  >([2]);
+
+  const stickyItems = useMemo<DemoItem[]>(
+    () => createStickyVerticalItems(),
+    [],
+  );
+
+  const horizontalStickyItems = useMemo<DemoItem[]>(
+    () => createStickyHorizontalItems(),
+    [],
+  );
+
+  const plainItems = useMemo<DemoItem[]>(
     () =>
       Array.from({ length: 1000 }, (_, index) => ({
         id: index,
@@ -52,31 +122,54 @@ function ListboxDemo() {
       <PageHeader title="Listbox" />
       <div className="px-4 pb-8">
         <Section
-          title="Virtualized List"
-          description="@tanstack/react-virtual (1000 items)"
+          title="Sticky Vertical"
+          description="@tanstack/react-virtual + rangeExtractor (orientation=y)"
         >
           <Listbox
             className="h-80 rounded-2xl border border-slate-200"
-            items={items}
+            items={stickyItems}
             estimateSize={44}
             overscan={8}
             hasDivider
-            selectedKeys={selectedKeys}
-            onSelectionChange={setSelectedKeys}
+            selectedKeys={stickySelectedKeys}
+            onSelectionChange={setStickySelectedKeys}
           />
           <div className="mt-3 text-xs text-slate-500">
-            Selected: {selectedKeys.join(', ') || 'none'}
+            Selected: {stickySelectedKeys.join(', ') || 'none'}
           </div>
         </Section>
 
-        <Section title="Horizontal" description="orientation=x">
+        <Section
+          title="Sticky Horizontal"
+          description="orientation=x + sticky section item"
+        >
           <Listbox
             className="h-20 rounded-2xl border border-slate-200"
             orientation="x"
-            items={items.slice(0, 80)}
+            items={horizontalStickyItems}
             estimateSize={120}
-            defaultSelectedKeys={[1]}
+            overscan={8}
+            selectedKeys={horizontalSelectedKeys}
+            onSelectionChange={setHorizontalSelectedKeys}
           />
+          <div className="mt-3 text-xs text-slate-500">
+            Selected: {horizontalSelectedKeys.join(', ') || 'none'}
+          </div>
+        </Section>
+
+        <Section title="Virtualized List" description="plain mode (1000 items)">
+          <Listbox
+            className="h-80 rounded-2xl border border-slate-200"
+            items={plainItems}
+            estimateSize={44}
+            overscan={8}
+            hasDivider
+            selectedKeys={plainSelectedKeys}
+            onSelectionChange={setPlainSelectedKeys}
+          />
+          <div className="mt-3 text-xs text-slate-500">
+            Selected: {plainSelectedKeys.join(', ') || 'none'}
+          </div>
         </Section>
 
         <Section title="Empty" description="locale=zh-CN">

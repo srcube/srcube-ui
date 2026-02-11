@@ -10,6 +10,8 @@ export const listbox = tv({
     $scrollbox: 'flex grow',
     scrollbox: 'w-full h-full',
     scrollboxContent: '',
+    sticky: 'absolute z-20',
+    stickyItem: 'bg-white',
     content: 'relative',
     item:
       'box-border flex items-center gap-2 px-3 text-sm leading-none transition-colors duration-150 min-h-11',
@@ -23,12 +25,14 @@ export const listbox = tv({
       y: {
         $scrollbox: 'min-h-0',
         scrollboxContent: 'w-full',
+        sticky: 'top-0 left-0 right-0',
         content: 'w-full',
         item: 'w-full',
       },
       x: {
         $scrollbox: 'min-w-0',
         scrollboxContent: 'h-full',
+        sticky: 'top-0 left-0 bottom-0',
         content: 'h-full whitespace-nowrap',
         item: 'h-full min-w-max justify-center',
       },

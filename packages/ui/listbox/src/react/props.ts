@@ -35,6 +35,7 @@ export type ListboxItem = {
   id: string | number;
   label: React.ReactNode;
   isDisabled?: boolean;
+  isSticky?: boolean;
 };
 
 export type ListboxLocale = 'en' | 'zh-CN' | 'zh-TW';

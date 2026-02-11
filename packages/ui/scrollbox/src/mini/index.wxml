@@ -38,6 +38,8 @@
     </view>
   </scroll-view>
 
+  <slot name="overlay" />
+
   <view class="sr-scrollbox__mask sr-scrollbox__mask--top {{$classNames.maskTop}}" />
   <view class="sr-scrollbox__mask sr-scrollbox__mask--bottom {{$classNames.maskBottom}}" />
   <view class="sr-scrollbox__mask sr-scrollbox__mask--left {{$classNames.maskLeft}}" />

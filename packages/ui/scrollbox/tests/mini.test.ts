@@ -44,6 +44,10 @@ function renderScrollbox(props: Record<string, unknown> = {}) {
   return comp;
 }
 
+it('contains overlay slot in template', () => {
+  expect(template).toContain('<slot name="overlay" />');
+});
+
 it('updates mask state from metrics', () => {
   const comp = renderScrollbox();
   const instance = comp.instance as unknown as ScrollboxInstance;

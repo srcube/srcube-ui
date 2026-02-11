@@ -52,9 +52,11 @@ it('binds $scrollbox host class and scrollbox className separately', () => {
 });
 
 it('does not force h-full on scrollbox content in horizontal mini mode', () => {
-  const computed = (definition as {
-    computed?: Record<string, (data: Record<string, unknown>) => unknown>;
-  }).computed?.$scrollboxClassNames;
+  const computed = (
+    definition as {
+      computed?: Record<string, (data: Record<string, unknown>) => unknown>;
+    }
+  ).computed?.$scrollboxClassNames;
 
   expect(computed).toBeTypeOf('function');
 
@@ -97,7 +99,9 @@ it('updates selected keys on item tap in uncontrolled mode', () => {
   });
 
   const instance = comp.instance as {
-    handleItemTap: (event: { currentTarget: { dataset: { index: number } } }) => void;
+    handleItemTap: (event: {
+      currentTarget: { dataset: { index: number } };
+    }) => void;
   };
 
   instance.handleItemTap({ currentTarget: { dataset: { index: 0 } } });
@@ -118,6 +122,107 @@ it('computes horizontal mode from orientation with explicit content height', () 
   expect(data.contentStyle).toContain('width:');
   expect(data.contentStyle).toContain('height:');
   expect(data.contentStyle).not.toContain('height:100%');
+
+  comp.detach();
+});
+
+it('applies position:sticky style to active sticky item in vertical mode', () => {
+  const comp = renderListbox({
+    items: [
+      { id: 'group-a', label: 'Group A', isSticky: true },
+      { id: 'a', label: 'Alpha' },
+    ],
+    estimateSize: 40,
+  });
+
+  const data = comp.data as {
+    renderItems: Array<{
+      id: string | number;
+      style: string;
+      isActiveSticky: boolean;
+    }>;
+  };
+
+  const stickyItem = data.renderItems.find((item) => item.id === 'group-a');
+  expect(stickyItem).toBeTruthy();
+  expect(stickyItem?.isActiveSticky).toBe(true);
+  expect(stickyItem?.style ?? '').toContain('position:sticky');
+  expect(stickyItem?.style ?? '').toContain('height:40px');
+
+  comp.detach();
+});
+
+it('applies sticky width style in horizontal mode', () => {
+  const comp = renderListbox({
+    orientation: 'x',
+    items: [
+      { id: 'group-a', label: 'Group A', isSticky: true },
+      { id: 'a', label: 'Alpha' },
+    ],
+    estimateSize: 120,
+  });
+
+  const data = comp.data as {
+    renderItems: Array<{
+      id: string | number;
+      style: string;
+      isActiveSticky: boolean;
+    }>;
+  };
+
+  const stickyItem = data.renderItems.find((item) => item.id === 'group-a');
+  expect(stickyItem).toBeTruthy();
+  expect(stickyItem?.isActiveSticky).toBe(true);
+  expect(stickyItem?.style ?? '').toContain('position:sticky');
+  expect(stickyItem?.style ?? '').toContain('width:120px');
+
+  comp.detach();
+});
+
+it('updates active sticky item by scroll offset when scrolling', async () => {
+  const comp = renderListbox({
+    items: [
+      { id: 's1', label: 'Section 1', isSticky: true },
+      { id: 'a', label: 'Alpha' },
+      { id: 'b', label: 'Beta' },
+      { id: 's2', label: 'Section 2', isSticky: true },
+      { id: 'c', label: 'Gamma' },
+    ],
+    estimateSize: 40,
+  });
+
+  const instance = comp.instance as {
+    handleScroll: (event: {
+      detail: {
+        scrollTop: number;
+        scrollLeft: number;
+      };
+    }) => void;
+  };
+
+  instance.handleScroll({
+    detail: {
+      scrollTop: 120,
+      scrollLeft: 0,
+    },
+  });
+
+  await new Promise((resolve) => setTimeout(resolve, 0));
+
+  const data = comp.data as {
+    renderItems: Array<{
+      id: string | number;
+      style: string;
+      isActiveSticky: boolean;
+    }>;
+  };
+
+  const s1 = data.renderItems.find((item) => item.id === 's1');
+  const s2 = data.renderItems.find((item) => item.id === 's2');
+
+  expect(s1?.isActiveSticky).toBe(false);
+  expect(s2?.isActiveSticky).toBe(true);
+  expect(s2?.style ?? '').toContain('position:sticky');
 
   comp.detach();
 });

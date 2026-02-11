@@ -1,7 +1,11 @@
-import type { ListboxMiniItem, ListboxMiniProps } from './props';
-import { Virtualizer } from '@tanstack/virtual-core';
 import { UIComponent } from '@srcube-ui/mini';
+import {
+  defaultRangeExtractor,
+  type Range,
+  Virtualizer,
+} from '@tanstack/virtual-core';
 import { listbox, listboxItemState } from '../style';
+import type { ListboxMiniItem, ListboxMiniProps } from './props';
 import { listboxMiniProps } from './props';
 
 type ListboxOrientation = 'x' | 'y';
@@ -24,6 +28,7 @@ type RenderItem = {
   virtualKey: string;
   className: string;
   style: string;
+  isActiveSticky: boolean;
 };
 
 const EMPTY_TEXT: Record<ListboxLocale, string> = {
@@ -60,6 +65,24 @@ function resolveScrollDetail(rawDetail: NestedScrollDetail | undefined | null) {
   };
 }
 
+function resolveActiveStickyIndex(
+  stickyIndexes: number[],
+  startIndex: number,
+): number | null {
+  let activeStickyIndex: number | null = null;
+
+  for (const stickyIndex of stickyIndexes) {
+    if (stickyIndex <= startIndex) {
+      activeStickyIndex = stickyIndex;
+      continue;
+    }
+
+    break;
+  }
+
+  return activeStickyIndex;
+}
+
 type ListboxMiniVirtualState = {
   viewportMainSize: number;
   viewportCrossSize: number;
@@ -79,6 +102,7 @@ function createVirtualizer(params: {
   isHorizontal: boolean;
   viewportMainSize: number;
   offset: number;
+  stickyIndexes: number[];
 }) {
   const {
     count,
@@ -87,6 +111,7 @@ function createVirtualizer(params: {
     isHorizontal,
     viewportMainSize,
     offset,
+    stickyIndexes,
   } = params;
 
   return new Virtualizer<Element, Element>({
@@ -102,6 +127,26 @@ function createVirtualizer(params: {
       ? { width: viewportMainSize, height: 0 }
       : { width: 0, height: viewportMainSize },
     initialOffset: offset,
+    rangeExtractor: (range: Range) => {
+      const defaultIndexes = defaultRangeExtractor(range);
+
+      if (stickyIndexes.length === 0) {
+        return defaultIndexes;
+      }
+
+      const activeStickyIndex = resolveActiveStickyIndex(
+        stickyIndexes,
+        range.startIndex,
+      );
+
+      if (activeStickyIndex == null) {
+        return defaultIndexes;
+      }
+
+      return Array.from(new Set([...defaultIndexes, activeStickyIndex])).sort(
+        (a, b) => a - b,
+      );
+    },
   });
 }
 
@@ -218,6 +263,7 @@ UIComponent({
         scrollboxContent: slots.scrollboxContent({
           class: classNames.scrollboxContent,
         }),
+        stickyItem: slots.stickyItem({ class: classNames.stickyItem }),
         content: slots.content({ class: classNames.content }),
         item: slots.item({ class: classNames.item }),
         itemLabel: slots.itemLabel({ class: classNames.itemLabel }),
@@ -315,6 +361,13 @@ UIComponent({
         : (this.data.innerSelectedKeys as Array<string | number>);
       const selectedSet = new Set(selectedKeys);
 
+      const stickyIndexes: number[] = [];
+      items.forEach((item, index) => {
+        if (item.isSticky) {
+          stickyIndexes.push(index);
+        }
+      });
+
       const virtualizer = createVirtualizer({
         count: items.length,
         estimateSize,
@@ -322,13 +375,17 @@ UIComponent({
         isHorizontal,
         viewportMainSize,
         offset,
+        stickyIndexes,
       });
 
       const virtualItems = virtualizer.getVirtualItems();
       const totalSize = virtualizer.getTotalSize();
       const hasVirtualItems = virtualItems.length > 0;
 
-      const fallbackCount = Math.min(items.length, Math.max(1, overscan * 2 + 1));
+      const fallbackCount = Math.min(
+        items.length,
+        Math.max(1, overscan * 2 + 1),
+      );
       const fallbackVirtualItems = hasVirtualItems
         ? []
         : Array.from({ length: fallbackCount }, (_, index) => {
@@ -341,7 +398,21 @@ UIComponent({
             };
           });
 
-      const renderSource = hasVirtualItems ? virtualItems : fallbackVirtualItems;
+      const renderSource = hasVirtualItems
+        ? virtualItems
+        : fallbackVirtualItems;
+
+      const activeVirtualItemByOffset =
+        virtualizer.getVirtualItemForOffset(offset);
+      const stickyStartIndex =
+        activeVirtualItemByOffset?.index ??
+        virtualizer.range?.startIndex ??
+        Math.max(0, Math.floor(offset / estimateSize));
+
+      const activeStickyIndex = resolveActiveStickyIndex(
+        stickyIndexes,
+        stickyStartIndex,
+      );
 
       const renderItems: RenderItem[] = renderSource
         .map((virtualItem) => {
@@ -350,15 +421,22 @@ UIComponent({
             return null;
           }
 
+          const isActiveSticky =
+            item.isSticky === true && virtualItem.index === activeStickyIndex;
+
           const stateClassName = listboxItemState({
             orientation,
             isSelected: selectedSet.has(item.id),
             isDisabled: !!item.isDisabled,
           });
 
-          const style = isHorizontal
-            ? `position:absolute;left:${virtualItem.start}px;top:0;width:${virtualItem.size}px;height:100%;`
-            : `position:absolute;left:0;top:${virtualItem.start}px;width:100%;height:${virtualItem.size}px;`;
+          const style = isActiveSticky
+            ? isHorizontal
+              ? `position:sticky;left:0;top:0;z-index:20;width:${virtualItem.size}px;height:100%;`
+              : `position:sticky;left:0;top:0;z-index:20;width:100%;height:${virtualItem.size}px;`
+            : isHorizontal
+              ? `position:absolute;left:${virtualItem.start}px;top:0;width:${virtualItem.size}px;height:100%;`
+              : `position:absolute;left:0;top:${virtualItem.start}px;width:100%;height:${virtualItem.size}px;`;
 
           return {
             id: item.id,
@@ -367,6 +445,7 @@ UIComponent({
             virtualKey: String(virtualItem.key),
             className: stateClassName,
             style,
+            isActiveSticky,
           };
         })
         .filter((item): item is RenderItem => !!item);
@@ -388,9 +467,7 @@ UIComponent({
       const orientation = resolveOrientation(this.data.orientation);
       const detail = resolveScrollDetail(e.detail);
       const nextOffset =
-        orientation === 'x'
-          ? detail.scrollLeft
-          : detail.scrollTop;
+        orientation === 'x' ? detail.scrollLeft : detail.scrollTop;
 
       this.setData({ currentOffset: nextOffset }, () => {
         this.recomputeVirtualItems();

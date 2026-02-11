@@ -121,6 +121,7 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
       onScrollToUpper,
       onScrollToLower,
       scrollRef: scrollRefProp,
+      overlay,
       ...rest
     } = props;
 
@@ -339,6 +340,7 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
             {children}
           </div>
         </div>
+        {overlay}
         <div className={classes.maskTop({ class: classNames?.maskTop })} />
         <div
           className={classes.maskBottom({ class: classNames?.maskBottom })}

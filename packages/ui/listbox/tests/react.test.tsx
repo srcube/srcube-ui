@@ -63,7 +63,6 @@ it('renders horizontal listbox orientation', () => {
   expect(scrollView).toBeTruthy();
 });
 
-
 it('keeps external size classes on root in vertical mode', () => {
   const { container } = render(
     <Listbox
@@ -115,4 +114,66 @@ it('applies h-full to scrollbox content in horizontal mode', () => {
   }
 
   expect(scrollboxContent.className).toContain('h-full');
+});
+
+it('renders sticky overlay item in vertical mode', () => {
+  const { container } = render(
+    <Listbox
+      className="h-40"
+      items={[
+        { id: 'header', label: 'Header', isSticky: true },
+        { id: 'a', label: 'Alpha' },
+        { id: 'b', label: 'Beta' },
+      ]}
+      estimateSize={40}
+      classNames={{
+        sticky: 'test-sticky',
+        stickyItem: 'test-sticky-item',
+      }}
+    />,
+  );
+
+  const stickyItem = container.querySelector('.test-sticky-item') as
+    | HTMLElement
+    | null;
+
+  expect(stickyItem).toBeTruthy();
+
+  if (!stickyItem) {
+    return;
+  }
+
+  expect(stickyItem.textContent).toContain('Header');
+  expect(stickyItem.style.height).toBe('40px');
+});
+
+it('renders sticky overlay item in horizontal mode', () => {
+  const { container } = render(
+    <Listbox
+      className="h-20"
+      orientation="x"
+      items={[
+        { id: 'header', label: 'Header', isSticky: true },
+        { id: 'a', label: 'Alpha' },
+      ]}
+      estimateSize={120}
+      classNames={{
+        sticky: 'test-sticky-x',
+        stickyItem: 'test-sticky-item-x',
+      }}
+    />,
+  );
+
+  const stickyItem = container.querySelector('.test-sticky-item-x') as
+    | HTMLElement
+    | null;
+
+  expect(stickyItem).toBeTruthy();
+
+  if (!stickyItem) {
+    return;
+  }
+
+  expect(stickyItem.textContent).toContain('Header');
+  expect(stickyItem.style.width).toBe('120px');
 });

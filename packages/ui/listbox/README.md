@@ -13,10 +13,13 @@
 ```tsx
 import { Listbox } from '@srcube-ui/listbox';
 
-const items = Array.from({ length: 1000 }, (_, index) => ({
-  id: index,
-  label: `Option ${index + 1}`,
-}));
+const items = [
+  { id: 'group-a', label: 'Group A', isSticky: true },
+  ...Array.from({ length: 1000 }, (_, index) => ({
+    id: index,
+    label: `Option ${index + 1}`,
+  })),
+];
 
 export default function Demo() {
   return (
@@ -60,6 +63,7 @@ export default function Demo() {
 | Prop | 说明 | 类型 | 默认值 | 平台 |
 | --- | --- | --- | --- | --- |
 | items | 列表数据 | React: `ListboxItem[]`；Mini: `ListboxMiniItem[]` | `[]` | 全平台 |
+| items[].isSticky | 是否为吸顶节点（按当前滚动方向吸顶） | `boolean` | `false` | 全平台 |
 | estimateSize | 预估项尺寸 | React: `number \| (index) => number`；Mini: `number` | `40` | 全平台 |
 | overscan | 预渲染缓冲项数量 | `number` | `5` | 全平台 |
 | orientation | 滚动方向 | `'y' \| 'x'` | `'y'` | 全平台 |
@@ -90,6 +94,7 @@ export default function Demo() {
 - `items[].label` 支持 `ReactNode`。
 - 支持 `renderItem` 自定义渲染。
 - 支持 `shouldMeasureItem` 按需接入 `virtualizer.measureElement`。
+- 内部通过 `rangeExtractor` 计算激活 sticky 项，并在虚拟项内应用 `position: sticky`（支持纵向/横向）。
 - 内部通过 `Scrollbox` 的 `scrollRef` 对接虚拟列表滚动容器。
 
 ### Mini
@@ -97,6 +102,7 @@ export default function Demo() {
 - `items[].label` 为 `string`。
 - 对外事件：`bind:selectionchange`、`bind:itemtap`、`bind:scroll`。
 - 基于 `sr-scrollbox` 承载滚动，继承其遮罩/阈值/滚动控制能力。
+- 同样使用 `rangeExtractor` 参与 sticky 渲染，并将激活 sticky 项切换为 `position:sticky`。
 - `classNames.$scrollbox` 仅用于控制嵌套 `sr-scrollbox` 组件节点本身布局（默认 `flex grow`；`y` 方向附加 `min-h-0`，`x` 方向附加 `min-w-0`）。
 - `classNames.scrollbox` 传递给 `sr-scrollbox` 的 `className` 属性（默认 `w-full h-full`）。
 - 小程序组件自身为节点，布局类（如高度）需直接加在 `sr-listbox` 上。

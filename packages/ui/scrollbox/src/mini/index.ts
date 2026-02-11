@@ -275,7 +275,12 @@ UIComponent({
       };
 
       this.updateMasks(metrics);
-      this.triggerEvent('scroll', e);
+      this.triggerEvent('scroll', {
+        scrollTop: metrics.scrollTop,
+        scrollLeft: metrics.scrollLeft,
+        scrollHeight: metrics.scrollHeight,
+        scrollWidth: metrics.scrollWidth,
+      });
     },
 
     handleScrollToUpper(e: WechatMiniprogram.CustomEvent) {

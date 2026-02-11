@@ -31,4 +31,5 @@ export type ScrollboxReactProps = ScrollboxVariants &
     onScrollToUpper?: React.UIEventHandler<HTMLDivElement>;
     onScrollToLower?: React.UIEventHandler<HTMLDivElement>;
     scrollRef?: React.Ref<HTMLDivElement>;
+    overlay?: React.ReactNode;
   };

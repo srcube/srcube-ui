@@ -1,4 +1,5 @@
-import { fireEvent, render } from '@testing-library/react';
+import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Scrollbox } from '../src/react/scrollbox';
 
 it('updates mask classes on scroll', () => {
@@ -37,4 +38,14 @@ it('updates mask classes on scroll', () => {
 
   expect(maskTop.className).toContain('opacity-100');
   expect(maskBottom.className).toContain('opacity-100');
+});
+
+it('renders overlay node', () => {
+  render(
+    <Scrollbox overlay={<div data-testid="scrollbox-overlay">overlay</div>}>
+      <div style={{ height: 20 }}>Content</div>
+    </Scrollbox>,
+  );
+
+  expect(screen.getByTestId('scrollbox-overlay')).toBeTruthy();
 });

@@ -4,6 +4,7 @@ export type ListboxMiniItem = {
   id: string | number;
   label: string;
   isDisabled?: boolean;
+  isSticky?: boolean;
 };
 
 export type ListboxMiniProps = ListboxVariants & {
