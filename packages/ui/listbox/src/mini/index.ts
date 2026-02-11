@@ -432,8 +432,8 @@ UIComponent({
 
           const style = isActiveSticky
             ? isHorizontal
-              ? `position:sticky;left:0;top:0;z-index:20;width:${virtualItem.size}px;height:100%;`
-              : `position:sticky;left:0;top:0;z-index:20;width:100%;height:${virtualItem.size}px;`
+              ? `position:sticky;left:0;top:0;z-index:1;width:${virtualItem.size}px;height:100%;`
+              : `position:sticky;left:0;top:0;z-index:1;width:100%;height:${virtualItem.size}px;`
             : isHorizontal
               ? `position:absolute;left:${virtualItem.start}px;top:0;width:${virtualItem.size}px;height:100%;`
               : `position:absolute;left:0;top:${virtualItem.start}px;width:100%;height:${virtualItem.size}px;`;

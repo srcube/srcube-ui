@@ -371,7 +371,7 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
               const itemStyle: React.CSSProperties = isActiveStickyItem
                 ? {
                     position: 'sticky',
-                    zIndex: 20,
+                    zIndex: 1,
                     top: 0,
                     left: 0,
                     width: isHorizontal ? virtualItem.size : '100%',

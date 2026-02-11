@@ -6,11 +6,11 @@ import {
 
 export const listbox = tv({
   slots: {
-    base: 'relative overflow-hidden rounded-xl bg-white flex flex-col',
+    base: 'relative z-0 isolate overflow-hidden rounded-xl bg-white flex flex-col',
     $scrollbox: 'flex grow',
     scrollbox: 'w-full h-full',
     scrollboxContent: '',
-    sticky: 'absolute z-20',
+    sticky: 'absolute z-[1]',
     stickyItem: 'bg-white',
     content: 'relative',
     item:
