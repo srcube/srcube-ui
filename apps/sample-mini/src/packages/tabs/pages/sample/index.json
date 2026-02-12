@@ -1,0 +1,11 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-tabs": "@srcube-ui/tabs/index",
+    "sr-tab-panel": "@srcube-ui/tabs/tab-panel/index",
+    "s-button": "@srcube-ui/button/index",
+    "s-button-group": "@srcube-ui/button/button-group/index"
+  },
+  "navigationBarTitleText": "Tabs",
+  "backgroundColor": "#ffffff"
+}

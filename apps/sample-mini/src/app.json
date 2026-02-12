@@ -23,11 +23,23 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/input-otp",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/listbox",
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/pickbox",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/modal",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/tabs",
       "pages": ["pages/sample/index"]
     }
   ],

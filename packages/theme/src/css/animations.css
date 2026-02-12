@@ -295,9 +295,8 @@
 }
 
 @utility animate-blink-caret {
-  animation: blink-caret var(--default-animation-duration, 1s)
-    var(--default-animation-timing-function, steps(1, start))
-    var(--default-animation-dely, 0s) infinite both;
+  animation: blink-caret var(--caret-blink-duration, 0.8s) steps(1, start)
+    var(--caret-blink-delay, 0s) infinite both;
 }
 
 @utility animate-drawer-from-right-in {

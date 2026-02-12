@@ -1,0 +1,28 @@
+<view
+  class="sr-tabs__base {{$classNames.base}} {{className}}"
+  style="{{style}}"
+>
+  <view class="sr-tabs__tabs-wrapper {{$classNames.tabsWrapper}}">
+    <view class="sr-tabs__tabs-list {{$classNames.tabsList}}">
+      <view
+        wx:if="{{indicatorStyle}}"
+        class="sr-tabs__indicator {{$classNames.indicator}}"
+        style="{{indicatorStyle}}"
+      />
+
+      <view
+        wx:for="{{$renderItems}}"
+        wx:key="token"
+        class="sr-tabs__tab-item {{item.tabClassName}}"
+        data-index="{{index}}"
+        bindtap="handleTabTap"
+      >
+        <text class="{{item.tabLabelClassName}}">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="sr-tabs__panels {{$classNames.panels}}">
+    <slot />
+  </view>
+</view>

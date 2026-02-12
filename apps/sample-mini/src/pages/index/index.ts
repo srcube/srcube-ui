@@ -18,12 +18,24 @@ Page({
         url: '/packages/switch/pages/sample/index',
       },
       {
+        title: 'Input OTP',
+        url: '/packages/input-otp/pages/sample/index',
+      },
+      {
         title: 'Listbox',
         url: '/packages/listbox/pages/sample/index',
       },
       {
+        title: 'Pickbox',
+        url: '/packages/pickbox/pages/sample/index',
+      },
+      {
         title: 'Modal',
         url: '/packages/modal/pages/sample/index',
+      },
+      {
+        title: 'Tabs',
+        url: '/packages/tabs/pages/sample/index',
       },
       {
         title: 'Scrollbox',

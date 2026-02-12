@@ -9,15 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TabsRouteRouteImport } from './routes/tabs/route'
 import { Route as SwitchRouteRouteImport } from './routes/switch/route'
 import { Route as ScrollboxRouteRouteImport } from './routes/scrollbox/route'
 import { Route as RadioRouteRouteImport } from './routes/radio/route'
+import { Route as PickboxRouteRouteImport } from './routes/pickbox/route'
 import { Route as ModalRouteRouteImport } from './routes/modal/route'
 import { Route as ListboxRouteRouteImport } from './routes/listbox/route'
+import { Route as InputOtpRouteRouteImport } from './routes/input-otp/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TabsRouteRoute = TabsRouteRouteImport.update({
+  id: '/tabs',
+  path: '/tabs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SwitchRouteRoute = SwitchRouteRouteImport.update({
   id: '/switch',
   path: '/switch',
@@ -33,6 +41,11 @@ const RadioRouteRoute = RadioRouteRouteImport.update({
   path: '/radio',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PickboxRouteRoute = PickboxRouteRouteImport.update({
+  id: '/pickbox',
+  path: '/pickbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModalRouteRoute = ModalRouteRouteImport.update({
   id: '/modal',
   path: '/modal',
@@ -41,6 +54,11 @@ const ModalRouteRoute = ModalRouteRouteImport.update({
 const ListboxRouteRoute = ListboxRouteRouteImport.update({
   id: '/listbox',
   path: '/listbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InputOtpRouteRoute = InputOtpRouteRouteImport.update({
+  id: '/input-otp',
+  path: '/input-otp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckboxRouteRoute = CheckboxRouteRouteImport.update({
@@ -63,32 +81,41 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
+  '/pickbox': typeof PickboxRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
   '/switch': typeof SwitchRouteRoute
+  '/tabs': typeof TabsRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
+  '/pickbox': typeof PickboxRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
   '/switch': typeof SwitchRouteRoute
+  '/tabs': typeof TabsRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
+  '/pickbox': typeof PickboxRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
   '/switch': typeof SwitchRouteRoute
+  '/tabs': typeof TabsRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -96,46 +123,65 @@ export interface FileRouteTypes {
     | '/'
     | '/button'
     | '/checkbox'
+    | '/input-otp'
     | '/listbox'
     | '/modal'
+    | '/pickbox'
     | '/radio'
     | '/scrollbox'
     | '/switch'
+    | '/tabs'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/button'
     | '/checkbox'
+    | '/input-otp'
     | '/listbox'
     | '/modal'
+    | '/pickbox'
     | '/radio'
     | '/scrollbox'
     | '/switch'
+    | '/tabs'
   id:
     | '__root__'
     | '/'
     | '/button'
     | '/checkbox'
+    | '/input-otp'
     | '/listbox'
     | '/modal'
+    | '/pickbox'
     | '/radio'
     | '/scrollbox'
     | '/switch'
+    | '/tabs'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
+  InputOtpRouteRoute: typeof InputOtpRouteRoute
   ListboxRouteRoute: typeof ListboxRouteRoute
   ModalRouteRoute: typeof ModalRouteRoute
+  PickboxRouteRoute: typeof PickboxRouteRoute
   RadioRouteRoute: typeof RadioRouteRoute
   ScrollboxRouteRoute: typeof ScrollboxRouteRoute
   SwitchRouteRoute: typeof SwitchRouteRoute
+  TabsRouteRoute: typeof TabsRouteRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tabs': {
+      id: '/tabs'
+      path: '/tabs'
+      fullPath: '/tabs'
+      preLoaderRoute: typeof TabsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/switch': {
       id: '/switch'
       path: '/switch'
@@ -157,6 +203,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RadioRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pickbox': {
+      id: '/pickbox'
+      path: '/pickbox'
+      fullPath: '/pickbox'
+      preLoaderRoute: typeof PickboxRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/modal': {
       id: '/modal'
       path: '/modal'
@@ -169,6 +222,13 @@ declare module '@tanstack/react-router' {
       path: '/listbox'
       fullPath: '/listbox'
       preLoaderRoute: typeof ListboxRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/input-otp': {
+      id: '/input-otp'
+      path: '/input-otp'
+      fullPath: '/input-otp'
+      preLoaderRoute: typeof InputOtpRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkbox': {
@@ -199,11 +259,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
+  InputOtpRouteRoute: InputOtpRouteRoute,
   ListboxRouteRoute: ListboxRouteRoute,
   ModalRouteRoute: ModalRouteRoute,
+  PickboxRouteRoute: PickboxRouteRoute,
   RadioRouteRoute: RadioRouteRoute,
   ScrollboxRouteRoute: ScrollboxRouteRoute,
   SwitchRouteRoute: SwitchRouteRoute,
+  TabsRouteRoute: TabsRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

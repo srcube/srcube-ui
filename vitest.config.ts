@@ -16,7 +16,7 @@ export default defineConfig({
           environment: 'jsdom',
           setupFiles: [setupFile],
           include: [
-            'packages/**/tests/**/*.{test,spec}.{ts,tsx}',
+            'packages/**/__tests__/**/*.{test,spec}.{ts,tsx}',
             'tests/**/*.{test,spec}.{ts,tsx}',
           ],
           exclude: [

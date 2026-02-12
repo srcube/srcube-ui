@@ -40,6 +40,7 @@ packages/
 
 ### Template Governance（模板规则）
 - **API 同步**：组件 README 的 API 表为唯一真相；React/Mini 必须一一对应。
+- **Sample 对齐规则**：`apps/sample-react` 与 `apps/sample-mini` 的同组件示例必须覆盖一致的核心场景（如 colors/variants/states），并尽量保持一致的交互模型（例如使用 ButtonGroup 进行颜色切换）；如需平台差异，必须在组件 README 说明原因。
 - **RAC 使用边界**：仅交互型组件使用 RAC（Button/Toggle/Slider 等）。
 - **样式规则**：实现层避免直接写 Tailwind 类，统一通过 `style.ts` + slots 输出。
 - **`$xxx` slots 规则**：`$` 前缀 slot 为适配层专用命名，仅用于小程序实现里“组件套组件”场景下给子组件节点本身挂载 class（例如 `$scrollbox`）；React 侧不消费这类 slot。非 `$` slot 保持通用语义（用于组件自身结构或透传到子组件公开样式入口，如 `className/classNames`）。
@@ -78,4 +79,3 @@ packages/
 ## 8. 层级规范
 - Overlay/Modal 类组件遮罩层从 `z-index: 1000` 开始。
 - 弹窗内容层为遮罩层 `+1`（默认 `1001`）。
-

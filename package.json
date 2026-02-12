@@ -19,6 +19,7 @@
     "dev:mini": "pnpm -C apps/sample-mini dev",
     "dev:react": "pnpm -C apps/sample-react dev",
     "build": "turbo run build",
+    "build:pkg": "turbo run build --filter=./packages/**",
     "test": "turbo run test",
     "lint": "biome check .",
     "lint:fix": "biome check . --write",

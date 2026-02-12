@@ -8,8 +8,11 @@ function App() {
     { title: 'Checkbox', to: '/checkbox' as const },
     { title: 'Radio', to: '/radio' as const },
     { title: 'Switch', to: '/switch' as const },
+    { title: 'Input OTP', to: '/input-otp' as const },
     { title: 'Listbox', to: '/listbox' as const },
+    { title: 'Pickbox', to: '/pickbox' as const },
     { title: 'Modal', to: '/modal' as const },
+    { title: 'Tabs', to: '/tabs' as const },
     { title: 'Scrollbox', to: '/scrollbox' as const },
   ];
 

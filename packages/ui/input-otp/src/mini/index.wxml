@@ -1,0 +1,30 @@
+<view
+  class="sr-input-otp__wrapper {{$classNames.base}}"
+  style="{{style}}"
+  catchtap="handleWrapperTap"
+>
+  <input
+    class="sr-input-otp__hidden-input {{$classNames.hiddenInput}}"
+    value="{{$value}}"
+    maxlength="{{$length}}"
+    disabled="{{$isDisabled}}"
+    password="{{isPassword}}"
+    type="{{keyboardType}}"
+    focus="{{focus}}"
+    bindinput="handleInput"
+    bindfocus="handleFocus"
+    bindblur="handleBlur"
+  />
+
+  <view
+    wx:for="{{$boxes}}"
+    wx:key="index"
+    class="sr-input-otp__box {{$classNames.box}}"
+  >
+    <block wx:if="{{item.char}}">
+      <view wx:if="{{isPassword}}" class="sr-input-otp__dot {{$classNames.dot}}" />
+      <text wx:else>{{item.char}}</text>
+    </block>
+    <view wx:if="{{!item.char && item.showCursor}}" class="sr-input-otp__cursor {{$classNames.cursor}}" />
+  </view>
+</view>
