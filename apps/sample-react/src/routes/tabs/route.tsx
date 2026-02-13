@@ -9,7 +9,7 @@ export const Route = createFileRoute('/tabs')({
   component: TabsDemo,
 });
 
-type DemoTabValue = 'tab-1' | 'tab-2' | 'tab-3' | 'tab-a' | 'tab-b' | 'tab-c';
+type DemoTabValue = string;
 
 type DemoTabItem = {
   value: DemoTabValue;
@@ -73,12 +73,21 @@ function TabsDemo() {
 
   const colorItems = basicItems;
   const customPanelItems = basicItems;
+  const longItems = useMemo<DemoTabItem[]>(
+    () =>
+      Array.from({ length: 36 }, (_, index) => ({
+        value: `long-${index + 1}`,
+        label: `Tab ${index + 1}`,
+      })),
+    [],
+  );
 
   const [basicValue, setBasicValue] = useState<DemoTabValue>('tab-1');
   const [verticalValue, setVerticalValue] = useState<DemoTabValue>('tab-a');
   const [activeColor, setActiveColor] = useState<TabsColor>('default');
   const [colorValue, setColorValue] = useState<DemoTabValue>('tab-1');
   const [customValue, setCustomValue] = useState<DemoTabValue>('tab-1');
+  const [longValue, setLongValue] = useState<DemoTabValue>('long-1');
 
   return (
     <main className="min-h-screen bg-slate-100 pb-24 text-slate-900">
@@ -216,6 +225,26 @@ function TabsDemo() {
               : customValue === 'tab-2'
                 ? 'External Panel: Tab 2'
                 : 'External Panel: Tab 3'}
+          </div>
+        </Section>
+
+        <Section
+          title="Long List"
+          description="virtualized tabs + edge tap auto shift"
+        >
+          <Tabs
+            className="w-full"
+            items={longItems}
+            value={longValue}
+            radius="full"
+            estimateSize={88}
+            onValueChange={(next: string | number) => {
+              setLongValue(String(next));
+            }}
+          />
+
+          <div className="mt-2 text-xs text-slate-500">
+            Selected: {longValue}
           </div>
         </Section>
       </div>

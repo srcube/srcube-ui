@@ -81,6 +81,9 @@ export default function Demo() {
 | size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` | 全平台 |
 | radius | 圆角 | `"none" \| "sm" \| "md" \| "lg" \| "full"` | `"md"` | 全平台 |
 | isDisabled | 整体禁用 | `boolean` | `false` | 全平台 |
+| estimateSize | 单个 tab 预估主轴尺寸（横向=宽度，纵向=高度） | `number` | 按 `size` 推导 | 全平台 |
+| overscan | 虚拟渲染缓冲数量 | `number` | `5` | 全平台 |
+| hideMasks | 是否隐藏滚动边缘渐隐遮罩 | `boolean` | `false` | 全平台 |
 | classNames | slots 样式映射 | `TabsClassNames` | - | 全平台 |
 | className | 根节点 class | `string` | `""` | 全平台 |
 | style | 根节点内联样式 | React: `CSSProperties`；Mini: `string` | - | 全平台 |
@@ -97,12 +100,21 @@ export default function Demo() {
 | className | 根节点 class | `string` | `""` | 全平台 |
 | style | 根节点内联样式 | React: `CSSProperties`；Mini: `string` | - | 全平台 |
 
+## 行为说明
+
+- Tabs 头部支持长列表滚动（横向/纵向均可）。
+- 使用虚拟列表渲染 tab 项：React 基于 `@tanstack/react-virtual`，Mini 基于 `@tanstack/virtual-core`。
+- 点击靠近可视区边缘（最前/最后）tab 时，会按点击方向自动位移：
+  - 横向：前移 / 后移；
+  - 纵向：上移 / 下移。
+- indicator 切换动画为平移滑动，不包含缩放。
+
 ## 平台差异
 
 ### React
 
 - `items[].label` 支持 `ReactNode`。
-- `Tabs` 内部带 indicator，切换动画包含滑动与缩放。
+- `Tabs` 内部带 indicator，切换动画为滑动平移。
 - `TabPanel` 可直接作为 `Tabs` 的 children 使用，默认使用 `Tabs` 当前选中值判定显示。
 
 ### Mini

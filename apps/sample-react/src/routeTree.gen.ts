@@ -17,6 +17,7 @@ import { Route as PickboxRouteRouteImport } from './routes/pickbox/route'
 import { Route as ModalRouteRouteImport } from './routes/modal/route'
 import { Route as ListboxRouteRouteImport } from './routes/listbox/route'
 import { Route as InputOtpRouteRouteImport } from './routes/input-otp/route'
+import { Route as FieldRouteRouteImport } from './routes/field/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -61,6 +62,11 @@ const InputOtpRouteRoute = InputOtpRouteRouteImport.update({
   path: '/input-otp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FieldRouteRoute = FieldRouteRouteImport.update({
+  id: '/field',
+  path: '/field',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CheckboxRouteRoute = CheckboxRouteRouteImport.update({
   id: '/checkbox',
   path: '/checkbox',
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/field': typeof FieldRouteRoute
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/field': typeof FieldRouteRoute
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/field': typeof FieldRouteRoute
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/'
     | '/button'
     | '/checkbox'
+    | '/field'
     | '/input-otp'
     | '/listbox'
     | '/modal'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/'
     | '/button'
     | '/checkbox'
+    | '/field'
     | '/input-otp'
     | '/listbox'
     | '/modal'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/'
     | '/button'
     | '/checkbox'
+    | '/field'
     | '/input-otp'
     | '/listbox'
     | '/modal'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
+  FieldRouteRoute: typeof FieldRouteRoute
   InputOtpRouteRoute: typeof InputOtpRouteRoute
   ListboxRouteRoute: typeof ListboxRouteRoute
   ModalRouteRoute: typeof ModalRouteRoute
@@ -231,6 +244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InputOtpRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/field': {
+      id: '/field'
+      path: '/field'
+      fullPath: '/field'
+      preLoaderRoute: typeof FieldRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/checkbox': {
       id: '/checkbox'
       path: '/checkbox'
@@ -259,6 +279,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
+  FieldRouteRoute: FieldRouteRoute,
   InputOtpRouteRoute: InputOtpRouteRoute,
   ListboxRouteRoute: ListboxRouteRoute,
   ModalRouteRoute: ModalRouteRoute,

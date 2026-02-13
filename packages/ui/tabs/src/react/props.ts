@@ -30,6 +30,9 @@ export type TabsReactProps = TabsVariants &
     value?: TabsValue | null;
     defaultValue?: TabsValue | null;
     onValueChange?: (value: TabsValue) => void;
+    estimateSize?: number;
+    overscan?: number;
+    hideMasks?: boolean;
     className?: string;
     classNames?: TabsClassNames;
     style?: React.CSSProperties | string;

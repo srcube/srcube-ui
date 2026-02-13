@@ -13,6 +13,9 @@ export type TabsMiniProps = TabsVariants & {
   value?: TabsMiniValue | null;
   defaultValue?: TabsMiniValue | null;
   isDisabled?: boolean;
+  estimateSize?: number;
+  overscan?: number;
+  hideMasks?: boolean;
   className?: string;
   classNames?: TabsClassNames;
   style?: string;
@@ -48,6 +51,18 @@ export const tabsMiniProps = {
     value: null,
   },
   isDisabled: {
+    type: Boolean,
+    value: false,
+  },
+  estimateSize: {
+    type: Number,
+    value: 0,
+  },
+  overscan: {
+    type: Number,
+    value: 5,
+  },
+  hideMasks: {
     type: Boolean,
     value: false,
   },

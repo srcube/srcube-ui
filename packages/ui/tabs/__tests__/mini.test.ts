@@ -42,6 +42,12 @@ it('selects first enabled tab by default in uncontrolled mode', () => {
   comp.detach();
 });
 
+it('renders scrollbox host in mini template', () => {
+  expect(template).toContain('sr-tabs__scroll-host');
+  expect(template).toContain('<sr-scrollbox');
+  expect(template).toContain('bind:scroll="handleScroll"');
+});
+
 it('updates uncontrolled value and emits change on tap', async () => {
   const comp = renderTabs({
     items: [
@@ -100,6 +106,32 @@ it('toggles tap-switching state for indicator animation', async () => {
 
   await new Promise((resolve) => setTimeout(resolve, 130));
   expect(comp.data._isTapSwitching).toBe(false);
+
+  comp.detach();
+});
+
+it('renders virtual tabs subset for long list', async () => {
+  const comp = renderTabs({
+    items: Array.from({ length: 40 }, (_, index) => ({
+      value: `tab-${index + 1}`,
+      label: `Tab ${index + 1}`,
+    })),
+    overscan: 1,
+    estimateSize: 80,
+  });
+
+  const instance = comp.instance as {
+    recomputeVirtualTabs: () => void;
+  };
+
+  comp.setData({
+    viewportMainSize: 240,
+    viewportCrossSize: 32,
+  });
+  instance.recomputeVirtualTabs();
+  await new Promise((resolve) => setTimeout(resolve, 0));
+
+  expect(comp.data.renderTabs.length).toBeLessThan(40);
 
   comp.detach();
 });

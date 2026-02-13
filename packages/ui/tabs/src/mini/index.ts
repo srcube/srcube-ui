@@ -1,4 +1,5 @@
 import { UIComponent } from '@srcube-ui/mini';
+import { Virtualizer } from '@tanstack/virtual-core';
 import { tabs, tabsTabState } from '../style';
 import type { TabsMiniItem, TabsMiniProps, TabsMiniValue } from './props';
 import { tabsMiniProps } from './props';
@@ -13,24 +14,76 @@ type TabsColor =
   | 'danger';
 type TabsSize = 'sm' | 'md' | 'lg';
 type TabsRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
+type ScrollSide = 'start' | 'end' | 'top' | 'bottom' | null;
+type ScrollBehavior = 'auto' | 'smooth';
 
-type TabMetric = {
+type RenderTab = {
   token: string;
-  left: number;
-  top: number;
-  width: number;
-  height: number;
+  value: TabsMiniValue;
+  label: string;
+  index: number;
+  isDisabled: boolean;
+  tabClassName: string;
+  tabLabelClassName: string;
+  style: string;
 };
+
+type ScrollEventDetail = {
+  scrollTop?: number;
+  scrollLeft?: number;
+};
+
+type NestedScrollDetail = {
+  detail?: ScrollEventDetail;
+} & ScrollEventDetail;
 
 type TabsMiniData = TabsMiniProps & {
   _innerValue: TabsMiniValue | null;
   _isTapSwitching: boolean;
-  _tabMetrics: TabMetric[];
+  viewportMainSize: number;
+  viewportCrossSize: number;
+  currentOffset: number;
+  totalSize: number;
+  tabsContentStyle: string;
+  renderTabs: RenderTab[];
   indicatorStyle: string;
+  _scrollTop: number | null;
+  _scrollLeft: number | null;
+  _scrollWithAnimation: boolean;
 };
 
 const TAP_SWITCH_DURATION = 120;
-const TAP_SWITCH_SCALE = 0.92;
+
+const HORIZONTAL_ESTIMATE_BY_SIZE = {
+  sm: 72,
+  md: 88,
+  lg: 104,
+} as const;
+
+const VERTICAL_ESTIMATE_BY_SIZE = {
+  sm: 28,
+  md: 32,
+  lg: 36,
+} as const;
+
+const CROSS_SIZE_BY_SIZE = {
+  sm: 28,
+  md: 32,
+  lg: 36,
+} as const;
+
+const EDGE_SHIFT_BY_SIZE = {
+  x: {
+    sm: 45,
+    md: 50,
+    lg: 55,
+  },
+  y: {
+    sm: 15,
+    md: 20,
+    lg: 25,
+  },
+} as const;
 
 function resolveOrientation(value?: string | null): TabsOrientation {
   return value === 'y' ? 'y' : 'x';
@@ -90,6 +143,115 @@ function findItemByValue(items: TabsMiniItem[], value: TabsMiniValue | null) {
   return items.find((item) => item.value === value) ?? null;
 }
 
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function resolveEstimateSize({
+  orientation,
+  size,
+  estimateSize,
+}: {
+  orientation: TabsOrientation;
+  size: TabsSize;
+  estimateSize?: number;
+}) {
+  const preferred = Math.max(0, Number(estimateSize) || 0);
+  if (preferred > 0) {
+    return preferred;
+  }
+
+  if (orientation === 'x') {
+    return HORIZONTAL_ESTIMATE_BY_SIZE[size];
+  }
+
+  return VERTICAL_ESTIMATE_BY_SIZE[size];
+}
+
+function resolveCrossSize(size: TabsSize) {
+  return CROSS_SIZE_BY_SIZE[size];
+}
+
+function resolveEdgeShift({
+  orientation,
+  size,
+}: {
+  orientation: TabsOrientation;
+  size: TabsSize;
+}) {
+  return EDGE_SHIFT_BY_SIZE[orientation][size];
+}
+
+function resolveMaskBleedClassNames({
+  orientation,
+  size,
+}: {
+  orientation: TabsOrientation;
+  size: TabsSize;
+}) {
+  const isSm = size === 'sm';
+
+  if (orientation === 'x') {
+    return {
+      maskLeft: isSm ? '-left-0.5' : '-left-1',
+      maskRight: isSm ? '-right-0.5' : '-right-1',
+    };
+  }
+
+  return {
+    maskTop: isSm ? '-top-0.5' : '-top-1',
+    maskBottom: isSm ? '-bottom-0.5' : '-bottom-1',
+  };
+}
+
+function resolveScrollDetail(rawDetail: NestedScrollDetail | undefined | null) {
+  if (!rawDetail) {
+    return {
+      scrollTop: 0,
+      scrollLeft: 0,
+    };
+  }
+
+  const detail = rawDetail.detail ?? rawDetail;
+  return {
+    scrollTop: Number(detail.scrollTop ?? 0),
+    scrollLeft: Number(detail.scrollLeft ?? 0),
+  };
+}
+
+function createVirtualizer(params: {
+  count: number;
+  estimateSize: number;
+  overscan: number;
+  isHorizontal: boolean;
+  viewportMainSize: number;
+  offset: number;
+}) {
+  const {
+    count,
+    estimateSize,
+    overscan,
+    isHorizontal,
+    viewportMainSize,
+    offset,
+  } = params;
+
+  return new Virtualizer<Element, Element>({
+    count,
+    getScrollElement: () => null,
+    estimateSize: () => estimateSize,
+    overscan,
+    horizontal: isHorizontal,
+    scrollToFn: () => {},
+    observeElementRect: () => {},
+    observeElementOffset: () => {},
+    initialRect: isHorizontal
+      ? { width: viewportMainSize, height: 0 }
+      : { width: 0, height: viewportMainSize },
+    initialOffset: offset,
+  });
+}
+
 UIComponent({
   options: {
     multipleSlots: true,
@@ -101,34 +263,51 @@ UIComponent({
   data: {
     _innerValue: null as TabsMiniValue | null,
     _isTapSwitching: false,
-    _tabMetrics: [] as TabMetric[],
+    viewportMainSize: 0,
+    viewportCrossSize: 0,
+    currentOffset: 0,
+    totalSize: 0,
+    tabsContentStyle: '',
+    renderTabs: [] as RenderTab[],
     indicatorStyle: '',
-  },
+    _scrollTop: null,
+    _scrollLeft: null,
+    _scrollWithAnimation: false,
+  } satisfies TabsMiniData,
 
   observers: {
     items() {
       this.syncInnerValue();
-      this.remeasureAndUpdateIndicator();
+      this.remeasureAndRecompute();
     },
     value() {
       this.handleValueObserver();
-      this.remeasureAndUpdateIndicator();
+      this.remeasureAndRecompute();
     },
     defaultValue() {
       this.syncInnerValue();
-      this.remeasureAndUpdateIndicator();
+      this.remeasureAndRecompute();
     },
     orientation() {
-      this.remeasureAndUpdateIndicator();
+      this.remeasureAndRecompute();
     },
     size() {
-      this.remeasureAndUpdateIndicator();
+      this.remeasureAndRecompute();
     },
     radius() {
-      this.remeasureAndUpdateIndicator();
+      this.remeasureAndRecompute();
+    },
+    color() {
+      this.recomputeVirtualTabs();
     },
     isDisabled() {
-      this.remeasureAndUpdateIndicator();
+      this.recomputeVirtualTabs();
+    },
+    estimateSize() {
+      this.remeasureAndRecompute();
+    },
+    overscan() {
+      this.recomputeVirtualTabs();
     },
   },
 
@@ -149,16 +328,28 @@ UIComponent({
           : toValueToken(activeValue);
     },
     ready() {
-      this.remeasureAndUpdateIndicator();
+      this.remeasureAndRecompute();
     },
     detached() {
       const instance = this as typeof this & {
         _tapSwitchTimer?: ReturnType<typeof setTimeout>;
+        _scrollRecomputeTimer?: ReturnType<typeof setTimeout>;
+        _releaseScrollControlTimer?: ReturnType<typeof setTimeout>;
       };
 
       if (instance._tapSwitchTimer) {
         clearTimeout(instance._tapSwitchTimer);
         instance._tapSwitchTimer = undefined;
+      }
+
+      if (instance._scrollRecomputeTimer) {
+        clearTimeout(instance._scrollRecomputeTimer);
+        instance._scrollRecomputeTimer = undefined;
+      }
+
+      if (instance._releaseScrollControlTimer) {
+        clearTimeout(instance._releaseScrollControlTimer);
+        instance._releaseScrollControlTimer = undefined;
       }
     },
   },
@@ -188,46 +379,39 @@ UIComponent({
       return {
         base: slots.base({ class: classNames.base }),
         tabsWrapper: slots.tabsWrapper({ class: classNames.tabsWrapper }),
+        $scrollbox: slots.$scrollbox({ class: classNames.$scrollbox }),
+        scrollbox: slots.scrollbox({ class: classNames.scrollbox }),
+        scrollboxContent: slots.scrollboxContent({
+          class: classNames.scrollboxContent,
+        }),
         tabsList: slots.tabsList({ class: classNames.tabsList }),
         indicator: slots.indicator({ class: classNames.indicator }),
         tabLabel: slots.tabLabel({ class: classNames.tabLabel }),
         panels: slots.panels({ class: classNames.panels }),
       };
     },
-    $renderItems(data: TabsMiniData) {
+    $scrollboxClassNames(data: TabsMiniData) {
+      const orientation = resolveOrientation(data.orientation);
+      const size = resolveSize(data.size);
       const slots = tabs({
-        orientation: resolveOrientation(data.orientation),
+        orientation,
         color: resolveColor(data.color),
-        size: resolveSize(data.size),
+        size,
         radius: resolveRadius(data.radius),
         isDisabled: Boolean(data.isDisabled),
       });
-
       const classNames = data.classNames ?? {};
-      const items = normalizeItems(data.items);
-      const activeValue =
-        data.value !== null && data.value !== undefined
-          ? data.value
-          : data._innerValue;
-
-      return items.map((item) => {
-        const itemDisabled = Boolean(data.isDisabled || item.isDisabled);
-        const stateClassName = tabsTabState({
-          color: resolveColor(data.color),
-          isSelected: activeValue === item.value,
-          isDisabled: itemDisabled,
-        });
-
-        return {
-          ...item,
-          token: toValueToken(item.value),
-          tabClassName: slots.tab({
-            class: [classNames.tab, stateClassName],
-          }),
-          tabLabelClassName: slots.tabLabel({ class: classNames.tabLabel }),
-          isDisabled: itemDisabled,
-        };
+      const maskClassNames = resolveMaskBleedClassNames({
+        orientation,
+        size,
       });
+
+      return {
+        content: slots.scrollboxContent({
+          class: classNames.scrollboxContent,
+        }),
+        ...maskClassNames,
+      };
     },
   },
 
@@ -283,106 +467,394 @@ UIComponent({
       instance._lastActiveToken = nextToken;
     },
 
-    remeasureAndUpdateIndicator() {
-      this.measureTabs(() => {
-        this.updateIndicatorStyle();
-      });
-    },
-
-    measureTabs(done?: () => void) {
+    remeasureAndRecompute() {
       const query = this.createSelectorQuery();
-      query.select('.sr-tabs__tabs-list').boundingClientRect();
-      query.selectAll('.sr-tabs__tab-item').boundingClientRect();
+      query.select('.sr-tabs__scroll-host').boundingClientRect();
       query.exec(
         (
-          rects: Array<
-            | WechatMiniprogram.BoundingClientRectCallbackResult
-            | WechatMiniprogram.BoundingClientRectCallbackResult[]
-            | null
-          >,
+          rects: Array<WechatMiniprogram.BoundingClientRectCallbackResult | null>,
         ) => {
-          const listRect = rects[0] as
-            | WechatMiniprogram.BoundingClientRectCallbackResult
-            | null;
-          const tabRects = Array.isArray(rects[1])
-            ? (rects[1] as WechatMiniprogram.BoundingClientRectCallbackResult[])
-            : [];
-
-          if (!listRect) {
-            this.setData(
-              {
-                _tabMetrics: [],
-              },
-              () => {
-                done?.();
-              },
-            );
+          const scrollRect = rects[0];
+          if (!scrollRect) {
             return;
           }
 
-          const items = normalizeItems(this.data.items);
-          const metrics: TabMetric[] = [];
-
-          tabRects.forEach((rect, index) => {
-            const item = items[index];
-            if (!item) {
-              return;
-            }
-
-            metrics.push({
-              token: toValueToken(item.value),
-              left: Math.max(0, (rect.left ?? 0) - (listRect.left ?? 0)),
-              top: Math.max(0, (rect.top ?? 0) - (listRect.top ?? 0)),
-              width: rect.width ?? 0,
-              height: rect.height ?? 0,
-            });
-          });
+          const orientation = resolveOrientation(this.data.orientation);
+          const nextViewportMainSize =
+            orientation === 'x'
+              ? (scrollRect.width ?? 0)
+              : (scrollRect.height ?? 0);
+          const nextViewportCrossSize =
+            orientation === 'x'
+              ? (scrollRect.height ?? 0)
+              : (scrollRect.width ?? 0);
 
           this.setData(
             {
-              _tabMetrics: metrics,
+              viewportMainSize: nextViewportMainSize,
+              viewportCrossSize: nextViewportCrossSize,
             },
             () => {
-              done?.();
+              this.recomputeVirtualTabs();
+              this.ensureActiveVisible(null, 'auto');
             },
           );
         },
       );
     },
 
-    updateIndicatorStyle() {
+    recomputeVirtualTabs() {
+      const items = normalizeItems(this.data.items);
+      if (items.length === 0) {
+        this.setData(
+          {
+            totalSize: 0,
+            tabsContentStyle: '',
+            renderTabs: [],
+            indicatorStyle: '',
+          } satisfies Partial<TabsMiniData>,
+        );
+        return;
+      }
+
+      const orientation = resolveOrientation(this.data.orientation);
+      const size = resolveSize(this.data.size);
+      const color = resolveColor(this.data.color);
+      const radius = resolveRadius(this.data.radius);
+      const isHorizontal = orientation === 'x';
+      const estimate = resolveEstimateSize({
+        orientation,
+        size,
+        estimateSize: this.data.estimateSize,
+      });
+      const overscan = Math.max(1, Number(this.data.overscan) || 5);
+      const offset = Math.max(0, Number(this.data.currentOffset) || 0);
+      const viewportMainSize = Math.max(
+        0,
+        Number(this.data.viewportMainSize) || 0,
+      );
+      const viewportCrossSize = Math.max(
+        0,
+        Number(this.data.viewportCrossSize) || 0,
+      );
+      const crossSize = Math.max(1, viewportCrossSize || resolveCrossSize(size));
+
+      const slots = tabs({
+        orientation,
+        color,
+        size,
+        radius,
+        isDisabled: Boolean(this.data.isDisabled),
+      });
+      const classNames = this.data.classNames ?? {};
+
       const activeValue =
         this.data.value !== null && this.data.value !== undefined
           ? this.data.value
           : this.data._innerValue;
 
-      if (activeValue === null || activeValue === undefined) {
+      const virtualizer = createVirtualizer({
+        count: items.length,
+        estimateSize: estimate,
+        overscan,
+        isHorizontal,
+        viewportMainSize,
+        offset,
+      });
+
+      const virtualItems = virtualizer.getVirtualItems();
+      const hasVirtualItems = virtualItems.length > 0;
+      const fallbackCount = Math.min(items.length, Math.max(1, overscan * 2 + 1));
+      const fallbackItems = hasVirtualItems
+        ? []
+        : Array.from({ length: fallbackCount }, (_, index) => ({
+            key: `fallback-${index}`,
+            index,
+            start: index * estimate,
+            size: estimate,
+          }));
+      const renderSource = hasVirtualItems ? virtualItems : fallbackItems;
+      const totalSize = virtualizer.getTotalSize();
+
+      const renderTabs: RenderTab[] = renderSource
+        .map((virtualItem) => {
+          const item = items[virtualItem.index];
+          if (!item) {
+            return null;
+          }
+
+          const itemDisabled = Boolean(this.data.isDisabled || item.isDisabled);
+          const stateClassName = tabsTabState({
+            color,
+            isSelected: activeValue === item.value,
+            isDisabled: itemDisabled,
+          });
+
+          const style = isHorizontal
+            ? `position:absolute;left:0;top:0;width:${virtualItem.size}px;height:100%;transform:translate3d(${virtualItem.start}px,0,0);`
+            : `position:absolute;left:0;top:0;width:100%;height:${virtualItem.size}px;transform:translate3d(0,${virtualItem.start}px,0);`;
+
+          return {
+            token: toValueToken(item.value),
+            value: item.value,
+            label: String(item.label ?? ''),
+            index: virtualItem.index,
+            isDisabled: itemDisabled,
+            tabClassName: slots.tab({
+              class: [classNames.tab, stateClassName],
+            }),
+            tabLabelClassName: slots.tabLabel({ class: classNames.tabLabel }),
+            style,
+          };
+        })
+        .filter((item): item is RenderTab => !!item);
+
+      const tabsContentStyle = isHorizontal
+        ? `position:relative;width:${totalSize}px;height:${crossSize}px;`
+        : `position:relative;width:100%;height:${totalSize}px;`;
+
+      this.setData(
+        {
+          totalSize,
+          tabsContentStyle,
+          renderTabs,
+        } satisfies Partial<TabsMiniData>,
+        () => {
+          this.updateIndicatorStyle();
+        },
+      );
+    },
+
+    updateIndicatorStyle() {
+      const items = normalizeItems(this.data.items);
+      const activeValue =
+        this.data.value !== null && this.data.value !== undefined
+          ? this.data.value
+          : this.data._innerValue;
+      const activeIndex = items.findIndex((item) => item.value === activeValue);
+
+      if (activeIndex < 0) {
         if (this.data.indicatorStyle !== '') {
           this.setData({ indicatorStyle: '' });
         }
         return;
       }
 
-      const token = toValueToken(activeValue);
-      const metric = this.data._tabMetrics.find((item) => item.token === token);
-
-      if (!metric) {
-        if (this.data.indicatorStyle !== '') {
-          this.setData({ indicatorStyle: '' });
-        }
-        return;
-      }
-
-      const scale = this.data._isTapSwitching ? TAP_SWITCH_SCALE : 1;
       const orientation = resolveOrientation(this.data.orientation);
+      const size = resolveSize(this.data.size);
+      const estimate = resolveEstimateSize({
+        orientation,
+        size,
+        estimateSize: this.data.estimateSize,
+      });
+      const start = activeIndex * estimate;
       const indicatorStyle =
         orientation === 'y'
-          ? `width:${metric.width}px;height:${metric.height}px;transform:translate3d(0,${metric.top}px,0) scaleY(${scale});`
-          : `width:${metric.width}px;height:${metric.height}px;transform:translate3d(${metric.left}px,0,0) scaleX(${scale});`;
+          ? `width:100%;height:${estimate}px;transform:translate3d(0,${start}px,0);`
+          : `width:${estimate}px;height:100%;transform:translate3d(${start}px,0,0);`;
 
       if (indicatorStyle !== this.data.indicatorStyle) {
         this.setData({ indicatorStyle });
       }
+    },
+
+    resolveTapSide(tabIndex: number): ScrollSide {
+      const orientation = resolveOrientation(this.data.orientation);
+      const size = resolveSize(this.data.size);
+      const estimate = resolveEstimateSize({
+        orientation,
+        size,
+        estimateSize: this.data.estimateSize,
+      });
+      const viewportSize = Math.max(0, Number(this.data.viewportMainSize) || 0);
+      const currentOffset = Math.max(0, Number(this.data.currentOffset) || 0);
+
+      if (viewportSize <= 0) {
+        return null;
+      }
+
+      const itemCenter = tabIndex * estimate + estimate / 2;
+      const relativeCenter = itemCenter - currentOffset;
+
+      if (orientation === 'x') {
+        return relativeCenter < viewportSize / 2 ? 'start' : 'end';
+      }
+
+      return relativeCenter < viewportSize / 2 ? 'top' : 'bottom';
+    },
+
+    ensureActiveVisible(preferSide: ScrollSide = null, behavior: ScrollBehavior = 'auto') {
+      const items = normalizeItems(this.data.items);
+      const activeValue =
+        this.data.value !== null && this.data.value !== undefined
+          ? this.data.value
+          : this.data._innerValue;
+      const activeIndex = items.findIndex((item) => item.value === activeValue);
+      if (activeIndex < 0) {
+        return;
+      }
+
+      this.ensureTabVisible(activeIndex, preferSide, behavior);
+    },
+
+    ensureTabVisible(
+      tabIndex: number,
+      preferSide: ScrollSide = null,
+      behavior: ScrollBehavior = 'smooth',
+    ) {
+      if (tabIndex < 0) {
+        return;
+      }
+
+      const orientation = resolveOrientation(this.data.orientation);
+      const size = resolveSize(this.data.size);
+      const estimate = resolveEstimateSize({
+        orientation,
+        size,
+        estimateSize: this.data.estimateSize,
+      });
+      const viewportSize = Math.max(0, Number(this.data.viewportMainSize) || 0);
+      const totalSize = Math.max(0, Number(this.data.totalSize) || 0);
+
+      if (viewportSize <= 0) {
+        return;
+      }
+
+      const maxOffset = Math.max(0, totalSize - viewportSize);
+      const edgeShift = resolveEdgeShift({ orientation, size });
+      const itemStart = tabIndex * estimate;
+      const itemEnd = itemStart + estimate;
+      const visibleStart = Math.max(0, Number(this.data.currentOffset) || 0);
+      const visibleEnd = visibleStart + viewportSize;
+      const nearStart = itemStart - visibleStart <= edgeShift;
+      const nearEnd = visibleEnd - itemEnd <= edgeShift;
+      const outStart = itemStart < visibleStart;
+      const outEnd = itemEnd > visibleEnd;
+
+      if (!outStart && !outEnd && !nearStart && !nearEnd) {
+        return;
+      }
+
+      const candidateMin = clamp(itemStart - edgeShift, 0, maxOffset);
+      const candidateMax = clamp(
+        Math.max(0, itemEnd - viewportSize) + edgeShift,
+        0,
+        maxOffset,
+      );
+
+      let target = visibleStart;
+      if (preferSide === 'start' || preferSide === 'top') {
+        target = candidateMin;
+      } else if (preferSide === 'end' || preferSide === 'bottom') {
+        target = candidateMax;
+      } else if (outStart) {
+        target = candidateMin;
+      } else if (outEnd) {
+        target = candidateMax;
+      } else if (nearEnd) {
+        target = candidateMax;
+      } else if (nearStart) {
+        target = candidateMin;
+      }
+
+      if (Math.abs(target - visibleStart) < 1) {
+        return;
+      }
+
+      this.applyScrollOffset(target, behavior);
+    },
+
+    applyScrollOffset(target: number, behavior: ScrollBehavior) {
+      const orientation = resolveOrientation(this.data.orientation);
+      const maxOffset = Math.max(
+        0,
+        Number(this.data.totalSize) - Number(this.data.viewportMainSize),
+      );
+      const nextOffset = clamp(target, 0, maxOffset);
+      const currentOffset = Math.max(0, Number(this.data.currentOffset) || 0);
+
+      if (Math.abs(nextOffset - currentOffset) < 1) {
+        return;
+      }
+
+      const axisKey = orientation === 'x' ? '_scrollLeft' : '_scrollTop';
+      const currentAxisValue = Number(this.data[axisKey] ?? 0) || 0;
+      const withAnimation = behavior === 'smooth';
+
+      if (Math.abs(currentAxisValue - nextOffset) < 1) {
+        const tempOffset =
+          nextOffset > 0
+            ? Math.max(0, nextOffset - 1)
+            : Math.min(maxOffset, nextOffset + 1);
+
+        this.setData(
+          {
+            [axisKey]: tempOffset,
+            _scrollWithAnimation: false,
+          } as unknown as Partial<TabsMiniData>,
+          () => {
+            this.setData({
+              [axisKey]: nextOffset,
+              currentOffset: nextOffset,
+              _scrollWithAnimation: withAnimation,
+            } as unknown as Partial<TabsMiniData>);
+            this.scheduleReleaseScrollControl(withAnimation);
+          },
+        );
+        return;
+      }
+
+      this.setData({
+        [axisKey]: nextOffset,
+        currentOffset: nextOffset,
+        _scrollWithAnimation: withAnimation,
+      } as unknown as Partial<TabsMiniData>);
+      this.scheduleReleaseScrollControl(withAnimation);
+    },
+
+    scheduleReleaseScrollControl(withAnimation: boolean) {
+      const instance = this as typeof this & {
+        _releaseScrollControlTimer?: ReturnType<typeof setTimeout>;
+      };
+
+      if (instance._releaseScrollControlTimer) {
+        clearTimeout(instance._releaseScrollControlTimer);
+      }
+
+      const delay = withAnimation ? 280 : 0;
+      instance._releaseScrollControlTimer = setTimeout(() => {
+        instance._releaseScrollControlTimer = undefined;
+        this.setData({
+          _scrollTop: null,
+          _scrollLeft: null,
+          _scrollWithAnimation: false,
+        } satisfies Partial<TabsMiniData>);
+      }, delay);
+    },
+
+    scheduleRecomputeFromScroll(nextOffset: number) {
+      const instance = this as typeof this & {
+        _scrollRecomputeTimer?: ReturnType<typeof setTimeout>;
+        _nextScrollOffset?: number;
+      };
+
+      instance._nextScrollOffset = nextOffset;
+      if (instance._scrollRecomputeTimer) {
+        return;
+      }
+
+      instance._scrollRecomputeTimer = setTimeout(() => {
+        instance._scrollRecomputeTimer = undefined;
+        const offset = Math.max(0, Number(instance._nextScrollOffset) || 0);
+        this.setData(
+          {
+            currentOffset: offset,
+          } satisfies Partial<TabsMiniData>,
+          () => {
+            this.recomputeVirtualTabs();
+          },
+        );
+      }, 16);
     },
 
     triggerTapSwitch() {
@@ -417,6 +889,21 @@ UIComponent({
       }, TAP_SWITCH_DURATION);
     },
 
+    handleScroll(e: WechatMiniprogram.CustomEvent<NestedScrollDetail>) {
+      const orientation = resolveOrientation(this.data.orientation);
+      const detail = resolveScrollDetail(e.detail);
+      const nextOffset =
+        orientation === 'x' ? detail.scrollLeft : detail.scrollTop;
+
+      if (this.data._scrollWithAnimation) {
+        this.setData({
+          _scrollWithAnimation: false,
+        } satisfies Partial<TabsMiniData>);
+      }
+
+      this.scheduleRecomputeFromScroll(nextOffset);
+    },
+
     handleTabTap(e: WechatMiniprogram.BaseEvent) {
       const index = Number(e.currentTarget.dataset.index);
       if (Number.isNaN(index)) {
@@ -439,9 +926,11 @@ UIComponent({
           ? this.data.value
           : this.data._innerValue;
       if (activeValue === item.value) {
+        this.ensureTabVisible(index, this.resolveTapSide(index), 'smooth');
         return;
       }
 
+      const preferSide = this.resolveTapSide(index);
       this.triggerTapSwitch();
 
       if (this.data.value === null || this.data.value === undefined) {
@@ -450,10 +939,12 @@ UIComponent({
             _innerValue: item.value,
           },
           () => {
-            this.remeasureAndUpdateIndicator();
+            this.recomputeVirtualTabs();
+            this.ensureTabVisible(index, preferSide, 'smooth');
           },
         );
       } else {
+        this.ensureTabVisible(index, preferSide, 'smooth');
         this.updateIndicatorStyle();
       }
 

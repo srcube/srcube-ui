@@ -10,6 +10,10 @@ Page({
         url: '/packages/checkbox/pages/sample/index',
       },
       {
+        title: 'Field',
+        url: '/packages/field/pages/sample/index',
+      },
+      {
         title: 'Radio',
         url: '/packages/radio/pages/sample/index',
       },

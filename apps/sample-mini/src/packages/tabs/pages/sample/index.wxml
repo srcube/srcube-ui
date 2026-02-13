@@ -140,5 +140,23 @@
         <view wx:else>External Panel: Tab 3</view>
       </view>
     </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Long List</view>
+      <view class="mt-1 text-xs text-slate-500">virtualized tabs + edge tap auto shift</view>
+
+      <sr-tabs
+        className="mt-3"
+        items="{{longTabs}}"
+        value="{{longValue}}"
+        radius="full"
+        estimateSize="{{88}}"
+        bind:change="handleLongChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Selected: {{longValue}}
+      </view>
+    </view>
   </view>
 </view>

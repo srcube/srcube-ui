@@ -11,6 +11,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/field",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/scrollbox",
       "pages": ["pages/sample/index"]
     },

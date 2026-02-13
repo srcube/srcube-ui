@@ -6,10 +6,13 @@ import {
 
 export const tabs = tv({
   slots: {
-    base: 'flex w-full',
-    tabsWrapper: 'inline-flex relative w-fit max-w-full overflow-hidden p-1',
-    tabsList: 'relative flex w-full h-fit box-border',
-    tab: 'relative z-0 inline-flex w-full cursor-pointer items-center justify-center border-none bg-transparent px-3 py-1.5 outline-none select-none transition-opacity',
+    base: 'flex w-full min-w-0',
+    tabsWrapper: 'relative inline-flex w-fit max-w-full overflow-hidden',
+    $scrollbox: '',
+    scrollbox: 'h-full overflow-visible',
+    scrollboxContent: '',
+    tabsList: 'relative',
+    tab: 'absolute left-0 top-0 z-10 inline-flex cursor-pointer items-center justify-center border-none bg-transparent px-3 py-1.5 outline-none select-none transition-opacity',
     tabLabel: 'relative z-10 w-full whitespace-nowrap text-center transition-colors',
     indicator:
       'pointer-events-none absolute left-0 top-0 z-0 border border-transparent transition-all duration-200 ease-out',
@@ -20,14 +23,18 @@ export const tabs = tv({
     orientation: {
       x: {
         base: 'flex-col gap-3',
-        tabsWrapper: 'w-full',
-        tabsList: 'flex-row items-center',
-        tab: 'flex-1',
+        $scrollbox: 'w-fit max-w-full min-w-0',
+        scrollbox: 'w-fit max-w-full',
+        scrollboxContent: 'h-full',
+        tabsList: 'h-full',
       },
       y: {
         base: 'flex-row items-stretch gap-3',
         tabsWrapper: 'w-40 shrink-0',
-        tabsList: 'h-full flex-col',
+        $scrollbox: 'h-full min-h-0',
+        scrollbox: 'w-full !h-full',
+        scrollboxContent: 'w-full',
+        tabsList: 'w-full',
         tab: 'justify-start',
         tabLabel: 'text-left',
       },
@@ -35,16 +42,19 @@ export const tabs = tv({
     size: {
       sm: {
         tabsWrapper: 'p-0.5',
+        scrollbox: 'h-7',
         tab: 'min-h-7 px-2',
         tabLabel: 'text-xs',
       },
       md: {
         tabsWrapper: 'p-1',
+        scrollbox: 'h-8',
         tab: 'min-h-8 px-3',
         tabLabel: 'text-sm',
       },
       lg: {
         tabsWrapper: 'p-1',
+        scrollbox: 'h-9',
         tab: 'min-h-9 px-4',
         tabLabel: 'text-base',
       },

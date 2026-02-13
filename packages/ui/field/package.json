@@ -1,5 +1,5 @@
 {
-  "name": "@srcube-ui/tabs",
+  "name": "@srcube-ui/field",
   "version": "0.0.0",
   "type": "module",
   "miniprogram": "dist/mini",
@@ -9,7 +9,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsdown",
-    "test": "pnpm -w vitest run --config vitest.config.ts --dir packages/ui/tabs"
+    "test": "pnpm -w vitest run --config vitest.config.ts --dir packages/ui/field"
   },
   "exports": {
     ".": {
@@ -24,19 +24,15 @@
       "types": "./dist/mini/index.d.ts",
       "import": "./dist/mini/index.js"
     },
-    "./mini/tab-panel": {
-      "types": "./dist/mini/tab-panel/index.d.ts",
-      "import": "./dist/mini/tab-panel/index.js"
-    },
     "./react": {
       "types": "./dist/react/index.d.ts",
       "import": "./dist/react/index.js"
     }
   },
   "dependencies": {
-    "@srcube-ui/scrollbox": "workspace:*",
-    "@tanstack/react-virtual": "catalog:",
-    "@tanstack/virtual-core": "catalog:"
+    "@srcube-ui/mini": "workspace:*",
+    "@srcube-ui/react": "workspace:*",
+    "@srcube-ui/theme": "workspace:*"
   },
   "devDependencies": {
     "@srcube-ui/config": "workspace:*",
@@ -44,12 +40,6 @@
     "react-dom": "catalog:"
   },
   "peerDependencies": {
-    "@srcube-ui/mini": "workspace:*",
-    "@srcube-ui/react": "workspace:*",
-    "@srcube-ui/scrollbox": "workspace:*",
-    "@srcube-ui/theme": "workspace:*",
-    "@tanstack/react-virtual": "catalog:",
-    "@tanstack/virtual-core": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   }

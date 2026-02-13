@@ -1,0 +1,70 @@
+<view
+  class="sr-field__base {{$classNames.base}}"
+  style="{{style}}"
+  bindtap="handleBaseTap"
+>
+  <label
+    wx:if="{{$showOutsideLabel}}"
+    class="sr-field__label {{$classNames.label}}"
+    for="{{$controlId}}"
+  >
+    {{label}}
+    <text wx:if="{{isRequired}}" class="sr-field__required {{$classNames.requiredMark}}">*</text>
+  </label>
+
+  <view class="sr-field__outside-wrapper {{$classNames.outsideWrapper}}">
+    <view class="sr-field__control-wrapper {{$classNames.controlWrapper}}">
+      <label
+        wx:if="{{$showInsideLabel}}"
+        class="sr-field__label {{$classNames.label}}"
+        for="{{$controlId}}"
+      >
+        {{label}}
+        <text wx:if="{{isRequired}}" class="sr-field__required {{$classNames.requiredMark}}">*</text>
+      </label>
+
+      <view class="sr-field__control {{$classNames.control}}">
+        <view
+          wx:if="{{hasStartContent}}"
+          class="sr-field__start {{$classNames.startContent}}"
+        >
+          <slot name="start" />
+        </view>
+
+        <view
+          wx:if="{{$showFallbackControl}}"
+          id="{{$controlId}}"
+          class="sr-field__input {{$classNames.input}}"
+        >
+          {{$displayValue}}
+        </view>
+        <slot wx:else />
+
+        <view
+          wx:if="{{$showClearButton}}"
+          class="sr-field__clear {{$classNames.clearButton}}"
+          catchtap="handleClearTap"
+        >
+          <slot wx:if="{{hasClearContent}}" name="clear" />
+          <view wx:else class="{{$classNames._iClear}}" />
+        </view>
+
+        <view
+          wx:if="{{hasEndContent}}"
+          class="sr-field__end {{$classNames.endContent}}"
+        >
+          <slot name="end" />
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{$hasHelper}}" class="sr-field__helper {{$classNames.helperWrapper}}">
+      <view wx:if="{{errorMessage}}" class="sr-field__error {{$classNames.errorMessage}}">
+        {{errorMessage}}
+      </view>
+      <view wx:elif="{{description}}" class="sr-field__description {{$classNames.description}}">
+        {{description}}
+      </view>
+    </view>
+  </view>
+</view>

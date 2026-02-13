@@ -215,6 +215,9 @@ importers:
       '@srcube-ui/checkbox':
         specifier: workspace:*
         version: link:../../packages/ui/checkbox
+      '@srcube-ui/field':
+        specifier: workspace:*
+        version: link:../../packages/ui/field
       '@srcube-ui/input-otp':
         specifier: workspace:*
         version: link:../../packages/ui/input-otp
@@ -288,6 +291,9 @@ importers:
       '@srcube-ui/checkbox':
         specifier: workspace:*
         version: link:../../packages/ui/checkbox
+      '@srcube-ui/field':
+        specifier: workspace:*
+        version: link:../../packages/ui/field
       '@srcube-ui/input-otp':
         specifier: workspace:*
         version: link:../../packages/ui/input-otp
@@ -556,6 +562,28 @@ importers:
         specifier: 'catalog:'
         version: 19.2.4(react@19.2.4)
 
+  packages/ui/field:
+    dependencies:
+      '@srcube-ui/mini':
+        specifier: workspace:*
+        version: link:../../mini
+      '@srcube-ui/react':
+        specifier: workspace:*
+        version: link:../../react
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
   packages/ui/input-otp:
     dependencies:
       '@srcube-ui/mini':
@@ -748,9 +776,18 @@ importers:
       '@srcube-ui/react':
         specifier: workspace:*
         version: link:../../react
+      '@srcube-ui/scrollbox':
+        specifier: workspace:*
+        version: link:../scrollbox
       '@srcube-ui/theme':
         specifier: workspace:*
         version: link:../../theme
+      '@tanstack/react-virtual':
+        specifier: 'catalog:'
+        version: 3.13.18(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@tanstack/virtual-core':
+        specifier: 'catalog:'
+        version: 3.13.18
     devDependencies:
       '@srcube-ui/config':
         specifier: workspace:*

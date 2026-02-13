@@ -1,10 +1,4 @@
-type DemoTabValue =
-  | 'tab-1'
-  | 'tab-2'
-  | 'tab-3'
-  | 'tab-a'
-  | 'tab-b'
-  | 'tab-c';
+type DemoTabValue = string;
 
 const tabsColorGroups = [
   [
@@ -52,6 +46,12 @@ Page({
       { value: 'tab-2', label: 'Tab 2' },
       { value: 'tab-3', label: 'Tab 3' },
     ],
+
+    longValue: 'long-1' as DemoTabValue,
+    longTabs: Array.from({ length: 36 }, (_, index) => ({
+      value: `long-${index + 1}`,
+      label: `Tab ${index + 1}`,
+    })),
   },
 
   handleBasicChange(e: WechatMiniprogram.CustomEvent<{ value?: string }>) {
@@ -114,6 +114,17 @@ Page({
 
     this.setData({
       customValue: value,
+    });
+  },
+
+  handleLongChange(e: WechatMiniprogram.CustomEvent<{ value?: string }>) {
+    const value = e.detail?.value as DemoTabValue | undefined;
+    if (!value) {
+      return;
+    }
+
+    this.setData({
+      longValue: value,
     });
   },
 });

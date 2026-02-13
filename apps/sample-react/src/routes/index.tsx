@@ -6,6 +6,7 @@ function App() {
   const components: { title: string; to: string }[] = [
     { title: 'Button', to: '/button' as const },
     { title: 'Checkbox', to: '/checkbox' as const },
+    { title: 'Field', to: '/field' as const },
     { title: 'Radio', to: '/radio' as const },
     { title: 'Switch', to: '/switch' as const },
     { title: 'Input OTP', to: '/input-otp' as const },
