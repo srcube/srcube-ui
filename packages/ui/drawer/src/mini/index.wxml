@@ -1,0 +1,30 @@
+<sr-modal
+  class="sr-drawer__modal {{$classNames.$modal}}"
+  className="{{className}}"
+  classNames="{{$modalClassNames}}"
+  style="{{style}}"
+  isOpen="{{$resolvedOpen}}"
+  isDismissable="{{isDismissable}}"
+  hasBackdrop="{{hasBackdrop}}"
+  motion="none"
+  backdrop="{{backdrop}}"
+  bind:openchange="handleOpenChange"
+  bind:close="handleClose"
+  bind:backdropclick="handleBackdropClick"
+>
+  <view slot="header">
+    <slot name="header">
+      <text wx:if="{{title}}">{{title}}</text>
+    </slot>
+  </view>
+
+  <view slot="body">
+    <slot name="body">
+      <slot />
+    </slot>
+  </view>
+
+  <view slot="footer">
+    <slot name="footer" />
+  </view>
+</sr-modal>

@@ -58,6 +58,7 @@ export default function Demo() {
 | defaultOpen | 默认打开 | `boolean` | `false` | 全平台 |
 | isDismissable | 是否允许点击遮罩关闭 | `boolean` | `true` | 全平台 |
 | hasBackdrop | 是否显示遮罩 | `boolean` | `true` | 全平台 |
+| motion | 内容层动画策略 | `"modal" \| "none"` | `"modal"` | 全平台 |
 | backdrop | 遮罩样式 | `"transparent" \| "opaque" \| "blur"` | `"opaque"` | 全平台 |
 | onOpenChange | 开关变化 | `(isOpen: boolean) => void` | - | 全平台 |
 | onClose | 关闭回调 | `() => void` | - | 全平台 |
@@ -88,4 +89,3 @@ export default function Demo() {
 
 - 弹窗遮罩层从 `z-index: 1000` 开始。
 - 弹窗内容层为遮罩层 `+1`（默认 `1001`）。
-

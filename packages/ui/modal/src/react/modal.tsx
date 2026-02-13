@@ -13,6 +13,7 @@ const Modal = forwardRef<ModalRef, ModalProps>((props, ref) => {
     children,
     getRootPortalProps,
     isOpen,
+    isVisible,
     isDismissable,
     hasBackdrop,
     setOpen,
@@ -25,7 +26,7 @@ const Modal = forwardRef<ModalRef, ModalProps>((props, ref) => {
   return (
     <ModalOverlay
       {...getRootPortalProps()}
-      isOpen={isOpen}
+      isOpen={isVisible}
       onOpenChange={setOpen}
       isDismissable={isDismissable}
       isKeyboardDismissDisabled={!isDismissable}

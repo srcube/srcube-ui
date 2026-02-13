@@ -1,22 +1,26 @@
-import type { ModalClasses, ModalVariants } from '../style';
+import type { DrawerMiniClassNames, DrawerPlacement } from '../style';
 
-export type ModalMiniProps = ModalVariants & {
-  isOpen?: boolean;
+export type DrawerMiniProps = {
+  isOpen?: boolean | null;
   defaultOpen?: boolean;
   isDismissable?: boolean;
   hasBackdrop?: boolean;
+  backdrop?: 'transparent' | 'opaque' | 'blur';
+  placement?: DrawerPlacement;
+  title?: string;
   className?: string;
-  classNames?: ModalClasses;
+  classNames?: DrawerMiniClassNames;
   style?: string;
 };
 
-export const modalMiniProps = {
+export const drawerMiniProps = {
   isOpen: { type: null, value: null },
   defaultOpen: { type: Boolean, value: false },
   isDismissable: { type: Boolean, value: true },
   hasBackdrop: { type: Boolean, value: true },
-  motion: { type: null, value: 'modal' },
   backdrop: { type: null, value: 'opaque' },
+  placement: { type: null, value: 'bottom' },
+  title: { type: String, value: '' },
   className: { type: String, value: '' },
   classNames: { type: Object, value: {} },
   style: { type: String, value: '' },

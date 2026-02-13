@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { modal } from '../style';
 import type { ModalClassNames, ModalReactProps, ModalRef } from './props';
+import { useAnimatePresence } from './use-animate-presence';
 
 let scrollLockCount = 0;
 let originalBodyOverflow: string | null = null;
@@ -44,6 +45,7 @@ export function useModal(props: UseModalProps) {
     defaultOpen,
     isDismissable = true,
     hasBackdrop = true,
+    motion,
     backdrop,
     children,
     className,
@@ -59,6 +61,8 @@ export function useModal(props: UseModalProps) {
     defaultOpen ?? false,
   );
   const isOpen = isControlled ? Boolean(isOpenProp) : uncontrolledOpen;
+  const { isVisible, isClosing } = useAnimatePresence({ isOpen, duration: 500 });
+  const isMotionOpen = isVisible && !isClosing;
 
   const setOpen = useCallback(
     (next: boolean) => {
@@ -82,20 +86,21 @@ export function useModal(props: UseModalProps) {
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isVisible) return;
     lockPageScroll();
     return () => {
       unlockPageScroll();
     };
-  }, [isOpen]);
+  }, [isVisible]);
 
   const slots = useMemo(
     () =>
       modal({
-        isOpen,
+        isOpen: isMotionOpen,
+        motion: motion ?? undefined,
         backdrop: backdrop ?? undefined,
       }),
-    [isOpen, backdrop],
+    [isMotionOpen, motion, backdrop],
   );
 
   useImperativeHandle(ref, () => {
@@ -124,6 +129,8 @@ export function useModal(props: UseModalProps) {
     isDismissable,
     hasBackdrop,
     isOpen,
+    isVisible,
+    isClosing,
     open,
     close,
     setOpen,

@@ -49,7 +49,11 @@ UIComponent({
         data.isOpen !== null && data.isOpen !== undefined
           ? Boolean(data.isOpen)
           : data._innerOpen;
-      const slots = modal({ isOpen, backdrop: data.backdrop });
+      const slots = modal({
+        isOpen,
+        motion: data.motion,
+        backdrop: data.backdrop,
+      });
 
       return {
         rootPortal: slots.rootPortal({ class: custom.rootPortal }),
