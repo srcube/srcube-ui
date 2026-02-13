@@ -335,9 +335,13 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
           resolvedOrientation === 'x' ? node.scrollLeft : node.scrollTop;
         const visibleStart = currentOffset;
         const visibleEnd = currentOffset + viewportSize;
-
-        const nearStart = itemStart - visibleStart <= edgeShift;
-        const nearEnd = visibleEnd - itemEnd <= edgeShift;
+        const shouldAlignByEdge =
+          preferSide === 'start' ||
+          preferSide === 'end' ||
+          preferSide === 'top' ||
+          preferSide === 'bottom';
+        const nearStart = shouldAlignByEdge && itemStart - visibleStart <= edgeShift;
+        const nearEnd = shouldAlignByEdge && visibleEnd - itemEnd <= edgeShift;
         const outStart = itemStart < visibleStart;
         const outEnd = itemEnd > visibleEnd;
 

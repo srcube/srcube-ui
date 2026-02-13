@@ -39,6 +39,7 @@ function Example() {
 - 父容器需要明确高度/宽度，否则不会产生滚动区域。
 - `orientation` 支持 `y | x | xy`，默认 `y`。
 - `hideMasks` 可隐藏遮罩提示，`showScrollbar` 可显式显示滚动条。
+- `scrollEndDelay` 可配置 `scrollend` 触发延迟（默认 `120ms`）。
 
 ## 小程序使用
 
@@ -83,4 +84,5 @@ function Example() {
 - `orientation`: `y | x | xy`
 - `hideMasks`: `boolean`
 - `showScrollbar`: `boolean | null`
-- 事件：React 使用 `onScroll` / `onScrollToUpper` / `onScrollToLower`，小程序使用 `bind:scroll` / `bind:scrolltoupper` / `bind:scrolltolower`
+- `scrollEndDelay`: `number`
+- 事件：React 使用 `onScroll` / `onScrollEnd` / `onScrollToUpper` / `onScrollToLower`，小程序使用 `bind:scroll` / `bind:scrollend` / `bind:scrolltoupper` / `bind:scrolltolower`

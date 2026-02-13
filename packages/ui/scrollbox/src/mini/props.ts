@@ -9,6 +9,7 @@ export type ScrollboxMiniProps = ScrollboxVariants & {
   scrollY?: boolean | null;
   upperThreshold?: number;
   lowerThreshold?: number;
+  scrollEndDelay?: number;
   scrollTop?: number;
   scrollLeft?: number;
   scrollIntoView?: string;
@@ -40,6 +41,7 @@ export const scrollboxMiniProps = {
   scrollY: { type: null, value: null },
   upperThreshold: { type: Number, value: 50 },
   lowerThreshold: { type: Number, value: 50 },
+  scrollEndDelay: { type: Number, value: 120 },
   scrollTop: { type: null, value: null },
   scrollLeft: { type: null, value: null },
   scrollIntoView: String,

@@ -8,7 +8,10 @@ import {
   useState,
 } from 'react';
 import { scrollbox } from '../style';
-import type { ScrollboxReactProps } from './props';
+import type {
+  ScrollboxReactProps,
+  ScrollboxScrollDetail,
+} from './props';
 
 type ScrollboxOrientation = 'x' | 'y' | 'xy';
 
@@ -28,7 +31,8 @@ type ScrollboxMetrics = {
   clientWidth: number;
 };
 
-const EDGE_EPSILON = 1;
+const EDGE_EPSILON = 4;
+const DEFAULT_SCROLL_END_DELAY = 120;
 
 function resolveScrollboxOrientation(
   value?: ScrollboxOrientation | null,
@@ -70,14 +74,14 @@ function getScrollboxMaskState({
     clientHeight,
     clientWidth,
   } = metrics;
+  const remainedBottom = scrollHeight - (scrollTop + clientHeight);
+  const remainedRight = scrollWidth - (scrollLeft + clientWidth);
 
   return {
-    showMaskTop: scrollY && scrollTop > 0,
-    showMaskBottom:
-      scrollY && scrollTop + clientHeight < scrollHeight - EDGE_EPSILON,
-    showMaskLeft: scrollX && scrollLeft > 0,
-    showMaskRight:
-      scrollX && scrollLeft + clientWidth < scrollWidth - EDGE_EPSILON,
+    showMaskTop: scrollY && scrollTop > EDGE_EPSILON,
+    showMaskBottom: scrollY && remainedBottom > EDGE_EPSILON,
+    showMaskLeft: scrollX && scrollLeft > EDGE_EPSILON,
+    showMaskRight: scrollX && remainedRight > EDGE_EPSILON,
   };
 }
 
@@ -97,6 +101,7 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
       scrollY,
       upperThreshold = 50,
       lowerThreshold = 50,
+      scrollEndDelay = DEFAULT_SCROLL_END_DELAY,
       scrollTop,
       scrollLeft,
       scrollIntoView,
@@ -118,6 +123,7 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
       classNames,
       children,
       onScroll,
+      onScrollEnd,
       onScrollToUpper,
       onScrollToLower,
       scrollRef: scrollRefProp,
@@ -128,6 +134,7 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
     const scrollRef = useRef<HTMLDivElement>(null);
     const upperReachedRef = useRef(false);
     const lowerReachedRef = useRef(false);
+    const scrollEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [maskState, setMaskState] =
       useState<ScrollboxMaskState>(initialMaskState);
 
@@ -176,6 +183,16 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
       observer.observe(node);
       return () => observer.disconnect();
     }, [updateMasks]);
+
+    useEffect(
+      () => () => {
+        if (scrollEndTimerRef.current) {
+          clearTimeout(scrollEndTimerRef.current);
+          scrollEndTimerRef.current = null;
+        }
+      },
+      [],
+    );
 
     const resolvedOrientation = resolveScrollboxOrientation(orientation);
     const axes = useMemo(() => {
@@ -272,59 +289,77 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
     const handleScroll = useCallback(
       (event: React.UIEvent<HTMLDivElement>) => {
         updateMasks();
+        const node = scrollRef.current;
+        if (!node) {
+          onScroll?.(event);
+          return;
+        }
+
+        const metrics: ScrollboxScrollDetail = {
+          scrollTop: node.scrollTop,
+          scrollLeft: node.scrollLeft,
+          scrollHeight: node.scrollHeight,
+          scrollWidth: node.scrollWidth,
+          clientHeight: node.clientHeight,
+          clientWidth: node.clientWidth,
+        };
+
         if (onScrollToUpper || onScrollToLower) {
-          const node = scrollRef.current;
-          if (node) {
-            const metrics = {
-              scrollTop: node.scrollTop,
-              scrollLeft: node.scrollLeft,
-              scrollHeight: node.scrollHeight,
-              scrollWidth: node.scrollWidth,
-              clientHeight: node.clientHeight,
-              clientWidth: node.clientWidth,
-            };
+          const atUpper =
+            (axes.scrollY && metrics.scrollTop <= upperThreshold) ||
+            (axes.scrollX && metrics.scrollLeft <= upperThreshold);
+          const atLower =
+            (axes.scrollY &&
+              metrics.scrollTop + metrics.clientHeight >=
+                metrics.scrollHeight - lowerThreshold) ||
+            (axes.scrollX &&
+              metrics.scrollLeft + metrics.clientWidth >=
+                metrics.scrollWidth - lowerThreshold);
 
-            const atUpper =
-              (axes.scrollY && metrics.scrollTop <= upperThreshold) ||
-              (axes.scrollX && metrics.scrollLeft <= upperThreshold);
-            const atLower =
-              (axes.scrollY &&
-                metrics.scrollTop + metrics.clientHeight >=
-                  metrics.scrollHeight - lowerThreshold) ||
-              (axes.scrollX &&
-                metrics.scrollLeft + metrics.clientWidth >=
-                  metrics.scrollWidth - lowerThreshold);
-
-            if (atUpper) {
-              if (!upperReachedRef.current) {
-                upperReachedRef.current = true;
-                onScrollToUpper?.(event);
-              }
-            } else {
-              upperReachedRef.current = false;
+          if (atUpper) {
+            if (!upperReachedRef.current) {
+              upperReachedRef.current = true;
+              onScrollToUpper?.(event);
             }
+          } else {
+            upperReachedRef.current = false;
+          }
 
-            if (atLower) {
-              if (!lowerReachedRef.current) {
-                lowerReachedRef.current = true;
-                onScrollToLower?.(event);
-              }
-            } else {
-              lowerReachedRef.current = false;
+          if (atLower) {
+            if (!lowerReachedRef.current) {
+              lowerReachedRef.current = true;
+              onScrollToLower?.(event);
             }
+          } else {
+            lowerReachedRef.current = false;
           }
         }
+
+        if (onScrollEnd) {
+          const delay = Math.max(0, Number(scrollEndDelay) || 0);
+          if (scrollEndTimerRef.current) {
+            clearTimeout(scrollEndTimerRef.current);
+          }
+
+          scrollEndTimerRef.current = setTimeout(() => {
+            scrollEndTimerRef.current = null;
+            onScrollEnd(metrics);
+          }, delay);
+        }
+
         onScroll?.(event);
       },
       [
         updateMasks,
         onScroll,
+        onScrollEnd,
         onScrollToUpper,
         onScrollToLower,
         axes.scrollX,
         axes.scrollY,
         upperThreshold,
         lowerThreshold,
+        scrollEndDelay,
       ],
     );
 

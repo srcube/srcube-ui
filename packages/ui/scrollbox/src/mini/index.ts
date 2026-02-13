@@ -27,7 +27,13 @@ type ScrollEventDetail = {
   scrollWidth: number;
 };
 
-const EDGE_EPSILON = 1;
+type ScrollEndDetail = ScrollEventDetail & {
+  clientHeight: number;
+  clientWidth: number;
+};
+
+const EDGE_EPSILON = 4;
+const DEFAULT_SCROLL_END_DELAY = 120;
 
 function resolveScrollboxOrientation(
   value?: ScrollboxOrientation | null,
@@ -69,14 +75,18 @@ function getScrollboxMaskState({
     clientHeight,
     clientWidth,
   } = metrics;
+  const remainedBottom = scrollHeight - (scrollTop + clientHeight);
+  const remainedRight = scrollWidth - (scrollLeft + clientWidth);
+  const horizontalEndEpsilon = Math.max(
+    EDGE_EPSILON,
+    Math.min(24, clientWidth * 0.08),
+  );
 
   return {
-    showMaskTop: scrollY && scrollTop > 0,
-    showMaskBottom:
-      scrollY && scrollTop + clientHeight < scrollHeight - EDGE_EPSILON,
-    showMaskLeft: scrollX && scrollLeft > 0,
-    showMaskRight:
-      scrollX && scrollLeft + clientWidth < scrollWidth - EDGE_EPSILON,
+    showMaskTop: scrollY && scrollTop > EDGE_EPSILON,
+    showMaskBottom: scrollY && remainedBottom > EDGE_EPSILON,
+    showMaskLeft: scrollX && scrollLeft > EDGE_EPSILON,
+    showMaskRight: scrollX && remainedRight > horizontalEndEpsilon,
   };
 }
 
@@ -119,6 +129,18 @@ UIComponent({
     ready() {
       this.measure();
     },
+    detached() {
+      const instance = this as typeof this & {
+        _scrollEndTimer?: ReturnType<typeof setTimeout>;
+        _latestScrollEndDetail?: ScrollEndDetail;
+      };
+
+      if (instance._scrollEndTimer) {
+        clearTimeout(instance._scrollEndTimer);
+        instance._scrollEndTimer = undefined;
+      }
+      instance._latestScrollEndDetail = undefined;
+    },
   },
 
   computed: {
@@ -158,6 +180,61 @@ UIComponent({
   },
 
   methods: {
+    scheduleScrollEnd(detail: ScrollEndDetail) {
+      const instance = this as typeof this & {
+        _scrollEndTimer?: ReturnType<typeof setTimeout>;
+        _latestScrollEndDetail?: ScrollEndDetail;
+      };
+
+      instance._latestScrollEndDetail = detail;
+
+      if (instance._scrollEndTimer) {
+        clearTimeout(instance._scrollEndTimer);
+      }
+
+      const delay = Math.max(
+        0,
+        Number(this.data.scrollEndDelay ?? DEFAULT_SCROLL_END_DELAY) || 0,
+      );
+
+      instance._scrollEndTimer = setTimeout(() => {
+        instance._scrollEndTimer = undefined;
+        const latestDetail = instance._latestScrollEndDetail ?? detail;
+        const query = this.createSelectorQuery();
+        query.select('.sr-scrollbox__scrollview').scrollOffset();
+        query.exec((result) => {
+          const offset = result?.[0] as
+            | WechatMiniprogram.ScrollOffset
+            | null
+            | undefined;
+
+          const finalizedDetail: ScrollEndDetail = {
+            scrollTop: Number(offset?.scrollTop ?? latestDetail.scrollTop ?? 0),
+            scrollLeft: Number(offset?.scrollLeft ?? latestDetail.scrollLeft ?? 0),
+            scrollHeight: Math.max(
+              Number(latestDetail.scrollHeight ?? 0),
+              Number(this.data.contentHeight ?? 0),
+            ),
+            scrollWidth: Math.max(
+              Number(latestDetail.scrollWidth ?? 0),
+              Number(this.data.contentWidth ?? 0),
+            ),
+            clientHeight: Math.max(
+              Number(latestDetail.clientHeight ?? 0),
+              Number(this.data.clientHeight ?? 0),
+            ),
+            clientWidth: Math.max(
+              Number(latestDetail.clientWidth ?? 0),
+              Number(this.data.clientWidth ?? 0),
+            ),
+          };
+
+          this.updateMasks(finalizedDetail);
+          this.triggerEvent('scrollend', finalizedDetail);
+        });
+      }, delay);
+    },
+
     measure() {
       const query = this.createSelectorQuery();
       query.select('.sr-scrollbox__scrollview').boundingClientRect();
@@ -281,6 +358,7 @@ UIComponent({
         scrollHeight: metrics.scrollHeight,
         scrollWidth: metrics.scrollWidth,
       });
+      this.scheduleScrollEnd(metrics);
     },
 
     handleScrollToUpper(e: WechatMiniprogram.CustomEvent) {

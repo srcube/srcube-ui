@@ -12,6 +12,15 @@ type ScrollboxClassNames = {
   maskRight?: string;
 };
 
+export type ScrollboxScrollDetail = {
+  scrollTop: number;
+  scrollLeft: number;
+  scrollHeight: number;
+  scrollWidth: number;
+  clientHeight: number;
+  clientWidth: number;
+};
+
 export type ScrollboxReactProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
   'onScroll'
@@ -24,6 +33,7 @@ export type ScrollboxReactProps = Omit<
   scrollY?: boolean | null;
   upperThreshold?: number;
   lowerThreshold?: number;
+  scrollEndDelay?: number;
   scrollTop?: number;
   scrollLeft?: number;
   scrollIntoView?: string;
@@ -43,6 +53,7 @@ export type ScrollboxReactProps = Omit<
   refresherTriggered?: boolean;
 
   onScroll?: React.UIEventHandler<HTMLDivElement>;
+  onScrollEnd?: (detail: ScrollboxScrollDetail) => void;
   onScrollToUpper?: React.UIEventHandler<HTMLDivElement>;
   onScrollToLower?: React.UIEventHandler<HTMLDivElement>;
   scrollRef?: React.Ref<HTMLDivElement>;

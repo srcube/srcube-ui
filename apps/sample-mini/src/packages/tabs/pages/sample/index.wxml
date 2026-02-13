@@ -134,7 +134,7 @@
         bind:change="handleCustomChange"
       />
 
-      <view class="mt-3 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+      <view class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
         <view wx:if="{{customValue === 'tab-1'}}">External Panel: Tab 1</view>
         <view wx:elif="{{customValue === 'tab-2'}}">External Panel: Tab 2</view>
         <view wx:else>External Panel: Tab 3</view>

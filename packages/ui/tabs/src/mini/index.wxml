@@ -14,6 +14,7 @@
       scrollLeft="{{_scrollLeft}}"
       scrollWithAnimation="{{_scrollWithAnimation}}"
       bind:scroll="handleScroll"
+      bind:scrollend="handleScrollEnd"
     >
       <view class="sr-tabs__tabs-list {{$classNames.tabsList}}" style="{{tabsContentStyle}}">
         <view

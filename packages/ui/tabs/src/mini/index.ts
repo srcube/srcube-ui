@@ -40,6 +40,7 @@ type NestedScrollDetail = {
 type TabsMiniData = TabsMiniProps & {
   _innerValue: TabsMiniValue | null;
   _isTapSwitching: boolean;
+  _isScrollControlled: boolean;
   viewportMainSize: number;
   viewportCrossSize: number;
   currentOffset: number;
@@ -47,8 +48,8 @@ type TabsMiniData = TabsMiniProps & {
   tabsContentStyle: string;
   renderTabs: RenderTab[];
   indicatorStyle: string;
-  _scrollTop: number | null;
-  _scrollLeft: number | null;
+  _scrollTop: number;
+  _scrollLeft: number;
   _scrollWithAnimation: boolean;
 };
 
@@ -204,6 +205,31 @@ function resolveMaskBleedClassNames({
   };
 }
 
+function resolveMaskVisibilityOverrideClasses(params: {
+  orientation: TabsOrientation;
+  currentOffset: number;
+  totalSize: number;
+  viewportMainSize: number;
+}) {
+  const { orientation, currentOffset, totalSize, viewportMainSize } = params;
+  const maxOffset = Math.max(0, totalSize - viewportMainSize);
+  const edgeEpsilon = Math.max(16, viewportMainSize * 0.08);
+  const isNearStart = currentOffset <= edgeEpsilon;
+  const isNearEnd = maxOffset <= edgeEpsilon || currentOffset >= maxOffset - edgeEpsilon;
+
+  if (orientation === 'x') {
+    return {
+      maskLeft: isNearStart ? '!opacity-0' : '',
+      maskRight: isNearEnd ? '!opacity-0' : '',
+    };
+  }
+
+  return {
+    maskTop: isNearStart ? '!opacity-0' : '',
+    maskBottom: isNearEnd ? '!opacity-0' : '',
+  };
+}
+
 function resolveScrollDetail(rawDetail: NestedScrollDetail | undefined | null) {
   if (!rawDetail) {
     return {
@@ -263,6 +289,7 @@ UIComponent({
   data: {
     _innerValue: null as TabsMiniValue | null,
     _isTapSwitching: false,
+    _isScrollControlled: false,
     viewportMainSize: 0,
     viewportCrossSize: 0,
     currentOffset: 0,
@@ -270,8 +297,8 @@ UIComponent({
     tabsContentStyle: '',
     renderTabs: [] as RenderTab[],
     indicatorStyle: '',
-    _scrollTop: null,
-    _scrollLeft: null,
+    _scrollTop: 0,
+    _scrollLeft: 0,
     _scrollWithAnimation: false,
   } satisfies TabsMiniData,
 
@@ -333,8 +360,6 @@ UIComponent({
     detached() {
       const instance = this as typeof this & {
         _tapSwitchTimer?: ReturnType<typeof setTimeout>;
-        _scrollRecomputeTimer?: ReturnType<typeof setTimeout>;
-        _releaseScrollControlTimer?: ReturnType<typeof setTimeout>;
       };
 
       if (instance._tapSwitchTimer) {
@@ -342,15 +367,6 @@ UIComponent({
         instance._tapSwitchTimer = undefined;
       }
 
-      if (instance._scrollRecomputeTimer) {
-        clearTimeout(instance._scrollRecomputeTimer);
-        instance._scrollRecomputeTimer = undefined;
-      }
-
-      if (instance._releaseScrollControlTimer) {
-        clearTimeout(instance._releaseScrollControlTimer);
-        instance._releaseScrollControlTimer = undefined;
-      }
     },
   },
 
@@ -405,17 +421,54 @@ UIComponent({
         orientation,
         size,
       });
+      const currentOffset = Math.max(0, Number(data.currentOffset) || 0);
+      const totalSize = Math.max(0, Number(data.totalSize) || 0);
+      const viewportMainSize = Math.max(0, Number(data.viewportMainSize) || 0);
+      const maskVisibilityOverrideClasses = resolveMaskVisibilityOverrideClasses({
+        orientation,
+        currentOffset,
+        totalSize,
+        viewportMainSize,
+      });
 
       return {
         content: slots.scrollboxContent({
           class: classNames.scrollboxContent,
         }),
-        ...maskClassNames,
+        maskTop: [maskClassNames.maskTop, maskVisibilityOverrideClasses.maskTop]
+          .filter(Boolean)
+          .join(' '),
+        maskBottom: [
+          maskClassNames.maskBottom,
+          maskVisibilityOverrideClasses.maskBottom,
+        ]
+          .filter(Boolean)
+          .join(' '),
+        maskLeft: [maskClassNames.maskLeft, maskVisibilityOverrideClasses.maskLeft]
+          .filter(Boolean)
+          .join(' '),
+        maskRight: [
+          maskClassNames.maskRight,
+          maskVisibilityOverrideClasses.maskRight,
+        ]
+          .filter(Boolean)
+          .join(' '),
       };
     },
   },
 
   methods: {
+    resolveCurrentOffset(orientation: TabsOrientation) {
+      const instance = this as typeof this & {
+        _liveScrollTop?: number;
+        _liveScrollLeft?: number;
+      };
+
+      const liveOffset =
+        orientation === 'x' ? instance._liveScrollLeft : instance._liveScrollTop;
+      return Math.max(0, Number(liveOffset ?? this.data.currentOffset) || 0);
+    },
+
     syncInnerValue() {
       if (this.data.value !== null && this.data.value !== undefined) {
         return;
@@ -565,12 +618,17 @@ UIComponent({
       const virtualItems = virtualizer.getVirtualItems();
       const hasVirtualItems = virtualItems.length > 0;
       const fallbackCount = Math.min(items.length, Math.max(1, overscan * 2 + 1));
+      const fallbackStartIndex = clamp(
+        Math.floor(offset / Math.max(1, estimate)) - overscan,
+        0,
+        Math.max(0, items.length - fallbackCount),
+      );
       const fallbackItems = hasVirtualItems
         ? []
         : Array.from({ length: fallbackCount }, (_, index) => ({
-            key: `fallback-${index}`,
-            index,
-            start: index * estimate,
+            key: `fallback-${fallbackStartIndex + index}`,
+            index: fallbackStartIndex + index,
+            start: (fallbackStartIndex + index) * estimate,
             size: estimate,
           }));
       const renderSource = hasVirtualItems ? virtualItems : fallbackItems;
@@ -667,14 +725,14 @@ UIComponent({
         estimateSize: this.data.estimateSize,
       });
       const viewportSize = Math.max(0, Number(this.data.viewportMainSize) || 0);
-      const currentOffset = Math.max(0, Number(this.data.currentOffset) || 0);
 
       if (viewportSize <= 0) {
         return null;
       }
 
       const itemCenter = tabIndex * estimate + estimate / 2;
-      const relativeCenter = itemCenter - currentOffset;
+      const relativeCenter =
+        itemCenter - this.resolveCurrentOffset(orientation);
 
       if (orientation === 'x') {
         return relativeCenter < viewportSize / 2 ? 'start' : 'end';
@@ -724,10 +782,15 @@ UIComponent({
       const edgeShift = resolveEdgeShift({ orientation, size });
       const itemStart = tabIndex * estimate;
       const itemEnd = itemStart + estimate;
-      const visibleStart = Math.max(0, Number(this.data.currentOffset) || 0);
+      const visibleStart = this.resolveCurrentOffset(orientation);
       const visibleEnd = visibleStart + viewportSize;
-      const nearStart = itemStart - visibleStart <= edgeShift;
-      const nearEnd = visibleEnd - itemEnd <= edgeShift;
+      const shouldAlignByEdge =
+        preferSide === 'start' ||
+        preferSide === 'end' ||
+        preferSide === 'top' ||
+        preferSide === 'bottom';
+      const nearStart = shouldAlignByEdge && itemStart - visibleStart <= edgeShift;
+      const nearEnd = shouldAlignByEdge && visibleEnd - itemEnd <= edgeShift;
       const outStart = itemStart < visibleStart;
       const outEnd = itemEnd > visibleEnd;
 
@@ -771,90 +834,42 @@ UIComponent({
         Number(this.data.totalSize) - Number(this.data.viewportMainSize),
       );
       const nextOffset = clamp(target, 0, maxOffset);
-      const currentOffset = Math.max(0, Number(this.data.currentOffset) || 0);
+      const currentOffset = this.resolveCurrentOffset(orientation);
+      const instance = this as typeof this & {
+        _liveScrollTop?: number;
+        _liveScrollLeft?: number;
+      };
+
+      if (orientation === 'x') {
+        instance._liveScrollLeft = nextOffset;
+      } else {
+        instance._liveScrollTop = nextOffset;
+      }
 
       if (Math.abs(nextOffset - currentOffset) < 1) {
         return;
       }
 
       const axisKey = orientation === 'x' ? '_scrollLeft' : '_scrollTop';
-      const currentAxisValue = Number(this.data[axisKey] ?? 0) || 0;
       const withAnimation = behavior === 'smooth';
 
-      if (Math.abs(currentAxisValue - nextOffset) < 1) {
-        const tempOffset =
-          nextOffset > 0
-            ? Math.max(0, nextOffset - 1)
-            : Math.min(maxOffset, nextOffset + 1);
+      this.setData({
+        [axisKey]: nextOffset,
+        _isScrollControlled: true,
+        currentOffset: nextOffset,
+        _scrollWithAnimation: withAnimation,
+      } as unknown as Partial<TabsMiniData>);
+    },
 
-        this.setData(
-          {
-            [axisKey]: tempOffset,
-            _scrollWithAnimation: false,
-          } as unknown as Partial<TabsMiniData>,
-          () => {
-            this.setData({
-              [axisKey]: nextOffset,
-              currentOffset: nextOffset,
-              _scrollWithAnimation: withAnimation,
-            } as unknown as Partial<TabsMiniData>);
-            this.scheduleReleaseScrollControl(withAnimation);
-          },
-        );
+    releaseScrollControl() {
+      if (!this.data._isScrollControlled && !this.data._scrollWithAnimation) {
         return;
       }
 
       this.setData({
-        [axisKey]: nextOffset,
-        currentOffset: nextOffset,
-        _scrollWithAnimation: withAnimation,
+        _isScrollControlled: false,
+        _scrollWithAnimation: false,
       } as unknown as Partial<TabsMiniData>);
-      this.scheduleReleaseScrollControl(withAnimation);
-    },
-
-    scheduleReleaseScrollControl(withAnimation: boolean) {
-      const instance = this as typeof this & {
-        _releaseScrollControlTimer?: ReturnType<typeof setTimeout>;
-      };
-
-      if (instance._releaseScrollControlTimer) {
-        clearTimeout(instance._releaseScrollControlTimer);
-      }
-
-      const delay = withAnimation ? 280 : 0;
-      instance._releaseScrollControlTimer = setTimeout(() => {
-        instance._releaseScrollControlTimer = undefined;
-        this.setData({
-          _scrollTop: null,
-          _scrollLeft: null,
-          _scrollWithAnimation: false,
-        } satisfies Partial<TabsMiniData>);
-      }, delay);
-    },
-
-    scheduleRecomputeFromScroll(nextOffset: number) {
-      const instance = this as typeof this & {
-        _scrollRecomputeTimer?: ReturnType<typeof setTimeout>;
-        _nextScrollOffset?: number;
-      };
-
-      instance._nextScrollOffset = nextOffset;
-      if (instance._scrollRecomputeTimer) {
-        return;
-      }
-
-      instance._scrollRecomputeTimer = setTimeout(() => {
-        instance._scrollRecomputeTimer = undefined;
-        const offset = Math.max(0, Number(instance._nextScrollOffset) || 0);
-        this.setData(
-          {
-            currentOffset: offset,
-          } satisfies Partial<TabsMiniData>,
-          () => {
-            this.recomputeVirtualTabs();
-          },
-        );
-      }, 16);
     },
 
     triggerTapSwitch() {
@@ -894,14 +909,38 @@ UIComponent({
       const detail = resolveScrollDetail(e.detail);
       const nextOffset =
         orientation === 'x' ? detail.scrollLeft : detail.scrollTop;
+      const instance = this as typeof this & {
+        _liveScrollTop?: number;
+        _liveScrollLeft?: number;
+      };
 
-      if (this.data._scrollWithAnimation) {
-        this.setData({
-          _scrollWithAnimation: false,
-        } satisfies Partial<TabsMiniData>);
+      instance._liveScrollTop = detail.scrollTop;
+      instance._liveScrollLeft = detail.scrollLeft;
+
+      const nextData: Record<string, number | boolean> = {};
+      let hasDataChange = false;
+      let shouldRecompute = false;
+
+      const prevOffset = Math.max(0, Number(this.data.currentOffset) || 0);
+      if (Math.abs(prevOffset - nextOffset) >= 1) {
+        nextData.currentOffset = nextOffset;
+        hasDataChange = true;
+        shouldRecompute = true;
       }
 
-      this.scheduleRecomputeFromScroll(nextOffset);
+      if (!hasDataChange) {
+        return;
+      }
+
+      this.setData(nextData as unknown as Partial<TabsMiniData>, () => {
+        if (shouldRecompute) {
+          this.recomputeVirtualTabs();
+        }
+      });
+    },
+
+    handleScrollEnd() {
+      this.releaseScrollControl();
     },
 
     handleTabTap(e: WechatMiniprogram.BaseEvent) {

@@ -12,7 +12,7 @@ export const tabs = tv({
     scrollbox: 'h-full overflow-visible',
     scrollboxContent: '',
     tabsList: 'relative',
-    tab: 'absolute left-0 top-0 z-10 inline-flex cursor-pointer items-center justify-center border-none bg-transparent px-3 py-1.5 outline-none select-none transition-opacity',
+    tab: 'absolute left-0 top-0 z-10 inline-flex cursor-pointer items-center justify-center border-none bg-transparent px-3 py-1.5 outline-none select-none',
     tabLabel: 'relative z-10 w-full whitespace-nowrap text-center transition-colors',
     indicator:
       'pointer-events-none absolute left-0 top-0 z-0 border border-transparent transition-all duration-200 ease-out',
