@@ -1,0 +1,121 @@
+<view class="sr-tour__base {{$classNames.base}} {{className}}" style="{{style}}">
+  <sr-modal
+    class="sr-tour__modal {{$classNames.$modal}}"
+    className="{{$classNames.modal}}"
+    classNames="{{$modalClassNames}}"
+    catchtouchmove="handleTouchMoveCapture"
+    isOpen="{{$resolvedOpen}}"
+    isDismissable="{{canBackdropClose}}"
+    hasBackdrop="{{false}}"
+    motion="none"
+    backdrop="transparent"
+    bind:openchange="handleModalOpenChange"
+  >
+    <view
+      slot="body"
+      class="sr-tour__body {{$classNames.body}}"
+      catchtouchmove="handleTouchMoveCapture"
+    >
+      <view
+        wx:if="{{_maskTopStyle}}"
+        class="sr-tour__mask sr-tour__mask--top {{$classNames.mask}}"
+        style="{{_maskTopStyle}}"
+        bindtap="handleMaskTap"
+        catchtouchmove="handleTouchMoveCapture"
+      />
+      <view
+        wx:if="{{_maskLeftStyle}}"
+        class="sr-tour__mask sr-tour__mask--left {{$classNames.mask}}"
+        style="{{_maskLeftStyle}}"
+        bindtap="handleMaskTap"
+        catchtouchmove="handleTouchMoveCapture"
+      />
+      <view
+        wx:if="{{_maskRightStyle}}"
+        class="sr-tour__mask sr-tour__mask--right {{$classNames.mask}}"
+        style="{{_maskRightStyle}}"
+        bindtap="handleMaskTap"
+        catchtouchmove="handleTouchMoveCapture"
+      />
+      <view
+        wx:if="{{_maskBottomStyle}}"
+        class="sr-tour__mask sr-tour__mask--bottom {{$classNames.mask}}"
+        style="{{_maskBottomStyle}}"
+        bindtap="handleMaskTap"
+        catchtouchmove="handleTouchMoveCapture"
+      />
+
+      <view
+        wx:if="{{_highlightStyle}}"
+        class="sr-tour__highlight {{$classNames.highlight}}"
+        style="{{_highlightStyle}}"
+        catchtouchmove="handleTouchMoveCapture"
+      />
+      <view
+        wx:if="{{!$canInteractWithTarget && _targetBlockerStyle}}"
+        class="sr-tour__target-blocker {{$classNames.targetBlocker}}"
+        style="{{_targetBlockerStyle}}"
+        catchtouchmove="handleTouchMoveCapture"
+      />
+
+      <view
+        wx:if="{{_popoverStyle}}"
+        class="sr-tour__popover {{$classNames.popover}}"
+        style="{{_popoverStyle}}"
+        catchtouchmove="handleTouchMoveCapture"
+      >
+        <view class="sr-tour__header {{$classNames.header}}">
+          <view wx:if="{{$stepTitle}}" class="sr-tour__title {{$classNames.title}}">
+            {{$stepTitle}}
+          </view>
+          <view
+            wx:if="{{$stepDescription}}"
+            class="sr-tour__description {{$classNames.description}}"
+          >
+            {{$stepDescription}}
+          </view>
+          <view wx:if="{{$canShowProgress}}" class="sr-tour__progress {{$classNames.progress}}">
+            {{$progressText}}
+          </view>
+        </view>
+
+        <view class="sr-tour__footer {{$classNames.footer}}">
+          <view>
+            <sr-button
+              wx:if="{{$canShowSkip}}"
+              size="sm"
+              variant="text"
+              className="{{$classNames.skipButton}}"
+              bind:tap="handleSkipTap"
+            >
+              {{$skipText}}
+            </sr-button>
+          </view>
+
+          <view class="sr-tour__actions {{$classNames.actions}}">
+            <sr-button
+              wx:if="{{$canShowPrev}}"
+              size="sm"
+              variant="flat"
+              className="{{$classNames.prevButton}}"
+              bind:tap="handlePrevTap"
+            >
+              {{$prevText}}
+            </sr-button>
+
+            <sr-button
+              wx:if="{{$canShowNext}}"
+              size="sm"
+              color="primary"
+              variant="solid"
+              className="{{$classNames.nextButton}}"
+              bind:tap="handleNextTap"
+            >
+              {{$nextText}}
+            </sr-button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </sr-modal>
+</view>
