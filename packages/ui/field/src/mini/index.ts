@@ -1,4 +1,4 @@
-import { UIComponent } from '@srcube-ui/mini';
+import { UIComponent } from '@srcube-ui/runtime/mini';
 import { fieldStyle } from '../style';
 import { fieldMiniProps } from './props';
 
@@ -146,7 +146,7 @@ UIComponent({
     },
 
     $showFallbackControl(data) {
-      return Boolean(resolveCurrentValue(data) || data.placeholder);
+      return !data.hasControl && Boolean(resolveCurrentValue(data) || data.placeholder);
     },
 
     $classNames(data) {
@@ -160,6 +160,7 @@ UIComponent({
         isReadOnly: data.isReadOnly,
         isInvalid: data.isInvalid,
         isLoading: data.isLoading,
+        isMultiline: data.isMultiline,
         isClearable: Boolean(
           data.isClearable && !data.isDisabled && !data.isReadOnly,
         ),

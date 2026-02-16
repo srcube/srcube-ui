@@ -26,6 +26,6 @@ export const inputOtpMiniProps = {
   isReadOnly: { type: Boolean, value: false },
   isPassword: { type: Boolean, value: false },
   className: { type: String, value: '' },
-  classNames: Object,
+  classNames: { type: Object, value: {} },
   style: { type: String, value: '' },
 } as const;

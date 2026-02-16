@@ -57,6 +57,7 @@ export default function Demo() {
   description="支持中国大陆手机号"
   value="{{phone}}"
   isClearable
+  hasControl="{{true}}"
   hasEndContent
   bind:valuechange="handlePhoneValueChange"
   bind:clear="handleClear"
@@ -82,12 +83,13 @@ export default function Demo() {
 | labelPlacement | 标签位置 | `"outside" \| "outside-left" \| "inside"` | `"outside"` | 全平台 |
 | value | 受控值（用于清空按钮展示与 fallback 内容显示） | React: `string \| number`；Mini: `string \| number` | - | 全平台 |
 | defaultValue | 非受控初始值 | React: `string \| number`；Mini: `string \| number` | `""` | 全平台 |
-| placeholder | 占位内容（无 value 且无自定义 children/slot 时显示） | React: `ReactNode`；Mini: `string` | - | 全平台 |
+| placeholder | 占位内容（无 value 且无自定义 children/slot 时显示；Mini 需 `hasControl=false`） | React: `ReactNode`；Mini: `string` | - | 全平台 |
 | description | 描述文本（无错误时显示） | React: `ReactNode`；Mini: `string` | - | 全平台 |
 | errorMessage | 错误文本（优先于 description） | React: `ReactNode`；Mini: `string` | - | 全平台 |
 | startContent | 控件起始内容 | `ReactNode` | - | React |
 | endContent | 控件结束内容 | `ReactNode` | - | React |
 | clearButton | 清空按钮内容 | `ReactNode` | 默认清空图标 | React |
+| hasControl | 标记使用默认 slot 渲染控件（开启后不再渲染 fallback 文本） | `boolean` | `false` | Mini |
 | hasStartContent | 启用 `start` 插槽容器 | `boolean` | `false` | Mini |
 | hasEndContent | 启用 `end` 插槽容器 | `boolean` | `false` | Mini |
 | hasClearContent | 启用 `clear` 插槽容器 | `boolean` | `false` | Mini |
@@ -97,6 +99,7 @@ export default function Demo() {
 | isInvalid | 错误态 | `boolean` | `false` | 全平台 |
 | isRequired | 必填态（仅显示星号） | `boolean` | `false` | 全平台 |
 | isLoading | 加载态（仅视觉态） | `boolean` | `false` | 全平台 |
+| isMultiline | 多行内容布局（start/end/clear 与首行对齐） | `boolean` | `false` | 全平台 |
 | color | 颜色主题 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` | 全平台 |
 | variant | 视觉变体 | `"default" \| "outline" \| "twotone" \| "underline"` | `"default"` | 全平台 |
 | size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` | 全平台 |
@@ -128,5 +131,6 @@ export default function Demo() {
 
 - `className` 仅支持 `string`。
 - 小程序组件本身就是一个节点，布局样式需加在组件自身（`className/style`）。
+- 使用默认 slot 作为真实表单控件时，请设置 `hasControl`，避免 fallback 文本覆盖控件。
 - 前后缀通过命名 slot 提供，需配合 `hasStartContent/hasEndContent` 启用对应容器。
 - `bind:valuechange` 的 `detail.value` 为最新值；受控场景请同步更新 `value`。

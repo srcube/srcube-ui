@@ -10,7 +10,7 @@ type MiniInstance = {
   handleClearTap: () => void;
 };
 
-vi.doMock('@srcube-ui/mini', () => ({
+vi.doMock('@srcube-ui/runtime/mini', () => ({
   UIComponent: (def: Record<string, unknown>) => {
     definition = def;
     return def;
@@ -106,4 +106,19 @@ it('does not trigger clear event when value is empty', () => {
 
   expect(triggerSpy).not.toHaveBeenCalled();
   comp.detach();
+});
+
+it('disables fallback control when hasControl is true', () => {
+  const computed = definition?.computed as Record<
+    string,
+    (data: Record<string, unknown>) => unknown
+  >;
+
+  const showFallback = computed.$showFallbackControl({
+    hasControl: true,
+    value: 'abc',
+    placeholder: 'phone',
+  });
+
+  expect(showFallback).toBe(false);
 });

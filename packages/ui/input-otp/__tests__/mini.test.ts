@@ -11,7 +11,7 @@ type MiniInstance = {
   handleInput: (e: WechatMiniprogram.CustomEvent<{ value?: string }>) => void;
 };
 
-vi.doMock('@srcube-ui/mini', () => ({
+vi.doMock('@srcube-ui/runtime/mini', () => ({
   UIComponent: (def: Record<string, unknown>) => {
     definition = def;
     return def;

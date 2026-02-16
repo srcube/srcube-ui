@@ -70,9 +70,9 @@
             wx:for-index="groupIndex"
             wx:key="groupIndex"
           >
-            <s-button-group size="sm" isBlock>
+            <sr-button-group size="sm" isBlock>
               <block wx:for="{{group}}" wx:for-item="option" wx:key="value">
-                <s-button
+                <sr-button
                   class="flex-1"
                   color="{{activeColor === option.value ? option.value : 'default'}}"
                   variant="{{activeColor === option.value ? 'solid' : 'flat'}}"
@@ -80,9 +80,9 @@
                   bind:tap="handleColorTap"
                 >
                   {{option.label}}
-                </s-button>
+                </sr-button>
               </block>
-            </s-button-group>
+            </sr-button-group>
           </block>
         </view>
 

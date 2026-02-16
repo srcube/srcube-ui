@@ -17,7 +17,7 @@ type MiniGroupInstance = {
   onChildToggle: (value: string, nextSelected: boolean) => void;
 };
 
-vi.doMock('@srcube-ui/mini', () => ({
+vi.doMock('@srcube-ui/runtime/mini', () => ({
   UIComponent: (def: Record<string, unknown>) => {
     definitions.push(def);
     return def;

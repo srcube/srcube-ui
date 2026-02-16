@@ -1,4 +1,4 @@
-import { UIComponent } from '@srcube-ui/mini';
+import { UIComponent } from '@srcube-ui/runtime/mini';
 import { inputOtpStyle } from '../style';
 import { inputOtpMiniProps } from './props';
 

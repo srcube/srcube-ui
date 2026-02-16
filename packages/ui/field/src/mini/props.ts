@@ -17,6 +17,8 @@ export type FieldMiniProps = FieldVariants & {
   isInvalid?: boolean;
   isRequired?: boolean;
   isLoading?: boolean;
+  isMultiline?: boolean;
+  hasControl?: boolean;
   hasStartContent?: boolean;
   hasEndContent?: boolean;
   hasClearContent?: boolean;
@@ -44,10 +46,12 @@ export const fieldMiniProps = {
   isInvalid: { type: Boolean, value: false },
   isRequired: { type: Boolean, value: false },
   isLoading: { type: Boolean, value: false },
+  isMultiline: { type: Boolean, value: false },
+  hasControl: { type: Boolean, value: false },
   hasStartContent: { type: Boolean, value: false },
   hasEndContent: { type: Boolean, value: false },
   hasClearContent: { type: Boolean, value: false },
   className: { type: String, value: '' },
-  classNames: Object,
+  classNames: { type: Object, value: {} },
   style: { type: String, value: '' },
 } as const;

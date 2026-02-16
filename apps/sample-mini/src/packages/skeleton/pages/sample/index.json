@@ -1,0 +1,9 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-button": "@srcube-ui/button/index",
+    "sr-skeleton": "@srcube-ui/skeleton/index"
+  },
+  "navigationBarTitleText": "Skeleton",
+  "backgroundColor": "#ffffff"
+}

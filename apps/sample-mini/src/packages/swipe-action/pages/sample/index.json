@@ -1,0 +1,9 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-swipe-action": "@srcube-ui/swipe-action/index",
+    "sr-button": "@srcube-ui/button/index"
+  },
+  "navigationBarTitleText": "Swipe Action",
+  "backgroundColor": "#ffffff"
+}

@@ -42,7 +42,7 @@ export const buttonMiniProps = {
 
   buttonId: String,
   className: String,
-  classNames: Object,
+  classNames: { type: Object, value: {} },
   style: String,
   formType: String,
   openType: String,

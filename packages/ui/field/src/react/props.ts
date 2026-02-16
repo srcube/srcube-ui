@@ -37,6 +37,7 @@ export type FieldReactProps = FieldVariants &
     isInvalid?: boolean;
     isRequired?: boolean;
     isLoading?: boolean;
+    isMultiline?: boolean;
     className?: string;
     classNames?: Partial<FieldClassNames>;
     controlProps?: React.HTMLAttributes<HTMLDivElement>;

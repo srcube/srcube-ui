@@ -17,6 +17,7 @@
         value="{{basicValue}}"
         description="请输入 11 位手机号"
         isClearable
+        hasControl="{{true}}"
         hasEndContent
         bind:valuechange="handleBasicValueChange"
         bind:clear="handleBasicClear"
@@ -29,7 +30,7 @@
           bindinput="handleBasicInput"
         />
         <view slot="end" class="flex items-center justify-center">
-          <span class="icon-[mingcute--phone-fill]" />
+          <view class="icon-[mingcute--phone-fill]" />
         </view>
       </sr-field>
 
@@ -132,9 +133,9 @@
           wx:for-index="groupIndex"
           wx:key="groupIndex"
         >
-          <s-button-group size="sm" isBlock>
+          <sr-button-group size="sm" isBlock>
             <block wx:for="{{group}}" wx:for-item="option" wx:key="value">
-              <s-button
+              <sr-button
                 class="flex-1"
                 color="{{activeColor === option.value ? option.value : 'default'}}"
                 variant="{{activeColor === option.value ? 'solid' : 'flat'}}"
@@ -142,9 +143,9 @@
                 bind:tap="handleColorTap"
               >
                 {{option.label}}
-              </s-button>
+              </sr-button>
             </block>
-          </s-button-group>
+          </sr-button-group>
         </block>
       </view>
 
@@ -155,6 +156,7 @@
         value="{{colorValue}}"
         color="{{activeColor}}"
         isClearable
+        hasControl="{{true}}"
         bind:valuechange="handleColorValueChange"
         bind:clear="handleColorClear"
       >

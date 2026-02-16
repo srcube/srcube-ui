@@ -46,6 +46,7 @@ export function useField(props: UseFieldProps) {
     isInvalid,
     isRequired,
     isLoading,
+    isMultiline,
     color,
     variant,
     size,
@@ -121,6 +122,7 @@ export function useField(props: UseFieldProps) {
         isReadOnly,
         isInvalid,
         isLoading,
+        isMultiline,
         isClearable: showClearButton,
       }),
     [
@@ -133,6 +135,7 @@ export function useField(props: UseFieldProps) {
       isReadOnly,
       isInvalid,
       isLoading,
+      isMultiline,
       showClearButton,
     ],
   );

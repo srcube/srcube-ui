@@ -156,6 +156,18 @@ export const fieldStyle = tv({
       },
       false: {},
     },
+    isMultiline: {
+      true: {
+        controlWrapper: 'py-2',
+        control: 'h-auto min-h-0 items-start',
+        input:
+          'items-start py-0.5 overflow-visible whitespace-normal text-clip',
+        startContent: 'self-start h-[1.5em]',
+        endContent: 'self-start h-[1.5em]',
+        clearButton: 'self-start h-[1.5em]',
+      },
+      false: {},
+    },
     isClearable: {
       true: {
         clearButton: '',
@@ -168,6 +180,13 @@ export const fieldStyle = tv({
       variant: 'underline',
       class: {
         controlWrapper: 'rounded-none',
+      },
+    },
+    {
+      labelPlacement: 'outside-left',
+      isMultiline: true,
+      class: {
+        base: 'items-start',
       },
     },
     {
@@ -286,6 +305,7 @@ export const fieldStyle = tv({
     isReadOnly: false,
     isInvalid: false,
     isLoading: false,
+    isMultiline: false,
     isClearable: false,
   },
 });

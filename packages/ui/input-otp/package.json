@@ -35,10 +35,9 @@
     "react-dom": "catalog:"
   },
   "peerDependencies": {
-    "@srcube-ui/mini": "workspace:*",
-    "@srcube-ui/react": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "@srcube-ui/runtime": "workspace:*"
   }
 }

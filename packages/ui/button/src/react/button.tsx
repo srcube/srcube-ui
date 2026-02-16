@@ -1,4 +1,4 @@
-import { composeTwRenderProps } from '@srcube-ui/react';
+import { composeTwRenderProps } from '@srcube-ui/runtime/react';
 import * as React from 'react';
 import { Button as AriaButton } from 'react-aria-components';
 import { button } from '../style';

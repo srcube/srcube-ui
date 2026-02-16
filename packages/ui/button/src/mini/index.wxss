@@ -2,9 +2,19 @@
   position: absolute;
   top: 0;
   left: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  border-radius: inherit;
   /* biome-ignore lint/complexity/noImportantStyles: override native injection */
   width: 100% !important;
   height: 100%;
   opacity: 0;
   z-index: 10;
+}
+
+.sr-button__native::after {
+  border: 0;
 }

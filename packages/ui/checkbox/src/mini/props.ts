@@ -27,6 +27,6 @@ export const checkboxMiniProps = {
   isReadOnly: { type: null, value: null },
   isLineThrough: { type: null, value: null },
   className: { type: String, value: '' },
-  classNames: Object,
+  classNames: { type: Object, value: {} },
   style: { type: String, value: '' },
 } as const;
