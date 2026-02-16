@@ -39,12 +39,11 @@
     "react-aria-components": "catalog:"
   },
   "peerDependencies": {
-    "@srcube-ui/mini": "workspace:*",
-    "@srcube-ui/react": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "@srcube-ui/modal": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-aria-components": "catalog:"
+    "react-aria-components": "catalog:",
+    "@srcube-ui/runtime": "workspace:*"
   }
 }

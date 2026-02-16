@@ -46,7 +46,7 @@ export const listboxMiniProps = {
   orientation: { type: null, value: 'y' },
   hasDivider: { type: Boolean, value: false },
   className: { type: String, value: '' },
-  classNames: Object,
+  classNames: { type: Object, value: {} },
   style: { type: String, value: '' },
   items: { type: Array, value: [] },
   estimateSize: { type: Number, value: 40 },

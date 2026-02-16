@@ -44,13 +44,12 @@
     "react-dom": "catalog:"
   },
   "peerDependencies": {
-    "@srcube-ui/mini": "workspace:*",
-    "@srcube-ui/react": "workspace:*",
     "@srcube-ui/scrollbox": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "@tanstack/react-virtual": "catalog:",
     "@tanstack/virtual-core": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "@srcube-ui/runtime": "workspace:*"
   }
 }

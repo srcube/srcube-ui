@@ -1,6 +1,7 @@
 .sr-pickbox__column-scroll {
   scrollbar-width: none;
   -ms-overflow-style: none;
+  outline: none;
 }
 
 .sr-pickbox__column-scroll::-webkit-scrollbar {

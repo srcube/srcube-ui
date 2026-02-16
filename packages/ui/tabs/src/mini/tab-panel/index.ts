@@ -1,4 +1,4 @@
-import { UIComponent } from '@srcube-ui/mini';
+import { UIComponent } from '@srcube-ui/runtime/mini';
 import { tabPanel } from '../../style';
 import type { TabPanelMiniProps } from './props';
 import { tabPanelMiniProps } from './props';

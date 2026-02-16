@@ -18,7 +18,7 @@ export const componentMiniProps = {
     type: String,
     value: '',
   },
-  classNames: Object,
+  classNames: { type: Object, value: {} },
   style: {
     type: String,
     value: '',

@@ -5,7 +5,7 @@ import template from '../src/mini/index.wxml?raw';
 
 let definition: Record<string, unknown> | undefined;
 
-vi.doMock('@srcube-ui/mini', () => ({
+vi.doMock('@srcube-ui/runtime/mini', () => ({
   UIComponent: (def: Record<string, unknown>) => {
     definition = def;
     return def;
@@ -233,6 +233,36 @@ it('cancels pending auto align on touchstart for short swipe', async () => {
     }>;
   };
   expect(data.renderColumns[0]?.scrollTop).toBe(160);
+
+  comp.detach();
+});
+
+it('resolves default metric by size variant', async () => {
+  const comp = renderPickbox({
+    size: 'sm',
+    columns: [
+      {
+        id: 'year',
+        items: [
+          { id: 'a', label: 'A' },
+          { id: 'b', label: 'B' },
+        ],
+      },
+    ],
+  });
+
+  const instance = comp.instance as {
+    recomputeVirtualColumns: () => void;
+  };
+  instance.recomputeVirtualColumns();
+  await tick();
+
+  const data = comp.data as {
+    resolvedEstimateSize: number;
+    resolvedIndicatorHeight: number;
+  };
+  expect(data.resolvedEstimateSize).toBe(36);
+  expect(data.resolvedIndicatorHeight).toBe(36);
 
   comp.detach();
 });

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-drawer": "@srcube-ui/drawer/index",
+    "sr-button": "@srcube-ui/button/index"
+  },
+  "navigationBarTitleText": "Drawer",
+  "backgroundColor": "#ffffff"
+}

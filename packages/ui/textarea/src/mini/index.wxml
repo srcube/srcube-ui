@@ -1,0 +1,53 @@
+<sr-field
+  id="{{id}}"
+  label="{{label}}"
+  labelPlacement="{{labelPlacement}}"
+  value="{{$resolvedValue}}"
+  description="{{description}}"
+  errorMessage="{{errorMessage}}"
+  color="{{color}}"
+  variant="{{variant}}"
+  size="{{size}}"
+  radius="{{radius}}"
+  isClearable="{{isClearable}}"
+  isDisabled="{{isDisabled}}"
+  isReadOnly="{{isReadOnly}}"
+  isInvalid="{{isInvalid}}"
+  isRequired="{{isRequired}}"
+  isLoading="{{isLoading}}"
+  isMultiline="{{true}}"
+  hasControl="{{true}}"
+  hasStartContent="{{hasStartContent}}"
+  hasEndContent="{{$hasFieldEndContent}}"
+  hasClearContent="{{hasClearContent}}"
+  className="{{className}}"
+  classNames="{{$fieldClassNames}}"
+  style="{{style}}"
+  bind:tap="handleFieldTap"
+  bind:valuechange="handleFieldValueChange"
+  bind:clear="handleFieldClear"
+>
+  <slot wx:if="{{hasStartContent}}" name="start" slot="start" />
+
+  <textarea
+    slot=""
+    class="{{$textareaClassName}}"
+    style="{{$textareaStyle}}"
+    value="{{$resolvedValue}}"
+    placeholder="{{placeholder}}"
+    maxlength="{{maxLength}}"
+    auto-height="{{isAutoHeight}}"
+    confirm-hold="{{isConfirmHold}}"
+    disabled="{{isDisabled || isReadOnly}}"
+    bindinput="handleInput"
+    bindfocus="handleFocus"
+    bindblur="handleBlur"
+    bindconfirm="handleConfirm"
+  />
+
+  <view wx:if="{{$hasFieldEndContent}}" slot="end" class="{{$endMetaClassName}}">
+    <slot wx:if="{{hasEndContent}}" name="end" />
+    <text wx:if="{{showCount}}" class="{{$countClassName}}">{{$countText}}</text>
+  </view>
+  <slot wx:if="{{hasClearContent}}" name="clear" slot="clear" />
+</sr-field>

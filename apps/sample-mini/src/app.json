@@ -27,6 +27,14 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/swipe-action",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/skeleton",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/input-otp",
       "pages": ["pages/sample/index"]
     },
@@ -39,11 +47,31 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/picker",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/modal",
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/drawer",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/tabs",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/tour",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/input",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/textarea",
       "pages": ["pages/sample/index"]
     }
   ],

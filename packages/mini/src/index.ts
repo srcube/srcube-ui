@@ -1,3 +1,18 @@
-import { ComponentWithComputed } from 'miniprogram-computed';
-
-export const UIComponent = ComponentWithComputed;
+export * from '@srcube-ui/button/mini';
+export * from '@srcube-ui/checkbox/mini';
+export * from '@srcube-ui/drawer/mini';
+export * from '@srcube-ui/field/mini';
+export * from '@srcube-ui/input/mini';
+export * from '@srcube-ui/input-otp/mini';
+export * from '@srcube-ui/listbox/mini';
+export * from '@srcube-ui/modal/mini';
+export * from '@srcube-ui/pickbox/mini';
+export * from '@srcube-ui/picker/mini';
+export * from '@srcube-ui/radio/mini';
+export * from '@srcube-ui/scrollbox/mini';
+export * from '@srcube-ui/skeleton/mini';
+export * from '@srcube-ui/swipe-action/mini';
+export * from '@srcube-ui/switch/mini';
+export * from '@srcube-ui/tabs/mini';
+export * from '@srcube-ui/textarea/mini';
+export * from '@srcube-ui/tour/mini';

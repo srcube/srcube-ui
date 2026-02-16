@@ -177,3 +177,22 @@ it('snaps to nearest item after manual scroll stop', () => {
 
   expect(onValueChange).toHaveBeenCalledWith(['a']);
 });
+
+it('resolves default item size by size variant', async () => {
+  render(
+    <Pickbox
+      size="sm"
+      columns={[
+        {
+          items: [
+            { id: 'a', label: 'A' },
+            { id: 'b', label: 'B' },
+          ],
+        },
+      ]}
+    />,
+  );
+
+  const option = await screen.findByRole('option', { name: 'A' });
+  expect(option.getAttribute('style')).toContain('height: 36px;');
+});

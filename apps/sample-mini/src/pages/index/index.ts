@@ -14,12 +14,28 @@ Page({
         url: '/packages/field/pages/sample/index',
       },
       {
+        title: 'Input',
+        url: '/packages/input/pages/sample/index',
+      },
+      {
+        title: 'Textarea',
+        url: '/packages/textarea/pages/sample/index',
+      },
+      {
         title: 'Radio',
         url: '/packages/radio/pages/sample/index',
       },
       {
         title: 'Switch',
         url: '/packages/switch/pages/sample/index',
+      },
+      {
+        title: 'Swipe Action',
+        url: '/packages/swipe-action/pages/sample/index',
+      },
+      {
+        title: 'Skeleton',
+        url: '/packages/skeleton/pages/sample/index',
       },
       {
         title: 'Input OTP',
@@ -34,12 +50,24 @@ Page({
         url: '/packages/pickbox/pages/sample/index',
       },
       {
+        title: 'Picker',
+        url: '/packages/picker/pages/sample/index',
+      },
+      {
         title: 'Modal',
         url: '/packages/modal/pages/sample/index',
       },
       {
+        title: 'Drawer',
+        url: '/packages/drawer/pages/sample/index',
+      },
+      {
         title: 'Tabs',
         url: '/packages/tabs/pages/sample/index',
+      },
+      {
+        title: 'Tour',
+        url: '/packages/tour/pages/sample/index',
       },
       {
         title: 'Scrollbox',

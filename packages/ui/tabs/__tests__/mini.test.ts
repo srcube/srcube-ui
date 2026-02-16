@@ -4,7 +4,7 @@ import { beforeAll, expect, it, vi } from 'vitest';
 import template from '../src/mini/index.wxml?raw';
 let definition: Record<string, unknown> | undefined;
 
-vi.doMock('@srcube-ui/mini', () => ({
+vi.doMock('@srcube-ui/runtime/mini', () => ({
   UIComponent: (def: Record<string, unknown>) => {
     definition = def;
     return def;

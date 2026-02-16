@@ -7,6 +7,7 @@
     wx:if="{{hasBackdrop}}"
     class="sr-modal__backdrop {{$classNames.backdrop}}"
     bindtap="handleBackdropTap"
+    catchtouchmove="handleTouchMoveCapture"
   />
   <view class="sr-modal__content {{$classNames.content}}">
     <view class="sr-modal__header {{$classNames.header}}">

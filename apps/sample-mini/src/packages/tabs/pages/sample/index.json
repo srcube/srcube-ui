@@ -3,8 +3,8 @@
   "usingComponents": {
     "sr-tabs": "@srcube-ui/tabs/index",
     "sr-tab-panel": "@srcube-ui/tabs/tab-panel/index",
-    "s-button": "@srcube-ui/button/index",
-    "s-button-group": "@srcube-ui/button/button-group/index"
+    "sr-button": "@srcube-ui/button/index",
+    "sr-button-group": "@srcube-ui/button/button-group/index"
   },
   "navigationBarTitleText": "Tabs",
   "backgroundColor": "#ffffff"

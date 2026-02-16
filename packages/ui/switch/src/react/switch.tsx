@@ -1,4 +1,4 @@
-import { composeTwRenderProps } from '@srcube-ui/react';
+import { composeTwRenderProps } from '@srcube-ui/runtime/react';
 import * as React from 'react';
 import {
   Switch as AriaSwitch,

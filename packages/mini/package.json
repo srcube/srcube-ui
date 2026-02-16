@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "miniprogram": "dist",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -14,17 +15,30 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsdown"
+    "build": "tsdown && node ./scripts/sync-miniprogram.mjs"
   },
   "dependencies": {
-    "miniprogram-computed": "catalog:"
-  },
-  "peerDependencies": {
-    "miniprogram-api-typings": "catalog:"
+    "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/checkbox": "workspace:*",
+    "@srcube-ui/drawer": "workspace:*",
+    "@srcube-ui/field": "workspace:*",
+    "@srcube-ui/input": "workspace:*",
+    "@srcube-ui/input-otp": "workspace:*",
+    "@srcube-ui/listbox": "workspace:*",
+    "@srcube-ui/modal": "workspace:*",
+    "@srcube-ui/pickbox": "workspace:*",
+    "@srcube-ui/picker": "workspace:*",
+    "@srcube-ui/radio": "workspace:*",
+    "@srcube-ui/scrollbox": "workspace:*",
+    "@srcube-ui/skeleton": "workspace:*",
+    "@srcube-ui/swipe-action": "workspace:*",
+    "@srcube-ui/switch": "workspace:*",
+    "@srcube-ui/tabs": "workspace:*",
+    "@srcube-ui/textarea": "workspace:*",
+    "@srcube-ui/tour": "workspace:*"
   },
   "devDependencies": {
     "@srcube-ui/config": "workspace:*",
-    "miniprogram-simulate": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }

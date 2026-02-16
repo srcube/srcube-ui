@@ -17,8 +17,24 @@
     "build": "tsdown"
   },
   "dependencies": {
-    "react-aria-components": "catalog:",
-    "tailwind-variants": "catalog:"
+    "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/checkbox": "workspace:*",
+    "@srcube-ui/drawer": "workspace:*",
+    "@srcube-ui/field": "workspace:*",
+    "@srcube-ui/input": "workspace:*",
+    "@srcube-ui/input-otp": "workspace:*",
+    "@srcube-ui/listbox": "workspace:*",
+    "@srcube-ui/modal": "workspace:*",
+    "@srcube-ui/pickbox": "workspace:*",
+    "@srcube-ui/picker": "workspace:*",
+    "@srcube-ui/radio": "workspace:*",
+    "@srcube-ui/scrollbox": "workspace:*",
+    "@srcube-ui/skeleton": "workspace:*",
+    "@srcube-ui/swipe-action": "workspace:*",
+    "@srcube-ui/switch": "workspace:*",
+    "@srcube-ui/tabs": "workspace:*",
+    "@srcube-ui/textarea": "workspace:*",
+    "@srcube-ui/tour": "workspace:*"
   },
   "devDependencies": {
     "@srcube-ui/config": "workspace:*",

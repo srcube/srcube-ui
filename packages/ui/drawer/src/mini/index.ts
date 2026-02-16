@@ -1,4 +1,4 @@
-import { UIComponent } from '@srcube-ui/mini';
+import { UIComponent } from '@srcube-ui/runtime/mini';
 import { drawer } from '../style';
 import { drawerMiniProps } from './props';
 import type { DrawerMiniProps } from './props';

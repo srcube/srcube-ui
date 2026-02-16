@@ -28,7 +28,6 @@ export type TourMiniProps = TourVariants & {
   autoScroll?: boolean;
   scrollOffset?: number;
   scrollDuration?: number;
-  lockPageScroll?: boolean;
   missingTargetStrategy?: 'skip' | 'abort' | 'wait';
   canMaskClose?: boolean;
   canBackdropClose?: boolean;
@@ -55,7 +54,6 @@ export const tourMiniProps = {
   autoScroll: { type: Boolean, value: true },
   scrollOffset: { type: Number, value: 96 },
   scrollDuration: { type: Number, value: 220 },
-  lockPageScroll: { type: Boolean, value: true },
   missingTargetStrategy: { type: String, value: 'skip' },
   canMaskClose: { type: Boolean, value: true },
   canBackdropClose: { type: Boolean, value: false },

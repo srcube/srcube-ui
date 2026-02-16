@@ -8,7 +8,8 @@ export const modal = tv({
   slots: {
     rootPortal: '',
     backdrop: 'fixed inset-0 z-[1000]',
-    content: 'fixed inset-0 z-[1001] overflow-hidden flex flex-col h-fit bg-white',
+    content:
+      'fixed inset-0 z-[1001] overflow-hidden flex flex-col h-fit bg-white outline-none',
     header: '',
     body: '',
     footer: '',

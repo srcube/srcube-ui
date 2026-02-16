@@ -6,7 +6,7 @@
 
 - `@srcube-ui/scrollbox` / `@srcube-ui/scrollbox/style`：基础样式与类型定义
 - `@srcube-ui/scrollbox/react`：React 组件（`Scrollbox`）
-- `@srcube-ui/scrollbox/mini`：微信小程序组件（`s-scrollbox`）
+- `@srcube-ui/scrollbox/mini`：微信小程序组件（`sr-scrollbox`）
 
 ## React 快速上手
 
@@ -48,7 +48,7 @@ function Example() {
 ```json
 {
   "usingComponents": {
-    "s-scrollbox": "@srcube-ui/scrollbox/mini"
+    "sr-scrollbox": "@srcube-ui/scrollbox/mini"
   }
 }
 ```
@@ -57,26 +57,26 @@ function Example() {
 
 ```wxml
 <view class="h-56">
-  <s-scrollbox className="h-full rounded-2xl border border-slate-200 bg-white" orientation="y">
+  <sr-scrollbox className="h-full rounded-2xl border border-slate-200 bg-white" orientation="y">
     <view class="space-y-3 p-4">
       <view wx:for="{{items}}" wx:key="key" class="h-12 rounded-xl bg-slate-100 px-4 text-sm font-semibold text-slate-700">
         {{item}}
       </view>
     </view>
-  </s-scrollbox>
+  </sr-scrollbox>
 </view>
 ```
 
 横向滚动（建议子项固定宽度）：
 
 ```wxml
-<s-scrollbox className="h-28 rounded-2xl border border-slate-200 bg-white" orientation="x">
+<sr-scrollbox className="h-28 rounded-2xl border border-slate-200 bg-white" orientation="x">
   <view class="flex gap-3 p-4">
     <view wx:for="{{items}}" wx:key="key" class="inline-flex h-16 w-32 items-center justify-center rounded-xl bg-slate-100 text-sm font-semibold text-slate-700">
       {{item}}
     </view>
   </view>
-</s-scrollbox>
+</sr-scrollbox>
 ```
 
 ## 可用属性（核心）

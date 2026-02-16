@@ -2,8 +2,8 @@
   "$schema": "https://vite.icebreaker.top/page.json",
   "usingComponents": {
     "sr-pickbox": "@srcube-ui/pickbox/index",
-    "s-button": "@srcube-ui/button/index",
-    "s-button-group": "@srcube-ui/button/button-group/index"
+    "sr-button": "@srcube-ui/button/index",
+    "sr-button-group": "@srcube-ui/button/button-group/index"
   },
   "navigationBarTitleText": "Pickbox",
   "backgroundColor": "#ffffff"

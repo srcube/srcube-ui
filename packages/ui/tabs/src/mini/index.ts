@@ -1,4 +1,4 @@
-import { UIComponent } from '@srcube-ui/mini';
+import { UIComponent } from '@srcube-ui/runtime/mini';
 import { Virtualizer } from '@tanstack/virtual-core';
 import { tabs, tabsTabState } from '../style';
 import type { TabsMiniItem, TabsMiniProps, TabsMiniValue } from './props';

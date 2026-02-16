@@ -56,6 +56,7 @@ const DEFAULT_POPOVER_WIDTH = 320;
 const DEFAULT_POPOVER_ESTIMATED_HEIGHT = 176;
 const DEFAULT_EDGE_GAP = 12;
 const WAIT_RETRY_MAX = 5;
+let pageScrollLockCount = 0;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
@@ -406,12 +407,16 @@ UIComponent({
           _innerStep: resolvedStep,
         } satisfies Partial<TourMiniState>,
         () => {
+          if (resolvedOpen) {
+            this._lockPageScroll();
+          }
           this._ensureValidStepAndRefresh('attached');
         },
       );
     },
     detached() {
       this._clearTimers();
+      this._unlockPageScroll();
     },
   },
 
@@ -540,6 +545,52 @@ UIComponent({
   },
 
   methods: {
+    _applyPageScrollLockStyle(isLocked: boolean) {
+      const setPageStyle = (
+        wx as unknown as { setPageStyle?: (options: { style: string }) => void }
+      ).setPageStyle;
+
+      if (typeof setPageStyle !== 'function') {
+        return;
+      }
+
+      try {
+        setPageStyle({
+          style: isLocked ? 'overflow:hidden;' : '',
+        });
+      } catch {
+        // ignore
+      }
+    },
+
+    _lockPageScroll() {
+      const instance = this as typeof this & { _hasPageScrollLocked?: boolean };
+      if (instance._hasPageScrollLocked) {
+        return;
+      }
+
+      if (pageScrollLockCount === 0) {
+        this._applyPageScrollLockStyle(true);
+      }
+
+      pageScrollLockCount += 1;
+      instance._hasPageScrollLocked = true;
+    },
+
+    _unlockPageScroll() {
+      const instance = this as typeof this & { _hasPageScrollLocked?: boolean };
+      if (!instance._hasPageScrollLocked) {
+        return;
+      }
+
+      instance._hasPageScrollLocked = false;
+      pageScrollLockCount = Math.max(0, pageScrollLockCount - 1);
+
+      if (pageScrollLockCount === 0) {
+        this._applyPageScrollLockStyle(false);
+      }
+    },
+
     _clearOverlayStyles() {
       this.setData({
         _missingCurrent: false,
@@ -556,10 +607,12 @@ UIComponent({
     _syncOnOpenChange(nextOpen: boolean, reason: string) {
       this._clearTimers();
       if (!nextOpen) {
+        this._unlockPageScroll();
         this._clearOverlayStyles();
         return;
       }
 
+      this._lockPageScroll();
       this._queueRefresh(0, `open:${reason}`);
     },
 

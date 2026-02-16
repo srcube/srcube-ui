@@ -14,7 +14,7 @@
 >
   <view slot="header">
     <slot name="header">
-      <text wx:if="{{title}}">{{title}}</text>
+      <view wx:if="{{title}}" class="w-full truncate">{{title}}</view>
     </slot>
   </view>
 

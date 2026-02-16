@@ -1,4 +1,4 @@
-import { UIComponent } from '@srcube-ui/mini';
+import { UIComponent } from '@srcube-ui/runtime/mini';
 import { modal } from '../style';
 import { modalMiniProps } from './props';
 
@@ -123,6 +123,10 @@ UIComponent({
       if (!nextOpen) {
         this.triggerEvent('close', event);
       }
+    },
+
+    handleTouchMoveCapture() {
+      // Intentionally empty: `catchtouchmove` on modal root prevents page scroll bleed.
     },
   },
 });

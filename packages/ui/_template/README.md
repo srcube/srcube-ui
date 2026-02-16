@@ -64,7 +64,7 @@ src/
 示例（RAC）：
 
 ```ts
-import { composeTwRenderProps } from "@srcube-ui/react";
+import { composeTwRenderProps } from "@srcube-ui/runtime/react";
 import { Button as AriaButton } from "react-aria-components";
 
 const styles = button({ variant: "solid" });

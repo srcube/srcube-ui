@@ -1,0 +1,12 @@
+{
+  "extends": "@srcube-ui/config/tsconfig.react.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@srcube-ui/field": ["../field/src/index.ts"],
+      "@srcube-ui/field/react": ["../field/src/react/index.ts"],
+      "@srcube-ui/field/style": ["../field/src/style.ts"]
+    }
+  },
+  "include": ["src/react/**/*", "src/style.ts", "src/index.ts"]
+}

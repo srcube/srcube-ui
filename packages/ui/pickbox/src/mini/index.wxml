@@ -1,4 +1,4 @@
-<view class="sr-pickbox {{$classNames.base}} {{className}}" style="{{style}}">
+<view class="sr-pickbox {{$classNames.base}}" style="{{style}}">
   <view class="sr-pickbox__columns {{$classNames.columns}}">
     <view
       wx:for="{{renderColumns}}"
@@ -41,7 +41,7 @@
 
   <view
     class="sr-pickbox__indicator {{$classNames.indicator}}"
-    style="height: {{indicatorHeight}}px;"
+    style="height: {{resolvedIndicatorHeight}}px;"
   />
   <view
     class="sr-pickbox__mask-top {{$classNames.maskTop}}"

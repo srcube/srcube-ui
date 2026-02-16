@@ -34,7 +34,7 @@ export const scrollboxMiniProps = {
   hideMasks: { type: Boolean, value: false },
 
   className: String,
-  classNames: Object,
+  classNames: { type: Object, value: {} },
   style: String,
 
   scrollX: { type: null, value: null },

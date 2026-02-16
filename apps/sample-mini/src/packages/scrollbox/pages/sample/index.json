@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "s-scrollbox": "@srcube-ui/scrollbox/index"
+    "sr-scrollbox": "@srcube-ui/scrollbox/index"
   }
 }

@@ -1,4 +1,4 @@
-import { UIComponent } from '@srcube-ui/mini';
+import { UIComponent } from '@srcube-ui/runtime/mini';
 import { switchStyle } from '../style';
 import { switchMiniProps } from './props';
 

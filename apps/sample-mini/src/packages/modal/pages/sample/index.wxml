@@ -9,36 +9,36 @@
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Basic</view>
       <view class="mt-3 flex flex-wrap gap-3">
-        <s-button bind:tap="openBasic">Open Modal</s-button>
+        <sr-button bind:tap="openBasic">Open Modal</sr-button>
       </view>
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Backdrop</view>
       <view class="mt-3 flex flex-wrap gap-2">
-        <s-button data-backdrop="opaque" variant="outline" bind:tap="openBackdrop">
+        <sr-button data-backdrop="opaque" variant="outline" bind:tap="openBackdrop">
           Opaque
-        </s-button>
-        <s-button data-backdrop="blur" variant="outline" bind:tap="openBackdrop">
+        </sr-button>
+        <sr-button data-backdrop="blur" variant="outline" bind:tap="openBackdrop">
           Blur
-        </s-button>
-        <s-button data-backdrop="transparent" variant="outline" bind:tap="openBackdrop">
+        </sr-button>
+        <sr-button data-backdrop="transparent" variant="outline" bind:tap="openBackdrop">
           Transparent
-        </s-button>
+        </sr-button>
       </view>
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Non Dismissable</view>
       <view class="mt-3 flex flex-wrap gap-3">
-        <s-button bind:tap="openLocked">Open Locked</s-button>
+        <sr-button bind:tap="openLocked">Open Locked</sr-button>
       </view>
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">No Backdrop</view>
       <view class="mt-3 flex flex-wrap gap-3">
-        <s-button bind:tap="openNoBackdrop">Open Modal</s-button>
+        <sr-button bind:tap="openNoBackdrop">Open Modal</sr-button>
       </view>
     </view>
   </view>
@@ -50,8 +50,8 @@
     <view slot="header">Basic Modal</view>
     <view slot="body">This is a basic modal message.</view>
     <view slot="footer" class="flex items-center justify-end gap-2">
-      <s-button variant="text" bind:tap="closeBasic">Cancel</s-button>
-      <s-button bind:tap="closeBasic">Confirm</s-button>
+      <sr-button variant="text" bind:tap="closeBasic">Cancel</sr-button>
+      <sr-button bind:tap="closeBasic">Confirm</sr-button>
     </view>
   </sr-modal>
 
@@ -63,7 +63,7 @@
     <view slot="header">Backdrop: {{backdropValue}}</view>
     <view slot="body">Switch between backdrop styles.</view>
     <view slot="footer" class="flex items-center justify-end gap-2">
-      <s-button variant="text" bind:tap="closeBackdrop">Close</s-button>
+      <sr-button variant="text" bind:tap="closeBackdrop">Close</sr-button>
     </view>
   </sr-modal>
 
@@ -75,7 +75,7 @@
     <view slot="header">Locked Modal</view>
     <view slot="body">Backdrop clicks are disabled. Use the button to close.</view>
     <view slot="footer" class="flex items-center justify-end gap-2">
-      <s-button variant="text" bind:tap="closeLocked">Close</s-button>
+      <sr-button variant="text" bind:tap="closeLocked">Close</sr-button>
     </view>
   </sr-modal>
 
@@ -87,7 +87,7 @@
     <view slot="header">No Backdrop</view>
     <view slot="body">Modal without a backdrop.</view>
     <view slot="footer" class="flex items-center justify-end gap-2">
-      <s-button variant="text" bind:tap="closeNoBackdrop">Close</s-button>
+      <sr-button variant="text" bind:tap="closeNoBackdrop">Close</sr-button>
     </view>
   </sr-modal>
 </view>

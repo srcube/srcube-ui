@@ -9,7 +9,7 @@
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Vertical</view>
       <view class="mt-3 h-56">
-        <s-scrollbox
+        <sr-scrollbox
           orientation="y"
           className="h-full rounded-2xl border border-slate-200 bg-white"
         >
@@ -22,14 +22,14 @@
               {{item.label}}
             </view>
           </view>
-        </s-scrollbox>
+        </sr-scrollbox>
       </view>
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Horizontal</view>
       <view class="mt-3">
-        <s-scrollbox
+        <sr-scrollbox
           orientation="x"
           className="h-fit rounded-2xl border border-slate-200 bg-white"
         >
@@ -42,14 +42,14 @@
               {{item.label}}
             </view>
           </view>
-        </s-scrollbox>
+        </sr-scrollbox>
       </view>
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Both (xy)</view>
       <view class="mt-3 h-48">
-        <s-scrollbox
+        <sr-scrollbox
           orientation="xy"
           className="h-full rounded-2xl border border-slate-200 bg-white"
         >
@@ -62,14 +62,14 @@
               {{item.label}}
             </view>
           </view>
-        </s-scrollbox>
+        </sr-scrollbox>
       </view>
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Hide Masks</view>
       <view class="mt-3 h-48">
-        <s-scrollbox
+        <sr-scrollbox
           hideMasks
           className="h-full rounded-2xl border border-slate-200 bg-white"
         >
@@ -82,14 +82,14 @@
               {{item.label}}
             </view>
           </view>
-        </s-scrollbox>
+        </sr-scrollbox>
       </view>
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Show Scrollbar</view>
       <view class="mt-3 h-48">
-        <s-scrollbox
+        <sr-scrollbox
           showScrollbar
           className="h-full rounded-2xl border border-slate-200 bg-white"
         >
@@ -102,7 +102,7 @@
               {{item.label}}
             </view>
           </view>
-        </s-scrollbox>
+        </sr-scrollbox>
       </view>
     </view>
   </view>

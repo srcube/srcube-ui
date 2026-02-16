@@ -9,19 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TourRouteRouteImport } from './routes/tour/route'
+import { Route as TextareaRouteRouteImport } from './routes/textarea/route'
 import { Route as TabsRouteRouteImport } from './routes/tabs/route'
 import { Route as SwitchRouteRouteImport } from './routes/switch/route'
+import { Route as SwipeActionRouteRouteImport } from './routes/swipe-action/route'
+import { Route as SkeletonRouteRouteImport } from './routes/skeleton/route'
 import { Route as ScrollboxRouteRouteImport } from './routes/scrollbox/route'
 import { Route as RadioRouteRouteImport } from './routes/radio/route'
+import { Route as PickerRouteRouteImport } from './routes/picker/route'
 import { Route as PickboxRouteRouteImport } from './routes/pickbox/route'
 import { Route as ModalRouteRouteImport } from './routes/modal/route'
 import { Route as ListboxRouteRouteImport } from './routes/listbox/route'
 import { Route as InputOtpRouteRouteImport } from './routes/input-otp/route'
+import { Route as InputRouteRouteImport } from './routes/input/route'
 import { Route as FieldRouteRouteImport } from './routes/field/route'
+import { Route as DrawerRouteRouteImport } from './routes/drawer/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TourRouteRoute = TourRouteRouteImport.update({
+  id: '/tour',
+  path: '/tour',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TextareaRouteRoute = TextareaRouteRouteImport.update({
+  id: '/textarea',
+  path: '/textarea',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TabsRouteRoute = TabsRouteRouteImport.update({
   id: '/tabs',
   path: '/tabs',
@@ -32,6 +49,16 @@ const SwitchRouteRoute = SwitchRouteRouteImport.update({
   path: '/switch',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SwipeActionRouteRoute = SwipeActionRouteRouteImport.update({
+  id: '/swipe-action',
+  path: '/swipe-action',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SkeletonRouteRoute = SkeletonRouteRouteImport.update({
+  id: '/skeleton',
+  path: '/skeleton',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScrollboxRouteRoute = ScrollboxRouteRouteImport.update({
   id: '/scrollbox',
   path: '/scrollbox',
@@ -40,6 +67,11 @@ const ScrollboxRouteRoute = ScrollboxRouteRouteImport.update({
 const RadioRouteRoute = RadioRouteRouteImport.update({
   id: '/radio',
   path: '/radio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PickerRouteRoute = PickerRouteRouteImport.update({
+  id: '/picker',
+  path: '/picker',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PickboxRouteRoute = PickboxRouteRouteImport.update({
@@ -62,9 +94,19 @@ const InputOtpRouteRoute = InputOtpRouteRouteImport.update({
   path: '/input-otp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InputRouteRoute = InputRouteRouteImport.update({
+  id: '/input',
+  path: '/input',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FieldRouteRoute = FieldRouteRouteImport.update({
   id: '/field',
   path: '/field',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DrawerRouteRoute = DrawerRouteRouteImport.update({
+  id: '/drawer',
+  path: '/drawer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckboxRouteRoute = CheckboxRouteRouteImport.update({
@@ -87,44 +129,65 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/drawer': typeof DrawerRouteRoute
   '/field': typeof FieldRouteRoute
+  '/input': typeof InputRouteRoute
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
   '/pickbox': typeof PickboxRouteRoute
+  '/picker': typeof PickerRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
+  '/skeleton': typeof SkeletonRouteRoute
+  '/swipe-action': typeof SwipeActionRouteRoute
   '/switch': typeof SwitchRouteRoute
   '/tabs': typeof TabsRouteRoute
+  '/textarea': typeof TextareaRouteRoute
+  '/tour': typeof TourRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/drawer': typeof DrawerRouteRoute
   '/field': typeof FieldRouteRoute
+  '/input': typeof InputRouteRoute
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
   '/pickbox': typeof PickboxRouteRoute
+  '/picker': typeof PickerRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
+  '/skeleton': typeof SkeletonRouteRoute
+  '/swipe-action': typeof SwipeActionRouteRoute
   '/switch': typeof SwitchRouteRoute
   '/tabs': typeof TabsRouteRoute
+  '/textarea': typeof TextareaRouteRoute
+  '/tour': typeof TourRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/drawer': typeof DrawerRouteRoute
   '/field': typeof FieldRouteRoute
+  '/input': typeof InputRouteRoute
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
   '/pickbox': typeof PickboxRouteRoute
+  '/picker': typeof PickerRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
+  '/skeleton': typeof SkeletonRouteRoute
+  '/swipe-action': typeof SwipeActionRouteRoute
   '/switch': typeof SwitchRouteRoute
   '/tabs': typeof TabsRouteRoute
+  '/textarea': typeof TextareaRouteRoute
+  '/tour': typeof TourRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -132,62 +195,104 @@ export interface FileRouteTypes {
     | '/'
     | '/button'
     | '/checkbox'
+    | '/drawer'
     | '/field'
+    | '/input'
     | '/input-otp'
     | '/listbox'
     | '/modal'
     | '/pickbox'
+    | '/picker'
     | '/radio'
     | '/scrollbox'
+    | '/skeleton'
+    | '/swipe-action'
     | '/switch'
     | '/tabs'
+    | '/textarea'
+    | '/tour'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/button'
     | '/checkbox'
+    | '/drawer'
     | '/field'
+    | '/input'
     | '/input-otp'
     | '/listbox'
     | '/modal'
     | '/pickbox'
+    | '/picker'
     | '/radio'
     | '/scrollbox'
+    | '/skeleton'
+    | '/swipe-action'
     | '/switch'
     | '/tabs'
+    | '/textarea'
+    | '/tour'
   id:
     | '__root__'
     | '/'
     | '/button'
     | '/checkbox'
+    | '/drawer'
     | '/field'
+    | '/input'
     | '/input-otp'
     | '/listbox'
     | '/modal'
     | '/pickbox'
+    | '/picker'
     | '/radio'
     | '/scrollbox'
+    | '/skeleton'
+    | '/swipe-action'
     | '/switch'
     | '/tabs'
+    | '/textarea'
+    | '/tour'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
+  DrawerRouteRoute: typeof DrawerRouteRoute
   FieldRouteRoute: typeof FieldRouteRoute
+  InputRouteRoute: typeof InputRouteRoute
   InputOtpRouteRoute: typeof InputOtpRouteRoute
   ListboxRouteRoute: typeof ListboxRouteRoute
   ModalRouteRoute: typeof ModalRouteRoute
   PickboxRouteRoute: typeof PickboxRouteRoute
+  PickerRouteRoute: typeof PickerRouteRoute
   RadioRouteRoute: typeof RadioRouteRoute
   ScrollboxRouteRoute: typeof ScrollboxRouteRoute
+  SkeletonRouteRoute: typeof SkeletonRouteRoute
+  SwipeActionRouteRoute: typeof SwipeActionRouteRoute
   SwitchRouteRoute: typeof SwitchRouteRoute
   TabsRouteRoute: typeof TabsRouteRoute
+  TextareaRouteRoute: typeof TextareaRouteRoute
+  TourRouteRoute: typeof TourRouteRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tour': {
+      id: '/tour'
+      path: '/tour'
+      fullPath: '/tour'
+      preLoaderRoute: typeof TourRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/textarea': {
+      id: '/textarea'
+      path: '/textarea'
+      fullPath: '/textarea'
+      preLoaderRoute: typeof TextareaRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tabs': {
       id: '/tabs'
       path: '/tabs'
@@ -202,6 +307,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SwitchRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/swipe-action': {
+      id: '/swipe-action'
+      path: '/swipe-action'
+      fullPath: '/swipe-action'
+      preLoaderRoute: typeof SwipeActionRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/skeleton': {
+      id: '/skeleton'
+      path: '/skeleton'
+      fullPath: '/skeleton'
+      preLoaderRoute: typeof SkeletonRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/scrollbox': {
       id: '/scrollbox'
       path: '/scrollbox'
@@ -214,6 +333,13 @@ declare module '@tanstack/react-router' {
       path: '/radio'
       fullPath: '/radio'
       preLoaderRoute: typeof RadioRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/picker': {
+      id: '/picker'
+      path: '/picker'
+      fullPath: '/picker'
+      preLoaderRoute: typeof PickerRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pickbox': {
@@ -244,11 +370,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InputOtpRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/input': {
+      id: '/input'
+      path: '/input'
+      fullPath: '/input'
+      preLoaderRoute: typeof InputRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/field': {
       id: '/field'
       path: '/field'
       fullPath: '/field'
       preLoaderRoute: typeof FieldRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/drawer': {
+      id: '/drawer'
+      path: '/drawer'
+      fullPath: '/drawer'
+      preLoaderRoute: typeof DrawerRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkbox': {
@@ -279,15 +419,22 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
+  DrawerRouteRoute: DrawerRouteRoute,
   FieldRouteRoute: FieldRouteRoute,
+  InputRouteRoute: InputRouteRoute,
   InputOtpRouteRoute: InputOtpRouteRoute,
   ListboxRouteRoute: ListboxRouteRoute,
   ModalRouteRoute: ModalRouteRoute,
   PickboxRouteRoute: PickboxRouteRoute,
+  PickerRouteRoute: PickerRouteRoute,
   RadioRouteRoute: RadioRouteRoute,
   ScrollboxRouteRoute: ScrollboxRouteRoute,
+  SkeletonRouteRoute: SkeletonRouteRoute,
+  SwipeActionRouteRoute: SwipeActionRouteRoute,
   SwitchRouteRoute: SwitchRouteRoute,
   TabsRouteRoute: TabsRouteRoute,
+  TextareaRouteRoute: TextareaRouteRoute,
+  TourRouteRoute: TourRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
