@@ -35,6 +35,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/stepper",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/input-otp",
       "pages": ["pages/sample/index"]
     },

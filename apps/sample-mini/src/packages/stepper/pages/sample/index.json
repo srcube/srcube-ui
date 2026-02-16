@@ -1,0 +1,10 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-stepper": "@srcube-ui/stepper/index",
+    "sr-button": "@srcube-ui/button/index",
+    "sr-button-group": "@srcube-ui/button/button-group/index"
+  },
+  "navigationBarTitleText": "Stepper",
+  "backgroundColor": "#ffffff"
+}

@@ -29,8 +29,7 @@
 
 ### 表单输入
 
-- [ ] `stepper`
-- [ ] `rate`
+- [x] `stepper`
 - [ ] `date-picker`
 - [ ] `time-picker`
 - [ ] `cascader`

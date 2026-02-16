@@ -13,7 +13,8 @@ export const tabs = tv({
     scrollboxContent: '',
     tabsList: 'relative',
     tab: 'absolute left-0 top-0 z-10 inline-flex cursor-pointer items-center justify-center border-none bg-transparent px-3 py-1.5 outline-none select-none',
-    tabLabel: 'relative z-10 w-full whitespace-nowrap text-center transition-colors',
+    tabLabel:
+      'relative z-10 w-full whitespace-nowrap text-center transition-colors',
     indicator:
       'pointer-events-none absolute left-0 top-0 z-0 border border-transparent transition-all duration-200 ease-out',
     panels: 'min-w-0 flex-1',
@@ -30,9 +31,9 @@ export const tabs = tv({
       },
       y: {
         base: 'flex-row items-stretch gap-3',
-        tabsWrapper: 'w-40 shrink-0',
-        $scrollbox: 'h-full min-h-0',
-        scrollbox: 'w-full !h-full',
+        tabsWrapper: 'w-40 shrink-0 h-full',
+        $scrollbox: 'w-full h-full min-h-0 min-w-0',
+        scrollbox: 'w-full h-full',
         scrollboxContent: 'w-full',
         tabsList: 'w-full',
         tab: 'justify-start',
@@ -42,19 +43,16 @@ export const tabs = tv({
     size: {
       sm: {
         tabsWrapper: 'p-0.5',
-        scrollbox: 'h-7',
         tab: 'min-h-7 px-2',
         tabLabel: 'text-xs',
       },
       md: {
         tabsWrapper: 'p-1',
-        scrollbox: 'h-8',
         tab: 'min-h-8 px-3',
         tabLabel: 'text-sm',
       },
       lg: {
         tabsWrapper: 'p-1',
-        scrollbox: 'h-9',
         tab: 'min-h-9 px-4',
         tabLabel: 'text-base',
       },
@@ -131,6 +129,29 @@ export const tabs = tv({
     color: 'default',
     isDisabled: false,
   },
+  compoundVariants: [
+    {
+      orientation: 'x',
+      size: 'sm',
+      class: {
+        scrollbox: 'h-7',
+      },
+    },
+    {
+      orientation: 'x',
+      size: 'md',
+      class: {
+        scrollbox: 'h-8',
+      },
+    },
+    {
+      orientation: 'x',
+      size: 'lg',
+      class: {
+        scrollbox: 'h-9',
+      },
+    },
+  ],
 });
 
 export const tabsTabState = tv({

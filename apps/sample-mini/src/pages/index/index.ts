@@ -38,6 +38,10 @@ Page({
         url: '/packages/skeleton/pages/sample/index',
       },
       {
+        title: 'Stepper',
+        url: '/packages/stepper/pages/sample/index',
+      },
+      {
         title: 'Input OTP',
         url: '/packages/input-otp/pages/sample/index',
       },

@@ -13,6 +13,7 @@ function App() {
     { title: 'Switch', to: '/switch' as const },
     { title: 'Swipe Action', to: '/swipe-action' as const },
     { title: 'Skeleton', to: '/skeleton' as const },
+    { title: 'Stepper', to: '/stepper' as const },
     { title: 'Input OTP', to: '/input-otp' as const },
     { title: 'Listbox', to: '/listbox' as const },
     { title: 'Pickbox', to: '/pickbox' as const },
