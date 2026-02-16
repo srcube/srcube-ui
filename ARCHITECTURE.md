@@ -11,8 +11,12 @@ apps/
 packages/
   config/              # 共享 tsconfig（mini/react）
   theme/               # 设计 tokens 与 Tailwind 插件（构建期/样式系统）
-  react/               # React 侧通用工具（轻量）
-  mini/                # 小程序侧通用工具（轻量）
+  runtime/             # 跨端运行时能力（供组件实现层依赖）
+    src/
+      react/           # React 运行时工具（如 composeTwRenderProps）
+      mini/            # Mini 运行时工具（如 UIComponent）
+  react/               # React 聚合导出层（聚合 @srcube-ui/<component>/react）
+  mini/                # Mini 聚合分发层（聚合并分发 dist/<component>/index）
   shared/              # 跨包共享小工具
   ui/
     <component>/       # 单一组件包（多端共存）
@@ -34,6 +38,7 @@ packages/
 ## 3. 组件包范式
 - **单组件包**：每个组件独立一包，内部含共享 style + 多端实现层。
 - **共享最小化**：只共享样式 tokens；props 各端维护。
+- **依赖方向**：组件包仅依赖 `@srcube-ui/runtime` 与 `@srcube-ui/theme`，禁止依赖聚合包 `@srcube-ui/react` / `@srcube-ui/mini`（避免循环依赖）。
 - **API 同步**：语义必须一致，形式允许不同；通过 README 的 API 章节明确对齐项与差异项。
 - **逻辑私域**：各端实现自行处理状态、交互与渲染。
 - **导出清晰**：对外只暴露稳定入口，禁止深层路径依赖。
@@ -52,13 +57,18 @@ packages/
 - 样式与逻辑分离：仅共享 Tailwind tokens。
 - tv 统一入口：业务统一写 `@srcube-ui/theme/tv`，构建侧做分端别名（Web → tv-web，Mini → tv-mini）。
 - 逻辑分端实现：平台侧不依赖其它平台代码。
+- runtime 与聚合分层：`@srcube-ui/runtime/*` 负责运行时能力；`@srcube-ui/react` / `@srcube-ui/mini` 仅负责组件聚合导出。
 - 命名统一：组件名 `PascalCase`，包名 `kebab-case`，事件 `on*`，布尔 `is/has/should/can`。
 - 布尔 Props 规则：所有布尔型 props 必须使用 `is/has/should/can` 前缀。
 
 ## 5. 公开导入
 - `@srcube-ui/theme`
+- `@srcube-ui/runtime`
+- `@srcube-ui/runtime/react`
+- `@srcube-ui/runtime/mini`
 - `@srcube-ui/react`
 - `@srcube-ui/mini`
+- `@srcube-ui/mini/<component>/index`（小程序 `usingComponents` 注册路径）
 - `@srcube-ui/shared`
 - `@srcube-ui/config`
 - `@srcube-ui/<component>`
@@ -70,6 +80,7 @@ packages/
 - monorepo：pnpm workspace
 - 任务编排：Turbo
 - 构建：tsdown（组件包）
+- mini 聚合构建：`@srcube-ui/mini` 在 build 后将 `@srcube-ui/<component>/dist/mini` 同步为 `@srcube-ui/mini/dist/<component>/index*`，并开启严格检查（任一组件未构建则报错中断）。
 - 示例：apps 用于组件验证与回归
 
 ## 7. 文档位置
