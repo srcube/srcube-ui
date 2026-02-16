@@ -32,15 +32,16 @@ export type PickboxMiniProps = PickboxVariants & {
 };
 
 export const pickboxMiniProps = {
+  size: { type: null, value: 'md' },
   color: { type: null, value: 'default' },
   className: { type: String, value: '' },
-  classNames: Object,
+  classNames: { type: Object, value: {} },
   style: { type: String, value: '' },
   columns: { type: Array, value: [] },
   value: { type: null, value: null },
   defaultValue: { type: Array, value: [] },
-  estimateSize: { type: Number, value: 44 },
+  estimateSize: { type: null, value: null },
   overscan: { type: Number, value: 5 },
-  indicatorHeight: { type: Number, value: 44 },
-  scrollEndDelay: { type: Number, value: 120 },
+  indicatorHeight: { type: null, value: null },
+  scrollEndDelay: { type: Number, value: 180 },
 } as const;

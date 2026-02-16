@@ -59,6 +59,7 @@ Page({
   data: {
     columns: createColumns(),
     value: [2000, 1, 1],
+    sizeValue: [2000, 1, 1],
     activeColor: 'default' as PickboxColor,
     colorValue: [2000, 1, 1],
     colorGroups: pickboxColorGroups,

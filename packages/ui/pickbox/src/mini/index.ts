@@ -1,4 +1,4 @@
-import { UIComponent } from '@srcube-ui/mini';
+import { UIComponent } from '@srcube-ui/runtime/mini';
 import { pickbox, pickboxItemState } from '../style';
 import type {
   PickboxMiniColumn,
@@ -30,6 +30,8 @@ type RenderColumn = {
 type PickboxMiniVirtualState = {
   containerHeight: number;
   resolvedPadding: number;
+  resolvedEstimateSize: number;
+  resolvedIndicatorHeight: number;
   innerValue: PickboxMiniValue;
   renderColumns: RenderColumn[];
 };
@@ -65,6 +67,7 @@ type InternalColumnState = {
   alignPhase: 'idle' | 'prepare' | 'running';
   pendingAlignOffset: number | null;
   pendingScrollWithAnimation: boolean;
+  ignoreScrollEventsUntil: number;
   lastScrollAt: number;
   isTouching: boolean;
   scrollStopTimer: ReturnType<typeof setTimeout> | null;
@@ -88,6 +91,7 @@ function createColumnState(): InternalColumnState {
     alignPhase: 'idle',
     pendingAlignOffset: null,
     pendingScrollWithAnimation: false,
+    ignoreScrollEventsUntil: 0,
     lastScrollAt: 0,
     isTouching: false,
     scrollStopTimer: null,
@@ -119,6 +123,7 @@ function cancelColumnAutoAdjust(columnState: InternalColumnState) {
   columnState.pendingAlignOffset = null;
   columnState.pendingScrollWithAnimation = false;
   columnState.alignPhase = 'idle';
+  columnState.ignoreScrollEventsUntil = 0;
 }
 
 function getInternalState(instance: object, columnCount: number) {
@@ -251,6 +256,49 @@ function resolveScrollDetail(detail: NestedScrollDetail | undefined | null) {
   };
 }
 
+function resolveDefaultMetricBySize(size: PickboxMiniProps['size']) {
+  if (size === 'sm') {
+    return 36;
+  }
+
+  if (size === 'lg') {
+    return 52;
+  }
+
+  return 44;
+}
+
+function resolveMetricValue(value: unknown, fallback: number) {
+  const next = Number(value);
+  if (Number.isFinite(next) && next > 0) {
+    return next;
+  }
+  return fallback;
+}
+
+function resolvePickboxMetrics(data: PickboxMiniData) {
+  const fallback = resolveDefaultMetricBySize(data.size);
+  const estimateSize = resolveMetricValue(data.estimateSize, fallback);
+  const indicatorHeight = resolveMetricValue(data.indicatorHeight, estimateSize);
+
+  return {
+    estimateSize,
+    indicatorHeight,
+  };
+}
+
+function resolveDefaultContainerHeightBySize(size: PickboxMiniProps['size']) {
+  if (size === 'sm') {
+    return 224;
+  }
+
+  if (size === 'lg') {
+    return 288;
+  }
+
+  return 256;
+}
+
 UIComponent({
   options: {
     multipleSlots: true,
@@ -263,6 +311,8 @@ UIComponent({
   data: {
     containerHeight: 0,
     resolvedPadding: 0,
+    resolvedEstimateSize: 44,
+    resolvedIndicatorHeight: 44,
     innerValue: [] as PickboxMiniValue,
     renderColumns: [] as RenderColumn[],
   } satisfies PickboxMiniVirtualState,
@@ -285,6 +335,9 @@ UIComponent({
     overscan() {
       this.recomputeVirtualColumns();
     },
+    size() {
+      this.remeasureAndRecompute();
+    },
     color() {
       this.recomputeVirtualColumns();
     },
@@ -301,8 +354,17 @@ UIComponent({
     },
     ready() {
       this.remeasureAndRecompute();
+      this.scheduleDeferredMeasure();
     },
     detached() {
+      if (this._measureTimer) {
+        clearTimeout(this._measureTimer);
+        this._measureTimer = null;
+      }
+      if (this._settleMeasureTimer) {
+        clearTimeout(this._settleMeasureTimer);
+        this._settleMeasureTimer = null;
+      }
       cleanupInternalState(this);
     },
   },
@@ -310,12 +372,16 @@ UIComponent({
   computed: {
     $classNames(data: PickboxMiniData) {
       const slots = pickbox({
+        size: data.size ?? 'md',
         color: data.color ?? 'default',
       });
       const classNames = data.classNames ?? {};
+      const baseClassName = [classNames.base, data.className]
+        .filter((value): value is string => Boolean(value))
+        .join(' ');
 
       return {
-        base: slots.base({ class: classNames.base }),
+        base: slots.base({ class: baseClassName }),
         columns: slots.columns({ class: classNames.columns }),
         column: slots.column({ class: classNames.column }),
         columnScroll: slots.columnScroll({ class: classNames.columnScroll }),
@@ -330,6 +396,43 @@ UIComponent({
   },
 
   methods: {
+    refreshLayout() {
+      const columns = resolveColumns(this.data.columns);
+      const internalState = getInternalState(this, columns.length);
+
+      internalState.columns.forEach((columnState) => {
+        cancelColumnAutoAdjust(columnState);
+        columnState.hasInitialized = false;
+        columnState.currentOffset = 0;
+        columnState.controlledOffset = 0;
+        columnState.lastSelectedId = undefined;
+        columnState.ignoreScrollEventsUntil = 0;
+      });
+
+      this.remeasureAndRecompute();
+      this.scheduleDeferredMeasure();
+    },
+
+    scheduleDeferredMeasure() {
+      if (this._measureTimer) {
+        clearTimeout(this._measureTimer);
+      }
+      if (this._settleMeasureTimer) {
+        clearTimeout(this._settleMeasureTimer);
+      }
+
+      // Drawer mount/animation can delay final layout; remeasure twice to lock center.
+      this._measureTimer = setTimeout(() => {
+        this.remeasureAndRecompute();
+        this._measureTimer = null;
+      }, 0);
+
+      this._settleMeasureTimer = setTimeout(() => {
+        this.remeasureAndRecompute();
+        this._settleMeasureTimer = null;
+      }, 120);
+    },
+
     syncInnerValueByColumns() {
       if (isArrayLikeValue(this.data.value)) {
         return;
@@ -357,13 +460,14 @@ UIComponent({
         ) => {
           const rect = rects[0];
           const measuredHeight = Math.max(0, Number(rect?.height ?? 0));
-          const estimateSize = Math.max(1, Number(this.data.estimateSize) || 44);
-          const indicatorHeight = Math.max(
-            1,
-            Number(this.data.indicatorHeight) || estimateSize,
+          const { estimateSize, indicatorHeight } = resolvePickboxMetrics(
+            this.data,
           );
+          const fallbackHeight = resolveDefaultContainerHeightBySize(this.data.size);
           const containerHeight =
-            measuredHeight > 0 ? measuredHeight : Math.max(estimateSize, indicatorHeight);
+            measuredHeight > 0
+              ? measuredHeight
+              : Math.max(fallbackHeight, estimateSize, indicatorHeight);
           const resolvedPadding = Math.max(
             0,
             containerHeight / 2 - indicatorHeight / 2,
@@ -373,6 +477,8 @@ UIComponent({
             {
               containerHeight,
               resolvedPadding,
+              resolvedEstimateSize: estimateSize,
+              resolvedIndicatorHeight: indicatorHeight,
             } satisfies Partial<PickboxMiniVirtualState>,
             () => {
               this.recomputeVirtualColumns();
@@ -386,14 +492,14 @@ UIComponent({
       const columns = resolveColumns(this.data.columns);
       const internalState = getInternalState(this, columns.length);
 
-      const estimateSize = Math.max(1, Number(this.data.estimateSize) || 44);
-      const indicatorHeight = Math.max(
-        1,
-        Number(this.data.indicatorHeight) || estimateSize,
+      const { estimateSize, indicatorHeight } = resolvePickboxMetrics(
+        this.data,
       );
+      const fallbackHeight = resolveDefaultContainerHeightBySize(this.data.size);
       const containerHeight = Math.max(
         1,
-        Number(this.data.containerHeight) || Math.max(estimateSize, indicatorHeight),
+        Number(this.data.containerHeight) ||
+          Math.max(fallbackHeight, estimateSize, indicatorHeight),
       );
       const resolvedPadding = Math.max(
         0,
@@ -407,16 +513,22 @@ UIComponent({
           : this.data.innerValue,
       );
 
-      let shouldRunPendingAlign = false;
-
       const renderColumns = columns.map((column, columnIndex) => {
         const columnState = internalState.columns[columnIndex] ?? createColumnState();
-        const selectedItemId = mergedValue[columnIndex] ?? null;
+        const propSelectedItemId = mergedValue[columnIndex] ?? null;
+        const selectedItemId =
+          columnState.isAutoAdjusting &&
+          columnState.lastSelectedId !== undefined
+            ? (columnState.lastSelectedId ?? null)
+            : propSelectedItemId;
         const selectedIndex = resolveSelectedIndex(column.items, selectedItemId);
         const selectedId = selectedItemId;
 
         const shouldAlignSelected =
-          !columnState.hasInitialized || columnState.lastSelectedId !== selectedItemId;
+          !columnState.hasInitialized ||
+          (columnState.lastSelectedId !== selectedItemId &&
+            !columnState.isAutoAdjusting &&
+            columnState.pendingAlignOffset === null);
 
         if (shouldAlignSelected) {
           const targetOffset = resolveScrollTopForIndex({
@@ -425,22 +537,16 @@ UIComponent({
             resolvedPadding,
             containerHeight,
           });
-          const shouldSmoothAlign = columnState.hasInitialized;
-          if (shouldSmoothAlign) {
-            columnState.pendingAlignOffset = targetOffset;
-            columnState.pendingScrollWithAnimation = true;
-            columnState.alignPhase = 'prepare';
-            columnState.isScrolling = true;
-            columnState.isAutoAdjusting = true;
-          } else {
-            columnState.currentOffset = targetOffset;
-            columnState.controlledOffset = targetOffset;
-            columnState.pendingAlignOffset = null;
-            columnState.pendingScrollWithAnimation = false;
-            columnState.alignPhase = 'idle';
-            columnState.isScrolling = false;
-            columnState.isAutoAdjusting = false;
-          }
+
+          // Keep controlled/open-sync alignment immediate to avoid reopen replay.
+          columnState.currentOffset = targetOffset;
+          columnState.controlledOffset = targetOffset;
+          columnState.pendingAlignOffset = null;
+          columnState.pendingScrollWithAnimation = false;
+          columnState.alignPhase = 'idle';
+          columnState.isScrolling = false;
+          columnState.isAutoAdjusting = false;
+          columnState.ignoreScrollEventsUntil = Date.now() + 80;
           columnState.hasInitialized = true;
         }
 
@@ -479,10 +585,7 @@ UIComponent({
           scrollTop: Math.max(
             0,
             hasPendingAlign
-              ? columnState.pendingScrollWithAnimation &&
-                  columnState.alignPhase === 'prepare'
-                ? columnState.controlledOffset
-                : (columnState.pendingAlignOffset ?? columnState.currentOffset)
+              ? (columnState.pendingAlignOffset ?? columnState.currentOffset)
               : columnState.isScrolling
                 ? columnState.currentOffset
                 : columnState.controlledOffset,
@@ -496,26 +599,9 @@ UIComponent({
 
       this.setData({
         renderColumns,
+        resolvedEstimateSize: estimateSize,
+        resolvedIndicatorHeight: indicatorHeight,
       } satisfies Partial<PickboxMiniVirtualState>);
-
-      internalState.columns.forEach((columnState) => {
-        if (!columnState.pendingScrollWithAnimation) {
-          return;
-        }
-
-        if (columnState.alignPhase !== 'prepare') {
-          return;
-        }
-
-        columnState.alignPhase = 'running';
-        shouldRunPendingAlign = true;
-      });
-
-      if (shouldRunPendingAlign) {
-        Promise.resolve().then(() => {
-          this.recomputeVirtualColumns();
-        });
-      }
 
       const autoAdjustDuration = Math.max(
         220,
@@ -565,6 +651,7 @@ UIComponent({
 
       cancelColumnAutoAdjust(columnState);
       columnState.isTouching = true;
+      columnState.ignoreScrollEventsUntil = 0;
     },
 
     handleColumnTouchEnd(e: WechatMiniprogram.TouchEvent) {
@@ -581,13 +668,6 @@ UIComponent({
       }
 
       columnState.isTouching = false;
-      if (columnState.isScrolling && !columnState.isAutoAdjusting) {
-        const scrollEndDelay = Math.max(
-          50,
-          Number(this.data.scrollEndDelay) || 120,
-        );
-        this.scheduleColumnSnap(columnIndex, scrollEndDelay);
-      }
     },
 
     handleColumnTouchCancel(e: WechatMiniprogram.TouchEvent) {
@@ -621,6 +701,7 @@ UIComponent({
 
       cancelColumnAutoAdjust(columnState);
       columnState.isTouching = true;
+      columnState.ignoreScrollEventsUntil = 0;
       const detail = resolveScrollDetail(e.detail);
       columnState.currentOffset = Math.max(0, detail.scrollTop);
       columnState.controlledOffset = columnState.currentOffset;
@@ -645,16 +726,6 @@ UIComponent({
       columnState.controlledOffset = columnState.currentOffset;
       columnState.lastScrollAt = Date.now();
       columnState.isTouching = false;
-
-      if (columnState.isAutoAdjusting) {
-        return;
-      }
-
-      const scrollEndDelay = Math.max(
-        50,
-        Number(this.data.scrollEndDelay) || 120,
-      );
-      this.scheduleColumnSnap(columnIndex, scrollEndDelay);
     },
 
     handleColumnScroll(e: WechatMiniprogram.CustomEvent<NestedScrollDetail>) {
@@ -674,6 +745,10 @@ UIComponent({
         return;
       }
 
+      if (Date.now() < columnState.ignoreScrollEventsUntil) {
+        return;
+      }
+
       const detail = resolveScrollDetail(e.detail);
       columnState.currentOffset = Math.max(0, detail.scrollTop);
       columnState.controlledOffset = columnState.currentOffset;
@@ -685,7 +760,6 @@ UIComponent({
 
       if (!columnState.isScrolling) {
         columnState.isScrolling = true;
-        this.recomputeVirtualColumns();
       }
 
       if (columnState.scrollStopTimer) {
@@ -741,14 +815,14 @@ UIComponent({
         return;
       }
 
-      const estimateSize = Math.max(1, Number(this.data.estimateSize) || 44);
-      const indicatorHeight = Math.max(
-        1,
-        Number(this.data.indicatorHeight) || estimateSize,
+      const { estimateSize, indicatorHeight } = resolvePickboxMetrics(
+        this.data,
       );
+      const fallbackHeight = resolveDefaultContainerHeightBySize(this.data.size);
       const containerHeight = Math.max(
         1,
-        Number(this.data.containerHeight) || Math.max(estimateSize, indicatorHeight),
+        Number(this.data.containerHeight) ||
+          Math.max(fallbackHeight, estimateSize, indicatorHeight),
       );
       const resolvedPadding = Math.max(
         0,
@@ -806,10 +880,8 @@ UIComponent({
         return;
       }
 
-      const estimateSize = Math.max(1, Number(this.data.estimateSize) || 44);
-      const indicatorHeight = Math.max(
-        1,
-        Number(this.data.indicatorHeight) || estimateSize,
+      const { estimateSize, indicatorHeight } = resolvePickboxMetrics(
+        this.data,
       );
       const containerHeight = Math.max(
         1,
@@ -840,7 +912,9 @@ UIComponent({
       columnState.pendingScrollWithAnimation = behavior === 'smooth';
       columnState.isScrolling = behavior === 'smooth';
       columnState.isAutoAdjusting = behavior === 'smooth';
-      columnState.alignPhase = behavior === 'smooth' ? 'prepare' : 'idle';
+      columnState.alignPhase = behavior === 'smooth' ? 'running' : 'idle';
+      columnState.ignoreScrollEventsUntil =
+        behavior === 'smooth' ? 0 : Date.now() + 80;
       if (behavior !== 'smooth') {
         columnState.controlledOffset = nextOffset;
         columnState.pendingAlignOffset = null;

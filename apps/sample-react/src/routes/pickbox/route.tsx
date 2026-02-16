@@ -138,6 +138,43 @@ function PickboxDemo() {
             </div>
           </div>
         </Section>
+
+        <Section
+          title="Sizes"
+          description="sm / md / lg 高度由 size 决定（不额外覆盖 height）"
+        >
+          <div className="space-y-4">
+            <div>
+              <div className="mb-2 text-xs font-medium text-slate-500">size = sm</div>
+              <Pickbox
+                className="rounded-2xl border border-slate-200"
+                size="sm"
+                columns={columns}
+                defaultValue={[2000, 1, 1]}
+              />
+            </div>
+
+            <div>
+              <div className="mb-2 text-xs font-medium text-slate-500">size = md</div>
+              <Pickbox
+                className="rounded-2xl border border-slate-200"
+                size="md"
+                columns={columns}
+                defaultValue={[2000, 1, 1]}
+              />
+            </div>
+
+            <div>
+              <div className="mb-2 text-xs font-medium text-slate-500">size = lg</div>
+              <Pickbox
+                className="rounded-2xl border border-slate-200"
+                size="lg"
+                columns={columns}
+                defaultValue={[2000, 1, 1]}
+              />
+            </div>
+          </div>
+        </Section>
       </div>
     </main>
   );

@@ -40,9 +40,9 @@
           wx:for-index="groupIndex"
           wx:key="groupIndex"
         >
-          <s-button-group className="w-full" size="sm" variant="outline" isBlock>
+          <sr-button-group className="w-full" size="sm" variant="outline" isBlock>
             <block wx:for="{{group}}" wx:for-item="option" wx:key="value">
-              <s-button
+              <sr-button
                 class="flex-1"
                 color="{{activeColor === option.value ? option.value : 'default'}}"
                 variant="{{activeColor === option.value ? 'solid' : 'flat'}}"
@@ -50,9 +50,9 @@
                 bind:tap="handleColorTap"
               >
                 {{option.label}}
-              </s-button>
+              </sr-button>
             </block>
-          </s-button-group>
+          </sr-button-group>
         </block>
       </view>
 
@@ -70,6 +70,48 @@
       <view class="mt-2 text-xs text-slate-500">
         Color: {{activeColor}} / Selected:
         {{colorValue.length ? colorValue.join(' / ') : 'none'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Sizes</view>
+      <view class="mt-1 text-xs text-slate-500">
+        sm / md / lg 高度由 size 决定（不额外覆盖 height）
+      </view>
+
+      <view class="mt-3 flex flex-col gap-4">
+        <view>
+          <view class="mb-2 text-xs font-medium text-slate-500">size = sm</view>
+          <sr-pickbox
+            className="rounded-2xl border border-slate-200"
+            size="sm"
+            columns="{{columns}}"
+            defaultValue="{{sizeValue}}"
+            overscan="8"
+          />
+        </view>
+
+        <view>
+          <view class="mb-2 text-xs font-medium text-slate-500">size = md</view>
+          <sr-pickbox
+            className="rounded-2xl border border-slate-200"
+            size="md"
+            columns="{{columns}}"
+            defaultValue="{{sizeValue}}"
+            overscan="8"
+          />
+        </view>
+
+        <view>
+          <view class="mb-2 text-xs font-medium text-slate-500">size = lg</view>
+          <sr-pickbox
+            className="rounded-2xl border border-slate-200"
+            size="lg"
+            columns="{{columns}}"
+            defaultValue="{{sizeValue}}"
+            overscan="8"
+          />
+        </view>
       </view>
     </view>
   </view>

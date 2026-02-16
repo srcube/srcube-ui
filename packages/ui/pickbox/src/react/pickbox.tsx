@@ -1,5 +1,6 @@
 import {
   forwardRef,
+  useLayoutEffect,
   useCallback,
   useEffect,
   useMemo,
@@ -47,6 +48,29 @@ function resolveSelectedIndex(items: PickboxItem[], selectedId: PickboxItemId | 
   return firstEnabledIndex >= 0 ? firstEnabledIndex : 0;
 }
 
+function resolveDefaultMetricBySize(size: PickboxReactProps['size']) {
+  if (size === 'sm') {
+    return 36;
+  }
+
+  if (size === 'lg') {
+    return 52;
+  }
+
+  return 44;
+}
+
+function resolveMetricValue(
+  value: number | undefined,
+  fallback: number,
+) {
+  const next = Number(value);
+  if (Number.isFinite(next) && next > 0) {
+    return next;
+  }
+  return fallback;
+}
+
 type ColumnViewProps = {
   slots: ReturnType<typeof pickbox>;
   color: NonNullable<PickboxReactProps['color']>;
@@ -81,6 +105,7 @@ function ColumnView({
   const scrollElementRef = useRef<HTMLDivElement>(null);
   const scrollStopTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const autoAdjustTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
   const isAutoAdjustingRef = useRef(false);
 
   const selectedIndex = useMemo(
@@ -118,6 +143,16 @@ function ColumnView({
     }, Math.max(scrollEndDelay, 80));
   }, [scrollEndDelay]);
 
+  const cancelScrollAnimation = useCallback(() => {
+    if (
+      animationFrameRef.current !== null &&
+      typeof cancelAnimationFrame === 'function'
+    ) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    animationFrameRef.current = null;
+  }, []);
+
   const alignToIndex = useCallback(
     (index: number, behavior: ScrollBehavior = 'smooth') => {
       if (index < 0) {
@@ -129,20 +164,72 @@ function ColumnView({
         scrollStopTimerRef.current = null;
       }
 
-      isAutoAdjustingRef.current = true;
-      virtualizer.scrollToIndex(index, {
-        align: 'center',
-        behavior,
-      });
+      const scrollElement = scrollElementRef.current;
+      if (!scrollElement) {
+        isAutoAdjustingRef.current = true;
+        virtualizer.scrollToIndex(index, {
+          align: 'center',
+          behavior,
+        });
 
-      if (behavior === 'smooth') {
-        scheduleAutoAdjustEnd();
+        if (behavior === 'smooth') {
+          scheduleAutoAdjustEnd();
+          return;
+        }
+
+        isAutoAdjustingRef.current = false;
         return;
       }
 
-      isAutoAdjustingRef.current = false;
+      const targetOffset = Math.max(
+        0,
+        padding + index * estimateSize + estimateSize / 2 - scrollElement.clientHeight / 2,
+      );
+
+      cancelScrollAnimation();
+      isAutoAdjustingRef.current = true;
+
+      if (behavior !== 'smooth') {
+        scrollElement.scrollTop = targetOffset;
+        isAutoAdjustingRef.current = false;
+        return;
+      }
+
+      const startOffset = scrollElement.scrollTop;
+      const distance = targetOffset - startOffset;
+
+      if (Math.abs(distance) < 1 || typeof requestAnimationFrame !== 'function') {
+        scrollElement.scrollTop = targetOffset;
+        isAutoAdjustingRef.current = false;
+        return;
+      }
+
+      const duration = Math.max(110, Math.min(190, Math.abs(distance) * 0.45));
+      const startedAt = performance.now();
+      const step = (now: number) => {
+        const progress = Math.min(1, (now - startedAt) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        scrollElement.scrollTop = startOffset + distance * eased;
+
+        if (progress < 1) {
+          animationFrameRef.current = requestAnimationFrame(step);
+          return;
+        }
+
+        animationFrameRef.current = null;
+        isAutoAdjustingRef.current = false;
+      };
+
+      animationFrameRef.current = requestAnimationFrame(step);
+      scheduleAutoAdjustEnd();
     },
-    [scheduleAutoAdjustEnd, virtualizer],
+    [
+      cancelScrollAnimation,
+      estimateSize,
+      padding,
+      scheduleAutoAdjustEnd,
+      virtualizer,
+    ],
   );
 
   const snapToNearest = useCallback(() => {
@@ -192,12 +279,13 @@ function ColumnView({
     onSelect(columnIndex, nearestItem.id);
   }, [alignToIndex, column.items, columnIndex, onSelect, virtualizer]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (column.items.length === 0 || selectedIndex < 0) {
       return;
     }
 
-    alignToIndex(selectedIndex, 'smooth');
+    // Keep reopen/value-sync positioning immediate to avoid replay animation.
+    alignToIndex(selectedIndex, 'auto');
   }, [alignToIndex, column.items.length, selectedIndex, padding]);
 
   useEffect(() => {
@@ -209,8 +297,10 @@ function ColumnView({
       if (autoAdjustTimerRef.current !== null) {
         clearTimeout(autoAdjustTimerRef.current);
       }
+
+      cancelScrollAnimation();
     };
-  }, []);
+  }, [cancelScrollAnimation]);
 
   const handleScroll = useCallback(() => {
     if (isAutoAdjustingRef.current) {
@@ -298,13 +388,14 @@ function ColumnView({
 export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref) => {
   const {
     columns,
+    size = 'md',
     color = 'default',
     value,
     defaultValue,
     onValueChange,
-    estimateSize = 44,
+    estimateSize,
     overscan = 5,
-    indicatorHeight = 44,
+    indicatorHeight,
     scrollEndDelay = 120,
     className,
     classNames,
@@ -324,10 +415,17 @@ export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref
     () => ensurePickboxValue(columns, value ?? innerValue),
     [columns, innerValue, value],
   );
+  const resolvedEstimateSize = useMemo(() => {
+    const fallback = resolveDefaultMetricBySize(size);
+    return resolveMetricValue(estimateSize, fallback);
+  }, [estimateSize, size]);
+  const resolvedIndicatorHeight = useMemo(() => {
+    return resolveMetricValue(indicatorHeight, resolvedEstimateSize);
+  }, [indicatorHeight, resolvedEstimateSize]);
 
   const resolvedPadding = useMemo(
-    () => Math.max(0, containerHeight / 2 - indicatorHeight / 2),
-    [containerHeight, indicatorHeight],
+    () => Math.max(0, containerHeight / 2 - resolvedIndicatorHeight / 2),
+    [containerHeight, resolvedIndicatorHeight],
   );
 
   const setRefs = useCallback(
@@ -364,7 +462,7 @@ export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref
 
   useEffect(() => {
     measureContainer();
-  }, [columns.length, indicatorHeight, measureContainer]);
+  }, [columns.length, measureContainer, resolvedIndicatorHeight]);
 
   useEffect(() => {
     const node = rootRef.current;
@@ -385,9 +483,10 @@ export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref
   const slots = useMemo(
     () =>
       pickbox({
+        size,
         color,
       }),
-    [color],
+    [color, size],
   );
   const maskTopStyle = useMemo(
     () => ({
@@ -434,7 +533,7 @@ export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref
             column={column}
             columnIndex={columnIndex}
             selectedId={mergedValue[columnIndex] ?? null}
-            estimateSize={estimateSize}
+            estimateSize={resolvedEstimateSize}
             overscan={overscan}
             padding={resolvedPadding}
             scrollEndDelay={scrollEndDelay}
@@ -448,7 +547,7 @@ export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref
 
       <div
         className={slots.indicator({ class: classNames?.indicator })}
-        style={{ height: indicatorHeight }}
+        style={{ height: resolvedIndicatorHeight }}
       />
       <div
         className={slots.maskTop({ class: classNames?.maskTop })}

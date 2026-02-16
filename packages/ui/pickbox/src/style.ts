@@ -6,20 +6,41 @@ import {
 
 export const pickbox = tv({
   slots: {
-    base: 'relative isolate overflow-hidden rounded-2xl border border-slate-200 bg-white',
+    base:
+      'relative isolate overflow-hidden rounded-2xl border border-slate-200 bg-white outline-none',
     columns: 'relative z-10 flex h-full divide-x divide-slate-100',
     column: 'relative min-w-0 flex-1',
-    columnScroll: 'h-full overflow-y-auto scrollbar-none',
+    columnScroll: 'h-full overflow-y-auto scrollbar-none outline-none',
     columnContent: 'relative w-full',
     item:
-      'absolute left-0 right-0 flex select-none origin-center items-center justify-center px-3 transition-all duration-200',
-    itemLabel: 'truncate text-sm',
+      'absolute left-0 right-0 flex select-none origin-center items-center justify-center transition-colors duration-200',
+    itemLabel: 'truncate',
     indicator:
-      'pointer-events-none absolute inset-x-2 top-1/2 z-0 -translate-y-1/2 rounded-2xl',
+      'pointer-events-none absolute inset-x-2 top-1/2 z-0 -translate-y-1/2',
     maskTop: '',
     maskBottom: '',
   },
   variants: {
+    size: {
+      sm: {
+        base: 'h-56',
+        item: 'px-2',
+        itemLabel: 'text-xs',
+        indicator: 'rounded-xl',
+      },
+      md: {
+        base: 'h-64',
+        item: 'px-3',
+        itemLabel: 'text-sm',
+        indicator: 'rounded-2xl',
+      },
+      lg: {
+        base: 'h-72',
+        item: 'px-4',
+        itemLabel: 'text-base',
+        indicator: 'rounded-2xl',
+      },
+    },
     color: {
       default: {
         indicator: 'bg-default-100 bg-slate-100',
@@ -42,6 +63,7 @@ export const pickbox = tv({
     },
   },
   defaultVariants: {
+    size: 'md',
     color: 'default',
   },
 });
