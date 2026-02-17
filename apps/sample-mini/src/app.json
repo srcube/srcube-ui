@@ -3,6 +3,10 @@
   "pages": ["pages/index/index"],
   "subPackages": [
     {
+      "root": "packages/accordion",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/button",
       "pages": ["pages/sample/index"]
     },

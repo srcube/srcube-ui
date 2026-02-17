@@ -12,6 +12,7 @@
     "check": "biome check"
   },
   "dependencies": {
+    "@srcube-ui/accordion": "workspace:*",
     "@iconify/tailwind4": "catalog:",
     "@srcube-ui/button": "workspace:*",
     "@srcube-ui/checkbox": "workspace:*",

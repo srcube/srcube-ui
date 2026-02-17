@@ -1,0 +1,8 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-accordion": "@srcube-ui/accordion/index"
+  },
+  "navigationBarTitleText": "Accordion",
+  "backgroundColor": "#f1f5f9"
+}

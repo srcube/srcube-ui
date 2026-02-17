@@ -30,6 +30,7 @@ import { Route as FieldRouteRouteImport } from './routes/field/route'
 import { Route as DrawerRouteRouteImport } from './routes/drawer/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
+import { Route as AccordionRouteRouteImport } from './routes/accordion/route'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TourRouteRoute = TourRouteRouteImport.update({
@@ -137,6 +138,11 @@ const ButtonRouteRoute = ButtonRouteRouteImport.update({
   path: '/button',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccordionRouteRoute = AccordionRouteRouteImport.update({
+  id: '/accordion',
+  path: '/accordion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -145,6 +151,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accordion': typeof AccordionRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/drawer': typeof DrawerRouteRoute
@@ -169,6 +176,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accordion': typeof AccordionRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/drawer': typeof DrawerRouteRoute
@@ -194,6 +202,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accordion': typeof AccordionRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/drawer': typeof DrawerRouteRoute
@@ -220,6 +229,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/accordion'
     | '/button'
     | '/checkbox'
     | '/drawer'
@@ -244,6 +254,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/accordion'
     | '/button'
     | '/checkbox'
     | '/drawer'
@@ -268,6 +279,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/accordion'
     | '/button'
     | '/checkbox'
     | '/drawer'
@@ -293,6 +305,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccordionRouteRoute: typeof AccordionRouteRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
   DrawerRouteRoute: typeof DrawerRouteRoute
@@ -465,6 +478,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ButtonRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accordion': {
+      id: '/accordion'
+      path: '/accordion'
+      fullPath: '/accordion'
+      preLoaderRoute: typeof AccordionRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -477,6 +497,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccordionRouteRoute: AccordionRouteRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
   DrawerRouteRoute: DrawerRouteRoute,

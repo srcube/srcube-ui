@@ -17,6 +17,7 @@
     "build": "tsdown"
   },
   "dependencies": {
+    "@srcube-ui/accordion": "workspace:*",
     "@srcube-ui/button": "workspace:*",
     "@srcube-ui/checkbox": "workspace:*",
     "@srcube-ui/drawer": "workspace:*",

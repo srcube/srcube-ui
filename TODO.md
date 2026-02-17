@@ -39,7 +39,7 @@
 
 - [x] `navbar`
 - [x] `tabbar`
-- [ ] `accordion`
+- [x] `accordion`
 - [ ] `collapse`
 
 ### 反馈与浮层

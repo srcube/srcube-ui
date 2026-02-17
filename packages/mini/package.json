@@ -18,6 +18,7 @@
     "build": "tsdown && node ./scripts/sync-miniprogram.mjs"
   },
   "dependencies": {
+    "@srcube-ui/accordion": "workspace:*",
     "@srcube-ui/button": "workspace:*",
     "@srcube-ui/checkbox": "workspace:*",
     "@srcube-ui/drawer": "workspace:*",

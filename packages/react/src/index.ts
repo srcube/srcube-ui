@@ -1,4 +1,5 @@
 export * from '@srcube-ui/button/react';
+export * from '@srcube-ui/accordion/react';
 export * from '@srcube-ui/checkbox/react';
 export * from '@srcube-ui/drawer/react';
 export * from '@srcube-ui/field/react';

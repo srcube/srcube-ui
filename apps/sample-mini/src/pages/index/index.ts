@@ -2,6 +2,10 @@ Page({
   data: {
     components: [
       {
+        title: 'Accordion',
+        url: '/packages/accordion/pages/sample/index',
+      },
+      {
         title: 'Button',
         url: '/packages/button/pages/sample/index',
       },

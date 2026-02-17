@@ -209,6 +209,9 @@ importers:
       '@iconify/tailwind4':
         specifier: 'catalog:'
         version: 1.2.1(tailwindcss@4.1.18)
+      '@srcube-ui/accordion':
+        specifier: workspace:*
+        version: link:../../packages/ui/accordion
       '@srcube-ui/button':
         specifier: workspace:*
         version: link:../../packages/ui/button
@@ -321,6 +324,9 @@ importers:
       '@iconify/tailwind4':
         specifier: 'catalog:'
         version: 1.2.1(tailwindcss@4.1.18)
+      '@srcube-ui/accordion':
+        specifier: workspace:*
+        version: link:../../packages/ui/accordion
       '@srcube-ui/button':
         specifier: workspace:*
         version: link:../../packages/ui/button
@@ -480,6 +486,9 @@ importers:
 
   packages/mini:
     dependencies:
+      '@srcube-ui/accordion':
+        specifier: workspace:*
+        version: link:../ui/accordion
       '@srcube-ui/button':
         specifier: workspace:*
         version: link:../ui/button
@@ -556,6 +565,9 @@ importers:
 
   packages/react:
     dependencies:
+      '@srcube-ui/accordion':
+        specifier: workspace:*
+        version: link:../ui/accordion
       '@srcube-ui/button':
         specifier: workspace:*
         version: link:../ui/button
@@ -710,6 +722,25 @@ importers:
       react-aria-components:
         specifier: 'catalog:'
         version: 1.14.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/accordion:
+    dependencies:
+      '@srcube-ui/runtime':
+        specifier: workspace:*
+        version: link:../../runtime
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
       react-dom:
         specifier: 'catalog:'
         version: 19.2.4(react@19.2.4)
