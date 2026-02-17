@@ -3,6 +3,8 @@
   "usingComponents": {
     "sr-picker": "@srcube-ui/picker/index",
     "sr-date-picker": "@srcube-ui/picker/date-picker/index",
+    "sr-time-picker": "@srcube-ui/picker/time-picker/index",
+    "sr-date-range-picker": "@srcube-ui/picker/date-range-picker/index",
     "sr-button": "@srcube-ui/button/index",
     "sr-button-group": "@srcube-ui/button/button-group/index"
   },

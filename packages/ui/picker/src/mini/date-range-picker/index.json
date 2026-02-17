@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "sr-field": "../../field/index",
+    "sr-drawer": "../../drawer/index",
+    "sr-tabs": "../../tabs/index",
+    "sr-pickbox": "../../pickbox/index",
+    "sr-button": "../../button/index"
+  }
+}

@@ -1,0 +1,87 @@
+<view class="sr-picker__base {{$classNames.base}} {{className}}" style="{{style}}">
+  <sr-field
+    class="sr-picker__field {{$classNames.$field}}"
+    className="{{$classNames.field}}"
+    id="{{id}}"
+    label="{{label}}"
+    labelPlacement="{{labelPlacement}}"
+    value="{{$displayValue}}"
+    placeholder="{{placeholder}}"
+    description="{{description}}"
+    errorMessage="{{errorMessage}}"
+    color="{{$resolvedColor}}"
+    variant="{{variant}}"
+    size="{{$resolvedSize}}"
+    radius="{{radius}}"
+    isDisabled="{{isDisabled}}"
+    isReadOnly="{{isReadOnly}}"
+    isInvalid="{{isInvalid}}"
+    isRequired="{{isRequired}}"
+    isLoading="{{isLoading}}"
+    bind:tap="handleFieldTap"
+  />
+
+  <sr-drawer
+    class="sr-picker__drawer {{$classNames.$drawer}}"
+    className="{{$classNames.drawer}}"
+    classNames="{{$drawerClassNames}}"
+    isOpen="{{$resolvedOpen}}"
+    placement="bottom"
+    title="{{drawerTitle || label || ''}}"
+    isDismissable="{{isDismissable}}"
+    hasBackdrop="{{hasBackdrop}}"
+    backdrop="{{backdrop}}"
+    bind:openchange="handleDrawerOpenChange"
+  >
+    <view slot="header" class="w-full truncate">
+      {{drawerTitle || label || ''}}
+    </view>
+
+    <view slot="body">
+      <view class="{{$classNames.rangeBody}}">
+        <view class="sr-picker__range-tabs {{$classNames.$rangeTabs}}">
+          <sr-tabs
+            className="{{$classNames.rangeTabs}}"
+            items="{{$rangeTabs}}"
+            value="{{_activeRange}}"
+            color="{{$resolvedColor}}"
+            size="{{$resolvedSize}}"
+            radius="full"
+            bind:change="handleRangeTabChange"
+          />
+        </view>
+
+        <view class="sr-picker__pickbox {{$classNames.$pickbox}}">
+          <sr-pickbox
+            wx:if="{{$resolvedOpen}}"
+            className="{{$classNames.pickbox}}"
+            size="{{$resolvedSize}}"
+            color="{{$resolvedColor}}"
+            columns="{{_pickerColumns}}"
+            value="{{_pickerValue}}"
+            estimateSize="{{estimateSize}}"
+            overscan="{{overscan}}"
+            indicatorHeight="{{indicatorHeight}}"
+            scrollEndDelay="{{scrollEndDelay}}"
+            bind:valuechange="handlePickboxDraftValueChange"
+          />
+        </view>
+      </view>
+    </view>
+
+    <view slot="footer">
+      <sr-button
+        class="sr-picker__confirm {{$classNames.$confirmButton}}"
+        className="{{$classNames.confirmButton}}"
+        color="{{$resolvedColor}}"
+        size="{{$resolvedSize}}"
+        variant="flat"
+        isBlock
+        isDisabled="{{$isConfirmDisabled}}"
+        bind:tap="handleConfirmTap"
+      >
+        {{$confirmText}}
+      </sr-button>
+    </view>
+  </sr-drawer>
+</view>

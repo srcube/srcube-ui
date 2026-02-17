@@ -1,18 +1,23 @@
 # Picker
 
-基于 `Field + Drawer(bottom) + Pickbox` 组合实现的选择器，支持 React / Mini 双端，支持单选、多列选择，以及 `DatePicker`（1900~2099）。
+基于 `Field + Drawer(bottom) + Pickbox` 组合实现的选择器，支持 React / Mini 双端，支持单选、多列选择，以及 `DatePicker` / `TimePicker` / `DateRangePicker`。
 
 ## 使用
 
 ### React
 
 ```tsx
-import { DatePicker, Picker } from '@srcube-ui/picker';
+import { DatePicker, DateRangePicker, Picker, TimePicker } from '@srcube-ui/picker';
 import { useMemo, useState } from 'react';
 
 export default function Demo() {
   const [singleValue, setSingleValue] = useState<string | number | null>(null);
   const [dateValue, setDateValue] = useState<string | null>('2026-02-13');
+  const [timeValue, setTimeValue] = useState<string | null>('09:30:00');
+  const [rangeValue, setRangeValue] = useState({
+    start: '2026-02-13',
+    end: '2026-02-18',
+  });
 
   const cityItems = useMemo(
     () => [
@@ -39,6 +44,20 @@ export default function Demo() {
         value={dateValue}
         onValueChange={setDateValue}
       />
+
+      <TimePicker
+        className="mt-4"
+        label="时间"
+        value={timeValue}
+        onValueChange={setTimeValue}
+      />
+
+      <DateRangePicker
+        className="mt-4"
+        label="日期区间"
+        value={rangeValue}
+        onValueChange={setRangeValue}
+      />
     </>
   );
 }
@@ -50,7 +69,9 @@ export default function Demo() {
 {
   "usingComponents": {
     "sr-picker": "@srcube-ui/picker/index",
-    "sr-date-picker": "@srcube-ui/picker/date-picker/index"
+    "sr-date-picker": "@srcube-ui/picker/date-picker/index",
+    "sr-time-picker": "@srcube-ui/picker/time-picker/index",
+    "sr-date-range-picker": "@srcube-ui/picker/date-range-picker/index"
   }
 }
 ```
@@ -69,6 +90,20 @@ export default function Demo() {
   label="日期"
   value="{{dateValue}}"
   bind:valuechange="handleDateChange"
+/>
+
+<sr-time-picker
+  className="mt-3"
+  label="时间"
+  value="{{timeValue}}"
+  bind:valuechange="handleTimeChange"
+/>
+
+<sr-date-range-picker
+  className="mt-3"
+  label="日期区间"
+  value="{{rangeValue}}"
+  bind:valuechange="handleRangeChange"
 />
 ```
 
@@ -121,12 +156,39 @@ export default function Demo() {
 | onDraftValueChange / bind:draftvaluechange | 日期草稿变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
 | 其它 Picker 公共字段 | 继承 `Picker`（除 `mode/items/columns`） | - | - | 全平台 |
 
+### TimePicker
+
+| Prop | 说明 | 类型 | 默认值 | 平台 |
+| --- | --- | --- | --- | --- |
+| value | 受控时间值（`HH:mm:ss`） | `string \| null` | - | 全平台 |
+| defaultValue | 非受控初始时间（`HH:mm:ss`） | `string \| null` | - | 全平台 |
+| onValueChange / bind:valuechange | 时间确认回调 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
+| onDraftValueChange / bind:draftvaluechange | 时间草稿变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `mode/items/columns`） | - | - | 全平台 |
+
+### DateRangePicker
+
+| Prop | 说明 | 类型 | 默认值 | 平台 |
+| --- | --- | --- | --- | --- |
+| value | 受控区间值 | `{ start: string \| null; end: string \| null }` | - | 全平台 |
+| defaultValue | 非受控初始区间 | `{ start: string \| null; end: string \| null }` | - | 全平台 |
+| minYear | 最小年份 | `number` | `1900` | 全平台 |
+| maxYear | 最大年份 | `number` | `2099` | 全平台 |
+| startTabText | 开始 Tab 文案 | React: `ReactNode`；Mini: `string` | `"开始"` | 全平台 |
+| endTabText | 结束 Tab 文案 | React: `ReactNode`；Mini: `string` | `"结束"` | 全平台 |
+| valueSeparator | Field 展示分隔符 | `string` | `" ~ "` | 全平台 |
+| onValueChange / bind:valuechange | 区间确认回调 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
+| onDraftValueChange / bind:draftvaluechange | 区间草稿变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `mode/items/columns`） | - | - | 全平台 |
+
 ## 行为说明
 
 - 面板结构固定为：`Field` 触发 + `Drawer(bottom)` 承载 + `Pickbox` 选择 + `Confirm` 提交。
 - `dismiss`（点击遮罩 / 手势关闭）不会提交草稿值，会回滚到上次确认值。
-- `Confirm` 为 `solid + block`，并同步 `Field` 的 `color/size`。
+- `Confirm` 为 `flat + block`，并同步 `Field` 的 `color/size`。
 - `DatePicker` 默认生成年/月/日三列，并按年月动态修正当月天数。
+- `TimePicker` 默认生成时/分/秒三列（`HH:mm:ss`）。
+- `DateRangePicker` 在 Drawer body 内通过 Tabs 切换 start/end，Pickbox 始终跟随当前 Tab 的草稿值。
 
 ## 平台差异
 

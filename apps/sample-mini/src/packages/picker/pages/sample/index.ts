@@ -2,6 +2,19 @@ type PickerType = 'default' | 'calendar';
 
 type PickerSingleValue = string | number | null;
 type PickerMultiValue = Array<string | number | null>;
+type DateRangeValue = {
+  start: string | null;
+  end: string | null;
+};
+
+function formatMultiValueText(value: PickerMultiValue) {
+  const text = value
+    .filter((item): item is string | number => item !== null && item !== undefined)
+    .map((item) => String(item))
+    .join(' / ');
+
+  return text || 'none';
+}
 
 Page({
   data: {
@@ -32,7 +45,13 @@ Page({
       },
     ],
     multiValue: ['fruit', 'apple'] as PickerMultiValue,
+    multiValueText: formatMultiValueText(['fruit', 'apple']),
     dateValue: '2026-02-13',
+    timeValue: '09:30:00',
+    dateRangeValue: {
+      start: '2026-02-13',
+      end: '2026-02-18',
+    } as DateRangeValue,
   },
 
   handleTypeTap(
@@ -76,6 +95,7 @@ Page({
 
     this.setData({
       multiValue: nextValue,
+      multiValueText: formatMultiValueText(nextValue),
     });
   },
 
@@ -86,6 +106,34 @@ Page({
   ) {
     this.setData({
       dateValue: event.detail?.value ?? '',
+    });
+  },
+
+  handleTimeValueChange(
+    event: WechatMiniprogram.CustomEvent<{
+      value?: string;
+    }>,
+  ) {
+    this.setData({
+      timeValue: event.detail?.value ?? '',
+    });
+  },
+
+  handleDateRangeValueChange(
+    event: WechatMiniprogram.CustomEvent<{
+      value?: DateRangeValue;
+    }>,
+  ) {
+    const nextValue = event.detail?.value;
+    if (!nextValue) {
+      return;
+    }
+
+    this.setData({
+      dateRangeValue: {
+        start: nextValue.start ?? null,
+        end: nextValue.end ?? null,
+      },
     });
   },
 });

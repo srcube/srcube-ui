@@ -4,7 +4,6 @@ import type { FieldVariants } from '@srcube-ui/field/style';
 import type { PickerReactClassNames, PickerVariants } from '../style';
 
 export type PickerType = NonNullable<PickerVariants['type']>;
-export type PickerMode = 'single' | 'multiple';
 export type PickerItemId = string | number;
 
 export type PickerItem = {
@@ -20,7 +19,7 @@ export type PickerColumn = {
 
 export type PickerSingleValue = PickerItemId | null;
 export type PickerMultiValue = Array<PickerItemId | null>;
-export type PickerValue = PickerSingleValue | PickerMultiValue;
+export type PickerValue = PickerMultiValue;
 
 export type PickerDraftDetail = {
   values: PickerMultiValue;
@@ -47,11 +46,10 @@ export type PickerReactProps = FieldVariants &
     isRequired?: boolean;
     isLoading?: boolean;
     type?: PickerType;
-    mode?: PickerMode;
     items?: PickerItem[];
     columns?: PickerColumn[];
-    value?: PickerValue;
-    defaultValue?: PickerValue;
+    value?: PickerMultiValue;
+    defaultValue?: PickerMultiValue;
     isOpen?: boolean;
     defaultOpen?: boolean;
     separator?: string;
@@ -70,9 +68,9 @@ export type PickerReactProps = FieldVariants &
     onTap?: (event: React.MouseEvent<HTMLDivElement>) => void;
     onCancel?: () => void;
     onOpenChange?: (isOpen: boolean) => void;
-    onValueChange?: (value: PickerSingleValue | PickerMultiValue) => void;
+    onValueChange?: (value: PickerMultiValue) => void;
     onDraftValueChange?: (
-      value: PickerSingleValue | PickerMultiValue,
+      value: PickerMultiValue,
       detail: PickerDraftDetail,
     ) => void;
   };
@@ -87,7 +85,6 @@ export type DatePickerValueDetail = {
 
 type DatePickerBaseProps = Omit<
   PickerReactProps,
-  | 'mode'
   | 'items'
   | 'columns'
   | 'value'
@@ -108,5 +105,172 @@ export type DatePickerReactProps = DatePickerBaseProps & {
   onDraftValueChange?: (
     value: DatePickerValue,
     detail: DatePickerValueDetail,
+  ) => void;
+};
+
+export type TimePickerValue = string | null;
+
+export type TimePickerValueDetail = {
+  hour: number;
+  minute: number;
+  second: number;
+};
+
+type TimePickerBaseProps = Omit<
+  PickerReactProps,
+  | 'items'
+  | 'columns'
+  | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
+  | 'onDraftValueChange'
+>;
+
+export type TimePickerReactProps = TimePickerBaseProps & {
+  value?: TimePickerValue;
+  defaultValue?: TimePickerValue;
+  onValueChange?: (
+    value: TimePickerValue,
+    detail: TimePickerValueDetail,
+  ) => void;
+  onDraftValueChange?: (
+    value: TimePickerValue,
+    detail: TimePickerValueDetail,
+  ) => void;
+};
+
+export type DateRangePickerRange = 'start' | 'end';
+
+export type DateRangePickerValue = {
+  start: DatePickerValue;
+  end: DatePickerValue;
+};
+
+export type DateRangePickerValueDetail = {
+  activeRange: DateRangePickerRange;
+  start: DatePickerValueDetail;
+  end: DatePickerValueDetail;
+};
+
+type DateRangePickerBaseProps = Omit<
+  PickerReactProps,
+  | 'items'
+  | 'columns'
+  | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
+  | 'onDraftValueChange'
+>;
+
+export type DateRangePickerReactProps = DateRangePickerBaseProps & {
+  value?: DateRangePickerValue;
+  defaultValue?: DateRangePickerValue;
+  minYear?: number;
+  maxYear?: number;
+  startTabText?: React.ReactNode;
+  endTabText?: React.ReactNode;
+  valueSeparator?: string;
+  onValueChange?: (
+    value: DateRangePickerValue,
+    detail: DateRangePickerValueDetail,
+  ) => void;
+  onDraftValueChange?: (
+    value: DateRangePickerValue,
+    detail: DateRangePickerValueDetail,
+  ) => void;
+};
+
+export type PickerDatetimeMode = 'datetime' | 'date' | 'time';
+export type PickerDatetimePanel = 'date' | 'time';
+export type PickerDatetimeValue = string | null;
+
+export type PickerDatetimeValueDetail = {
+  mode: PickerDatetimeMode;
+  panel: PickerDatetimePanel;
+  format: string;
+  date: DatePickerValueDetail;
+  time: TimePickerValueDetail;
+};
+
+type PickerDatetimeBaseProps = Omit<
+  PickerReactProps,
+  | 'items'
+  | 'columns'
+  | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
+  | 'onDraftValueChange'
+>;
+
+export type PickerDatetimeReactProps = PickerDatetimeBaseProps & {
+  mode?: PickerDatetimeMode;
+  value?: PickerDatetimeValue;
+  defaultValue?: PickerDatetimeValue;
+  format?: string;
+  minYear?: number;
+  maxYear?: number;
+  dateTabText?: React.ReactNode;
+  timeTabText?: React.ReactNode;
+  onValueChange?: (
+    value: PickerDatetimeValue,
+    detail: PickerDatetimeValueDetail,
+  ) => void;
+  onDraftValueChange?: (
+    value: PickerDatetimeValue,
+    detail: PickerDatetimeValueDetail,
+  ) => void;
+};
+
+export type PickerDatetimeRange = 'start' | 'end';
+
+export type PickerDatetimeRangeValue = {
+  start: PickerDatetimeValue;
+  end: PickerDatetimeValue;
+};
+
+export type PickerDatetimeRangeValueDetail = {
+  mode: PickerDatetimeMode;
+  activeRange: PickerDatetimeRange;
+  panel: PickerDatetimePanel;
+  format: string;
+  start: {
+    date: DatePickerValueDetail;
+    time: TimePickerValueDetail;
+  };
+  end: {
+    date: DatePickerValueDetail;
+    time: TimePickerValueDetail;
+  };
+};
+
+type PickerDatetimeRangeBaseProps = Omit<
+  PickerReactProps,
+  | 'items'
+  | 'columns'
+  | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
+  | 'onDraftValueChange'
+>;
+
+export type PickerDatetimeRangeReactProps = PickerDatetimeRangeBaseProps & {
+  mode?: PickerDatetimeMode;
+  value?: PickerDatetimeRangeValue;
+  defaultValue?: PickerDatetimeRangeValue;
+  format?: string;
+  minYear?: number;
+  maxYear?: number;
+  startTabText?: React.ReactNode;
+  endTabText?: React.ReactNode;
+  dateTabText?: React.ReactNode;
+  timeTabText?: React.ReactNode;
+  valueSeparator?: string;
+  onValueChange?: (
+    value: PickerDatetimeRangeValue,
+    detail: PickerDatetimeRangeValueDetail,
+  ) => void;
+  onDraftValueChange?: (
+    value: PickerDatetimeRangeValue,
+    detail: PickerDatetimeRangeValueDetail,
   ) => void;
 };

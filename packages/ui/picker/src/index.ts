@@ -1,6 +1,10 @@
-export { DatePicker, Picker } from './react';
+export { DatePicker, DateRangePicker, Picker, TimePicker } from './react';
 export type {
   DatePickerReactProps,
+  DateRangePickerRange,
+  DateRangePickerReactProps,
+  DateRangePickerValue,
+  DateRangePickerValueDetail,
   DatePickerValue,
   DatePickerValueDetail,
   PickerColumn,
@@ -12,6 +16,9 @@ export type {
   PickerSingleValue,
   PickerType,
   PickerValue,
+  TimePickerReactProps,
+  TimePickerValue,
+  TimePickerValueDetail,
 } from './react';
 export type {
   PickerMiniColumn,
@@ -25,6 +32,12 @@ export type {
   PickerMiniValue,
 } from './mini';
 export type { DatePickerMiniProps } from './mini/date-picker';
+export type {
+  DateRangePickerMiniProps,
+  DateRangePickerMiniRange,
+  DateRangePickerMiniValue,
+} from './mini/date-range-picker';
+export type { TimePickerMiniProps } from './mini/time-picker';
 export type {
   PickerClassNames,
   PickerClasses,

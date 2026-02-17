@@ -75,7 +75,7 @@
       />
 
       <view class="mt-2 text-xs text-slate-500">
-        Value: {{multiValue.length ? multiValue.join(' / ') : 'none'}}
+        Value: {{multiValueText}}
       </view>
     </view>
 
@@ -94,6 +94,44 @@
 
       <view class="mt-2 text-xs text-slate-500">
         Value: {{dateValue || 'none'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">TimePicker</view>
+      <view class="mt-1 text-xs text-slate-500">与 DatePicker 一致，改为时/分/秒数据源</view>
+
+      <sr-time-picker
+        className="mt-3"
+        label="时间"
+        type="{{pickerType}}"
+        color="warning"
+        value="{{timeValue}}"
+        bind:valuechange="handleTimeValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{timeValue || 'none'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">DateRangePicker</view>
+      <view class="mt-1 text-xs text-slate-500">
+        Drawer body 内使用 Tabs 切换 start/end，对应 Pickbox 选中态联动
+      </view>
+
+      <sr-date-range-picker
+        className="mt-3"
+        label="日期区间"
+        type="{{pickerType}}"
+        color="primary"
+        value="{{dateRangeValue}}"
+        bind:valuechange="handleDateRangeValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{dateRangeValue.start || '--'}} ~ {{dateRangeValue.end || '--'}}
       </view>
     </view>
   </view>

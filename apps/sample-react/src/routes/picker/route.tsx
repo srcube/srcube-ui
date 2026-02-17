@@ -1,5 +1,10 @@
 import { Button, ButtonGroup } from '@srcube-ui/button';
-import { DatePicker, Picker } from '@srcube-ui/picker';
+import {
+  DatePicker,
+  DateRangePicker,
+  Picker,
+  TimePicker,
+} from '@srcube-ui/picker';
 import { createFileRoute } from '@tanstack/react-router';
 import { useMemo, useState } from 'react';
 import PageHeader from '@/components/page-header';
@@ -38,6 +43,14 @@ function PickerDemo() {
     'apple',
   ]);
   const [dateValue, setDateValue] = useState<string | null>('2026-02-13');
+  const [timeValue, setTimeValue] = useState<string | null>('09:30:00');
+  const [dateRangeValue, setDateRangeValue] = useState<{
+    start: string | null;
+    end: string | null;
+  }>({
+    start: '2026-02-13',
+    end: '2026-02-18',
+  });
 
   const singleItems = useMemo(
     () => [
@@ -152,6 +165,35 @@ function PickerDemo() {
           />
           <div className="mt-2 text-xs text-slate-500">
             Value: {dateValue ?? 'none'}
+          </div>
+        </Section>
+
+        <Section title="TimePicker" description="与 DatePicker 一致，改为时/分/秒数据源">
+          <TimePicker
+            label="时间"
+            type={pickerType}
+            color="warning"
+            value={timeValue}
+            onValueChange={setTimeValue}
+          />
+          <div className="mt-2 text-xs text-slate-500">
+            Value: {timeValue ?? 'none'}
+          </div>
+        </Section>
+
+        <Section
+          title="DateRangePicker"
+          description="Drawer body 内使用 Tabs 切换 start/end，对应 Pickbox 选中态联动"
+        >
+          <DateRangePicker
+            label="日期区间"
+            type={pickerType}
+            color="primary"
+            value={dateRangeValue}
+            onValueChange={setDateRangeValue}
+          />
+          <div className="mt-2 text-xs text-slate-500">
+            Value: {`${dateRangeValue.start} ~ ${dateRangeValue.end}`}
           </div>
         </Section>
       </div>

@@ -13,6 +13,12 @@ export const picker = tv({
     drawer: '',
     drawerBody: 'px-4 py-3',
     drawerFooter: 'shrink-0 px-4 pt-2',
+    rangeBody: 'space-y-3',
+    $rangeTabs: '',
+    rangeTabs: 'w-full',
+    $modeTabs: '',
+    modeTabs: 'w-full',
+    modeTabButton: 'flex-1',
     $pickbox: '',
     pickbox: 'w-full rounded-2xl border-0',
     $confirmButton: '',
@@ -40,6 +46,6 @@ export type PickerClasses = VariantClasses<typeof picker>;
 export type PickerClassNames = PickerClasses;
 export type PickerReactClassNames = Omit<
   PickerClassNames,
-  '$field' | '$drawer' | '$pickbox' | '$confirmButton'
+  '$field' | '$drawer' | '$rangeTabs' | '$pickbox' | '$confirmButton'
 >;
 export type PickerMiniClassNames = PickerClassNames;

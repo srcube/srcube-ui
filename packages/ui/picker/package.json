@@ -28,6 +28,14 @@
       "types": "./dist/mini/date-picker/index.d.ts",
       "import": "./dist/mini/date-picker/index.js"
     },
+    "./mini/date-range-picker": {
+      "types": "./dist/mini/date-range-picker/index.d.ts",
+      "import": "./dist/mini/date-range-picker/index.js"
+    },
+    "./mini/time-picker": {
+      "types": "./dist/mini/time-picker/index.d.ts",
+      "import": "./dist/mini/time-picker/index.js"
+    },
     "./react": {
       "types": "./dist/react/index.d.ts",
       "import": "./dist/react/index.js"
@@ -37,7 +45,8 @@
     "@srcube-ui/button": "workspace:*",
     "@srcube-ui/drawer": "workspace:*",
     "@srcube-ui/field": "workspace:*",
-    "@srcube-ui/pickbox": "workspace:*"
+    "@srcube-ui/pickbox": "workspace:*",
+    "@srcube-ui/tabs": "workspace:*"
   },
   "devDependencies": {
     "@srcube-ui/config": "workspace:*",
@@ -49,6 +58,7 @@
     "@srcube-ui/drawer": "workspace:*",
     "@srcube-ui/field": "workspace:*",
     "@srcube-ui/pickbox": "workspace:*",
+    "@srcube-ui/tabs": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",
