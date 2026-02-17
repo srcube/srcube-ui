@@ -19,6 +19,7 @@ export * from '@srcube-ui/popover/mini';
 export * from '@srcube-ui/radio/mini';
 export * from '@srcube-ui/scrollbox/mini';
 export * from '@srcube-ui/skeleton/mini';
+export * from '@srcube-ui/steps/mini';
 export * from '@srcube-ui/stepper/mini';
 export * from '@srcube-ui/swipe-action/mini';
 export * from '@srcube-ui/switch/mini';

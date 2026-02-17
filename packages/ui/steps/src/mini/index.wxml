@@ -1,0 +1,24 @@
+<view id="{{id}}" class="sr-steps {{$classNames.base}}" style="{{style}}">
+  <view class="sr-steps__list {{$classNames.list}}">
+    <block wx:for="{{$renderItems}}" wx:key="key" wx:for-item="item">
+      <view class="sr-steps__item {{item.classes.item}}">
+        <view class="sr-steps__indicator-wrap {{item.classes.indicatorWrap}}">
+          <text class="sr-steps__indicator {{item.classes.indicator}}">
+            {{item.iconText}}
+          </text>
+          <view class="sr-steps__line {{item.classes.line}}" />
+        </view>
+
+        <view class="sr-steps__content {{item.classes.content}}">
+          <text class="sr-steps__title {{item.classes.title}}">{{item.title}}</text>
+          <text
+            wx:if="{{item.description}}"
+            class="sr-steps__description {{item.classes.description}}"
+          >
+            {{item.description}}
+          </text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

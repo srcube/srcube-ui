@@ -1,0 +1,8 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-steps": "@srcube-ui/steps/index"
+  },
+  "navigationBarTitleText": "Steps",
+  "backgroundColor": "#f1f5f9"
+}

@@ -15,6 +15,7 @@ import { Route as TabsRouteRouteImport } from './routes/tabs/route'
 import { Route as TabbarRouteRouteImport } from './routes/tabbar/route'
 import { Route as SwitchRouteRouteImport } from './routes/switch/route'
 import { Route as SwipeActionRouteRouteImport } from './routes/swipe-action/route'
+import { Route as StepsRouteRouteImport } from './routes/steps/route'
 import { Route as StepperRouteRouteImport } from './routes/stepper/route'
 import { Route as SkeletonRouteRouteImport } from './routes/skeleton/route'
 import { Route as ScrollboxRouteRouteImport } from './routes/scrollbox/route'
@@ -67,6 +68,11 @@ const SwitchRouteRoute = SwitchRouteRouteImport.update({
 const SwipeActionRouteRoute = SwipeActionRouteRouteImport.update({
   id: '/swipe-action',
   path: '/swipe-action',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StepsRouteRoute = StepsRouteRouteImport.update({
+  id: '/steps',
+  path: '/steps',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StepperRouteRoute = StepperRouteRouteImport.update({
@@ -209,6 +215,7 @@ export interface FileRoutesByFullPath {
   '/scrollbox': typeof ScrollboxRouteRoute
   '/skeleton': typeof SkeletonRouteRoute
   '/stepper': typeof StepperRouteRoute
+  '/steps': typeof StepsRouteRoute
   '/swipe-action': typeof SwipeActionRouteRoute
   '/switch': typeof SwitchRouteRoute
   '/tabbar': typeof TabbarRouteRoute
@@ -240,6 +247,7 @@ export interface FileRoutesByTo {
   '/scrollbox': typeof ScrollboxRouteRoute
   '/skeleton': typeof SkeletonRouteRoute
   '/stepper': typeof StepperRouteRoute
+  '/steps': typeof StepsRouteRoute
   '/swipe-action': typeof SwipeActionRouteRoute
   '/switch': typeof SwitchRouteRoute
   '/tabbar': typeof TabbarRouteRoute
@@ -272,6 +280,7 @@ export interface FileRoutesById {
   '/scrollbox': typeof ScrollboxRouteRoute
   '/skeleton': typeof SkeletonRouteRoute
   '/stepper': typeof StepperRouteRoute
+  '/steps': typeof StepsRouteRoute
   '/swipe-action': typeof SwipeActionRouteRoute
   '/switch': typeof SwitchRouteRoute
   '/tabbar': typeof TabbarRouteRoute
@@ -305,6 +314,7 @@ export interface FileRouteTypes {
     | '/scrollbox'
     | '/skeleton'
     | '/stepper'
+    | '/steps'
     | '/swipe-action'
     | '/switch'
     | '/tabbar'
@@ -336,6 +346,7 @@ export interface FileRouteTypes {
     | '/scrollbox'
     | '/skeleton'
     | '/stepper'
+    | '/steps'
     | '/swipe-action'
     | '/switch'
     | '/tabbar'
@@ -367,6 +378,7 @@ export interface FileRouteTypes {
     | '/scrollbox'
     | '/skeleton'
     | '/stepper'
+    | '/steps'
     | '/swipe-action'
     | '/switch'
     | '/tabbar'
@@ -399,6 +411,7 @@ export interface RootRouteChildren {
   ScrollboxRouteRoute: typeof ScrollboxRouteRoute
   SkeletonRouteRoute: typeof SkeletonRouteRoute
   StepperRouteRoute: typeof StepperRouteRoute
+  StepsRouteRoute: typeof StepsRouteRoute
   SwipeActionRouteRoute: typeof SwipeActionRouteRoute
   SwitchRouteRoute: typeof SwitchRouteRoute
   TabbarRouteRoute: typeof TabbarRouteRoute
@@ -449,6 +462,13 @@ declare module '@tanstack/react-router' {
       path: '/swipe-action'
       fullPath: '/swipe-action'
       preLoaderRoute: typeof SwipeActionRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/steps': {
+      id: '/steps'
+      path: '/steps'
+      fullPath: '/steps'
+      preLoaderRoute: typeof StepsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/stepper': {
@@ -639,6 +659,7 @@ const rootRouteChildren: RootRouteChildren = {
   ScrollboxRouteRoute: ScrollboxRouteRoute,
   SkeletonRouteRoute: SkeletonRouteRoute,
   StepperRouteRoute: StepperRouteRoute,
+  StepsRouteRoute: StepsRouteRoute,
   SwipeActionRouteRoute: SwipeActionRouteRoute,
   SwitchRouteRoute: SwitchRouteRoute,
   TabbarRouteRoute: TabbarRouteRoute,

@@ -58,6 +58,10 @@ Page({
         url: '/packages/skeleton/pages/sample/index',
       },
       {
+        title: 'Steps',
+        url: '/packages/steps/pages/sample/index',
+      },
+      {
         title: 'Stepper',
         url: '/packages/stepper/pages/sample/index',
       },

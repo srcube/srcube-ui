@@ -55,6 +55,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/steps",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/stepper",
       "pages": ["pages/sample/index"]
     },

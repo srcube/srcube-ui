@@ -278,6 +278,9 @@ importers:
       '@srcube-ui/stepper':
         specifier: workspace:*
         version: link:../../packages/ui/stepper
+      '@srcube-ui/steps':
+        specifier: workspace:*
+        version: link:../../packages/ui/steps
       '@srcube-ui/swipe-action':
         specifier: workspace:*
         version: link:../../packages/ui/swipe-action
@@ -411,6 +414,9 @@ importers:
       '@srcube-ui/stepper':
         specifier: workspace:*
         version: link:../../packages/ui/stepper
+      '@srcube-ui/steps':
+        specifier: workspace:*
+        version: link:../../packages/ui/steps
       '@srcube-ui/swipe-action':
         specifier: workspace:*
         version: link:../../packages/ui/swipe-action
@@ -588,6 +594,9 @@ importers:
       '@srcube-ui/stepper':
         specifier: workspace:*
         version: link:../ui/stepper
+      '@srcube-ui/steps':
+        specifier: workspace:*
+        version: link:../ui/steps
       '@srcube-ui/swipe-action':
         specifier: workspace:*
         version: link:../ui/swipe-action
@@ -685,6 +694,9 @@ importers:
       '@srcube-ui/stepper':
         specifier: workspace:*
         version: link:../ui/stepper
+      '@srcube-ui/steps':
+        specifier: workspace:*
+        version: link:../ui/steps
       '@srcube-ui/swipe-action':
         specifier: workspace:*
         version: link:../ui/swipe-action
@@ -1262,6 +1274,25 @@ importers:
       '@srcube-ui/field':
         specifier: workspace:*
         version: link:../field
+      '@srcube-ui/runtime':
+        specifier: workspace:*
+        version: link:../../runtime
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/steps:
+    dependencies:
       '@srcube-ui/runtime':
         specifier: workspace:*
         version: link:../../runtime

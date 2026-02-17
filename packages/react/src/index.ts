@@ -19,6 +19,7 @@ export * from '@srcube-ui/popover/react';
 export * from '@srcube-ui/radio/react';
 export * from '@srcube-ui/scrollbox/react';
 export * from '@srcube-ui/skeleton/react';
+export * from '@srcube-ui/steps/react';
 export * from '@srcube-ui/stepper/react';
 export * from '@srcube-ui/swipe-action/react';
 export * from '@srcube-ui/switch/react';

@@ -48,6 +48,7 @@
     "@srcube-ui/runtime": "workspace:*",
     "@srcube-ui/scrollbox": "workspace:*",
     "@srcube-ui/skeleton": "workspace:*",
+    "@srcube-ui/steps": "workspace:*",
     "@srcube-ui/stepper": "workspace:*",
     "@srcube-ui/switch": "workspace:*",
     "@srcube-ui/swipe-action": "workspace:*",
