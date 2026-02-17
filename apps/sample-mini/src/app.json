@@ -71,6 +71,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/tabbar",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/tour",
       "pages": ["pages/sample/index"]
     },

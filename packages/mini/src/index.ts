@@ -15,6 +15,7 @@ export * from '@srcube-ui/skeleton/mini';
 export * from '@srcube-ui/stepper/mini';
 export * from '@srcube-ui/swipe-action/mini';
 export * from '@srcube-ui/switch/mini';
+export * from '@srcube-ui/tabbar/mini';
 export * from '@srcube-ui/tabs/mini';
 export * from '@srcube-ui/textarea/mini';
 export * from '@srcube-ui/tour/mini';

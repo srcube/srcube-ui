@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TourRouteRouteImport } from './routes/tour/route'
 import { Route as TextareaRouteRouteImport } from './routes/textarea/route'
 import { Route as TabsRouteRouteImport } from './routes/tabs/route'
+import { Route as TabbarRouteRouteImport } from './routes/tabbar/route'
 import { Route as SwitchRouteRouteImport } from './routes/switch/route'
 import { Route as SwipeActionRouteRouteImport } from './routes/swipe-action/route'
 import { Route as StepperRouteRouteImport } from './routes/stepper/route'
@@ -44,6 +45,11 @@ const TextareaRouteRoute = TextareaRouteRouteImport.update({
 const TabsRouteRoute = TabsRouteRouteImport.update({
   id: '/tabs',
   path: '/tabs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TabbarRouteRoute = TabbarRouteRouteImport.update({
+  id: '/tabbar',
+  path: '/tabbar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SwitchRouteRoute = SwitchRouteRouteImport.update({
@@ -156,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/stepper': typeof StepperRouteRoute
   '/swipe-action': typeof SwipeActionRouteRoute
   '/switch': typeof SwitchRouteRoute
+  '/tabbar': typeof TabbarRouteRoute
   '/tabs': typeof TabsRouteRoute
   '/textarea': typeof TextareaRouteRoute
   '/tour': typeof TourRouteRoute
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/stepper': typeof StepperRouteRoute
   '/swipe-action': typeof SwipeActionRouteRoute
   '/switch': typeof SwitchRouteRoute
+  '/tabbar': typeof TabbarRouteRoute
   '/tabs': typeof TabsRouteRoute
   '/textarea': typeof TextareaRouteRoute
   '/tour': typeof TourRouteRoute
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/stepper': typeof StepperRouteRoute
   '/swipe-action': typeof SwipeActionRouteRoute
   '/switch': typeof SwitchRouteRoute
+  '/tabbar': typeof TabbarRouteRoute
   '/tabs': typeof TabsRouteRoute
   '/textarea': typeof TextareaRouteRoute
   '/tour': typeof TourRouteRoute
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/stepper'
     | '/swipe-action'
     | '/switch'
+    | '/tabbar'
     | '/tabs'
     | '/textarea'
     | '/tour'
@@ -251,6 +261,7 @@ export interface FileRouteTypes {
     | '/stepper'
     | '/swipe-action'
     | '/switch'
+    | '/tabbar'
     | '/tabs'
     | '/textarea'
     | '/tour'
@@ -274,6 +285,7 @@ export interface FileRouteTypes {
     | '/stepper'
     | '/swipe-action'
     | '/switch'
+    | '/tabbar'
     | '/tabs'
     | '/textarea'
     | '/tour'
@@ -298,6 +310,7 @@ export interface RootRouteChildren {
   StepperRouteRoute: typeof StepperRouteRoute
   SwipeActionRouteRoute: typeof SwipeActionRouteRoute
   SwitchRouteRoute: typeof SwitchRouteRoute
+  TabbarRouteRoute: typeof TabbarRouteRoute
   TabsRouteRoute: typeof TabsRouteRoute
   TextareaRouteRoute: typeof TextareaRouteRoute
   TourRouteRoute: typeof TourRouteRoute
@@ -324,6 +337,13 @@ declare module '@tanstack/react-router' {
       path: '/tabs'
       fullPath: '/tabs'
       preLoaderRoute: typeof TabsRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tabbar': {
+      id: '/tabbar'
+      path: '/tabbar'
+      fullPath: '/tabbar'
+      preLoaderRoute: typeof TabbarRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/switch': {
@@ -474,6 +494,7 @@ const rootRouteChildren: RootRouteChildren = {
   StepperRouteRoute: StepperRouteRoute,
   SwipeActionRouteRoute: SwipeActionRouteRoute,
   SwitchRouteRoute: SwitchRouteRoute,
+  TabbarRouteRoute: TabbarRouteRoute,
   TabsRouteRoute: TabsRouteRoute,
   TextareaRouteRoute: TextareaRouteRoute,
   TourRouteRoute: TourRouteRoute,

@@ -44,6 +44,7 @@
     "@srcube-ui/stepper": "workspace:*",
     "@srcube-ui/switch": "workspace:*",
     "@srcube-ui/swipe-action": "workspace:*",
+    "@srcube-ui/tabbar": "workspace:*",
     "@srcube-ui/tabs": "workspace:*",
     "@srcube-ui/tour": "workspace:*",
     "@srcube-ui/textarea": "workspace:*",

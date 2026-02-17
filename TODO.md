@@ -38,7 +38,7 @@
 ### 容器与导航
 
 - [x] `navbar`
-- [ ] `tabbar`
+- [x] `tabbar`
 - [ ] `accordion`
 - [ ] `collapse`
 

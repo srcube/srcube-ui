@@ -74,6 +74,10 @@ Page({
         url: '/packages/tabs/pages/sample/index',
       },
       {
+        title: 'Tabbar',
+        url: '/packages/tabbar/pages/sample/index',
+      },
+      {
         title: 'Tour',
         url: '/packages/tour/pages/sample/index',
       },

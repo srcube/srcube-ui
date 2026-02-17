@@ -15,6 +15,7 @@ export * from '@srcube-ui/skeleton/react';
 export * from '@srcube-ui/stepper/react';
 export * from '@srcube-ui/swipe-action/react';
 export * from '@srcube-ui/switch/react';
+export * from '@srcube-ui/tabbar/react';
 export * from '@srcube-ui/tabs/react';
 export * from '@srcube-ui/textarea/react';
 export * from '@srcube-ui/tour/react';

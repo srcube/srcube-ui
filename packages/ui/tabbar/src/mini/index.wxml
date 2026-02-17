@@ -1,0 +1,20 @@
+<view class="sr-tabbar {{$classNames.base}}" style="{{style}}">
+  <view class="sr-tabbar__list {{$classNames.list}}">
+    <button
+      wx:for="{{$renderItems}}"
+      wx:key="key"
+      class="sr-tabbar__item {{$classNames.item}} {{item.itemClassName}}"
+      data-index="{{item.index}}"
+      bindtap="handleItemTap"
+      disabled="{{item.isDisabled}}"
+      type="default"
+      plain="{{true}}"
+      hover-class="none"
+    >
+      <text wx:if="{{item.icon}}" class="sr-tabbar__icon {{$classNames.icon}}">
+        {{item.icon}}
+      </text>
+      <text class="sr-tabbar__label {{$classNames.label}}">{{item.label}}</text>
+    </button>
+  </view>
+</view>

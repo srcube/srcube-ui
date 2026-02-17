@@ -20,6 +20,7 @@ function App() {
     { title: 'Picker', to: '/picker' as const },
     { title: 'Modal', to: '/modal' as const },
     { title: 'Navbar', to: '/navbar' as const },
+    { title: 'Tabbar', to: '/tabbar' as const },
     { title: 'Drawer', to: '/drawer' as const },
     { title: 'Tabs', to: '/tabs' as const },
     { title: 'Tour', to: '/tour' as const },
