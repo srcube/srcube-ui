@@ -4,10 +4,8 @@ import type {
   PickerMiniColumn,
   PickerMiniItem,
   PickerMiniItemId,
-  PickerMiniMode,
   PickerMiniMultiValue,
   PickerMiniProps,
-  PickerMiniSingleValue,
   PickerMiniType,
 } from './props';
 import { pickerMiniProps } from './props';
@@ -32,8 +30,36 @@ type PickerMiniState = {
 
 type PickerMiniData = PickerMiniProps & PickerMiniState;
 
+function ensureClassName(value: unknown) {
+  return typeof value === 'string' ? value : '';
+}
+
 function isControlledValue(value: unknown) {
   return value !== null && value !== undefined;
+}
+
+function isSamePickerItemId(
+  left: Pick<PickerMiniItem, 'id'>['id'] | null | undefined,
+  right: Pick<PickerMiniItem, 'id'>['id'] | null | undefined,
+) {
+  if (left === right) {
+    return true;
+  }
+
+  if (left === null || left === undefined || right === null || right === undefined) {
+    return false;
+  }
+
+  if (
+    (typeof left === 'number' && typeof right === 'string') ||
+    (typeof left === 'string' && typeof right === 'number')
+  ) {
+    const leftNumber = Number(left);
+    const rightNumber = Number(right);
+    return Number.isFinite(leftNumber) && Number.isFinite(rightNumber) && leftNumber === rightNumber;
+  }
+
+  return false;
 }
 
 function isControlledOpen(value: unknown) {
@@ -42,10 +68,6 @@ function isControlledOpen(value: unknown) {
 
 function resolveOpen(data: Pick<PickerMiniData, 'isOpen' | '_innerOpen'>) {
   return isControlledOpen(data.isOpen) ? Boolean(data.isOpen) : data._innerOpen;
-}
-
-function resolveMode(value?: string | null): PickerMiniMode {
-  return value === 'multiple' ? 'multiple' : 'single';
 }
 
 function resolveType(value?: string | null): PickerMiniType {
@@ -122,11 +144,10 @@ function normalizeItem(rawItem: unknown, itemIndex: number): PickerMiniItem {
   };
 }
 
-function resolveColumns(data: Pick<PickerMiniData, 'mode' | 'items' | 'columns'>) {
-  const mode = resolveMode(data.mode);
-
-  if (mode === 'multiple') {
-    return normalizeColumns(data.columns);
+function resolveColumns(data: Pick<PickerMiniData, 'items' | 'columns'>) {
+  const normalizedColumns = normalizeColumns(data.columns);
+  if (normalizedColumns.length > 0) {
+    return normalizedColumns;
   }
 
   const normalizedItems = normalizeItems(data.items);
@@ -139,12 +160,7 @@ function resolveColumns(data: Pick<PickerMiniData, 'mode' | 'items' | 'columns'>
     ];
   }
 
-  const firstColumn = normalizeColumns(data.columns)[0];
-  if (!firstColumn) {
-    return [];
-  }
-
-  return [firstColumn];
+  return [];
 }
 
 function getDefaultColumnValue(column: PickerMiniColumn): PickerMiniItemId | null {
@@ -160,9 +176,9 @@ function normalizeColumnValue(
     return getDefaultColumnValue(column);
   }
 
-  const exists = column.items.some((item) => item.id === value);
-  if (exists) {
-    return value;
+  const matchedItem = column.items.find((item) => isSamePickerItemId(item.id, value));
+  if (matchedItem) {
+    return matchedItem.id;
   }
 
   return getDefaultColumnValue(column);
@@ -176,40 +192,24 @@ function ensureNormalizedValue(
 }
 
 function normalizeRawValue(params: {
-  mode: PickerMiniMode;
   columns: PickerMiniColumn[];
   value: unknown;
 }): PickerMiniMultiValue {
-  const { mode, columns, value } = params;
-
-  if (mode === 'multiple') {
-    if (Array.isArray(value)) {
-      return ensureNormalizedValue(columns, value as PickerMiniMultiValue);
-    }
-
-    if (value === null || value === undefined) {
-      return ensureNormalizedValue(columns);
-    }
-
-    return ensureNormalizedValue(columns, [value as PickerMiniItemId]);
-  }
+  const { columns, value } = params;
 
   if (Array.isArray(value)) {
-    return ensureNormalizedValue(columns, [value[0] as PickerMiniSingleValue]);
+    return ensureNormalizedValue(columns, value as PickerMiniMultiValue);
   }
 
-  return ensureNormalizedValue(columns, [value as PickerMiniSingleValue]);
+  if (value === null || value === undefined) {
+    return ensureNormalizedValue(columns);
+  }
+
+  return ensureNormalizedValue(columns, [value as PickerMiniItemId]);
 }
 
-function toOutputValue(
-  mode: PickerMiniMode,
-  value: PickerMiniMultiValue,
-): PickerMiniSingleValue | PickerMiniMultiValue {
-  if (mode === 'multiple') {
-    return [...value];
-  }
-
-  return value[0] ?? null;
+function toOutputValue(value: PickerMiniMultiValue): PickerMiniMultiValue {
+  return [...value];
 }
 
 function resolveDisplayValue(params: {
@@ -224,7 +224,9 @@ function resolveDisplayValue(params: {
         return '';
       }
 
-      const item = columns[index]?.items.find((candidate) => candidate.id === itemId);
+      const item = columns[index]?.items.find((candidate) =>
+        isSamePickerItemId(candidate.id, itemId),
+      );
       return item?.label ?? '';
     })
     .filter(Boolean);
@@ -237,7 +239,6 @@ function cloneValue(value: PickerMiniMultiValue): PickerMiniMultiValue {
 }
 
 function resolveCommittedValue(data: PickerMiniData): PickerMiniMultiValue {
-  const mode = resolveMode(data.mode);
   const columns = resolveColumns(data);
   const baseValue = isControlledValue(data.value)
     ? data.value
@@ -246,19 +247,16 @@ function resolveCommittedValue(data: PickerMiniData): PickerMiniMultiValue {
       : data.defaultValue;
 
   return normalizeRawValue({
-    mode,
     columns,
     value: baseValue,
   });
 }
 
 function resolveOpenDraftValue(data: PickerMiniData): PickerMiniMultiValue {
-  const mode = resolveMode(data.mode);
   const columns = resolveColumns(data);
 
   if (data._hasPendingConfirmed && data._pendingConfirmedValue.length > 0) {
     return normalizeRawValue({
-      mode,
       columns,
       value: data._pendingConfirmedValue,
     });
@@ -286,9 +284,6 @@ UIComponent({
 
   observers: {
     value() {
-      this.syncValuesByProps();
-    },
-    mode() {
       this.syncValuesByProps();
     },
     items() {
@@ -338,9 +333,7 @@ UIComponent({
   lifetimes: {
     attached() {
       const columns = resolveColumns(this.data as PickerMiniData);
-      const mode = resolveMode(this.data.mode);
       const initialCommitted = normalizeRawValue({
-        mode,
         columns,
         value: isControlledValue(this.data.value)
           ? this.data.value
@@ -377,9 +370,6 @@ UIComponent({
     $resolvedOpen(data: PickerMiniData) {
       return resolveOpen(data);
     },
-    $resolvedMode(data: PickerMiniData) {
-      return resolveMode(data.mode);
-    },
     $resolvedType(data: PickerMiniData) {
       return resolveType(data.type);
     },
@@ -397,9 +387,7 @@ UIComponent({
     },
     $resolvedDraftValue(data: PickerMiniData) {
       const columns = resolveColumns(data);
-      const mode = resolveMode(data.mode);
       return normalizeRawValue({
-        mode,
         columns,
         value: data._draftValue,
       });
@@ -430,21 +418,29 @@ UIComponent({
       const classNames = (data.classNames ?? {}) as Record<string, string | undefined>;
 
       return {
-        base: slots.base({ class: classNames.base }),
-        $field: slots.$field({ class: classNames.$field }),
-        field: slots.field({ class: classNames.field }),
-        $drawer: slots.$drawer({ class: classNames.$drawer }),
-        drawer: slots.drawer({ class: classNames.drawer }),
-        drawerBody: slots.drawerBody({ class: classNames.drawerBody }),
-        drawerFooter: slots.drawerFooter({ class: classNames.drawerFooter }),
-        $pickbox: slots.$pickbox({ class: classNames.$pickbox }),
-        pickbox: slots.pickbox({ class: classNames.pickbox }),
-        $confirmButton: slots.$confirmButton({
-          class: classNames.$confirmButton,
-        }),
-        confirmButton: slots.confirmButton({
-          class: classNames.confirmButton,
-        }),
+        base: ensureClassName(slots.base({ class: classNames.base })),
+        $field: ensureClassName(slots.$field({ class: classNames.$field })),
+        field: ensureClassName(slots.field({ class: classNames.field })),
+        $drawer: ensureClassName(slots.$drawer({ class: classNames.$drawer })),
+        drawer: ensureClassName(slots.drawer({ class: classNames.drawer })),
+        drawerBody: ensureClassName(
+          slots.drawerBody({ class: classNames.drawerBody }),
+        ),
+        drawerFooter: ensureClassName(
+          slots.drawerFooter({ class: classNames.drawerFooter }),
+        ),
+        $pickbox: ensureClassName(slots.$pickbox({ class: classNames.$pickbox })),
+        pickbox: ensureClassName(slots.pickbox({ class: classNames.pickbox })),
+        $confirmButton: ensureClassName(
+          slots.$confirmButton({
+            class: classNames.$confirmButton,
+          }),
+        ),
+        confirmButton: ensureClassName(
+          slots.confirmButton({
+            class: classNames.confirmButton,
+          }),
+        ),
       };
     },
     $drawerClassNames(data: PickerMiniData) {
@@ -455,8 +451,12 @@ UIComponent({
       const classNames = (data.classNames ?? {}) as Record<string, string | undefined>;
 
       return {
-        body: slots.drawerBody({ class: classNames.drawerBody }),
-        footer: slots.drawerFooter({ class: classNames.drawerFooter }),
+        body: ensureClassName(
+          slots.drawerBody({ class: classNames.drawerBody }),
+        ),
+        footer: ensureClassName(
+          slots.drawerFooter({ class: classNames.drawerFooter }),
+        ),
       };
     },
   },
@@ -551,16 +551,14 @@ UIComponent({
         itemId?: PickerMiniItemId;
       }>,
     ) {
-      const mode = resolveMode(this.data.mode);
       const columns = resolveColumns(this.data as PickerMiniData);
       const normalized = normalizeRawValue({
-        mode,
         columns,
         value: e.detail?.value ?? [],
       });
       const previous = cloneValue(this.data._draftValue);
       const changedIndexByDiff = normalized.findIndex(
-        (item, index) => previous[index] !== item,
+        (item, index) => !isSamePickerItemId(previous[index], item),
       );
       const changedIndex =
         typeof e.detail?.columnIndex === 'number'
@@ -578,7 +576,7 @@ UIComponent({
         } satisfies Partial<PickerMiniState>,
         () => {
           this.triggerEvent('draftvaluechange', {
-            value: toOutputValue(mode, normalized),
+            value: toOutputValue(normalized),
             values: normalized,
             columnIndex: changedIndex,
             itemId,
@@ -592,10 +590,8 @@ UIComponent({
         return;
       }
 
-      const mode = resolveMode(this.data.mode);
       const columns = resolveColumns(this.data as PickerMiniData);
       const normalized = normalizeRawValue({
-        mode,
         columns,
         value: this.data._draftValue,
       });
@@ -610,7 +606,7 @@ UIComponent({
         } satisfies Partial<PickerMiniState>,
         () => {
           this.triggerEvent('valuechange', {
-            value: toOutputValue(mode, normalized),
+            value: toOutputValue(normalized),
             values: normalized,
           });
 
@@ -640,8 +636,6 @@ UIComponent({
         return;
       }
 
-      const mode = resolveMode(this.data.mode);
-
       if (this.data._hasPendingConfirmed) {
         const closeBase = cloneValue(this.data._pendingConfirmedValue);
         this.setData(
@@ -665,7 +659,7 @@ UIComponent({
         () => {
           this.requestOpenChange(false, 'dismiss');
           this.triggerEvent('cancel', {
-            value: toOutputValue(mode, committed),
+            value: toOutputValue(committed),
             values: committed,
           });
         },
@@ -679,7 +673,6 @@ export type {
   PickerMiniColumn,
   PickerMiniItem,
   PickerMiniItemId,
-  PickerMiniMode,
   PickerMiniMultiValue,
   PickerMiniProps,
   PickerMiniSingleValue,

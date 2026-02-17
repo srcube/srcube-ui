@@ -1,31 +1,15 @@
 import type { FieldVariants } from '@srcube-ui/field/style';
-import type { PickerMiniClassNames, PickerVariants } from '../style';
+import type { PickerMiniClassNames, PickerVariants } from '../../style';
 
-export type PickerMiniType = NonNullable<PickerVariants['type']>;
-export type PickerMiniItemId = string | number;
+export type PickerDatetimeMiniMode = 'datetime' | 'date' | 'time';
 
-export type PickerMiniItem = {
-  id: PickerMiniItemId;
-  label: string;
-  isDisabled?: boolean;
-};
-
-export type PickerMiniColumn = {
-  id?: string | number;
-  items: PickerMiniItem[];
-};
-
-export type PickerMiniSingleValue = PickerMiniItemId | null;
-export type PickerMiniMultiValue = Array<PickerMiniItemId | null>;
-export type PickerMiniValue = PickerMiniMultiValue;
-
-export type PickerMiniProps = FieldVariants &
+export type PickerDatetimeMiniProps = FieldVariants &
   PickerVariants & {
     id?: string;
     label?: string;
     labelPlacement?: 'outside' | 'outside-left' | 'inside';
-    value?: PickerMiniValue | null;
-    defaultValue?: PickerMiniValue;
+    value?: string | null;
+    defaultValue?: string;
     placeholder?: string;
     description?: string;
     errorMessage?: string;
@@ -34,11 +18,12 @@ export type PickerMiniProps = FieldVariants &
     isInvalid?: boolean;
     isRequired?: boolean;
     isLoading?: boolean;
-    items?: PickerMiniItem[];
-    columns?: PickerMiniColumn[];
+    mode?: PickerDatetimeMiniMode;
+    format?: string;
+    minYear?: number;
+    maxYear?: number;
     isOpen?: boolean | null;
     defaultOpen?: boolean;
-    separator?: string;
     confirmText?: string;
     drawerTitle?: string;
     isDismissable?: boolean;
@@ -48,22 +33,26 @@ export type PickerMiniProps = FieldVariants &
     overscan?: number;
     indicatorHeight?: number;
     scrollEndDelay?: number;
+    dateTabText?: string;
+    timeTabText?: string;
     className?: string;
     classNames?: Partial<PickerMiniClassNames>;
     style?: string;
   };
 
-export const pickerMiniProps = {
+export const pickerDatetimeMiniProps = {
   id: { type: String, value: '' },
   color: { type: null, value: null },
   variant: { type: null, value: null },
   size: { type: null, value: null },
   radius: { type: null, value: null },
   type: { type: null, value: 'default' },
+  mode: { type: null, value: 'datetime' },
+  format: { type: String, value: '' },
   label: { type: String, value: '' },
   labelPlacement: { type: String, value: 'outside' },
   value: { type: null, value: null },
-  defaultValue: { type: null, value: null },
+  defaultValue: { type: String, value: '' },
   placeholder: { type: String, value: '请选择' },
   description: { type: String, value: '' },
   errorMessage: { type: String, value: '' },
@@ -72,11 +61,10 @@ export const pickerMiniProps = {
   isInvalid: { type: Boolean, value: false },
   isRequired: { type: Boolean, value: false },
   isLoading: { type: Boolean, value: false },
-  items: { type: Array, value: [] },
-  columns: { type: Array, value: [] },
+  minYear: { type: Number, value: 1900 },
+  maxYear: { type: Number, value: 2099 },
   isOpen: { type: null, value: null },
   defaultOpen: { type: Boolean, value: false },
-  separator: { type: String, value: ' / ' },
   confirmText: { type: String, value: '确认' },
   drawerTitle: { type: String, value: '' },
   isDismissable: { type: Boolean, value: true },
@@ -85,7 +73,9 @@ export const pickerMiniProps = {
   estimateSize: { type: null, value: null },
   overscan: { type: Number, value: 5 },
   indicatorHeight: { type: null, value: null },
-  scrollEndDelay: { type: Number, value: 180 },
+  scrollEndDelay: { type: Number, value: 120 },
+  dateTabText: { type: String, value: '日期' },
+  timeTabText: { type: String, value: '时间' },
   className: { type: String, value: '' },
   classNames: { type: Object, value: {} },
   style: { type: String, value: '' },

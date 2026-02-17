@@ -1,6 +1,6 @@
 type PickerType = 'default' | 'calendar';
+type PickerDatetimeMode = 'datetime' | 'date' | 'time';
 
-type PickerSingleValue = string | number | null;
 type PickerMultiValue = Array<string | number | null>;
 type DateRangeValue = {
   start: string | null;
@@ -19,13 +19,15 @@ function formatMultiValueText(value: PickerMultiValue) {
 Page({
   data: {
     pickerType: 'default' as PickerType,
+    datetimeMode: 'datetime' as PickerDatetimeMode,
+    datetimeFormat: 'YYYY-MM-DD HH:mm:ss',
     singleItems: [
       { id: 'cq', label: '重庆' },
       { id: 'cd', label: '成都' },
       { id: 'sh', label: '上海' },
       { id: 'sz', label: '深圳' },
     ],
-    singleValue: 'cq' as PickerSingleValue,
+    singleValue: ['cq'] as PickerMultiValue,
     multiColumns: [
       {
         id: 'category',
@@ -52,6 +54,11 @@ Page({
       start: '2026-02-13',
       end: '2026-02-18',
     } as DateRangeValue,
+    datetimeValue: '2026-02-13 09:30:00',
+    datetimeRangeValue: {
+      start: '2026-02-13 09:30:00',
+      end: '2026-02-18 18:30:00',
+    } as DateRangeValue,
   },
 
   handleTypeTap(
@@ -73,13 +80,45 @@ Page({
     });
   },
 
+  handleDatetimeModeTap(
+    event: WechatMiniprogram.TouchEvent & {
+      currentTarget: {
+        dataset: {
+          mode?: PickerDatetimeMode;
+        };
+      };
+    },
+  ) {
+    const nextMode = event.currentTarget?.dataset?.mode;
+    if (!nextMode) {
+      return;
+    }
+
+    let nextFormat = 'YYYY-MM-DD HH:mm:ss';
+    if (nextMode === 'date') {
+      nextFormat = 'YYYY/MM/DD';
+    } else if (nextMode === 'time') {
+      nextFormat = 'HH:mm';
+    }
+
+    this.setData({
+      datetimeMode: nextMode,
+      datetimeFormat: nextFormat,
+    });
+  },
+
   handleSingleValueChange(
     event: WechatMiniprogram.CustomEvent<{
-      value?: PickerSingleValue;
+      value?: PickerMultiValue;
     }>,
   ) {
+    const nextValue = event.detail?.value;
+    if (!Array.isArray(nextValue)) {
+      return;
+    }
+
     this.setData({
-      singleValue: event.detail?.value ?? null,
+      singleValue: nextValue,
     });
   },
 
@@ -131,6 +170,34 @@ Page({
 
     this.setData({
       dateRangeValue: {
+        start: nextValue.start ?? null,
+        end: nextValue.end ?? null,
+      },
+    });
+  },
+
+  handleDatetimeValueChange(
+    event: WechatMiniprogram.CustomEvent<{
+      value?: string;
+    }>,
+  ) {
+    this.setData({
+      datetimeValue: event.detail?.value ?? '',
+    });
+  },
+
+  handleDatetimeRangeValueChange(
+    event: WechatMiniprogram.CustomEvent<{
+      value?: DateRangeValue;
+    }>,
+  ) {
+    const nextValue = event.detail?.value;
+    if (!nextValue) {
+      return;
+    }
+
+    this.setData({
+      datetimeRangeValue: {
         start: nextValue.start ?? null,
         end: nextValue.end ?? null,
       },

@@ -5,6 +5,8 @@
     "sr-date-picker": "@srcube-ui/picker/date-picker/index",
     "sr-time-picker": "@srcube-ui/picker/time-picker/index",
     "sr-date-range-picker": "@srcube-ui/picker/date-range-picker/index",
+    "sr-picker-datetime": "@srcube-ui/picker/picker-datetime/index",
+    "sr-picker-datetime-range": "@srcube-ui/picker/picker-datetime-range/index",
     "sr-button": "@srcube-ui/button/index",
     "sr-button-group": "@srcube-ui/button/button-group/index"
   },

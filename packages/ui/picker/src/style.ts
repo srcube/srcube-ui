@@ -46,6 +46,6 @@ export type PickerClasses = VariantClasses<typeof picker>;
 export type PickerClassNames = PickerClasses;
 export type PickerReactClassNames = Omit<
   PickerClassNames,
-  '$field' | '$drawer' | '$rangeTabs' | '$pickbox' | '$confirmButton'
+  '$field' | '$drawer' | '$rangeTabs' | '$modeTabs' | '$pickbox' | '$confirmButton'
 >;
 export type PickerMiniClassNames = PickerClassNames;

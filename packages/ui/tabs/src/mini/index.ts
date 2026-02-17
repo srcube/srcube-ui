@@ -131,6 +131,10 @@ function normalizeItems(items: unknown): TabsMiniItem[] {
   return Array.isArray(items) ? (items as TabsMiniItem[]) : [];
 }
 
+function ensureClassName(value: unknown) {
+  return typeof value === 'string' ? value : '';
+}
+
 function resolveFallbackValue(items: TabsMiniItem[]): TabsMiniValue | null {
   const firstEnabled = items.find((item) => !item.isDisabled);
   return firstEnabled?.value ?? items[0]?.value ?? null;
@@ -393,17 +397,23 @@ UIComponent({
       const classNames = data.classNames ?? {};
 
       return {
-        base: slots.base({ class: classNames.base }),
-        tabsWrapper: slots.tabsWrapper({ class: classNames.tabsWrapper }),
-        $scrollbox: slots.$scrollbox({ class: classNames.$scrollbox }),
-        scrollbox: slots.scrollbox({ class: classNames.scrollbox }),
-        scrollboxContent: slots.scrollboxContent({
-          class: classNames.scrollboxContent,
-        }),
-        tabsList: slots.tabsList({ class: classNames.tabsList }),
-        indicator: slots.indicator({ class: classNames.indicator }),
-        tabLabel: slots.tabLabel({ class: classNames.tabLabel }),
-        panels: slots.panels({ class: classNames.panels }),
+        base: ensureClassName(slots.base({ class: classNames.base })),
+        tabsWrapper: ensureClassName(
+          slots.tabsWrapper({ class: classNames.tabsWrapper }),
+        ),
+        $scrollbox: ensureClassName(
+          slots.$scrollbox({ class: classNames.$scrollbox }),
+        ),
+        scrollbox: ensureClassName(slots.scrollbox({ class: classNames.scrollbox })),
+        scrollboxContent: ensureClassName(
+          slots.scrollboxContent({
+            class: classNames.scrollboxContent,
+          }),
+        ),
+        tabsList: ensureClassName(slots.tabsList({ class: classNames.tabsList })),
+        indicator: ensureClassName(slots.indicator({ class: classNames.indicator })),
+        tabLabel: ensureClassName(slots.tabLabel({ class: classNames.tabLabel })),
+        panels: ensureClassName(slots.panels({ class: classNames.panels })),
       };
     },
     $scrollboxClassNames(data: TabsMiniData) {
@@ -432,9 +442,11 @@ UIComponent({
       });
 
       return {
-        content: slots.scrollboxContent({
-          class: classNames.scrollboxContent,
-        }),
+        content: ensureClassName(
+          slots.scrollboxContent({
+            class: classNames.scrollboxContent,
+          }),
+        ),
         maskTop: [maskClassNames.maskTop, maskVisibilityOverrideClasses.maskTop]
           .filter(Boolean)
           .join(' '),

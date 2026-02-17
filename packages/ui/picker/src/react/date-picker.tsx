@@ -251,7 +251,6 @@ export function DatePicker(props: DatePickerReactProps) {
   return (
     <Picker
       {...rest}
-      mode="multiple"
       columns={columns}
       value={pickerValue}
       onValueChange={handlePickerValueChange}

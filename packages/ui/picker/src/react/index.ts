@@ -1,6 +1,8 @@
 export { DateRangePicker } from './date-range-picker';
 export { DatePicker } from './date-picker';
 export { Picker } from './picker';
+export { PickerDatetime } from './picker-datetime';
+export { PickerDatetimeRange } from './picker-datetime-range';
 export { TimePicker } from './time-picker';
 export type {
   DatePickerReactProps,
@@ -11,9 +13,17 @@ export type {
   DatePickerValue,
   DatePickerValueDetail,
   PickerColumn,
+  PickerDatetimeMode,
+  PickerDatetimePanel,
+  PickerDatetimeRange,
+  PickerDatetimeRangeReactProps,
+  PickerDatetimeRangeValue,
+  PickerDatetimeRangeValueDetail,
+  PickerDatetimeReactProps,
+  PickerDatetimeValue,
+  PickerDatetimeValueDetail,
   PickerItem,
   PickerItemId,
-  PickerMode,
   PickerMultiValue,
   PickerReactProps,
   PickerSingleValue,

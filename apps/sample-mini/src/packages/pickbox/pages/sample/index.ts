@@ -22,6 +22,20 @@ const pickboxColorGroups = [
 
 type PickboxColor = (typeof pickboxColorGroups)[number][number]['value'];
 
+type PickboxSampleValue = Array<string | number | null>;
+
+function formatPickboxValue(value: PickboxSampleValue) {
+  if (!Array.isArray(value) || value.length === 0) {
+    return 'none';
+  }
+
+  const labels = value
+    .map((item) => (item === null || item === undefined ? '' : String(item)))
+    .filter(Boolean);
+
+  return labels.length > 0 ? labels.join(' / ') : 'none';
+}
+
 function createColumns(): PickboxMiniColumn[] {
   return [
     {
@@ -58,10 +72,12 @@ function createColumns(): PickboxMiniColumn[] {
 Page({
   data: {
     columns: createColumns(),
-    value: [2000, 1, 1],
+    value: [2000, 1, 1] as PickboxSampleValue,
+    valueText: formatPickboxValue([2000, 1, 1]),
     sizeValue: [2000, 1, 1],
     activeColor: 'default' as PickboxColor,
-    colorValue: [2000, 1, 1],
+    colorValue: [2000, 1, 1] as PickboxSampleValue,
+    colorValueText: formatPickboxValue([2000, 1, 1]),
     colorGroups: pickboxColorGroups,
   },
 
@@ -74,6 +90,7 @@ Page({
   ) {
     this.setData({
       value: event.detail.value,
+      valueText: formatPickboxValue(event.detail.value),
     });
   },
 
@@ -84,6 +101,7 @@ Page({
   ) {
     this.setData({
       colorValue: event.detail.value,
+      colorValueText: formatPickboxValue(event.detail.value),
     });
   },
 

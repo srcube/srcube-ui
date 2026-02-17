@@ -37,6 +37,43 @@
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Datetime Mode</view>
+      <view class="mt-1 text-xs text-slate-500">datetime / date / time</view>
+
+      <view class="mt-3">
+        <sr-button-group size="sm" isBlock>
+          <sr-button
+            class="flex-1"
+            color="{{datetimeMode === 'datetime' ? 'primary' : 'default'}}"
+            variant="{{datetimeMode === 'datetime' ? 'solid' : 'flat'}}"
+            data-mode="datetime"
+            bind:tap="handleDatetimeModeTap"
+          >
+            datetime
+          </sr-button>
+          <sr-button
+            class="flex-1"
+            color="{{datetimeMode === 'date' ? 'primary' : 'default'}}"
+            variant="{{datetimeMode === 'date' ? 'solid' : 'flat'}}"
+            data-mode="date"
+            bind:tap="handleDatetimeModeTap"
+          >
+            date
+          </sr-button>
+          <sr-button
+            class="flex-1"
+            color="{{datetimeMode === 'time' ? 'primary' : 'default'}}"
+            variant="{{datetimeMode === 'time' ? 'solid' : 'flat'}}"
+            data-mode="time"
+            bind:tap="handleDatetimeModeTap"
+          >
+            time
+          </sr-button>
+        </sr-button-group>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Single</view>
       <view class="mt-1 text-xs text-slate-500">
         Field + Drawer(bottom) + Pickbox，dismiss=取消
@@ -46,7 +83,6 @@
         className="mt-3"
         label="城市"
         type="{{pickerType}}"
-        mode="single"
         color="primary"
         items="{{singleItems}}"
         value="{{singleValue}}"
@@ -54,7 +90,7 @@
       />
 
       <view class="mt-2 text-xs text-slate-500">
-        Value: {{singleValue || 'none'}}
+        Value: {{singleValue[0] || 'none'}}
       </view>
     </view>
 
@@ -66,7 +102,6 @@
         className="mt-3"
         label="商品偏好"
         type="{{pickerType}}"
-        mode="multiple"
         color="secondary"
         size="sm"
         columns="{{multiColumns}}"
@@ -132,6 +167,52 @@
 
       <view class="mt-2 text-xs text-slate-500">
         Value: {{dateRangeValue.start || '--'}} ~ {{dateRangeValue.end || '--'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">PickerDatetime</view>
+      <view class="mt-1 text-xs text-slate-500">
+        mode + format；mode=datetime 时展示全宽 Date/Time Tab
+      </view>
+
+      <sr-picker-datetime
+        className="mt-3"
+        label="日期时间"
+        type="{{pickerType}}"
+        color="success"
+        size="sm"
+        mode="{{datetimeMode}}"
+        format="{{datetimeFormat}}"
+        value="{{datetimeValue}}"
+        bind:valuechange="handleDatetimeValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{datetimeValue || 'none'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">PickerDatetimeRange</view>
+      <view class="mt-1 text-xs text-slate-500">
+        start/end + date/time 双层全宽 Tab，支持 format
+      </view>
+
+      <sr-picker-datetime-range
+        className="mt-3"
+        label="日期时间区间"
+        type="{{pickerType}}"
+        color="primary"
+        size="sm"
+        mode="{{datetimeMode}}"
+        format="{{datetimeFormat}}"
+        value="{{datetimeRangeValue}}"
+        bind:valuechange="handleDatetimeRangeValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{datetimeRangeValue.start || '--'}} ~ {{datetimeRangeValue.end || '--'}}
       </view>
     </view>
   </view>

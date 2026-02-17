@@ -27,14 +27,14 @@
     classNames="{{$drawerClassNames}}"
     isOpen="{{$resolvedOpen}}"
     placement="bottom"
-    title="{{$drawerTitle}}"
+    title="{{drawerTitle || label || ''}}"
     isDismissable="{{isDismissable}}"
     hasBackdrop="{{hasBackdrop}}"
     backdrop="{{backdrop}}"
     bind:openchange="handleDrawerOpenChange"
   >
     <view slot="header" class="w-full truncate">
-      {{$drawerTitle}}
+      {{drawerTitle || label || ''}}
     </view>
 
     <view slot="body">

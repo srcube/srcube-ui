@@ -32,6 +32,14 @@
       "types": "./dist/mini/date-range-picker/index.d.ts",
       "import": "./dist/mini/date-range-picker/index.js"
     },
+    "./mini/picker-datetime": {
+      "types": "./dist/mini/picker-datetime/index.d.ts",
+      "import": "./dist/mini/picker-datetime/index.js"
+    },
+    "./mini/picker-datetime-range": {
+      "types": "./dist/mini/picker-datetime-range/index.d.ts",
+      "import": "./dist/mini/picker-datetime-range/index.js"
+    },
     "./mini/time-picker": {
       "types": "./dist/mini/time-picker/index.d.ts",
       "import": "./dist/mini/time-picker/index.js"

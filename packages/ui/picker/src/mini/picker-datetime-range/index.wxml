@@ -1,0 +1,132 @@
+<view class="sr-picker__base {{$classNames.base}} {{className}}" style="{{style}}">
+  <sr-field
+    class="sr-picker__field {{$classNames.$field}}"
+    className="{{$classNames.field}}"
+    id="{{id}}"
+    label="{{label}}"
+    labelPlacement="{{labelPlacement}}"
+    value="{{$displayValue}}"
+    placeholder="{{placeholder}}"
+    description="{{description}}"
+    errorMessage="{{errorMessage}}"
+    color="{{$resolvedColor}}"
+    variant="{{variant}}"
+    size="{{$resolvedSize}}"
+    radius="{{radius}}"
+    isDisabled="{{isDisabled}}"
+    isReadOnly="{{isReadOnly}}"
+    isInvalid="{{isInvalid}}"
+    isRequired="{{isRequired}}"
+    isLoading="{{isLoading}}"
+    bind:tap="handleFieldTap"
+  />
+
+  <sr-drawer
+    class="sr-picker__drawer {{$classNames.$drawer}}"
+    className="{{$classNames.drawer}}"
+    classNames="{{$drawerClassNames}}"
+    isOpen="{{$resolvedOpen}}"
+    placement="bottom"
+    title="{{$drawerTitle}}"
+    isDismissable="{{isDismissable}}"
+    hasBackdrop="{{hasBackdrop}}"
+    backdrop="{{backdrop}}"
+    bind:openchange="handleDrawerOpenChange"
+  >
+    <view slot="header" class="w-full truncate">
+      {{$drawerTitle}}
+    </view>
+
+    <view slot="body">
+      <view class="{{$classNames.rangeBody}}">
+        <view class="sr-picker__range-tabs {{$classNames.$rangeTabs}}">
+          <sr-button-group
+            size="{{$resolvedSize}}"
+            isBlock
+            className="{{$classNames.rangeTabs}}"
+          >
+            <sr-button
+              className="{{$classNames.modeTabButton}}"
+              color="{{_activeRange === 'start' ? $resolvedColor : 'default'}}"
+              variant="{{_activeRange === 'start' ? 'solid' : 'flat'}}"
+              data-range="start"
+              bind:tap="handleRangeTabTap"
+            >
+              {{startTabText || '开始'}}
+            </sr-button>
+            <sr-button
+              className="{{$classNames.modeTabButton}}"
+              color="{{_activeRange === 'end' ? $resolvedColor : 'default'}}"
+              variant="{{_activeRange === 'end' ? 'solid' : 'flat'}}"
+              data-range="end"
+              bind:tap="handleRangeTabTap"
+            >
+              {{endTabText || '结束'}}
+            </sr-button>
+          </sr-button-group>
+        </view>
+
+        <view
+          wx:if="{{$resolvedMode === 'datetime'}}"
+          class="sr-picker__mode-tabs {{$classNames.$modeTabs}}"
+        >
+          <sr-button-group
+            size="{{$resolvedSize}}"
+            isBlock
+            className="{{$classNames.modeTabs}}"
+          >
+            <sr-button
+              className="{{$classNames.modeTabButton}}"
+              color="{{_activePanel === 'date' ? $resolvedColor : 'default'}}"
+              variant="{{_activePanel === 'date' ? 'solid' : 'flat'}}"
+              data-panel="date"
+              bind:tap="handlePanelTabTap"
+            >
+              {{dateTabText || '日期'}}
+            </sr-button>
+            <sr-button
+              className="{{$classNames.modeTabButton}}"
+              color="{{_activePanel === 'time' ? $resolvedColor : 'default'}}"
+              variant="{{_activePanel === 'time' ? 'solid' : 'flat'}}"
+              data-panel="time"
+              bind:tap="handlePanelTabTap"
+            >
+              {{timeTabText || '时间'}}
+            </sr-button>
+          </sr-button-group>
+        </view>
+
+        <view class="sr-picker__pickbox {{$classNames.$pickbox}}">
+          <sr-pickbox
+            wx:if="{{$resolvedOpen}}"
+            className="{{$classNames.pickbox}}"
+            size="{{$resolvedSize}}"
+            color="{{$resolvedColor}}"
+            columns="{{_pickerColumns}}"
+            value="{{_pickerValue}}"
+            estimateSize="{{estimateSize}}"
+            overscan="{{overscan}}"
+            indicatorHeight="{{indicatorHeight}}"
+            scrollEndDelay="{{scrollEndDelay}}"
+            bind:valuechange="handlePickboxDraftValueChange"
+          />
+        </view>
+      </view>
+    </view>
+
+    <view slot="footer">
+      <sr-button
+        class="sr-picker__confirm {{$classNames.$confirmButton}}"
+        className="{{$classNames.confirmButton}}"
+        color="{{$resolvedColor}}"
+        size="{{$resolvedSize}}"
+        variant="flat"
+        isBlock
+        isDisabled="{{$isConfirmDisabled}}"
+        bind:tap="handleConfirmTap"
+      >
+        {{$confirmText}}
+      </sr-button>
+    </view>
+  </sr-drawer>
+</view>

@@ -1,7 +1,7 @@
 <sr-modal
   class="sr-drawer__modal {{$classNames.$modal}}"
-  className="{{className}}"
-  classNames="{{$modalClassNames}}"
+  className="{{className || ''}}"
+  classNames="{{$modalClassNames || classNames}}"
   style="{{style}}"
   isOpen="{{$resolvedOpen}}"
   isDismissable="{{isDismissable}}"

@@ -59,6 +59,8 @@ type NestedDragDetail = {
 
 type InternalColumnState = {
   hasInitialized: boolean;
+  hasUserInteracted: boolean;
+  lastTouchAt: number;
   currentOffset: number;
   controlledOffset: number;
   lastSelectedId: PickboxMiniItemId | null | undefined;
@@ -83,6 +85,8 @@ const internalStateMap = new WeakMap<object, PickboxInternalState>();
 function createColumnState(): InternalColumnState {
   return {
     hasInitialized: false,
+    hasUserInteracted: false,
+    lastTouchAt: 0,
     currentOffset: 0,
     controlledOffset: 0,
     lastSelectedId: undefined,
@@ -124,6 +128,15 @@ function cancelColumnAutoAdjust(columnState: InternalColumnState) {
   columnState.pendingScrollWithAnimation = false;
   columnState.alignPhase = 'idle';
   columnState.ignoreScrollEventsUntil = 0;
+}
+
+function isPassiveRollbackToStart(
+  columnState: InternalColumnState,
+  nextOffset: number,
+) {
+  const rollbackTolerance = 2;
+  const controlledOffset = Math.max(0, columnState.controlledOffset);
+  return nextOffset <= rollbackTolerance && controlledOffset > rollbackTolerance;
 }
 
 function getInternalState(instance: object, columnCount: number) {
@@ -198,16 +211,56 @@ function isArrayLikeValue(value: unknown): value is unknown[] {
   return Array.isArray(value);
 }
 
+function isSamePickboxItemId(
+  left: PickboxMiniItemId | null | undefined,
+  right: PickboxMiniItemId | null | undefined,
+) {
+  if (left === right) {
+    return true;
+  }
+
+  if (left === null || left === undefined || right === null || right === undefined) {
+    return false;
+  }
+
+  if (
+    (typeof left === 'number' && typeof right === 'string') ||
+    (typeof left === 'string' && typeof right === 'number')
+  ) {
+    const leftNumber = Number(left);
+    const rightNumber = Number(right);
+    return Number.isFinite(leftNumber) && Number.isFinite(rightNumber) && leftNumber === rightNumber;
+  }
+
+  return false;
+}
+
 function getDefaultColumnValue(column: PickboxMiniColumn): PickboxMiniItemId | null {
   const firstEnabled = column.items.find((item) => !item.isDisabled);
   return firstEnabled?.id ?? column.items[0]?.id ?? null;
+}
+
+function normalizeColumnValue(
+  column: PickboxMiniColumn,
+  value: PickboxMiniItemId | null | undefined,
+) {
+  if (value === null || value === undefined) {
+    return getDefaultColumnValue(column);
+  }
+
+  const matchedItem = column.items.find((item) => isSamePickboxItemId(item.id, value));
+  if (matchedItem) {
+    return matchedItem.id;
+  }
+
+  return getDefaultColumnValue(column);
 }
 
 function ensurePickboxValue(
   columns: PickboxMiniColumn[],
   input?: PickboxMiniValue | null,
 ): PickboxMiniValue {
-  return columns.map((column, index) => input?.[index] ?? getDefaultColumnValue(column));
+  return columns.map((column, index) => normalizeColumnValue(column, input?.[index]));
 }
 
 function resolveSelectedIndex(items: PickboxMiniItem[], selectedId: PickboxMiniItemId | null) {
@@ -220,7 +273,7 @@ function resolveSelectedIndex(items: PickboxMiniItem[], selectedId: PickboxMiniI
     return firstEnabledIndex >= 0 ? firstEnabledIndex : 0;
   }
 
-  const currentIndex = items.findIndex((item) => item.id === selectedId);
+  const currentIndex = items.findIndex((item) => isSamePickboxItemId(item.id, selectedId));
   if (currentIndex >= 0) {
     return currentIndex;
   }
@@ -403,6 +456,8 @@ UIComponent({
       internalState.columns.forEach((columnState) => {
         cancelColumnAutoAdjust(columnState);
         columnState.hasInitialized = false;
+        columnState.hasUserInteracted = false;
+        columnState.lastTouchAt = 0;
         columnState.currentOffset = 0;
         columnState.controlledOffset = 0;
         columnState.lastSelectedId = undefined;
@@ -651,7 +706,27 @@ UIComponent({
 
       cancelColumnAutoAdjust(columnState);
       columnState.isTouching = true;
+      columnState.lastTouchAt = Date.now();
       columnState.ignoreScrollEventsUntil = 0;
+    },
+
+    handleColumnTouchMove(e: WechatMiniprogram.TouchEvent) {
+      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
+      if (Number.isNaN(columnIndex)) {
+        return;
+      }
+
+      const columns = resolveColumns(this.data.columns);
+      const internalState = getInternalState(this, columns.length);
+      const columnState = internalState.columns[columnIndex];
+      if (!columnState) {
+        return;
+      }
+
+      if (!columnState.hasUserInteracted) {
+        columnState.hasUserInteracted = true;
+      }
+      columnState.lastTouchAt = Date.now();
     },
 
     handleColumnTouchEnd(e: WechatMiniprogram.TouchEvent) {
@@ -668,6 +743,7 @@ UIComponent({
       }
 
       columnState.isTouching = false;
+      columnState.lastTouchAt = Date.now();
     },
 
     handleColumnTouchCancel(e: WechatMiniprogram.TouchEvent) {
@@ -684,6 +760,7 @@ UIComponent({
       }
 
       columnState.isTouching = false;
+      columnState.lastTouchAt = Date.now();
     },
 
     handleColumnDragStart(e: WechatMiniprogram.CustomEvent<NestedDragDetail>) {
@@ -701,10 +778,37 @@ UIComponent({
 
       cancelColumnAutoAdjust(columnState);
       columnState.isTouching = true;
+      columnState.hasUserInteracted = true;
+      columnState.lastTouchAt = Date.now();
       columnState.ignoreScrollEventsUntil = 0;
       const detail = resolveScrollDetail(e.detail);
       columnState.currentOffset = Math.max(0, detail.scrollTop);
       columnState.controlledOffset = columnState.currentOffset;
+      columnState.lastScrollAt = Date.now();
+    },
+
+    handleColumnDragging(e: WechatMiniprogram.CustomEvent<NestedDragDetail>) {
+      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
+      if (Number.isNaN(columnIndex)) {
+        return;
+      }
+
+      const columns = resolveColumns(this.data.columns);
+      const internalState = getInternalState(this, columns.length);
+      const columnState = internalState.columns[columnIndex];
+      if (!columnState) {
+        return;
+      }
+
+      cancelColumnAutoAdjust(columnState);
+      columnState.hasUserInteracted = true;
+      columnState.isTouching = true;
+      columnState.lastTouchAt = Date.now();
+
+      const detail = resolveScrollDetail(e.detail);
+      const nextOffset = Math.max(0, detail.scrollTop);
+      columnState.currentOffset = nextOffset;
+      columnState.controlledOffset = nextOffset;
       columnState.lastScrollAt = Date.now();
     },
 
@@ -722,8 +826,18 @@ UIComponent({
       }
 
       const detail = resolveScrollDetail(e.detail);
-      columnState.currentOffset = Math.max(0, detail.scrollTop);
-      columnState.controlledOffset = columnState.currentOffset;
+      const nextOffset = Math.max(0, detail.scrollTop);
+      const isPassiveOpenScroll =
+        !columnState.hasUserInteracted &&
+        !columnState.isAutoAdjusting &&
+        !columnState.isTouching;
+
+      if (isPassiveOpenScroll && isPassiveRollbackToStart(columnState, nextOffset)) {
+        return;
+      }
+
+      columnState.currentOffset = nextOffset;
+      columnState.controlledOffset = nextOffset;
       columnState.lastScrollAt = Date.now();
       columnState.isTouching = false;
     },
@@ -750,7 +864,27 @@ UIComponent({
       }
 
       const detail = resolveScrollDetail(e.detail);
-      columnState.currentOffset = Math.max(0, detail.scrollTop);
+      const nextOffset = Math.max(0, detail.scrollTop);
+      const isPassiveOpenScroll =
+        !columnState.hasUserInteracted &&
+        !columnState.isAutoAdjusting &&
+        !columnState.isTouching;
+
+      if (isPassiveOpenScroll) {
+        if (isPassiveRollbackToStart(columnState, nextOffset)) {
+          return;
+        }
+
+        const passiveActivationDelta = 3;
+        const deltaFromControlled = Math.abs(nextOffset - columnState.controlledOffset);
+        if (deltaFromControlled >= passiveActivationDelta) {
+          columnState.hasUserInteracted = true;
+        } else {
+          return;
+        }
+      }
+
+      columnState.currentOffset = nextOffset;
       columnState.controlledOffset = columnState.currentOffset;
       columnState.lastScrollAt = Date.now();
 
@@ -790,6 +924,11 @@ UIComponent({
         columnState.scrollStopTimer = null;
 
         if (columnState.isAutoAdjusting) {
+          return;
+        }
+
+        if (!columnState.hasUserInteracted) {
+          columnState.isScrolling = false;
           return;
         }
 
@@ -875,7 +1014,9 @@ UIComponent({
         return;
       }
 
-      const itemIndex = column.items.findIndex((item) => item.id === itemId);
+      const itemIndex = column.items.findIndex((item) =>
+        isSamePickboxItemId(item.id, itemId),
+      );
       if (itemIndex < 0) {
         return;
       }

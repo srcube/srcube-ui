@@ -1,17 +1,24 @@
 # Picker
 
-基于 `Field + Drawer(bottom) + Pickbox` 组合实现的选择器，支持 React / Mini 双端，支持单选、多列选择，以及 `DatePicker` / `TimePicker` / `DateRangePicker`。
+基于 `Field + Drawer(bottom) + Pickbox` 组合实现的选择器，支持 React / Mini 双端，支持一列/多列选择，以及 `DatePicker` / `TimePicker` / `DateRangePicker` / `PickerDatetime` / `PickerDatetimeRange`。
 
 ## 使用
 
 ### React
 
 ```tsx
-import { DatePicker, DateRangePicker, Picker, TimePicker } from '@srcube-ui/picker';
+import {
+  DatePicker,
+  DateRangePicker,
+  Picker,
+  PickerDatetime,
+  PickerDatetimeRange,
+  TimePicker,
+} from '@srcube-ui/picker';
 import { useMemo, useState } from 'react';
 
 export default function Demo() {
-  const [singleValue, setSingleValue] = useState<string | number | null>(null);
+  const [singleValue, setSingleValue] = useState<Array<string | number | null>>(['cq']);
   const [dateValue, setDateValue] = useState<string | null>('2026-02-13');
   const [timeValue, setTimeValue] = useState<string | null>('09:30:00');
   const [rangeValue, setRangeValue] = useState({
@@ -32,7 +39,6 @@ export default function Demo() {
     <>
       <Picker
         label="城市"
-        mode="single"
         items={cityItems}
         value={singleValue}
         onValueChange={setSingleValue}
@@ -58,6 +64,20 @@ export default function Demo() {
         value={rangeValue}
         onValueChange={setRangeValue}
       />
+
+      <PickerDatetime
+        className="mt-4"
+        label="日期时间"
+        mode="datetime"
+        format="YYYY-MM-DD HH:mm:ss"
+      />
+
+      <PickerDatetimeRange
+        className="mt-4"
+        label="日期时间区间"
+        mode="datetime"
+        format="YYYY-MM-DD HH:mm:ss"
+      />
     </>
   );
 }
@@ -71,7 +91,9 @@ export default function Demo() {
     "sr-picker": "@srcube-ui/picker/index",
     "sr-date-picker": "@srcube-ui/picker/date-picker/index",
     "sr-time-picker": "@srcube-ui/picker/time-picker/index",
-    "sr-date-range-picker": "@srcube-ui/picker/date-range-picker/index"
+    "sr-date-range-picker": "@srcube-ui/picker/date-range-picker/index",
+    "sr-picker-datetime": "@srcube-ui/picker/picker-datetime/index",
+    "sr-picker-datetime-range": "@srcube-ui/picker/picker-datetime-range/index"
   }
 }
 ```
@@ -79,9 +101,8 @@ export default function Demo() {
 ```xml
 <sr-picker
   label="城市"
-  mode="single"
   items="{{cityItems}}"
-  value="{{cityValue}}"
+  value="{{singleValue}}"
   bind:valuechange="handleCityChange"
 />
 
@@ -105,6 +126,24 @@ export default function Demo() {
   value="{{rangeValue}}"
   bind:valuechange="handleRangeChange"
 />
+
+<sr-picker-datetime
+  className="mt-3"
+  label="日期时间"
+  mode="datetime"
+  format="{{datetimeFormat}}"
+  value="{{datetimeValue}}"
+  bind:valuechange="handleDatetimeChange"
+/>
+
+<sr-picker-datetime-range
+  className="mt-3"
+  label="日期时间区间"
+  mode="datetime"
+  format="{{datetimeFormat}}"
+  value="{{datetimeRangeValue}}"
+  bind:valuechange="handleDatetimeRangeChange"
+/>
 ```
 
 ## API
@@ -115,11 +154,10 @@ export default function Demo() {
 | --- | --- | --- | --- | --- |
 | label | Field 标签 | React: `ReactNode`；Mini: `string` | - | 全平台 |
 | labelPlacement | 标签位置 | `"outside" \| "outside-left" \| "inside"` | `"outside"` | 全平台 |
-| value | 受控值 | `single: string \| number \| null`；`multiple: Array<string \| number \| null>` | - | 全平台 |
-| defaultValue | 非受控初始值 | 同 `value` | 首个可选项 | 全平台 |
-| mode | 选择模式 | `"single" \| "multiple"` | `"single"` | 全平台 |
-| items | 单选项列表（`mode=single`） | `PickerItem[]` | `[]` | 全平台 |
-| columns | 多列列表（`mode=multiple`） | `PickerColumn[]` | `[]` | 全平台 |
+| value | 受控值（始终数组） | `Array<string \| number \| null>` | - | 全平台 |
+| defaultValue | 非受控初始值（始终数组） | `Array<string \| number \| null>` | 首个可选项 | 全平台 |
+| items | 一列列表（不传 `columns` 时生效） | `PickerItem[]` | `[]` | 全平台 |
+| columns | 多列列表（优先级高于 `items`） | `PickerColumn[]` | `[]` | 全平台 |
 | type | 渲染类型 | `"default" \| "calendar"`（当前均走 Pickbox） | `"default"` | 全平台 |
 | color | 主题色（同步到 Field / Pickbox / Confirm） | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` | 全平台 |
 | size | 尺寸（同步到 Field / Confirm） | `"sm" \| "md" \| "lg"` | `"md"` | 全平台 |
@@ -131,8 +169,8 @@ export default function Demo() {
 | defaultOpen | 默认开关 | `boolean` | `false` | 全平台 |
 | onOpenChange / bind:openchange | 开关变化 | React: `(isOpen) => void`；Mini: `event.detail.isOpen` | - | 全平台 |
 | onCancel / bind:cancel | 取消（dismiss）回调 | React: `() => void`；Mini: `event` | - | 全平台 |
-| onValueChange / bind:valuechange | 确认后提交值 | React: `(value) => void`；Mini: `event.detail.value` | - | 全平台 |
-| onDraftValueChange / bind:draftvaluechange | 面板内临时值变化 | React: `(value, detail) => void`；Mini: `event.detail` | - | 全平台 |
+| onValueChange / bind:valuechange | 确认后提交值 | React: `(value: Array<...>) => void`；Mini: `event.detail.value` | - | 全平台 |
+| onDraftValueChange / bind:draftvaluechange | 面板内临时值变化 | React: `(value: Array<...>, detail) => void`；Mini: `event.detail` | - | 全平台 |
 | isDismissable | 点击遮罩是否可关闭 | `boolean` | `true` | 全平台 |
 | hasBackdrop | 是否显示遮罩 | `boolean` | `true` | 全平台 |
 | backdrop | 遮罩样式 | `"transparent" \| "opaque" \| "blur"` | `"opaque"` | 全平台 |
@@ -154,7 +192,7 @@ export default function Demo() {
 | maxYear | 最大年份 | `number` | `2099` | 全平台 |
 | onValueChange / bind:valuechange | 日期确认回调 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
 | onDraftValueChange / bind:draftvaluechange | 日期草稿变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
-| 其它 Picker 公共字段 | 继承 `Picker`（除 `mode/items/columns`） | - | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/value/defaultValue/onValueChange/onDraftValueChange`） | - | - | 全平台 |
 
 ### TimePicker
 
@@ -164,7 +202,7 @@ export default function Demo() {
 | defaultValue | 非受控初始时间（`HH:mm:ss`） | `string \| null` | - | 全平台 |
 | onValueChange / bind:valuechange | 时间确认回调 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
 | onDraftValueChange / bind:draftvaluechange | 时间草稿变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
-| 其它 Picker 公共字段 | 继承 `Picker`（除 `mode/items/columns`） | - | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/value/defaultValue/onValueChange/onDraftValueChange`） | - | - | 全平台 |
 
 ### DateRangePicker
 
@@ -179,16 +217,54 @@ export default function Demo() {
 | valueSeparator | Field 展示分隔符 | `string` | `" ~ "` | 全平台 |
 | onValueChange / bind:valuechange | 区间确认回调 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
 | onDraftValueChange / bind:draftvaluechange | 区间草稿变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
-| 其它 Picker 公共字段 | 继承 `Picker`（除 `mode/items/columns`） | - | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/value/defaultValue/onValueChange/onDraftValueChange`） | - | - | 全平台 |
+
+### PickerDatetime
+
+| Prop | 说明 | 类型 | 默认值 | 平台 |
+| --- | --- | --- | --- | --- |
+| mode | 选择范围 | `"datetime" \| "date" \| "time"` | `"datetime"` | 全平台 |
+| format | 值格式（支持 `YYYY/MM/DD/HH/mm/ss`） | `string` | `mode` 对应默认格式 | 全平台 |
+| value | 受控值 | `string \| null` | - | 全平台 |
+| defaultValue | 非受控初始值 | `string \| null` | - | 全平台 |
+| minYear | 最小年份（涉及日期时生效） | `number` | `1900` | 全平台 |
+| maxYear | 最大年份（涉及日期时生效） | `number` | `2099` | 全平台 |
+| dateTabText | 日期面板 Tab 文案 | React: `ReactNode`；Mini: `string` | `"日期"` | 全平台 |
+| timeTabText | 时间面板 Tab 文案 | React: `ReactNode`；Mini: `string` | `"时间"` | 全平台 |
+| onValueChange / bind:valuechange | 确认值变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
+| onDraftValueChange / bind:draftvaluechange | 草稿值变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/value/defaultValue/onValueChange/onDraftValueChange`） | - | - | 全平台 |
+
+### PickerDatetimeRange
+
+| Prop | 说明 | 类型 | 默认值 | 平台 |
+| --- | --- | --- | --- | --- |
+| mode | 选择范围 | `"datetime" \| "date" \| "time"` | `"datetime"` | 全平台 |
+| format | 值格式（支持 `YYYY/MM/DD/HH/mm/ss`） | `string` | `mode` 对应默认格式 | 全平台 |
+| value | 受控区间值 | `{ start: string \| null; end: string \| null }` | - | 全平台 |
+| defaultValue | 非受控初始区间 | `{ start: string \| null; end: string \| null }` | - | 全平台 |
+| minYear | 最小年份（涉及日期时生效） | `number` | `1900` | 全平台 |
+| maxYear | 最大年份（涉及日期时生效） | `number` | `2099` | 全平台 |
+| startTabText | 开始 Tab 文案 | React: `ReactNode`；Mini: `string` | `"开始"` | 全平台 |
+| endTabText | 结束 Tab 文案 | React: `ReactNode`；Mini: `string` | `"结束"` | 全平台 |
+| dateTabText | 日期面板 Tab 文案 | React: `ReactNode`；Mini: `string` | `"日期"` | 全平台 |
+| timeTabText | 时间面板 Tab 文案 | React: `ReactNode`；Mini: `string` | `"时间"` | 全平台 |
+| valueSeparator | Field 展示分隔符 | `string` | `" ~ "` | 全平台 |
+| onValueChange / bind:valuechange | 确认区间变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
+| onDraftValueChange / bind:draftvaluechange | 草稿区间变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/value/defaultValue/onValueChange/onDraftValueChange`） | - | - | 全平台 |
 
 ## 行为说明
 
 - 面板结构固定为：`Field` 触发 + `Drawer(bottom)` 承载 + `Pickbox` 选择 + `Confirm` 提交。
 - `dismiss`（点击遮罩 / 手势关闭）不会提交草稿值，会回滚到上次确认值。
 - `Confirm` 为 `flat + block`，并同步 `Field` 的 `color/size`。
+- `Picker` 的值始终按数组读写；一列场景返回长度为 1 的数组。
 - `DatePicker` 默认生成年/月/日三列，并按年月动态修正当月天数。
 - `TimePicker` 默认生成时/分/秒三列（`HH:mm:ss`）。
 - `DateRangePicker` 在 Drawer body 内通过 Tabs 切换 start/end，Pickbox 始终跟随当前 Tab 的草稿值。
+- `PickerDatetime` 与 `PickerDatetimeRange` 的 `mode=datetime` 会在 Drawer 内展示全宽 Date/Time 切换；`mode=date/time` 不展示切换。
+- `PickerDatetime` 与 `PickerDatetimeRange` 支持 `format` 读写值（默认：`datetime=YYYY-MM-DD HH:mm:ss`、`date=YYYY-MM-DD`、`time=HH:mm:ss`）。
 
 ## 平台差异
 

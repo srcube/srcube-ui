@@ -100,6 +100,24 @@ function resolveCommittedParts(data: DatePickerMiniData): DateParts {
   return normalizeDateParts(parsed, range);
 }
 
+function resolvePickerPartNumber(value: unknown): number | null {
+  if (typeof value === 'number') {
+    return Number.isFinite(value) ? value : null;
+  }
+
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      return null;
+    }
+
+    const parsed = Number(trimmed);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  return null;
+}
+
 function resolvePartsFromPickerValue(
   value: unknown,
   range: YearRange,
@@ -109,13 +127,9 @@ function resolvePartsFromPickerValue(
     return fallback;
   }
 
-  const year = Number(value[0]);
-  const month = Number(value[1]);
-  const day = Number(value[2]);
-
-  if (!Number.isFinite(year) || !Number.isFinite(month) || !Number.isFinite(day)) {
-    return fallback;
-  }
+  const year = resolvePickerPartNumber(value[0]) ?? fallback.year;
+  const month = resolvePickerPartNumber(value[1]) ?? fallback.month;
+  const day = resolvePickerPartNumber(value[2]) ?? fallback.day;
 
   return normalizeDateParts(
     {
@@ -219,6 +233,7 @@ UIComponent({
       const committed = resolveCommittedParts(this.data as DatePickerMiniData);
       const range = resolveYearRange(this.data as DatePickerMiniData);
       this.setData({
+        _pickerValue: [committed.year, committed.month, committed.day],
         _draftParts: committed,
         _pickerColumns: buildDateColumns(committed, range),
       } satisfies Partial<DatePickerMiniState>);

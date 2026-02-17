@@ -5,8 +5,8 @@
   <view class="sr-tabs__tabs-wrapper {{$classNames.tabsWrapper}}">
     <sr-scrollbox
       class="sr-tabs__scroll-host {{$classNames.$scrollbox}}"
-      className="{{$classNames.scrollbox}}"
-      classNames="{{$scrollboxClassNames}}"
+      className="{{$classNames.scrollbox || className || ''}}"
+      classNames="{{$scrollboxClassNames || classNames}}"
       orientation="{{$orientation}}"
       hideMasks="{{hideMasks}}"
       showScrollbar="{{false}}"

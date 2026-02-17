@@ -3,6 +3,8 @@ import {
   DatePicker,
   DateRangePicker,
   Picker,
+  PickerDatetime,
+  PickerDatetimeRange,
   TimePicker,
 } from '@srcube-ui/picker';
 import { createFileRoute } from '@tanstack/react-router';
@@ -14,6 +16,7 @@ export const Route = createFileRoute('/picker')({
 });
 
 type PickerType = 'default' | 'calendar';
+type PickerDatetimeMode = 'datetime' | 'date' | 'time';
 
 function Section({
   title,
@@ -37,7 +40,9 @@ function Section({
 
 function PickerDemo() {
   const [pickerType, setPickerType] = useState<PickerType>('default');
-  const [singleValue, setSingleValue] = useState<string | number | null>('cq');
+  const [singleValue, setSingleValue] = useState<Array<string | number | null>>([
+    'cq',
+  ]);
   const [multiValue, setMultiValue] = useState<Array<string | number | null>>([
     'fruit',
     'apple',
@@ -50,6 +55,17 @@ function PickerDemo() {
   }>({
     start: '2026-02-13',
     end: '2026-02-18',
+  });
+  const [datetimeMode, setDatetimeMode] = useState<PickerDatetimeMode>('datetime');
+  const [datetimeValue, setDatetimeValue] = useState<string | null>(
+    '2026-02-13 09:30:00',
+  );
+  const [datetimeRangeValue, setDatetimeRangeValue] = useState<{
+    start: string | null;
+    end: string | null;
+  }>({
+    start: '2026-02-13 09:30:00',
+    end: '2026-02-18 18:30:00',
   });
 
   const singleItems = useMemo(
@@ -84,6 +100,16 @@ function PickerDemo() {
     [],
   );
 
+  const datetimeFormat = useMemo(() => {
+    if (datetimeMode === 'date') {
+      return 'YYYY/MM/DD';
+    }
+    if (datetimeMode === 'time') {
+      return 'HH:mm';
+    }
+    return 'YYYY-MM-DD HH:mm:ss';
+  }, [datetimeMode]);
+
   return (
     <main className="min-h-screen bg-slate-100 pb-24 text-slate-900">
       <PageHeader title="Picker" />
@@ -111,6 +137,38 @@ function PickerDemo() {
           </ButtonGroup>
         </Section>
 
+        <Section title="Datetime Mode" description="datetime / date / time">
+          <ButtonGroup size="sm" isBlock>
+            <Button
+              color={datetimeMode === 'datetime' ? 'primary' : 'default'}
+              variant={datetimeMode === 'datetime' ? 'solid' : 'flat'}
+              onTap={() => {
+                setDatetimeMode('datetime');
+              }}
+            >
+              datetime
+            </Button>
+            <Button
+              color={datetimeMode === 'date' ? 'primary' : 'default'}
+              variant={datetimeMode === 'date' ? 'solid' : 'flat'}
+              onTap={() => {
+                setDatetimeMode('date');
+              }}
+            >
+              date
+            </Button>
+            <Button
+              color={datetimeMode === 'time' ? 'primary' : 'default'}
+              variant={datetimeMode === 'time' ? 'solid' : 'flat'}
+              onTap={() => {
+                setDatetimeMode('time');
+              }}
+            >
+              time
+            </Button>
+          </ButtonGroup>
+        </Section>
+
         <Section
           title="Single"
           description="Field + Drawer(bottom) + Pickbox，dismiss=取消"
@@ -118,19 +176,13 @@ function PickerDemo() {
           <Picker
             label="城市"
             type={pickerType}
-            mode="single"
             color="primary"
             items={singleItems}
             value={singleValue}
-            onValueChange={(nextValue) => {
-              if (Array.isArray(nextValue)) {
-                return;
-              }
-              setSingleValue(nextValue);
-            }}
+            onValueChange={setSingleValue}
           />
           <div className="mt-2 text-xs text-slate-500">
-            Value: {singleValue ?? 'none'}
+            Value: {singleValue[0] ?? 'none'}
           </div>
         </Section>
 
@@ -138,17 +190,11 @@ function PickerDemo() {
           <Picker
             label="商品偏好"
             type={pickerType}
-            mode="multiple"
             color="secondary"
             size="sm"
             columns={multiColumns}
             value={multiValue}
-            onValueChange={(nextValue) => {
-              if (!Array.isArray(nextValue)) {
-                return;
-              }
-              setMultiValue(nextValue);
-            }}
+            onValueChange={setMultiValue}
           />
           <div className="mt-2 text-xs text-slate-500">
             Value: {multiValue.filter((item) => item != null).join(' / ')}
@@ -194,6 +240,44 @@ function PickerDemo() {
           />
           <div className="mt-2 text-xs text-slate-500">
             Value: {`${dateRangeValue.start} ~ ${dateRangeValue.end}`}
+          </div>
+        </Section>
+
+        <Section
+          title="PickerDatetime"
+          description="mode + format；mode=datetime 时展示全宽 Date/Time Tab"
+        >
+          <PickerDatetime
+            label="日期时间"
+            type={pickerType}
+            color="success"
+            size="sm"
+            mode={datetimeMode}
+            format={datetimeFormat}
+            value={datetimeValue}
+            onValueChange={setDatetimeValue}
+          />
+          <div className="mt-2 text-xs text-slate-500">
+            Value: {datetimeValue ?? 'none'}
+          </div>
+        </Section>
+
+        <Section
+          title="PickerDatetimeRange"
+          description="start/end + date/time 双层全宽 Tab，支持 format"
+        >
+          <PickerDatetimeRange
+            label="日期时间区间"
+            type={pickerType}
+            color="primary"
+            size="sm"
+            mode={datetimeMode}
+            format={datetimeFormat}
+            value={datetimeRangeValue}
+            onValueChange={setDatetimeRangeValue}
+          />
+          <div className="mt-2 text-xs text-slate-500">
+            Value: {`${datetimeRangeValue.start || '--'} ~ ${datetimeRangeValue.end || '--'}`}
           </div>
         </Section>
       </div>

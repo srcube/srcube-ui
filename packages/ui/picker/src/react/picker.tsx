@@ -14,25 +14,18 @@ import type {
   PickerDraftDetail,
   PickerItem,
   PickerItemId,
-  PickerMode,
   PickerMultiValue,
   PickerReactProps,
-  PickerSingleValue,
 } from './props';
 
-function resolveMode(mode?: PickerMode): PickerMode {
-  return mode === 'multiple' ? 'multiple' : 'single';
-}
-
 function resolvePickerColumns(params: {
-  mode: PickerMode;
   items?: PickerItem[];
   columns?: PickerColumn[];
 }): PickerColumn[] {
-  const { mode, items, columns } = params;
-
-  if (mode === 'multiple') {
-    return Array.isArray(columns) ? columns : [];
+  const { items, columns } = params;
+  const normalizedColumns = Array.isArray(columns) ? columns : [];
+  if (normalizedColumns.length > 0) {
+    return normalizedColumns;
   }
 
   if (Array.isArray(items) && items.length > 0) {
@@ -44,12 +37,7 @@ function resolvePickerColumns(params: {
     ];
   }
 
-  const firstColumn = Array.isArray(columns) ? columns[0] : null;
-  if (!firstColumn) {
-    return [];
-  }
-
-  return [firstColumn];
+  return [];
 }
 
 function getDefaultColumnValue(column: PickerColumn): PickerItemId | null {
@@ -83,40 +71,24 @@ function ensureNormalizedValue(
 }
 
 function normalizeInputValue(params: {
-  mode: PickerMode;
-  value?: PickerSingleValue | PickerMultiValue;
+  value?: PickerMultiValue | PickerItemId | null;
   columns: PickerColumn[];
 }): PickerMultiValue {
-  const { mode, value, columns } = params;
-
-  if (mode === 'multiple') {
-    if (Array.isArray(value)) {
-      return ensureNormalizedValue(columns, value);
-    }
-
-    if (value === null || value === undefined) {
-      return ensureNormalizedValue(columns);
-    }
-
-    return ensureNormalizedValue(columns, [value]);
-  }
+  const { value, columns } = params;
 
   if (Array.isArray(value)) {
-    return ensureNormalizedValue(columns, [value[0] ?? null]);
+    return ensureNormalizedValue(columns, value);
   }
 
-  return ensureNormalizedValue(columns, [value ?? null]);
+  if (value === null || value === undefined) {
+    return ensureNormalizedValue(columns);
+  }
+
+  return ensureNormalizedValue(columns, [value]);
 }
 
-function toOutputValue(
-  mode: PickerMode,
-  value: PickerMultiValue,
-): PickerSingleValue | PickerMultiValue {
-  if (mode === 'multiple') {
-    return [...value];
-  }
-
-  return value[0] ?? null;
+function toOutputValue(value: PickerMultiValue): PickerMultiValue {
+  return [...value];
 }
 
 function resolveDisplayValue(params: {
@@ -184,7 +156,6 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
       isRequired,
       isLoading,
       type = 'default',
-      mode: modeProp = 'single',
       items,
       columns,
       value,
@@ -212,24 +183,21 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
       ...rest
     } = props;
 
-    const resolvedMode = resolveMode(modeProp);
     const resolvedSize = resolvePickerSize(size);
     const resolvedColor = resolvePickerColor(color);
     const resolvedColumns = React.useMemo(
       () =>
         resolvePickerColumns({
-          mode: resolvedMode,
           items,
           columns,
         }),
-      [columns, items, resolvedMode],
+      [columns, items],
     );
 
     const isValueControlled = value !== undefined;
     const [innerCommittedValue, setInnerCommittedValue] =
       React.useState<PickerMultiValue>(() =>
         normalizeInputValue({
-          mode: resolvedMode,
           value: defaultValue,
           columns: resolvedColumns,
         }),
@@ -239,7 +207,6 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
       () =>
         isValueControlled
           ? normalizeInputValue({
-              mode: resolvedMode,
               value,
               columns: resolvedColumns,
             })
@@ -248,7 +215,6 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
         innerCommittedValue,
         isValueControlled,
         resolvedColumns,
-        resolvedMode,
         value,
       ],
     );
@@ -267,7 +233,6 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
 
     const [draftValue, setDraftValue] = React.useState<PickerMultiValue>(() =>
       normalizeInputValue({
-        mode: resolvedMode,
         value: value ?? defaultValue,
         columns: resolvedColumns,
       }),
@@ -362,9 +327,9 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
         };
 
         setDraftValue(normalized);
-        onDraftValueChange?.(toOutputValue(resolvedMode, normalized), detail);
+        onDraftValueChange?.(toOutputValue(normalized), detail);
       },
-      [draftValue, onDraftValueChange, resolvedColumns, resolvedMode],
+      [draftValue, onDraftValueChange, resolvedColumns],
     );
 
     const handleConfirmTap = React.useCallback(() => {
@@ -375,14 +340,13 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
         setInnerCommittedValue(normalized);
       }
 
-      onValueChange?.(toOutputValue(resolvedMode, normalized));
+      onValueChange?.(toOutputValue(normalized));
       setOpen(false);
     }, [
       draftValue,
       isValueControlled,
       onValueChange,
       resolvedColumns,
-      resolvedMode,
       setOpen,
     ]);
 

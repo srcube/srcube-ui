@@ -11,7 +11,6 @@
   size="{{size}}"
   radius="{{radius}}"
   type="{{type}}"
-  mode="multiple"
   columns="{{_pickerColumns}}"
   isOpen="{{isOpen}}"
   defaultOpen="{{defaultOpen}}"
