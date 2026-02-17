@@ -215,6 +215,9 @@ importers:
       '@srcube-ui/action-sheet':
         specifier: workspace:*
         version: link:../../packages/ui/action-sheet
+      '@srcube-ui/avatar':
+        specifier: workspace:*
+        version: link:../../packages/ui/avatar
       '@srcube-ui/button':
         specifier: workspace:*
         version: link:../../packages/ui/button
@@ -342,6 +345,9 @@ importers:
       '@srcube-ui/action-sheet':
         specifier: workspace:*
         version: link:../../packages/ui/action-sheet
+      '@srcube-ui/avatar':
+        specifier: workspace:*
+        version: link:../../packages/ui/avatar
       '@srcube-ui/button':
         specifier: workspace:*
         version: link:../../packages/ui/button
@@ -516,6 +522,9 @@ importers:
       '@srcube-ui/action-sheet':
         specifier: workspace:*
         version: link:../ui/action-sheet
+      '@srcube-ui/avatar':
+        specifier: workspace:*
+        version: link:../ui/avatar
       '@srcube-ui/button':
         specifier: workspace:*
         version: link:../ui/button
@@ -607,6 +616,9 @@ importers:
       '@srcube-ui/action-sheet':
         specifier: workspace:*
         version: link:../ui/action-sheet
+      '@srcube-ui/avatar':
+        specifier: workspace:*
+        version: link:../ui/avatar
       '@srcube-ui/button':
         specifier: workspace:*
         version: link:../ui/button
@@ -794,6 +806,25 @@ importers:
         version: 19.2.4(react@19.2.4)
 
   packages/ui/action-sheet:
+    dependencies:
+      '@srcube-ui/runtime':
+        specifier: workspace:*
+        version: link:../../runtime
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/avatar:
     dependencies:
       '@srcube-ui/runtime':
         specifier: workspace:*

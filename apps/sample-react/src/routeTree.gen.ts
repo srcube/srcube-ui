@@ -33,6 +33,7 @@ import { Route as DrawerRouteRouteImport } from './routes/drawer/route'
 import { Route as CollapseRouteRouteImport } from './routes/collapse/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
+import { Route as AvatarRouteRouteImport } from './routes/avatar/route'
 import { Route as ActionSheetRouteRouteImport } from './routes/action-sheet/route'
 import { Route as AccordionRouteRouteImport } from './routes/accordion/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -157,6 +158,11 @@ const ButtonRouteRoute = ButtonRouteRouteImport.update({
   path: '/button',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AvatarRouteRoute = AvatarRouteRouteImport.update({
+  id: '/avatar',
+  path: '/avatar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ActionSheetRouteRoute = ActionSheetRouteRouteImport.update({
   id: '/action-sheet',
   path: '/action-sheet',
@@ -177,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accordion': typeof AccordionRouteRoute
   '/action-sheet': typeof ActionSheetRouteRoute
+  '/avatar': typeof AvatarRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/collapse': typeof CollapseRouteRoute
@@ -206,6 +213,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accordion': typeof AccordionRouteRoute
   '/action-sheet': typeof ActionSheetRouteRoute
+  '/avatar': typeof AvatarRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/collapse': typeof CollapseRouteRoute
@@ -236,6 +244,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/accordion': typeof AccordionRouteRoute
   '/action-sheet': typeof ActionSheetRouteRoute
+  '/avatar': typeof AvatarRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/collapse': typeof CollapseRouteRoute
@@ -267,6 +276,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accordion'
     | '/action-sheet'
+    | '/avatar'
     | '/button'
     | '/checkbox'
     | '/collapse'
@@ -296,6 +306,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accordion'
     | '/action-sheet'
+    | '/avatar'
     | '/button'
     | '/checkbox'
     | '/collapse'
@@ -325,6 +336,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accordion'
     | '/action-sheet'
+    | '/avatar'
     | '/button'
     | '/checkbox'
     | '/collapse'
@@ -355,6 +367,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccordionRouteRoute: typeof AccordionRouteRoute
   ActionSheetRouteRoute: typeof ActionSheetRouteRoute
+  AvatarRouteRoute: typeof AvatarRouteRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
   CollapseRouteRoute: typeof CollapseRouteRoute
@@ -551,6 +564,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ButtonRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/avatar': {
+      id: '/avatar'
+      path: '/avatar'
+      fullPath: '/avatar'
+      preLoaderRoute: typeof AvatarRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/action-sheet': {
       id: '/action-sheet'
       path: '/action-sheet'
@@ -579,6 +599,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccordionRouteRoute: AccordionRouteRoute,
   ActionSheetRouteRoute: ActionSheetRouteRoute,
+  AvatarRouteRoute: AvatarRouteRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
   CollapseRouteRoute: CollapseRouteRoute,

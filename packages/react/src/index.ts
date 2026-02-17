@@ -1,6 +1,7 @@
 export * from '@srcube-ui/button/react';
 export * from '@srcube-ui/accordion/react';
 export * from '@srcube-ui/action-sheet/react';
+export * from '@srcube-ui/avatar/react';
 export * from '@srcube-ui/checkbox/react';
 export * from '@srcube-ui/collapse/react';
 export * from '@srcube-ui/drawer/react';

@@ -53,7 +53,7 @@
 
 ### 展示组件
 
-- [ ] `avatar`
+- [x] `avatar`
 - [ ] `image`（包含 `image-preview`）
 - [ ] `card`
 - [ ] `steps`

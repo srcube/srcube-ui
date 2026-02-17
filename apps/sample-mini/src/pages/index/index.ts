@@ -10,6 +10,10 @@ Page({
         url: '/packages/action-sheet/pages/sample/index',
       },
       {
+        title: 'Avatar',
+        url: '/packages/avatar/pages/sample/index',
+      },
+      {
         title: 'Collapse',
         url: '/packages/collapse/pages/sample/index',
       },

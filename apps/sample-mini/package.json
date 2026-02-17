@@ -26,6 +26,7 @@
   "dependencies": {
     "@srcube-ui/accordion": "workspace:*",
     "@srcube-ui/action-sheet": "workspace:*",
+    "@srcube-ui/avatar": "workspace:*",
     "@iconify/tailwind4": "catalog:",
     "@weapp-tailwindcss/variants": "catalog:",
     "@srcube-ui/button": "workspace:*",

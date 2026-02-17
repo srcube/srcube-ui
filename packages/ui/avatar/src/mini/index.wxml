@@ -1,0 +1,10 @@
+<view class="sr-avatar {{$classNames.base}}" style="{{style}}">
+  <image
+    wx:if="{{$showImage}}"
+    class="sr-avatar__image {{$classNames.image}}"
+    src="{{src}}"
+    mode="aspectFill"
+    binderror="handleImageError"
+  />
+  <text wx:else class="sr-avatar__fallback {{$classNames.fallback}}">{{$fallbackText}}</text>
+</view>

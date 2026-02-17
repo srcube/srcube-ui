@@ -11,6 +11,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/avatar",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/collapse",
       "pages": ["pages/sample/index"]
     },
