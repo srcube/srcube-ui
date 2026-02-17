@@ -31,6 +31,7 @@ import { Route as DrawerRouteRouteImport } from './routes/drawer/route'
 import { Route as CollapseRouteRouteImport } from './routes/collapse/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
+import { Route as ActionSheetRouteRouteImport } from './routes/action-sheet/route'
 import { Route as AccordionRouteRouteImport } from './routes/accordion/route'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -144,6 +145,11 @@ const ButtonRouteRoute = ButtonRouteRouteImport.update({
   path: '/button',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActionSheetRouteRoute = ActionSheetRouteRouteImport.update({
+  id: '/action-sheet',
+  path: '/action-sheet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccordionRouteRoute = AccordionRouteRouteImport.update({
   id: '/accordion',
   path: '/accordion',
@@ -158,6 +164,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accordion': typeof AccordionRouteRoute
+  '/action-sheet': typeof ActionSheetRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/collapse': typeof CollapseRouteRoute
@@ -184,6 +191,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accordion': typeof AccordionRouteRoute
+  '/action-sheet': typeof ActionSheetRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/collapse': typeof CollapseRouteRoute
@@ -211,6 +219,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/accordion': typeof AccordionRouteRoute
+  '/action-sheet': typeof ActionSheetRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/collapse': typeof CollapseRouteRoute
@@ -239,6 +248,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/accordion'
+    | '/action-sheet'
     | '/button'
     | '/checkbox'
     | '/collapse'
@@ -265,6 +275,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/accordion'
+    | '/action-sheet'
     | '/button'
     | '/checkbox'
     | '/collapse'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/accordion'
+    | '/action-sheet'
     | '/button'
     | '/checkbox'
     | '/collapse'
@@ -318,6 +330,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccordionRouteRoute: typeof AccordionRouteRoute
+  ActionSheetRouteRoute: typeof ActionSheetRouteRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
   CollapseRouteRoute: typeof CollapseRouteRoute
@@ -498,6 +511,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ButtonRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/action-sheet': {
+      id: '/action-sheet'
+      path: '/action-sheet'
+      fullPath: '/action-sheet'
+      preLoaderRoute: typeof ActionSheetRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/accordion': {
       id: '/accordion'
       path: '/accordion'
@@ -518,6 +538,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccordionRouteRoute: AccordionRouteRoute,
+  ActionSheetRouteRoute: ActionSheetRouteRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
   CollapseRouteRoute: CollapseRouteRoute,

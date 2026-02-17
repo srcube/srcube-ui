@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@srcube-ui/accordion": "workspace:*",
+    "@srcube-ui/action-sheet": "workspace:*",
     "@srcube-ui/button": "workspace:*",
     "@srcube-ui/checkbox": "workspace:*",
     "@srcube-ui/collapse": "workspace:*",

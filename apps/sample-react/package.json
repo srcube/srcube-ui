@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@srcube-ui/accordion": "workspace:*",
+    "@srcube-ui/action-sheet": "workspace:*",
     "@iconify/tailwind4": "catalog:",
     "@srcube-ui/button": "workspace:*",
     "@srcube-ui/checkbox": "workspace:*",

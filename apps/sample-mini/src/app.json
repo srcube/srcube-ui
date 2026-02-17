@@ -7,6 +7,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/action-sheet",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/collapse",
       "pages": ["pages/sample/index"]
     },

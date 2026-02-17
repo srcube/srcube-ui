@@ -45,7 +45,7 @@
 ### 反馈与浮层
 
 - [ ] `toaster`
-- [ ] `action-sheet`
+- [x] `action-sheet`
 - [ ] `popover`
 - [ ] `tooltip`
 - [ ] `skeleton`

@@ -6,6 +6,10 @@ Page({
         url: '/packages/accordion/pages/sample/index',
       },
       {
+        title: 'Action Sheet',
+        url: '/packages/action-sheet/pages/sample/index',
+      },
+      {
         title: 'Collapse',
         url: '/packages/collapse/pages/sample/index',
       },

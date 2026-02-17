@@ -1,0 +1,49 @@
+<view wx:if="{{$isOpen}}" class="sr-action-sheet {{$classNames.base}}" style="{{style}}">
+  <view class="sr-action-sheet__overlay {{$classNames.overlay}}" bindtap="handleOverlayTap" />
+
+  <view class="sr-action-sheet__panel {{$classNames.panel}}">
+    <view wx:if="{{title || description}}" class="sr-action-sheet__header {{$classNames.header}}">
+      <view wx:if="{{title}}" class="sr-action-sheet__title {{$classNames.title}}">
+        {{title}}
+      </view>
+      <view wx:if="{{description}}" class="sr-action-sheet__description {{$classNames.description}}">
+        {{description}}
+      </view>
+    </view>
+
+    <view class="sr-action-sheet__list {{$classNames.list}}">
+      <button
+        wx:for="{{$renderActions}}"
+        wx:key="key"
+        class="sr-action-sheet__action {{$classNames.action}} {{item.actionState}}"
+        data-index="{{item.index}}"
+        bindtap="handleActionTap"
+        disabled="{{item.isDisabled}}"
+        type="default"
+        plain="{{true}}"
+        hover-class="none"
+      >
+        <text class="sr-action-sheet__action-label {{$classNames.actionLabel}}">
+          {{item.label}}
+        </text>
+        <text
+          wx:if="{{item.description}}"
+          class="sr-action-sheet__action-description {{$classNames.actionDescription}}"
+        >
+          {{item.description}}
+        </text>
+      </button>
+    </view>
+
+    <button
+      wx:if="{{isClosable}}"
+      class="sr-action-sheet__cancel {{$classNames.cancel}}"
+      bindtap="handleCancelTap"
+      type="default"
+      plain="{{true}}"
+      hover-class="none"
+    >
+      {{cancelText}}
+    </button>
+  </view>
+</view>
