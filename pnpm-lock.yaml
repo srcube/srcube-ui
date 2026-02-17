@@ -218,6 +218,9 @@ importers:
       '@srcube-ui/checkbox':
         specifier: workspace:*
         version: link:../../packages/ui/checkbox
+      '@srcube-ui/collapse':
+        specifier: workspace:*
+        version: link:../../packages/ui/collapse
       '@srcube-ui/drawer':
         specifier: workspace:*
         version: link:../../packages/ui/drawer
@@ -333,6 +336,9 @@ importers:
       '@srcube-ui/checkbox':
         specifier: workspace:*
         version: link:../../packages/ui/checkbox
+      '@srcube-ui/collapse':
+        specifier: workspace:*
+        version: link:../../packages/ui/collapse
       '@srcube-ui/drawer':
         specifier: workspace:*
         version: link:../../packages/ui/drawer
@@ -495,6 +501,9 @@ importers:
       '@srcube-ui/checkbox':
         specifier: workspace:*
         version: link:../ui/checkbox
+      '@srcube-ui/collapse':
+        specifier: workspace:*
+        version: link:../ui/collapse
       '@srcube-ui/drawer':
         specifier: workspace:*
         version: link:../ui/drawer
@@ -574,6 +583,9 @@ importers:
       '@srcube-ui/checkbox':
         specifier: workspace:*
         version: link:../ui/checkbox
+      '@srcube-ui/collapse':
+        specifier: workspace:*
+        version: link:../ui/collapse
       '@srcube-ui/drawer':
         specifier: workspace:*
         version: link:../ui/drawer
@@ -785,6 +797,25 @@ importers:
       react-aria-components:
         specifier: 'catalog:'
         version: 1.14.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/collapse:
+    dependencies:
+      '@srcube-ui/runtime':
+        specifier: workspace:*
+        version: link:../../runtime
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
       react-dom:
         specifier: 'catalog:'
         version: 19.2.4(react@19.2.4)

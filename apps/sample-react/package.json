@@ -16,6 +16,7 @@
     "@iconify/tailwind4": "catalog:",
     "@srcube-ui/button": "workspace:*",
     "@srcube-ui/checkbox": "workspace:*",
+    "@srcube-ui/collapse": "workspace:*",
     "@srcube-ui/drawer": "workspace:*",
     "@srcube-ui/field": "workspace:*",
     "@srcube-ui/input": "workspace:*",

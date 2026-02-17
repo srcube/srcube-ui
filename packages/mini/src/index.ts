@@ -1,6 +1,7 @@
 export * from '@srcube-ui/button/mini';
 export * from '@srcube-ui/accordion/mini';
 export * from '@srcube-ui/checkbox/mini';
+export * from '@srcube-ui/collapse/mini';
 export * from '@srcube-ui/drawer/mini';
 export * from '@srcube-ui/field/mini';
 export * from '@srcube-ui/input/mini';

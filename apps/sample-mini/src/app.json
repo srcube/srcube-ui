@@ -7,6 +7,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/collapse",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/button",
       "pages": ["pages/sample/index"]
     },

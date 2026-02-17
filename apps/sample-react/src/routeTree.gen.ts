@@ -28,6 +28,7 @@ import { Route as InputOtpRouteRouteImport } from './routes/input-otp/route'
 import { Route as InputRouteRouteImport } from './routes/input/route'
 import { Route as FieldRouteRouteImport } from './routes/field/route'
 import { Route as DrawerRouteRouteImport } from './routes/drawer/route'
+import { Route as CollapseRouteRouteImport } from './routes/collapse/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
 import { Route as AccordionRouteRouteImport } from './routes/accordion/route'
@@ -128,6 +129,11 @@ const DrawerRouteRoute = DrawerRouteRouteImport.update({
   path: '/drawer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollapseRouteRoute = CollapseRouteRouteImport.update({
+  id: '/collapse',
+  path: '/collapse',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CheckboxRouteRoute = CheckboxRouteRouteImport.update({
   id: '/checkbox',
   path: '/checkbox',
@@ -154,6 +160,7 @@ export interface FileRoutesByFullPath {
   '/accordion': typeof AccordionRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/collapse': typeof CollapseRouteRoute
   '/drawer': typeof DrawerRouteRoute
   '/field': typeof FieldRouteRoute
   '/input': typeof InputRouteRoute
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/accordion': typeof AccordionRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/collapse': typeof CollapseRouteRoute
   '/drawer': typeof DrawerRouteRoute
   '/field': typeof FieldRouteRoute
   '/input': typeof InputRouteRoute
@@ -205,6 +213,7 @@ export interface FileRoutesById {
   '/accordion': typeof AccordionRouteRoute
   '/button': typeof ButtonRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
+  '/collapse': typeof CollapseRouteRoute
   '/drawer': typeof DrawerRouteRoute
   '/field': typeof FieldRouteRoute
   '/input': typeof InputRouteRoute
@@ -232,6 +241,7 @@ export interface FileRouteTypes {
     | '/accordion'
     | '/button'
     | '/checkbox'
+    | '/collapse'
     | '/drawer'
     | '/field'
     | '/input'
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/accordion'
     | '/button'
     | '/checkbox'
+    | '/collapse'
     | '/drawer'
     | '/field'
     | '/input'
@@ -282,6 +293,7 @@ export interface FileRouteTypes {
     | '/accordion'
     | '/button'
     | '/checkbox'
+    | '/collapse'
     | '/drawer'
     | '/field'
     | '/input'
@@ -308,6 +320,7 @@ export interface RootRouteChildren {
   AccordionRouteRoute: typeof AccordionRouteRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
+  CollapseRouteRoute: typeof CollapseRouteRoute
   DrawerRouteRoute: typeof DrawerRouteRoute
   FieldRouteRoute: typeof FieldRouteRoute
   InputRouteRoute: typeof InputRouteRoute
@@ -464,6 +477,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DrawerRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collapse': {
+      id: '/collapse'
+      path: '/collapse'
+      fullPath: '/collapse'
+      preLoaderRoute: typeof CollapseRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/checkbox': {
       id: '/checkbox'
       path: '/checkbox'
@@ -500,6 +520,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccordionRouteRoute: AccordionRouteRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
+  CollapseRouteRoute: CollapseRouteRoute,
   DrawerRouteRoute: DrawerRouteRoute,
   FieldRouteRoute: FieldRouteRoute,
   InputRouteRoute: InputRouteRoute,

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-collapse": "@srcube-ui/collapse/index"
+  },
+  "navigationBarTitleText": "Collapse",
+  "backgroundColor": "#f1f5f9"
+}
