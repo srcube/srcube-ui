@@ -233,6 +233,9 @@ importers:
       '@srcube-ui/modal':
         specifier: workspace:*
         version: link:../../packages/ui/modal
+      '@srcube-ui/navbar':
+        specifier: workspace:*
+        version: link:../../packages/ui/navbar
       '@srcube-ui/pickbox':
         specifier: workspace:*
         version: link:../../packages/ui/pickbox
@@ -339,6 +342,9 @@ importers:
       '@srcube-ui/modal':
         specifier: workspace:*
         version: link:../../packages/ui/modal
+      '@srcube-ui/navbar':
+        specifier: workspace:*
+        version: link:../../packages/ui/navbar
       '@srcube-ui/pickbox':
         specifier: workspace:*
         version: link:../../packages/ui/pickbox
@@ -492,6 +498,9 @@ importers:
       '@srcube-ui/modal':
         specifier: workspace:*
         version: link:../ui/modal
+      '@srcube-ui/navbar':
+        specifier: workspace:*
+        version: link:../ui/navbar
       '@srcube-ui/pickbox':
         specifier: workspace:*
         version: link:../ui/pickbox
@@ -562,6 +571,9 @@ importers:
       '@srcube-ui/modal':
         specifier: workspace:*
         version: link:../ui/modal
+      '@srcube-ui/navbar':
+        specifier: workspace:*
+        version: link:../ui/navbar
       '@srcube-ui/pickbox':
         specifier: workspace:*
         version: link:../ui/pickbox
@@ -869,6 +881,25 @@ importers:
         specifier: 'catalog:'
         version: 19.2.4(react@19.2.4)
 
+  packages/ui/navbar:
+    dependencies:
+      '@srcube-ui/runtime':
+        specifier: workspace:*
+        version: link:../../runtime
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
   packages/ui/pickbox:
     dependencies:
       '@srcube-ui/runtime':
@@ -911,6 +942,9 @@ importers:
       '@srcube-ui/runtime':
         specifier: workspace:*
         version: link:../../runtime
+      '@srcube-ui/tabs':
+        specifier: workspace:*
+        version: link:../tabs
       '@srcube-ui/theme':
         specifier: workspace:*
         version: link:../../theme

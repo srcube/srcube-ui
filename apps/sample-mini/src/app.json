@@ -59,6 +59,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/navbar",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/drawer",
       "pages": ["pages/sample/index"]
     },

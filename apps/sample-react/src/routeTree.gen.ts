@@ -20,6 +20,7 @@ import { Route as ScrollboxRouteRouteImport } from './routes/scrollbox/route'
 import { Route as RadioRouteRouteImport } from './routes/radio/route'
 import { Route as PickerRouteRouteImport } from './routes/picker/route'
 import { Route as PickboxRouteRouteImport } from './routes/pickbox/route'
+import { Route as NavbarRouteRouteImport } from './routes/navbar/route'
 import { Route as ModalRouteRouteImport } from './routes/modal/route'
 import { Route as ListboxRouteRouteImport } from './routes/listbox/route'
 import { Route as InputOtpRouteRouteImport } from './routes/input-otp/route'
@@ -85,6 +86,11 @@ const PickboxRouteRoute = PickboxRouteRouteImport.update({
   path: '/pickbox',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavbarRouteRoute = NavbarRouteRouteImport.update({
+  id: '/navbar',
+  path: '/navbar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModalRouteRoute = ModalRouteRouteImport.update({
   id: '/modal',
   path: '/modal',
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
+  '/navbar': typeof NavbarRouteRoute
   '/pickbox': typeof PickboxRouteRoute
   '/picker': typeof PickerRouteRoute
   '/radio': typeof RadioRouteRoute
@@ -163,6 +170,7 @@ export interface FileRoutesByTo {
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
+  '/navbar': typeof NavbarRouteRoute
   '/pickbox': typeof PickboxRouteRoute
   '/picker': typeof PickerRouteRoute
   '/radio': typeof RadioRouteRoute
@@ -186,6 +194,7 @@ export interface FileRoutesById {
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
+  '/navbar': typeof NavbarRouteRoute
   '/pickbox': typeof PickboxRouteRoute
   '/picker': typeof PickerRouteRoute
   '/radio': typeof RadioRouteRoute
@@ -210,6 +219,7 @@ export interface FileRouteTypes {
     | '/input-otp'
     | '/listbox'
     | '/modal'
+    | '/navbar'
     | '/pickbox'
     | '/picker'
     | '/radio'
@@ -232,6 +242,7 @@ export interface FileRouteTypes {
     | '/input-otp'
     | '/listbox'
     | '/modal'
+    | '/navbar'
     | '/pickbox'
     | '/picker'
     | '/radio'
@@ -254,6 +265,7 @@ export interface FileRouteTypes {
     | '/input-otp'
     | '/listbox'
     | '/modal'
+    | '/navbar'
     | '/pickbox'
     | '/picker'
     | '/radio'
@@ -277,6 +289,7 @@ export interface RootRouteChildren {
   InputOtpRouteRoute: typeof InputOtpRouteRoute
   ListboxRouteRoute: typeof ListboxRouteRoute
   ModalRouteRoute: typeof ModalRouteRoute
+  NavbarRouteRoute: typeof NavbarRouteRoute
   PickboxRouteRoute: typeof PickboxRouteRoute
   PickerRouteRoute: typeof PickerRouteRoute
   RadioRouteRoute: typeof RadioRouteRoute
@@ -369,6 +382,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PickboxRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navbar': {
+      id: '/navbar'
+      path: '/navbar'
+      fullPath: '/navbar'
+      preLoaderRoute: typeof NavbarRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/modal': {
       id: '/modal'
       path: '/modal'
@@ -445,6 +465,7 @@ const rootRouteChildren: RootRouteChildren = {
   InputOtpRouteRoute: InputOtpRouteRoute,
   ListboxRouteRoute: ListboxRouteRoute,
   ModalRouteRoute: ModalRouteRoute,
+  NavbarRouteRoute: NavbarRouteRoute,
   PickboxRouteRoute: PickboxRouteRoute,
   PickerRouteRoute: PickerRouteRoute,
   RadioRouteRoute: RadioRouteRoute,

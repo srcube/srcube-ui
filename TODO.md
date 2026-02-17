@@ -30,14 +30,14 @@
 ### 表单输入
 
 - [x] `stepper`
-- [ ] `date-picker`
-- [ ] `time-picker`
+- [x] `date-picker`（`packages/ui/picker` 内置 `DatePicker`）
+- [x] `time-picker`（`packages/ui/picker` 内置 `TimePicker`）
 - [ ] `cascader`
 - [ ] `uploader`
 
 ### 容器与导航
 
-- [ ] `navbar`
+- [x] `navbar`
 - [ ] `tabbar`
 - [ ] `accordion`
 - [ ] `collapse`

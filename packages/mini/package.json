@@ -26,6 +26,7 @@
     "@srcube-ui/input-otp": "workspace:*",
     "@srcube-ui/listbox": "workspace:*",
     "@srcube-ui/modal": "workspace:*",
+    "@srcube-ui/navbar": "workspace:*",
     "@srcube-ui/pickbox": "workspace:*",
     "@srcube-ui/picker": "workspace:*",
     "@srcube-ui/radio": "workspace:*",

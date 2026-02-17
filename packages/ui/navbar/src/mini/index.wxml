@@ -1,0 +1,13 @@
+<view id="{{id}}" class="sr-navbar {{$classNames.base}}" style="{{style}}">
+  <view class="sr-navbar__inner {{$classNames.inner}}">
+    <view class="sr-navbar__start {{$classNames.start}}">
+      <slot name="start" />
+    </view>
+    <view class="sr-navbar__title {{$classNames.title}}">
+      <slot name="title">{{title}}</slot>
+    </view>
+    <view class="sr-navbar__end {{$classNames.end}}">
+      <slot name="end" />
+    </view>
+  </view>
+</view>

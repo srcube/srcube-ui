@@ -62,6 +62,10 @@ Page({
         url: '/packages/modal/pages/sample/index',
       },
       {
+        title: 'Navbar',
+        url: '/packages/navbar/pages/sample/index',
+      },
+      {
         title: 'Drawer',
         url: '/packages/drawer/pages/sample/index',
       },
