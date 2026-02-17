@@ -1,0 +1,23 @@
+<view wx:if="{{$isVisible}}" class="sr-notice-bar {{$classNames.base}}" style="{{style}}">
+  <text wx:if="{{icon}}" class="sr-notice-bar__icon {{$classNames.icon}}">{{icon}}</text>
+
+  <view class="sr-notice-bar__content {{$classNames.content}}">
+    <text class="sr-notice-bar__text {{$classNames.text}}">{{text}}</text>
+    <slot />
+  </view>
+
+  <text wx:if="{{actionText}}" class="sr-notice-bar__action {{$classNames.action}}">
+    {{actionText}}
+  </text>
+
+  <button
+    wx:if="{{isClosable}}"
+    class="sr-notice-bar__close {{$classNames.close}}"
+    bindtap="handleCloseTap"
+    type="default"
+    plain="{{true}}"
+    hover-class="none"
+  >
+    x
+  </button>
+</view>

@@ -49,7 +49,7 @@
 - [x] `popover`
 - [ ] `tooltip`
 - [ ] `skeleton`
-- [ ] `notice-bar`
+- [x] `notice-bar`
 
 ### 展示组件
 

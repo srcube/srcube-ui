@@ -74,6 +74,10 @@ Page({
         url: '/packages/popover/pages/sample/index',
       },
       {
+        title: 'Notice Bar',
+        url: '/packages/notice-bar/pages/sample/index',
+      },
+      {
         title: 'Modal',
         url: '/packages/modal/pages/sample/index',
       },

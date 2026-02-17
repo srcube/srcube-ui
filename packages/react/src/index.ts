@@ -10,6 +10,7 @@ export * from '@srcube-ui/input-otp/react';
 export * from '@srcube-ui/listbox/react';
 export * from '@srcube-ui/modal/react';
 export * from '@srcube-ui/navbar/react';
+export * from '@srcube-ui/notice-bar/react';
 export * from '@srcube-ui/pickbox/react';
 export * from '@srcube-ui/picker/react';
 export * from '@srcube-ui/popover/react';

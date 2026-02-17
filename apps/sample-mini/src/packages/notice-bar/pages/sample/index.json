@@ -1,0 +1,8 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-notice-bar": "@srcube-ui/notice-bar/index"
+  },
+  "navigationBarTitleText": "Notice Bar",
+  "backgroundColor": "#f1f5f9"
+}

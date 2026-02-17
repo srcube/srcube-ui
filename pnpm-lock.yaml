@@ -245,6 +245,9 @@ importers:
       '@srcube-ui/navbar':
         specifier: workspace:*
         version: link:../../packages/ui/navbar
+      '@srcube-ui/notice-bar':
+        specifier: workspace:*
+        version: link:../../packages/ui/notice-bar
       '@srcube-ui/pickbox':
         specifier: workspace:*
         version: link:../../packages/ui/pickbox
@@ -369,6 +372,9 @@ importers:
       '@srcube-ui/navbar':
         specifier: workspace:*
         version: link:../../packages/ui/navbar
+      '@srcube-ui/notice-bar':
+        specifier: workspace:*
+        version: link:../../packages/ui/notice-bar
       '@srcube-ui/pickbox':
         specifier: workspace:*
         version: link:../../packages/ui/pickbox
@@ -540,6 +546,9 @@ importers:
       '@srcube-ui/navbar':
         specifier: workspace:*
         version: link:../ui/navbar
+      '@srcube-ui/notice-bar':
+        specifier: workspace:*
+        version: link:../ui/notice-bar
       '@srcube-ui/pickbox':
         specifier: workspace:*
         version: link:../ui/pickbox
@@ -628,6 +637,9 @@ importers:
       '@srcube-ui/navbar':
         specifier: workspace:*
         version: link:../ui/navbar
+      '@srcube-ui/notice-bar':
+        specifier: workspace:*
+        version: link:../ui/notice-bar
       '@srcube-ui/pickbox':
         specifier: workspace:*
         version: link:../ui/pickbox
@@ -999,6 +1011,25 @@ importers:
         version: 19.2.4(react@19.2.4)
 
   packages/ui/navbar:
+    dependencies:
+      '@srcube-ui/runtime':
+        specifier: workspace:*
+        version: link:../../runtime
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/notice-bar:
     dependencies:
       '@srcube-ui/runtime':
         specifier: workspace:*

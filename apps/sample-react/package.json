@@ -25,6 +25,7 @@
     "@srcube-ui/listbox": "workspace:*",
     "@srcube-ui/modal": "workspace:*",
     "@srcube-ui/navbar": "workspace:*",
+    "@srcube-ui/notice-bar": "workspace:*",
     "@srcube-ui/pickbox": "workspace:*",
     "@srcube-ui/picker": "workspace:*",
     "@srcube-ui/popover": "workspace:*",

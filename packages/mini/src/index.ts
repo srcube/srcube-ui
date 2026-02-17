@@ -10,6 +10,7 @@ export * from '@srcube-ui/input-otp/mini';
 export * from '@srcube-ui/listbox/mini';
 export * from '@srcube-ui/modal/mini';
 export * from '@srcube-ui/navbar/mini';
+export * from '@srcube-ui/notice-bar/mini';
 export * from '@srcube-ui/pickbox/mini';
 export * from '@srcube-ui/picker/mini';
 export * from '@srcube-ui/popover/mini';

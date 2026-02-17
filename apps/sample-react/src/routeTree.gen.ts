@@ -22,6 +22,7 @@ import { Route as RadioRouteRouteImport } from './routes/radio/route'
 import { Route as PopoverRouteRouteImport } from './routes/popover/route'
 import { Route as PickerRouteRouteImport } from './routes/picker/route'
 import { Route as PickboxRouteRouteImport } from './routes/pickbox/route'
+import { Route as NoticeBarRouteRouteImport } from './routes/notice-bar/route'
 import { Route as NavbarRouteRouteImport } from './routes/navbar/route'
 import { Route as ModalRouteRouteImport } from './routes/modal/route'
 import { Route as ListboxRouteRouteImport } from './routes/listbox/route'
@@ -99,6 +100,11 @@ const PickerRouteRoute = PickerRouteRouteImport.update({
 const PickboxRouteRoute = PickboxRouteRouteImport.update({
   id: '/pickbox',
   path: '/pickbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoticeBarRouteRoute = NoticeBarRouteRouteImport.update({
+  id: '/notice-bar',
+  path: '/notice-bar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NavbarRouteRoute = NavbarRouteRouteImport.update({
@@ -181,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
   '/navbar': typeof NavbarRouteRoute
+  '/notice-bar': typeof NoticeBarRouteRoute
   '/pickbox': typeof PickboxRouteRoute
   '/picker': typeof PickerRouteRoute
   '/popover': typeof PopoverRouteRoute
@@ -209,6 +216,7 @@ export interface FileRoutesByTo {
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
   '/navbar': typeof NavbarRouteRoute
+  '/notice-bar': typeof NoticeBarRouteRoute
   '/pickbox': typeof PickboxRouteRoute
   '/picker': typeof PickerRouteRoute
   '/popover': typeof PopoverRouteRoute
@@ -238,6 +246,7 @@ export interface FileRoutesById {
   '/listbox': typeof ListboxRouteRoute
   '/modal': typeof ModalRouteRoute
   '/navbar': typeof NavbarRouteRoute
+  '/notice-bar': typeof NoticeBarRouteRoute
   '/pickbox': typeof PickboxRouteRoute
   '/picker': typeof PickerRouteRoute
   '/popover': typeof PopoverRouteRoute
@@ -268,6 +277,7 @@ export interface FileRouteTypes {
     | '/listbox'
     | '/modal'
     | '/navbar'
+    | '/notice-bar'
     | '/pickbox'
     | '/picker'
     | '/popover'
@@ -296,6 +306,7 @@ export interface FileRouteTypes {
     | '/listbox'
     | '/modal'
     | '/navbar'
+    | '/notice-bar'
     | '/pickbox'
     | '/picker'
     | '/popover'
@@ -324,6 +335,7 @@ export interface FileRouteTypes {
     | '/listbox'
     | '/modal'
     | '/navbar'
+    | '/notice-bar'
     | '/pickbox'
     | '/picker'
     | '/popover'
@@ -353,6 +365,7 @@ export interface RootRouteChildren {
   ListboxRouteRoute: typeof ListboxRouteRoute
   ModalRouteRoute: typeof ModalRouteRoute
   NavbarRouteRoute: typeof NavbarRouteRoute
+  NoticeBarRouteRoute: typeof NoticeBarRouteRoute
   PickboxRouteRoute: typeof PickboxRouteRoute
   PickerRouteRoute: typeof PickerRouteRoute
   PopoverRouteRoute: typeof PopoverRouteRoute
@@ -459,6 +472,13 @@ declare module '@tanstack/react-router' {
       path: '/pickbox'
       fullPath: '/pickbox'
       preLoaderRoute: typeof PickboxRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notice-bar': {
+      id: '/notice-bar'
+      path: '/notice-bar'
+      fullPath: '/notice-bar'
+      preLoaderRoute: typeof NoticeBarRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/navbar': {
@@ -569,6 +589,7 @@ const rootRouteChildren: RootRouteChildren = {
   ListboxRouteRoute: ListboxRouteRoute,
   ModalRouteRoute: ModalRouteRoute,
   NavbarRouteRoute: NavbarRouteRoute,
+  NoticeBarRouteRoute: NoticeBarRouteRoute,
   PickboxRouteRoute: PickboxRouteRoute,
   PickerRouteRoute: PickerRouteRoute,
   PopoverRouteRoute: PopoverRouteRoute,
