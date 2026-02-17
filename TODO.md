@@ -46,7 +46,7 @@
 
 - [ ] `toaster`
 - [x] `action-sheet`
-- [ ] `popover`
+- [x] `popover`
 - [ ] `tooltip`
 - [ ] `skeleton`
 - [ ] `notice-bar`

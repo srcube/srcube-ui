@@ -19,6 +19,7 @@ import { Route as StepperRouteRouteImport } from './routes/stepper/route'
 import { Route as SkeletonRouteRouteImport } from './routes/skeleton/route'
 import { Route as ScrollboxRouteRouteImport } from './routes/scrollbox/route'
 import { Route as RadioRouteRouteImport } from './routes/radio/route'
+import { Route as PopoverRouteRouteImport } from './routes/popover/route'
 import { Route as PickerRouteRouteImport } from './routes/picker/route'
 import { Route as PickboxRouteRouteImport } from './routes/pickbox/route'
 import { Route as NavbarRouteRouteImport } from './routes/navbar/route'
@@ -83,6 +84,11 @@ const ScrollboxRouteRoute = ScrollboxRouteRouteImport.update({
 const RadioRouteRoute = RadioRouteRouteImport.update({
   id: '/radio',
   path: '/radio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PopoverRouteRoute = PopoverRouteRouteImport.update({
+  id: '/popover',
+  path: '/popover',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PickerRouteRoute = PickerRouteRouteImport.update({
@@ -177,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/navbar': typeof NavbarRouteRoute
   '/pickbox': typeof PickboxRouteRoute
   '/picker': typeof PickerRouteRoute
+  '/popover': typeof PopoverRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
   '/skeleton': typeof SkeletonRouteRoute
@@ -204,6 +211,7 @@ export interface FileRoutesByTo {
   '/navbar': typeof NavbarRouteRoute
   '/pickbox': typeof PickboxRouteRoute
   '/picker': typeof PickerRouteRoute
+  '/popover': typeof PopoverRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
   '/skeleton': typeof SkeletonRouteRoute
@@ -232,6 +240,7 @@ export interface FileRoutesById {
   '/navbar': typeof NavbarRouteRoute
   '/pickbox': typeof PickboxRouteRoute
   '/picker': typeof PickerRouteRoute
+  '/popover': typeof PopoverRouteRoute
   '/radio': typeof RadioRouteRoute
   '/scrollbox': typeof ScrollboxRouteRoute
   '/skeleton': typeof SkeletonRouteRoute
@@ -261,6 +270,7 @@ export interface FileRouteTypes {
     | '/navbar'
     | '/pickbox'
     | '/picker'
+    | '/popover'
     | '/radio'
     | '/scrollbox'
     | '/skeleton'
@@ -288,6 +298,7 @@ export interface FileRouteTypes {
     | '/navbar'
     | '/pickbox'
     | '/picker'
+    | '/popover'
     | '/radio'
     | '/scrollbox'
     | '/skeleton'
@@ -315,6 +326,7 @@ export interface FileRouteTypes {
     | '/navbar'
     | '/pickbox'
     | '/picker'
+    | '/popover'
     | '/radio'
     | '/scrollbox'
     | '/skeleton'
@@ -343,6 +355,7 @@ export interface RootRouteChildren {
   NavbarRouteRoute: typeof NavbarRouteRoute
   PickboxRouteRoute: typeof PickboxRouteRoute
   PickerRouteRoute: typeof PickerRouteRoute
+  PopoverRouteRoute: typeof PopoverRouteRoute
   RadioRouteRoute: typeof RadioRouteRoute
   ScrollboxRouteRoute: typeof ScrollboxRouteRoute
   SkeletonRouteRoute: typeof SkeletonRouteRoute
@@ -425,6 +438,13 @@ declare module '@tanstack/react-router' {
       path: '/radio'
       fullPath: '/radio'
       preLoaderRoute: typeof RadioRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/popover': {
+      id: '/popover'
+      path: '/popover'
+      fullPath: '/popover'
+      preLoaderRoute: typeof PopoverRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/picker': {
@@ -551,6 +571,7 @@ const rootRouteChildren: RootRouteChildren = {
   NavbarRouteRoute: NavbarRouteRoute,
   PickboxRouteRoute: PickboxRouteRoute,
   PickerRouteRoute: PickerRouteRoute,
+  PopoverRouteRoute: PopoverRouteRoute,
   RadioRouteRoute: RadioRouteRoute,
   ScrollboxRouteRoute: ScrollboxRouteRoute,
   SkeletonRouteRoute: SkeletonRouteRoute,

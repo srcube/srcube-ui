@@ -1,0 +1,8 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-popover": "@srcube-ui/popover/index"
+  },
+  "navigationBarTitleText": "Popover",
+  "backgroundColor": "#f1f5f9"
+}

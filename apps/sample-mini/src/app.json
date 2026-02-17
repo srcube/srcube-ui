@@ -67,6 +67,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/popover",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/modal",
       "pages": ["pages/sample/index"]
     },

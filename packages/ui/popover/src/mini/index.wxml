@@ -1,0 +1,22 @@
+<view class="sr-popover {{$classNames.base}}" style="{{style}}">
+  <view class="sr-popover__trigger {{$classNames.trigger}}" bindtap="handleTriggerTap">
+    <slot name="trigger" />
+  </view>
+
+  <view wx:if="{{$isOpen}}" class="sr-popover__layer {{$classNames.layer}}">
+    <view class="sr-popover__content {{$classNames.content}}">
+      <view wx:if="{{title}}" class="sr-popover__title {{$classNames.title}}">{{title}}</view>
+      <view wx:if="{{content}}" class="sr-popover__description {{$classNames.description}}">
+        {{content}}
+      </view>
+      <slot />
+    </view>
+    <view wx:if="{{hasArrow}}" class="sr-popover__arrow {{$classNames.arrow}}" />
+  </view>
+
+  <view
+    wx:if="{{$isOpen && shouldCloseOnOutsidePress}}"
+    class="sr-popover__backdrop {{$classNames.backdrop}}"
+    bindtap="handleBackdropTap"
+  />
+</view>

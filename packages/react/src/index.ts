@@ -12,6 +12,7 @@ export * from '@srcube-ui/modal/react';
 export * from '@srcube-ui/navbar/react';
 export * from '@srcube-ui/pickbox/react';
 export * from '@srcube-ui/picker/react';
+export * from '@srcube-ui/popover/react';
 export * from '@srcube-ui/radio/react';
 export * from '@srcube-ui/scrollbox/react';
 export * from '@srcube-ui/skeleton/react';

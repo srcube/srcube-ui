@@ -27,6 +27,7 @@
     "@srcube-ui/navbar": "workspace:*",
     "@srcube-ui/pickbox": "workspace:*",
     "@srcube-ui/picker": "workspace:*",
+    "@srcube-ui/popover": "workspace:*",
     "@srcube-ui/radio": "workspace:*",
     "@srcube-ui/runtime": "workspace:*",
     "@srcube-ui/scrollbox": "workspace:*",

@@ -21,6 +21,7 @@ function App() {
     { title: 'Listbox', to: '/listbox' as const },
     { title: 'Pickbox', to: '/pickbox' as const },
     { title: 'Picker', to: '/picker' as const },
+    { title: 'Popover', to: '/popover' as const },
     { title: 'Modal', to: '/modal' as const },
     { title: 'Navbar', to: '/navbar' as const },
     { title: 'Tabbar', to: '/tabbar' as const },

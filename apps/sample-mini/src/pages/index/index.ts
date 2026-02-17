@@ -70,6 +70,10 @@ Page({
         url: '/packages/picker/pages/sample/index',
       },
       {
+        title: 'Popover',
+        url: '/packages/popover/pages/sample/index',
+      },
+      {
         title: 'Modal',
         url: '/packages/modal/pages/sample/index',
       },

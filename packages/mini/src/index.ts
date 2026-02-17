@@ -12,6 +12,7 @@ export * from '@srcube-ui/modal/mini';
 export * from '@srcube-ui/navbar/mini';
 export * from '@srcube-ui/pickbox/mini';
 export * from '@srcube-ui/picker/mini';
+export * from '@srcube-ui/popover/mini';
 export * from '@srcube-ui/radio/mini';
 export * from '@srcube-ui/scrollbox/mini';
 export * from '@srcube-ui/skeleton/mini';
