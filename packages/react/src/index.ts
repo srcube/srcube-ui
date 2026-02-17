@@ -6,6 +6,7 @@ export * from '@srcube-ui/checkbox/react';
 export * from '@srcube-ui/collapse/react';
 export * from '@srcube-ui/drawer/react';
 export * from '@srcube-ui/field/react';
+export * from '@srcube-ui/image/react';
 export * from '@srcube-ui/input/react';
 export * from '@srcube-ui/input-otp/react';
 export * from '@srcube-ui/listbox/react';

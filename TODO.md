@@ -54,7 +54,7 @@
 ### 展示组件
 
 - [x] `avatar`
-- [ ] `image`（包含 `image-preview`）
+- [x] `image`（包含 `image-preview`）
 - [ ] `card`
 - [ ] `steps`
 - [ ] `timeline`

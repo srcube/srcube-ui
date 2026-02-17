@@ -233,6 +233,9 @@ importers:
       '@srcube-ui/field':
         specifier: workspace:*
         version: link:../../packages/ui/field
+      '@srcube-ui/image':
+        specifier: workspace:*
+        version: link:../../packages/ui/image
       '@srcube-ui/input':
         specifier: workspace:*
         version: link:../../packages/ui/input
@@ -363,6 +366,9 @@ importers:
       '@srcube-ui/field':
         specifier: workspace:*
         version: link:../../packages/ui/field
+      '@srcube-ui/image':
+        specifier: workspace:*
+        version: link:../../packages/ui/image
       '@srcube-ui/input':
         specifier: workspace:*
         version: link:../../packages/ui/input
@@ -540,6 +546,9 @@ importers:
       '@srcube-ui/field':
         specifier: workspace:*
         version: link:../ui/field
+      '@srcube-ui/image':
+        specifier: workspace:*
+        version: link:../ui/image
       '@srcube-ui/input':
         specifier: workspace:*
         version: link:../ui/input
@@ -634,6 +643,9 @@ importers:
       '@srcube-ui/field':
         specifier: workspace:*
         version: link:../ui/field
+      '@srcube-ui/image':
+        specifier: workspace:*
+        version: link:../ui/image
       '@srcube-ui/input':
         specifier: workspace:*
         version: link:../ui/input
@@ -932,6 +944,25 @@ importers:
         version: 19.2.4(react@19.2.4)
 
   packages/ui/field:
+    dependencies:
+      '@srcube-ui/runtime':
+        specifier: workspace:*
+        version: link:../../runtime
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/image:
     dependencies:
       '@srcube-ui/runtime':
         specifier: workspace:*

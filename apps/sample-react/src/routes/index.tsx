@@ -11,6 +11,7 @@ function App() {
     { title: 'Collapse', to: '/collapse' as const },
     { title: 'Checkbox', to: '/checkbox' as const },
     { title: 'Field', to: '/field' as const },
+    { title: 'Image', to: '/image' as const },
     { title: 'Input', to: '/input' as const },
     { title: 'Textarea', to: '/textarea' as const },
     { title: 'Radio', to: '/radio' as const },

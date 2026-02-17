@@ -30,6 +30,10 @@ Page({
         url: '/packages/field/pages/sample/index',
       },
       {
+        title: 'Image',
+        url: '/packages/image/pages/sample/index',
+      },
+      {
         title: 'Input',
         url: '/packages/input/pages/sample/index',
       },

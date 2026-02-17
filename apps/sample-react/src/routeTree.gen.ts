@@ -28,6 +28,7 @@ import { Route as ModalRouteRouteImport } from './routes/modal/route'
 import { Route as ListboxRouteRouteImport } from './routes/listbox/route'
 import { Route as InputOtpRouteRouteImport } from './routes/input-otp/route'
 import { Route as InputRouteRouteImport } from './routes/input/route'
+import { Route as ImageRouteRouteImport } from './routes/image/route'
 import { Route as FieldRouteRouteImport } from './routes/field/route'
 import { Route as DrawerRouteRouteImport } from './routes/drawer/route'
 import { Route as CollapseRouteRouteImport } from './routes/collapse/route'
@@ -133,6 +134,11 @@ const InputRouteRoute = InputRouteRouteImport.update({
   path: '/input',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ImageRouteRoute = ImageRouteRouteImport.update({
+  id: '/image',
+  path: '/image',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FieldRouteRoute = FieldRouteRouteImport.update({
   id: '/field',
   path: '/field',
@@ -189,6 +195,7 @@ export interface FileRoutesByFullPath {
   '/collapse': typeof CollapseRouteRoute
   '/drawer': typeof DrawerRouteRoute
   '/field': typeof FieldRouteRoute
+  '/image': typeof ImageRouteRoute
   '/input': typeof InputRouteRoute
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
@@ -219,6 +226,7 @@ export interface FileRoutesByTo {
   '/collapse': typeof CollapseRouteRoute
   '/drawer': typeof DrawerRouteRoute
   '/field': typeof FieldRouteRoute
+  '/image': typeof ImageRouteRoute
   '/input': typeof InputRouteRoute
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
@@ -250,6 +258,7 @@ export interface FileRoutesById {
   '/collapse': typeof CollapseRouteRoute
   '/drawer': typeof DrawerRouteRoute
   '/field': typeof FieldRouteRoute
+  '/image': typeof ImageRouteRoute
   '/input': typeof InputRouteRoute
   '/input-otp': typeof InputOtpRouteRoute
   '/listbox': typeof ListboxRouteRoute
@@ -282,6 +291,7 @@ export interface FileRouteTypes {
     | '/collapse'
     | '/drawer'
     | '/field'
+    | '/image'
     | '/input'
     | '/input-otp'
     | '/listbox'
@@ -312,6 +322,7 @@ export interface FileRouteTypes {
     | '/collapse'
     | '/drawer'
     | '/field'
+    | '/image'
     | '/input'
     | '/input-otp'
     | '/listbox'
@@ -342,6 +353,7 @@ export interface FileRouteTypes {
     | '/collapse'
     | '/drawer'
     | '/field'
+    | '/image'
     | '/input'
     | '/input-otp'
     | '/listbox'
@@ -373,6 +385,7 @@ export interface RootRouteChildren {
   CollapseRouteRoute: typeof CollapseRouteRoute
   DrawerRouteRoute: typeof DrawerRouteRoute
   FieldRouteRoute: typeof FieldRouteRoute
+  ImageRouteRoute: typeof ImageRouteRoute
   InputRouteRoute: typeof InputRouteRoute
   InputOtpRouteRoute: typeof InputOtpRouteRoute
   ListboxRouteRoute: typeof ListboxRouteRoute
@@ -529,6 +542,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InputRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/image': {
+      id: '/image'
+      path: '/image'
+      fullPath: '/image'
+      preLoaderRoute: typeof ImageRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/field': {
       id: '/field'
       path: '/field'
@@ -605,6 +625,7 @@ const rootRouteChildren: RootRouteChildren = {
   CollapseRouteRoute: CollapseRouteRoute,
   DrawerRouteRoute: DrawerRouteRoute,
   FieldRouteRoute: FieldRouteRoute,
+  ImageRouteRoute: ImageRouteRoute,
   InputRouteRoute: InputRouteRoute,
   InputOtpRouteRoute: InputOtpRouteRoute,
   ListboxRouteRoute: ListboxRouteRoute,

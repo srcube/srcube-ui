@@ -6,6 +6,7 @@ export * from '@srcube-ui/checkbox/mini';
 export * from '@srcube-ui/collapse/mini';
 export * from '@srcube-ui/drawer/mini';
 export * from '@srcube-ui/field/mini';
+export * from '@srcube-ui/image/mini';
 export * from '@srcube-ui/input/mini';
 export * from '@srcube-ui/input-otp/mini';
 export * from '@srcube-ui/listbox/mini';
