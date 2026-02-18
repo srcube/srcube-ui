@@ -15,6 +15,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/cascader",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/calendar",
       "pages": ["pages/sample/index"]
     },

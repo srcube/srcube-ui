@@ -8,6 +8,7 @@ function App() {
     { title: 'Accordion', to: '/accordion' as const },
     { title: 'Action Sheet', to: '/action-sheet' as const },
     { title: 'Avatar', to: '/avatar' as const },
+    { title: 'Cascader', to: '/cascader' as const },
     { title: 'Calendar', to: '/calendar' as const },
     { title: 'Collapse', to: '/collapse' as const },
     { title: 'Checkbox', to: '/checkbox' as const },

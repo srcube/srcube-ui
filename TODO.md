@@ -32,7 +32,7 @@
 - [x] `stepper`
 - [x] `date-picker`（`packages/ui/picker` 内置 `DatePicker`）
 - [x] `time-picker`（`packages/ui/picker` 内置 `TimePicker`）
-- [ ] `cascader`
+- [x] `cascader`
 - [ ] `uploader`
 
 ### 容器与导航

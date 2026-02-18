@@ -14,6 +14,10 @@ Page({
         url: '/packages/avatar/pages/sample/index',
       },
       {
+        title: 'Cascader',
+        url: '/packages/cascader/pages/sample/index',
+      },
+      {
         title: 'Calendar',
         url: '/packages/calendar/pages/sample/index',
       },
