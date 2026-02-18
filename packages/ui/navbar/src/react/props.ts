@@ -9,8 +9,12 @@ type NavbarNativeProps = Omit<
 export type NavbarReactProps = NavbarVariants &
   NavbarNativeProps & {
     title?: React.ReactNode;
+    withBack?: boolean;
     startContent?: React.ReactNode;
     endContent?: React.ReactNode;
+    onBack?: (
+      event: React.MouseEvent<HTMLButtonElement>,
+    ) => void;
     className?: string;
     classNames?: Partial<NavbarClassNames>;
     style?: React.CSSProperties;

@@ -18,6 +18,7 @@ UIComponent({
         size: data.size,
         isBordered: Boolean(data.isBordered),
         hasSafeTop: Boolean(data.hasSafeTop),
+        titleAlign: data.titleAlign,
       });
 
       const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
@@ -28,7 +29,28 @@ UIComponent({
         start: slots.start({ class: custom.start }),
         title: slots.title({ class: custom.title }),
         end: slots.end({ class: custom.end }),
+        back: slots.back({ class: custom.back }),
+        backIcon: slots.backIcon({ class: custom.backIcon }),
       };
+    },
+  },
+
+  methods: {
+    handleBackTap() {
+      const pages = typeof getCurrentPages === 'function' ? getCurrentPages() : [];
+      const canBack = Array.isArray(pages) && pages.length > 1;
+
+      this.triggerEvent('back', {
+        canBack,
+      });
+
+      if (!canBack) {
+        return;
+      }
+
+      wx.navigateBack({
+        delta: 1,
+      });
     },
   },
 });

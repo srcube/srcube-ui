@@ -1,7 +1,7 @@
 import { Button } from '@srcube-ui/button';
 import { Navbar } from '@srcube-ui/navbar';
 import { createFileRoute } from '@tanstack/react-router';
-import { ArrowLeft, Ellipsis } from 'lucide-react';
+import { useState } from 'react';
 
 export const Route = createFileRoute('/navbar')({
   component: NavbarDemo,
@@ -12,6 +12,10 @@ function Card({ children }: { children: React.ReactNode }) {
 }
 
 function NavbarDemo() {
+  const [titleAlign, setTitleAlign] = useState<'start' | 'center' | 'end'>(
+    'center',
+  );
+
   return (
     <main className="min-h-screen bg-slate-100 pb-16 text-slate-900">
       <div className="sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-4">
@@ -21,23 +25,63 @@ function NavbarDemo() {
       <div className="space-y-6 p-4">
         <Card>
           <div className="text-sm font-semibold">Basic</div>
-          <Navbar className="mt-3" title="订单详情" />
+          <Navbar className="mt-3" title="订单详情" titleAlign={titleAlign} />
         </Card>
 
         <Card>
-          <div className="text-sm font-semibold">With Actions</div>
+          <div className="text-sm font-semibold">Title Align</div>
+          <div className="mt-3 flex gap-2">
+            <Button
+              size="sm"
+              color={titleAlign === 'start' ? 'primary' : 'default'}
+              variant={titleAlign === 'start' ? 'solid' : 'flat'}
+              onTap={() => {
+                setTitleAlign('start');
+              }}
+            >
+              start
+            </Button>
+            <Button
+              size="sm"
+              color={titleAlign === 'center' ? 'primary' : 'default'}
+              variant={titleAlign === 'center' ? 'solid' : 'flat'}
+              onTap={() => {
+                setTitleAlign('center');
+              }}
+            >
+              center
+            </Button>
+            <Button
+              size="sm"
+              color={titleAlign === 'end' ? 'primary' : 'default'}
+              variant={titleAlign === 'end' ? 'solid' : 'flat'}
+              onTap={() => {
+                setTitleAlign('end');
+              }}
+            >
+              end
+            </Button>
+          </div>
+        </Card>
+
+        <Card>
+          <div className="text-sm font-semibold">With Back</div>
           <Navbar
             className="mt-3"
             title="消息"
-            startContent={
-              <Button variant="light" radius="full" size="sm" startContent={<ArrowLeft size={16} />}>
-                返回
-              </Button>
-            }
+            withBack
+            titleAlign={titleAlign}
+            onBack={(event) => {
+              console.log('Navbar onBack', event.type);
+            }}
             endContent={
-              <Button isIconOnly variant="light" radius="full" size="sm" aria-label="More">
-                <Ellipsis size={16} />
-              </Button>
+              <button
+                type="button"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-700 transition-colors duration-150"
+                aria-label="More"
+              >
+                <span aria-hidden className="icon-more text-lg leading-none" />
+              </button>
             }
           />
         </Card>
@@ -45,9 +89,9 @@ function NavbarDemo() {
         <Card>
           <div className="text-sm font-semibold">Sizes</div>
           <div className="mt-3 space-y-2">
-            <Navbar size="sm" title="Small" />
-            <Navbar size="md" title="Medium" />
-            <Navbar size="lg" title="Large" />
+            <Navbar size="sm" title="Small" titleAlign={titleAlign} />
+            <Navbar size="md" title="Medium" titleAlign={titleAlign} />
+            <Navbar size="lg" title="Large" titleAlign={titleAlign} />
           </div>
         </Card>
       </div>

@@ -21,7 +21,24 @@ it('renders title and side content', () => {
 
 it('applies lg size class to title', () => {
   const { container } = render(<Navbar size="lg" title="Large" />);
-  const title = container.querySelector('.sr-navbar__title, div');
   expect(container.innerHTML).toContain('text-lg');
-  expect(title).toBeTruthy();
+});
+
+it('renders default back button when withBack is true', () => {
+  render(<Navbar withBack title="Back Navbar" />);
+
+  expect(screen.getByRole('button', { name: 'Back' })).toBeTruthy();
+});
+
+it('calls onBack when clicking default back button', () => {
+  const onBack = vi.fn();
+  render(<Navbar withBack title="Back Navbar" onBack={onBack} />);
+
+  screen.getByRole('button', { name: 'Back' }).click();
+  expect(onBack).toHaveBeenCalledTimes(1);
+});
+
+it('applies start title alignment class', () => {
+  const { container } = render(<Navbar title="Aligned" titleAlign="start" />);
+  expect(container.innerHTML).toContain('text-left');
 });

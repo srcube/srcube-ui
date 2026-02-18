@@ -9,6 +9,12 @@ it('contains start and end slots', () => {
   expect(template).toContain('slot name="end"');
 });
 
+it('contains default back icon fallback in start slot', () => {
+  expect(template).toContain('wx:if="{{withBack}}"');
+  expect(template).toContain('$classNames.backIcon');
+  expect(template).toContain('handleBackTap');
+});
+
 it('accepts title in mini render data', () => {
   const id = simulate.load({
     template,
@@ -28,4 +34,12 @@ it('accepts title in mini render data', () => {
 
 it('uses true as default isBordered value', () => {
   expect(navbarMiniProps.isBordered.value).toBe(true);
+});
+
+it('uses center as default titleAlign value', () => {
+  expect(navbarMiniProps.titleAlign.value).toBe('center');
+});
+
+it('uses false as default withBack value', () => {
+  expect(navbarMiniProps.withBack.value).toBe(false);
 });

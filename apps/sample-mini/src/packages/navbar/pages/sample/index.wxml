@@ -8,17 +8,59 @@
   <view class="p-4 space-y-6">
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Basic</view>
-      <sr-navbar className="mt-3" title="{{title}}" />
+      <sr-navbar
+        className="mt-3"
+        title="{{title}}"
+        titleAlign="{{titleAlign}}"
+      />
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">With Actions</view>
-      <sr-navbar className="mt-3" title="消息">
-        <view slot="start">
-          <sr-button size="sm" variant="flat">返回</sr-button>
-        </view>
+      <view class="text-sm font-semibold">Title Align</view>
+      <view class="mt-3 flex gap-2">
+        <sr-button
+          size="sm"
+          color="{{titleAlign === 'start' ? 'primary' : 'default'}}"
+          variant="{{titleAlign === 'start' ? 'solid' : 'flat'}}"
+          data-align="start"
+          bind:tap="handleTitleAlignTap"
+        >
+          start
+        </sr-button>
+        <sr-button
+          size="sm"
+          color="{{titleAlign === 'center' ? 'primary' : 'default'}}"
+          variant="{{titleAlign === 'center' ? 'solid' : 'flat'}}"
+          data-align="center"
+          bind:tap="handleTitleAlignTap"
+        >
+          center
+        </sr-button>
+        <sr-button
+          size="sm"
+          color="{{titleAlign === 'end' ? 'primary' : 'default'}}"
+          variant="{{titleAlign === 'end' ? 'solid' : 'flat'}}"
+          data-align="end"
+          bind:tap="handleTitleAlignTap"
+        >
+          end
+        </sr-button>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">With Back</view>
+      <sr-navbar
+        className="mt-3"
+        title="消息"
+        withBack
+        titleAlign="{{titleAlign}}"
+        bind:back="handleBack"
+      >
         <view slot="end">
-          <sr-button size="sm" variant="flat">更多</sr-button>
+          <view class="inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-700">
+            <text class="icon-more text-lg leading-none" />
+          </view>
         </view>
       </sr-navbar>
     </view>
@@ -27,13 +69,13 @@
       <view class="text-sm font-semibold">Sizes</view>
       <view class="mt-3 space-y-2">
         <view>
-          <sr-navbar size="sm" title="Small" />
+          <sr-navbar size="sm" title="Small" titleAlign="{{titleAlign}}" />
         </view>
         <view>
-          <sr-navbar size="md" title="Medium" />
+          <sr-navbar size="md" title="Medium" titleAlign="{{titleAlign}}" />
         </view>
         <view>
-          <sr-navbar size="lg" title="Large" />
+          <sr-navbar size="lg" title="Large" titleAlign="{{titleAlign}}" />
         </view>
       </view>
     </view>
