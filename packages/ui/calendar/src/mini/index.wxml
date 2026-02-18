@@ -1,0 +1,35 @@
+<view id="{{id}}" class="sr-calendar {{$classNames.base}}" style="{{style}}">
+  <view class="sr-calendar__header {{$classNames.header}}">
+    <view class="sr-calendar__nav {{$classNames.navButton}}" bindtap="handlePrevMonth">
+      &lt;
+    </view>
+    <view class="sr-calendar__title {{$classNames.title}}">{{$title}}</view>
+    <view class="sr-calendar__nav {{$classNames.navButton}}" bindtap="handleNextMonth">
+      &gt;
+    </view>
+  </view>
+
+  <view class="sr-calendar__week {{$classNames.weekRow}}">
+    <block wx:for="{{$weekLabels}}" wx:key="*this">
+      <view class="sr-calendar__week-cell {{$classNames.weekCell}}">{{item}}</view>
+    </block>
+  </view>
+
+  <view class="sr-calendar__grid {{$classNames.grid}}">
+    <block wx:for="{{$cells}}" wx:key="key" wx:for-item="cell">
+      <view class="sr-calendar__day-cell {{cell.classes.dayCell}}">
+        <view
+          class="sr-calendar__day-btn {{cell.classes.dayButton}}"
+          data-key="{{cell.key}}"
+          data-disabled="{{cell.disabled}}"
+          data-outside="{{cell.isOutsideMonth}}"
+          bindtap="handleDayTap"
+        >
+          <text class="sr-calendar__day-text {{cell.classes.dayText}}">{{cell.label}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="sr-calendar__helper {{$classNames.helper}}">{{$helperText}}</view>
+</view>

@@ -58,7 +58,7 @@
 - [ ] `card`
 - [x] `steps`
 - [x] `timeline`
-- [ ] `calendar`
+- [x] `calendar`
 
 ## 移动端增强能力（暂不纳入当前迭代，先保留）
 

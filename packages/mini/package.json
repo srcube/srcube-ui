@@ -22,6 +22,7 @@
     "@srcube-ui/action-sheet": "workspace:*",
     "@srcube-ui/avatar": "workspace:*",
     "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/calendar": "workspace:*",
     "@srcube-ui/checkbox": "workspace:*",
     "@srcube-ui/collapse": "workspace:*",
     "@srcube-ui/drawer": "workspace:*",

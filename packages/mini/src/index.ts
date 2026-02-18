@@ -3,6 +3,7 @@ export * from '@srcube-ui/accordion/mini';
 export * from '@srcube-ui/action-sheet/mini';
 export * from '@srcube-ui/avatar/mini';
 export * from '@srcube-ui/checkbox/mini';
+export * from '@srcube-ui/calendar/mini';
 export * from '@srcube-ui/collapse/mini';
 export * from '@srcube-ui/drawer/mini';
 export * from '@srcube-ui/field/mini';

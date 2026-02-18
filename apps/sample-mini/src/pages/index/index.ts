@@ -14,6 +14,10 @@ Page({
         url: '/packages/avatar/pages/sample/index',
       },
       {
+        title: 'Calendar',
+        url: '/packages/calendar/pages/sample/index',
+      },
+      {
         title: 'Collapse',
         url: '/packages/collapse/pages/sample/index',
       },
