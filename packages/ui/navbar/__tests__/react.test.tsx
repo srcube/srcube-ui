@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import { Navbar } from '../src/react';
 
 void React;
