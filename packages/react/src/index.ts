@@ -26,4 +26,5 @@ export * from '@srcube-ui/switch/react';
 export * from '@srcube-ui/tabbar/react';
 export * from '@srcube-ui/tabs/react';
 export * from '@srcube-ui/textarea/react';
+export * from '@srcube-ui/timeline/react';
 export * from '@srcube-ui/tour/react';

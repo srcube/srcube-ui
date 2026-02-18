@@ -110,6 +110,10 @@ Page({
         url: '/packages/tabbar/pages/sample/index',
       },
       {
+        title: 'Timeline',
+        url: '/packages/timeline/pages/sample/index',
+      },
+      {
         title: 'Tour',
         url: '/packages/tour/pages/sample/index',
       },

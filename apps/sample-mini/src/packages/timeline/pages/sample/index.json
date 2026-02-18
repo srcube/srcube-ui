@@ -1,0 +1,8 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-timeline": "@srcube-ui/timeline/index"
+  },
+  "navigationBarTitleText": "Timeline",
+  "backgroundColor": "#f1f5f9"
+}

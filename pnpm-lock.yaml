@@ -299,6 +299,9 @@ importers:
       '@srcube-ui/theme':
         specifier: workspace:*
         version: link:../../packages/theme
+      '@srcube-ui/timeline':
+        specifier: workspace:*
+        version: link:../../packages/ui/timeline
       '@srcube-ui/tour':
         specifier: workspace:*
         version: link:../../packages/ui/tour
@@ -435,6 +438,9 @@ importers:
       '@srcube-ui/theme':
         specifier: workspace:*
         version: link:../../packages/theme
+      '@srcube-ui/timeline':
+        specifier: workspace:*
+        version: link:../../packages/ui/timeline
       '@srcube-ui/tour':
         specifier: workspace:*
         version: link:../../packages/ui/tour
@@ -612,6 +618,9 @@ importers:
       '@srcube-ui/textarea':
         specifier: workspace:*
         version: link:../ui/textarea
+      '@srcube-ui/timeline':
+        specifier: workspace:*
+        version: link:../ui/timeline
       '@srcube-ui/tour':
         specifier: workspace:*
         version: link:../ui/tour
@@ -712,6 +721,9 @@ importers:
       '@srcube-ui/textarea':
         specifier: workspace:*
         version: link:../ui/textarea
+      '@srcube-ui/timeline':
+        specifier: workspace:*
+        version: link:../ui/timeline
       '@srcube-ui/tour':
         specifier: workspace:*
         version: link:../ui/tour
@@ -1406,6 +1418,25 @@ importers:
       '@srcube-ui/field':
         specifier: workspace:*
         version: link:../field
+      '@srcube-ui/runtime':
+        specifier: workspace:*
+        version: link:../../runtime
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/timeline:
+    dependencies:
       '@srcube-ui/runtime':
         specifier: workspace:*
         version: link:../../runtime

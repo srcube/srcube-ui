@@ -46,6 +46,7 @@
     "@srcube-ui/tabbar": "workspace:*",
     "@srcube-ui/tabs": "workspace:*",
     "@srcube-ui/textarea": "workspace:*",
+    "@srcube-ui/timeline": "workspace:*",
     "@srcube-ui/tour": "workspace:*"
   },
   "devDependencies": {

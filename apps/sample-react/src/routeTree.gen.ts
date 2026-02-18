@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TourRouteRouteImport } from './routes/tour/route'
+import { Route as TimelineRouteRouteImport } from './routes/timeline/route'
 import { Route as TextareaRouteRouteImport } from './routes/textarea/route'
 import { Route as TabsRouteRouteImport } from './routes/tabs/route'
 import { Route as TabbarRouteRouteImport } from './routes/tabbar/route'
@@ -43,6 +44,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TourRouteRoute = TourRouteRouteImport.update({
   id: '/tour',
   path: '/tour',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRouteRoute = TimelineRouteRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TextareaRouteRoute = TextareaRouteRouteImport.update({
@@ -221,6 +227,7 @@ export interface FileRoutesByFullPath {
   '/tabbar': typeof TabbarRouteRoute
   '/tabs': typeof TabsRouteRoute
   '/textarea': typeof TextareaRouteRoute
+  '/timeline': typeof TimelineRouteRoute
   '/tour': typeof TourRouteRoute
 }
 export interface FileRoutesByTo {
@@ -253,6 +260,7 @@ export interface FileRoutesByTo {
   '/tabbar': typeof TabbarRouteRoute
   '/tabs': typeof TabsRouteRoute
   '/textarea': typeof TextareaRouteRoute
+  '/timeline': typeof TimelineRouteRoute
   '/tour': typeof TourRouteRoute
 }
 export interface FileRoutesById {
@@ -286,6 +294,7 @@ export interface FileRoutesById {
   '/tabbar': typeof TabbarRouteRoute
   '/tabs': typeof TabsRouteRoute
   '/textarea': typeof TextareaRouteRoute
+  '/timeline': typeof TimelineRouteRoute
   '/tour': typeof TourRouteRoute
 }
 export interface FileRouteTypes {
@@ -320,6 +329,7 @@ export interface FileRouteTypes {
     | '/tabbar'
     | '/tabs'
     | '/textarea'
+    | '/timeline'
     | '/tour'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -352,6 +362,7 @@ export interface FileRouteTypes {
     | '/tabbar'
     | '/tabs'
     | '/textarea'
+    | '/timeline'
     | '/tour'
   id:
     | '__root__'
@@ -384,6 +395,7 @@ export interface FileRouteTypes {
     | '/tabbar'
     | '/tabs'
     | '/textarea'
+    | '/timeline'
     | '/tour'
   fileRoutesById: FileRoutesById
 }
@@ -417,6 +429,7 @@ export interface RootRouteChildren {
   TabbarRouteRoute: typeof TabbarRouteRoute
   TabsRouteRoute: typeof TabsRouteRoute
   TextareaRouteRoute: typeof TextareaRouteRoute
+  TimelineRouteRoute: typeof TimelineRouteRoute
   TourRouteRoute: typeof TourRouteRoute
 }
 
@@ -427,6 +440,13 @@ declare module '@tanstack/react-router' {
       path: '/tour'
       fullPath: '/tour'
       preLoaderRoute: typeof TourRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/textarea': {
@@ -665,6 +685,7 @@ const rootRouteChildren: RootRouteChildren = {
   TabbarRouteRoute: TabbarRouteRoute,
   TabsRouteRoute: TabsRouteRoute,
   TextareaRouteRoute: TextareaRouteRoute,
+  TimelineRouteRoute: TimelineRouteRoute,
   TourRouteRoute: TourRouteRoute,
 }
 export const routeTree = rootRouteImport

@@ -57,7 +57,7 @@
 - [x] `image`（包含 `image-preview`）
 - [ ] `card`
 - [x] `steps`
-- [ ] `timeline`
+- [x] `timeline`
 - [ ] `calendar`
 
 ## 移动端增强能力（暂不纳入当前迭代，先保留）

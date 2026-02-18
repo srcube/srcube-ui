@@ -31,6 +31,7 @@ function App() {
     { title: 'Tabbar', to: '/tabbar' as const },
     { title: 'Drawer', to: '/drawer' as const },
     { title: 'Tabs', to: '/tabs' as const },
+    { title: 'Timeline', to: '/timeline' as const },
     { title: 'Tour', to: '/tour' as const },
     { title: 'Scrollbox', to: '/scrollbox' as const },
   ];

@@ -26,4 +26,5 @@ export * from '@srcube-ui/switch/mini';
 export * from '@srcube-ui/tabbar/mini';
 export * from '@srcube-ui/tabs/mini';
 export * from '@srcube-ui/textarea/mini';
+export * from '@srcube-ui/timeline/mini';
 export * from '@srcube-ui/tour/mini';

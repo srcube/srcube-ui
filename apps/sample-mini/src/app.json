@@ -103,6 +103,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/timeline",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/tabbar",
       "pages": ["pages/sample/index"]
     },
