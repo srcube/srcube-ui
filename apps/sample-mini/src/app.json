@@ -23,6 +23,10 @@
       "pages": ["pages/sample/index"]
     },
     {
+      "root": "packages/card",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/collapse",
       "pages": ["pages/sample/index"]
     },

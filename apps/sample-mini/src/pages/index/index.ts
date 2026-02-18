@@ -22,6 +22,10 @@ Page({
         url: '/packages/calendar/pages/sample/index',
       },
       {
+        title: 'Card',
+        url: '/packages/card/pages/sample/index',
+      },
+      {
         title: 'Collapse',
         url: '/packages/collapse/pages/sample/index',
       },

@@ -32,6 +32,7 @@
     "@srcube-ui/button": "workspace:*",
     "@srcube-ui/cascader": "workspace:*",
     "@srcube-ui/calendar": "workspace:*",
+    "@srcube-ui/card": "workspace:*",
     "@srcube-ui/checkbox": "workspace:*",
     "@srcube-ui/collapse": "workspace:*",
     "@srcube-ui/drawer": "workspace:*",

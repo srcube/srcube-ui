@@ -10,6 +10,7 @@ function App() {
     { title: 'Avatar', to: '/avatar' as const },
     { title: 'Cascader', to: '/cascader' as const },
     { title: 'Calendar', to: '/calendar' as const },
+    { title: 'Card', to: '/card' as const },
     { title: 'Collapse', to: '/collapse' as const },
     { title: 'Checkbox', to: '/checkbox' as const },
     { title: 'Field', to: '/field' as const },
@@ -39,12 +40,22 @@ function App() {
   ];
 
   return (
-    <main className="min-h-dvh px-4 py-6">
-      <div className="text-xl font-bold text-center">Srcube UI</div>
-      <div className="mt-6 text-xs font-bold uppercase text-slate-500">
-        Components
+    <main className="min-h-screen bg-slate-50 text-slate-900">
+      <div className="px-6 pt-10 pb-6">
+        <div className="flex items-center gap-3">
+          <img className="h-12 w-12" src="/srcube.png" alt="Srcube UI logo" />
+          <div>
+            <div className="text-lg font-semibold">
+              Srcube UI <span className="text-slate-500">react web</span>
+            </div>
+            <div className="text-xs text-slate-500">
+              用于验证 React Web 端组件实现的精简示例
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="mt-3 grid grid-cols-2 gap-3">
+
+      <div className="grid grid-cols-2 gap-4 p-4">
         {components.map((item) => (
           <Link
             key={item.title}

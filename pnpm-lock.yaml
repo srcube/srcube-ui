@@ -224,6 +224,9 @@ importers:
       '@srcube-ui/calendar':
         specifier: workspace:*
         version: link:../../packages/ui/calendar
+      '@srcube-ui/card':
+        specifier: workspace:*
+        version: link:../../packages/ui/card
       '@srcube-ui/cascader':
         specifier: workspace:*
         version: link:../../packages/ui/cascader
@@ -369,6 +372,9 @@ importers:
       '@srcube-ui/calendar':
         specifier: workspace:*
         version: link:../../packages/ui/calendar
+      '@srcube-ui/card':
+        specifier: workspace:*
+        version: link:../../packages/ui/card
       '@srcube-ui/cascader':
         specifier: workspace:*
         version: link:../../packages/ui/cascader
@@ -561,6 +567,9 @@ importers:
       '@srcube-ui/calendar':
         specifier: workspace:*
         version: link:../ui/calendar
+      '@srcube-ui/card':
+        specifier: workspace:*
+        version: link:../ui/card
       '@srcube-ui/cascader':
         specifier: workspace:*
         version: link:../ui/cascader
@@ -670,6 +679,9 @@ importers:
       '@srcube-ui/calendar':
         specifier: workspace:*
         version: link:../ui/calendar
+      '@srcube-ui/card':
+        specifier: workspace:*
+        version: link:../ui/card
       '@srcube-ui/cascader':
         specifier: workspace:*
         version: link:../ui/cascader
@@ -926,6 +938,25 @@ importers:
         version: 19.2.4(react@19.2.4)
 
   packages/ui/calendar:
+    dependencies:
+      '@srcube-ui/runtime':
+        specifier: workspace:*
+        version: link:../../runtime
+      '@srcube-ui/theme':
+        specifier: workspace:*
+        version: link:../../theme
+    devDependencies:
+      '@srcube-ui/config':
+        specifier: workspace:*
+        version: link:../../config
+      react:
+        specifier: 'catalog:'
+        version: 19.2.4
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
+
+  packages/ui/card:
     dependencies:
       '@srcube-ui/runtime':
         specifier: workspace:*

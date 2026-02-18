@@ -4,6 +4,7 @@ export * from '@srcube-ui/avatar/mini';
 export * from '@srcube-ui/button/mini';
 export * from '@srcube-ui/calendar/mini';
 export * from '@srcube-ui/cascader/mini';
+export * from '@srcube-ui/card/mini';
 export * from '@srcube-ui/checkbox/mini';
 export * from '@srcube-ui/collapse/mini';
 export * from '@srcube-ui/drawer/mini';

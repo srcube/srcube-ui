@@ -55,7 +55,7 @@
 
 - [x] `avatar`
 - [x] `image`（包含 `image-preview`）
-- [ ] `card`
+- [x] `card`
 - [x] `steps`
 - [x] `timeline`
 - [x] `calendar`
