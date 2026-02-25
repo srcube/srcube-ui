@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Skeleton } from '@srcube-ui/skeleton/react';
 import { avatar } from '../style';
 import type { AvatarReactProps } from './props';
 
@@ -23,6 +24,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarReactProps>(
       alt,
       name,
       icon,
+      fallback,
       size,
       radius,
       color,
@@ -34,9 +36,11 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarReactProps>(
     } = props;
 
     const [hasError, setHasError] = React.useState(false);
+    const [isImageLoaded, setIsImageLoaded] = React.useState<boolean>(() => !Boolean(src));
 
     React.useEffect(() => {
       setHasError(false);
+      setIsImageLoaded(!Boolean(src));
     }, [src]);
 
     const slots = React.useMemo(
@@ -52,11 +56,18 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarReactProps>(
 
     const initials = getInitials(name);
     const showImage = Boolean(src) && !hasError;
+    const isLoading = showImage && !isImageLoaded;
+    const fallbackContent = (fallback ?? icon ?? initials) || '?';
 
     return (
-      <div
+      <Skeleton
         ref={ref}
+        radius={radius}
+        isLoaded={!isLoading}
         className={slots.base({ class: [classNames?.base, className] })}
+        classNames={{
+          content: 'h-full w-full flex items-center justify-center',
+        }}
         style={style}
         {...rest}
       >
@@ -65,16 +76,20 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarReactProps>(
             src={src}
             alt={alt ?? name ?? ''}
             className={slots.image({ class: classNames?.image })}
+            onLoad={() => {
+              setIsImageLoaded(true);
+            }}
             onError={() => {
               setHasError(true);
+              setIsImageLoaded(true);
             }}
           />
         ) : (
           <span className={slots.fallback({ class: classNames?.fallback })}>
-            {(icon ?? initials) || '?'}
+            {fallbackContent}
           </span>
         )}
-      </div>
+      </Skeleton>
     );
   },
 );

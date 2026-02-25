@@ -5,6 +5,7 @@ export type AvatarMiniProps = AvatarVariants & {
   alt?: string;
   name?: string;
   icon?: string;
+  fallback?: string;
   className?: string;
   classNames?: Partial<AvatarMiniClassNames>;
   style?: string;
@@ -15,6 +16,7 @@ export const avatarMiniProps = {
   alt: { type: String, value: '' },
   name: { type: String, value: '' },
   icon: { type: String, value: '' },
+  fallback: { type: String, value: '' },
   size: { type: null, value: 'md' },
   radius: { type: null, value: 'full' },
   color: { type: null, value: 'default' },

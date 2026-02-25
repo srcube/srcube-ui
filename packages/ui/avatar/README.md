@@ -1,6 +1,6 @@
 # Avatar 头像
 
-用于展示用户头像，支持图片、姓名首字母和图标兜底。
+用于展示用户头像，支持图片加载骨架屏、姓名首字母和自定义 fallback 兜底。
 
 ## 使用方式
 
@@ -30,6 +30,7 @@ export function Demo() {
 | alt | 图片描述（React） | `string` | `''` |
 | name | 姓名（用于首字母兜底） | `string` | `''` |
 | icon | 自定义兜底图标（ReactNode/string） | `ReactNode / string` | `''` |
+| fallback | 自定义兜底内容（优先级高于 `icon/name`） | React: `ReactNode`；Mini: `string` | `''` |
 | size | 尺寸 | `'sm' | 'md' | 'lg' | 'xl'` | `'md'` |
 | radius | 圆角 | `'none' | 'sm' | 'md' | 'lg' | 'full'` | `'full'` |
 | color | 兜底背景色 | `'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'` | `'default'` |
@@ -37,3 +38,9 @@ export function Demo() {
 | className | 根节点类名 | `string` | `''` |
 | classNames | 槽位类名覆盖 | `Partial<AvatarClassNames>` | `{}` |
 | style | 根节点样式 | `React.CSSProperties / string` | `undefined / ''` |
+
+## 行为说明
+
+- `src` 存在时，头像使用 `Skeleton` 显示加载占位；图片 `load` 后切换为图片内容。
+- 图片加载失败时自动切换到 fallback。
+- fallback 内容优先级：`fallback` > `icon` > `name` 首字母 > `'?'`。

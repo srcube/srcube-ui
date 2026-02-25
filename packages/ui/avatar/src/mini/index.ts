@@ -4,6 +4,7 @@ import { avatarMiniProps, type AvatarMiniProps } from './props';
 
 type AvatarMiniState = {
   _hasError: boolean;
+  _isImageLoaded: boolean;
 };
 
 type AvatarMiniData = AvatarMiniProps & AvatarMiniState;
@@ -33,12 +34,14 @@ UIComponent({
 
   data: {
     _hasError: false,
+    _isImageLoaded: false,
   } satisfies AvatarMiniState,
 
   observers: {
     src() {
       this.setData({
         _hasError: false,
+        _isImageLoaded: false,
       } satisfies Partial<AvatarMiniState>);
     },
   },
@@ -62,15 +65,30 @@ UIComponent({
     $showImage(data: AvatarMiniData) {
       return Boolean(data.src) && !data._hasError;
     },
+    $isLoading(data: AvatarMiniData) {
+      return Boolean(data.src) && !data._hasError && !data._isImageLoaded;
+    },
+    $skeletonClassNames() {
+      return {
+        // Force slot content to fill avatar box in mini program layout.
+        content: 'absolute inset-0 h-full w-full flex items-center justify-center',
+      };
+    },
     $fallbackText(data: AvatarMiniData) {
-      return data.icon || getInitials(data.name) || '?';
+      return data.fallback || data.icon || getInitials(data.name) || '?';
     },
   },
 
   methods: {
+    handleImageLoad() {
+      this.setData({
+        _isImageLoaded: true,
+      } satisfies Partial<AvatarMiniState>);
+    },
     handleImageError() {
       this.setData({
         _hasError: true,
+        _isImageLoaded: true,
       } satisfies Partial<AvatarMiniState>);
     },
   },

@@ -44,7 +44,7 @@ export const avatar = tv({
     },
     color: {
       default: {
-        base: 'bg-slate-500',
+        base: 'bg-slate-200',
       },
       primary: {
         base: 'bg-primary',

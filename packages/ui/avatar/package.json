@@ -29,12 +29,16 @@
       "import": "./dist/react/index.js"
     }
   },
+  "dependencies": {
+    "@srcube-ui/skeleton": "workspace:*"
+  },
   "devDependencies": {
     "@srcube-ui/config": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "peerDependencies": {
+    "@srcube-ui/skeleton": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",

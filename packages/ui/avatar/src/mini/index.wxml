@@ -1,10 +1,18 @@
-<view class="sr-avatar {{$classNames.base}}" style="{{style}}">
+<sr-skeleton
+  className="sr-avatar {{$classNames.base}}"
+  classNames="{{$skeletonClassNames}}"
+  style="{{style}}"
+  radius="{{radius}}"
+  isLoaded="{{!$isLoading}}"
+>
   <image
     wx:if="{{$showImage}}"
     class="sr-avatar__image {{$classNames.image}}"
+    style="width: 100%; height: 100%;"
     src="{{src}}"
     mode="aspectFill"
+    bindload="handleImageLoad"
     binderror="handleImageError"
   />
   <text wx:else class="sr-avatar__fallback {{$classNames.fallback}}">{{$fallbackText}}</text>
-</view>
+</sr-skeleton>

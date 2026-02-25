@@ -12,6 +12,7 @@ export type AvatarReactProps = AvatarVariants &
     alt?: string;
     name?: string;
     icon?: React.ReactNode;
+    fallback?: React.ReactNode;
     className?: string;
     classNames?: Partial<AvatarClassNames>;
     style?: React.CSSProperties;
