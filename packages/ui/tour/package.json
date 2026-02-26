@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@srcube-ui/button": "workspace:*",
-    "@srcube-ui/modal": "workspace:*"
+    "@srcube-ui/popup": "workspace:*"
   },
   "devDependencies": {
     "@srcube-ui/config": "workspace:*",
@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "@srcube-ui/button": "workspace:*",
-    "@srcube-ui/modal": "workspace:*",
+    "@srcube-ui/popup": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",

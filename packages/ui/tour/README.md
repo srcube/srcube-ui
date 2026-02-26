@@ -94,7 +94,7 @@ Page({
 | scrollDuration | 自动滚动持续时间（ms） | `number` | `220` | 全平台 |
 | missingTargetStrategy | 目标缺失处理策略 | `"skip" \| "abort" \| "wait"` | `"skip"` | 全平台 |
 | canMaskClose | 点击遮罩是否关闭引导 | `boolean` | `true` | 全平台 |
-| canBackdropClose | 点击 backdrop / Esc 是否关闭（由 Modal 承担） | `boolean` | `false` | 全平台 |
+| canBackdropClose | 点击 backdrop / Esc 是否关闭（由 Popup 承担） | `boolean` | `false` | 全平台 |
 | canShowProgress | 是否显示步骤进度文本 | `boolean` | `true` | 全平台 |
 | canShowSkip | 是否显示跳过按钮 | `boolean` | `true` | 全平台 |
 | canShowPrev | 是否显示上一步按钮 | `boolean` | `true` | 全平台 |

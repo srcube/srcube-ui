@@ -1,5 +1,5 @@
 <view class="sr-tour__base {{$classNames.base}} {{className}}" style="{{style}}">
-  <sr-modal
+  <sr-popup
     class="sr-tour__modal {{$classNames.$modal}}"
     className="{{$classNames.modal}}"
     classNames="{{$modalClassNames}}"
@@ -117,5 +117,5 @@
         </view>
       </view>
     </view>
-  </sr-modal>
+  </sr-popup>
 </view>

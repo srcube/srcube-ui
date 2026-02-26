@@ -1,9 +1,9 @@
 import { Button } from '@srcube-ui/button/react';
 import {
-  Modal,
-  ModalContent,
-  type ModalClassNames,
-} from '@srcube-ui/modal/react';
+  Popup,
+  PopupContent,
+  type PopupClassNames,
+} from '@srcube-ui/popup/react';
 import * as React from 'react';
 import { tour } from '../style';
 import type {
@@ -773,7 +773,7 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
     [canInteractWithTarget, tone],
   );
 
-  const modalClassNames = React.useMemo<Partial<ModalClassNames>>(
+  const modalClassNames = React.useMemo<Partial<PopupClassNames>>(
     () => ({
       rootPortal: '',
       backdrop: 'bg-transparent',
@@ -798,7 +798,7 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
       style={styleObj}
       {...rest}
     >
-      <Modal
+      <Popup
         className={slots.modal({ class: classNames?.modal })}
         classNames={modalClassNames}
         isOpen={resolvedOpen}
@@ -812,7 +812,7 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
           }
         }}
       >
-        <ModalContent className={slots.body({ class: classNames?.body })}>
+        <PopupContent className={slots.body({ class: classNames?.body })}>
           {hasLayoutStyle(layout.maskTopStyle) ? (
             <div
               className={slots.mask({ class: classNames?.mask })}
@@ -922,8 +922,8 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
               </div>
             </div>
           ) : null}
-        </ModalContent>
-      </Modal>
+        </PopupContent>
+      </Popup>
     </div>
   );
 });
