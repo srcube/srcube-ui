@@ -53,6 +53,8 @@ export function Demo() {
 | color | 节点颜色（覆盖组件 `color`） | `'default' | 'primary' | 'success' | 'warning' | 'danger'` | 继承组件 `color` |
 | isPending | 是否待处理节点（空心） | `boolean` | `false` |
 
+> `icon` 为可选自定义内容；组件不会按状态自动注入内置图标。
+
 ### Slots
 
 - `base`

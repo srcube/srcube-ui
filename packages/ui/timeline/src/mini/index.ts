@@ -86,6 +86,7 @@ UIComponent({
           lineStyle: data.lineStyle,
           isPending: Boolean(item.isPending),
           isLast: index === items.length - 1,
+          isFirst: index === 0,
         });
 
         return {

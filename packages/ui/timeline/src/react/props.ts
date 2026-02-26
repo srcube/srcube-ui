@@ -20,7 +20,10 @@ type TimelineNativeProps = Omit<
   'className' | 'style' | keyof TimelineVariants
 >;
 
-export type TimelineReactProps = Omit<TimelineVariants, 'isPending' | 'isLast'> &
+export type TimelineReactProps = Omit<
+  TimelineVariants,
+  'isPending' | 'isLast' | 'isFirst'
+> &
   TimelineNativeProps & {
     items?: TimelineItem[];
     className?: string;

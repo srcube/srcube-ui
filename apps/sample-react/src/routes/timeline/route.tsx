@@ -1,5 +1,6 @@
 import { Timeline } from '@srcube-ui/timeline';
 import { createFileRoute } from '@tanstack/react-router';
+import PageHeader from '@/components/page-header';
 
 export const Route = createFileRoute('/timeline')({
   component: TimelineDemo,
@@ -17,13 +18,45 @@ const productTimeline = [
     title: 'Implementation',
     time: '10:20',
     description: 'Build core components',
+    icon: '⚙',
     color: 'primary' as const,
   },
   {
     title: 'Release',
     time: 'Pending',
     description: 'Waiting QA sign-off',
+    icon: '…',
     isPending: true,
+  },
+];
+
+const customIconTimeline = [
+  {
+    title: 'Default Icon',
+    time: '09:00',
+    description: 'Custom icon on default node',
+    icon: '•',
+  },
+  {
+    title: 'Primary Icon',
+    time: '09:30',
+    description: 'Custom icon on primary node',
+    icon: 'i',
+    color: 'primary' as const,
+  },
+  {
+    title: 'Warning Icon',
+    time: '10:00',
+    description: 'Custom icon on warning node',
+    icon: '!',
+    color: 'warning' as const,
+  },
+  {
+    title: 'Danger Icon',
+    time: '10:30',
+    description: 'Custom icon on danger node',
+    icon: '×',
+    color: 'danger' as const,
   },
 ];
 
@@ -34,9 +67,7 @@ function Card({ children }: { children: React.ReactNode }) {
 function TimelineDemo() {
   return (
     <main className="min-h-screen bg-slate-100 pb-safe-4 text-slate-900">
-      <div className="sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-4">
-        <div className="text-lg font-semibold">Timeline</div>
-      </div>
+      <PageHeader title="Timeline" />
 
       <div className="space-y-6 p-4">
         <Card>
@@ -72,6 +103,13 @@ function TimelineDemo() {
                 },
               ]}
             />
+          </div>
+        </Card>
+
+        <Card>
+          <div className="text-sm font-semibold">Custom Icons</div>
+          <div className="mt-3">
+            <Timeline items={customIconTimeline} />
           </div>
         </Card>
       </div>

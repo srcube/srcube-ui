@@ -14,7 +14,10 @@ export type TimelineMiniItem = {
   isPending?: boolean;
 };
 
-export type TimelineMiniProps = Omit<TimelineVariants, 'isPending' | 'isLast'> & {
+export type TimelineMiniProps = Omit<
+  TimelineVariants,
+  'isPending' | 'isLast' | 'isFirst'
+> & {
   id?: string;
   items?: TimelineMiniItem[];
   className?: string;

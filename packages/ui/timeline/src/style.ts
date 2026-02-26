@@ -16,10 +16,10 @@ export const timelineStyle = tv({
     base: 'w-full',
     list: 'flex w-full flex-col',
     item: 'relative flex gap-3 pb-5',
-    head: 'relative flex shrink-0 justify-center',
-    node: 'inline-flex items-center justify-center rounded-full border-2 text-white',
+    head: 'flex shrink-0 items-start justify-center',
+    node: 'relative z-[1] inline-flex items-center justify-center rounded-full border-2 text-white',
     icon: 'leading-none',
-    line: 'absolute left-1/2 top-full h-full w-px -translate-x-1/2 bg-slate-200',
+    line: 'absolute top-0 bottom-0 w-px bg-slate-200',
     content: 'min-w-0 flex-1 pt-0.5',
     title: 'text-sm font-medium text-slate-900',
     time: 'mt-0.5 text-xs text-slate-400',
@@ -31,6 +31,7 @@ export const timelineStyle = tv({
         head: 'w-5',
         node: 'h-4 w-4',
         icon: 'text-[10px]',
+        line: 'left-2.5',
         title: 'text-xs',
         time: 'text-[11px]',
         description: 'text-xs',
@@ -39,6 +40,7 @@ export const timelineStyle = tv({
         head: 'w-6',
         node: 'h-5 w-5',
         icon: 'text-xs',
+        line: 'left-3',
         title: 'text-sm',
         time: 'text-xs',
         description: 'text-sm',
@@ -47,6 +49,7 @@ export const timelineStyle = tv({
         head: 'w-7',
         node: 'h-6 w-6',
         icon: 'text-sm',
+        line: 'left-3.5',
         title: 'text-base',
         time: 'text-sm',
         description: 'text-base',
@@ -95,6 +98,10 @@ export const timelineStyle = tv({
       },
       false: {},
     },
+    isFirst: {
+      true: {},
+      false: {},
+    },
   },
   compoundVariants: [
     {
@@ -132,6 +139,27 @@ export const timelineStyle = tv({
         node: 'border-danger/40',
       },
     },
+    {
+      isFirst: true,
+      size: 'sm',
+      class: {
+        line: 'top-2',
+      },
+    },
+    {
+      isFirst: true,
+      size: 'md',
+      class: {
+        line: 'top-2.5',
+      },
+    },
+    {
+      isFirst: true,
+      size: 'lg',
+      class: {
+        line: 'top-3',
+      },
+    },
   ],
   defaultVariants: {
     size: 'md',
@@ -139,6 +167,7 @@ export const timelineStyle = tv({
     lineStyle: 'solid',
     isPending: false,
     isLast: false,
+    isFirst: false,
   },
 });
 
