@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "sr-modal": "../modal/index"
+    "sr-popup": "../popup/index"
   }
 }

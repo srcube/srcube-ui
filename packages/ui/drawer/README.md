@@ -1,8 +1,8 @@
 # Drawer
 
-抽屉组件，基于 `Modal` 组合实现，支持 React 与小程序，API 语义一致。
+抽屉组件，基于 `Popup` 组合实现，支持 React 与小程序，API 语义一致。
 
-- 复用 `@srcube-ui/modal` 的开关控制与遮罩行为
+- 复用 `@srcube-ui/popup` 的开关控制与遮罩行为
 - 支持四个方向：`left / right / top / bottom`
 - 支持 `header / body / footer` 结构化内容
 
@@ -88,5 +88,5 @@ export default function Demo() {
 ### Mini
 
 - 通过具名 slot 组织结构：`header/body/footer`。
-- 内部复用 `sr-modal` 承载开关与遮罩逻辑，`placement` 仅控制抽屉面板方向与动画。
+- 内部复用 `sr-popup` 承载开关与遮罩逻辑，`placement` 仅控制抽屉面板方向与动画。
 - 组件本身是根节点，布局样式需显式设置在组件本身。

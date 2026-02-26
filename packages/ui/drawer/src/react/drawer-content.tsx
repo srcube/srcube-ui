@@ -1,17 +1,16 @@
 import { Children, forwardRef, isValidElement } from 'react';
 import {
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  type ModalContentProps,
-} from '@srcube-ui/modal';
+  PopupBody,
+  PopupContent,
+  PopupHeader,
+  type PopupContentProps,
+} from '@srcube-ui/popup';
 import { useDrawerContext } from './context';
 import DrawerBody from './drawer-body';
 import DrawerFooter from './drawer-footer';
 import DrawerHeader from './drawer-header';
 
-export interface DrawerContentProps extends ModalContentProps {}
+export interface DrawerContentProps extends PopupContentProps {}
 
 const DrawerContent = forwardRef<HTMLDivElement, DrawerContentProps>(
   (props, ref) => {
@@ -41,11 +40,11 @@ const DrawerContent = forwardRef<HTMLDivElement, DrawerContentProps>(
     );
 
     return (
-      <ModalContent ref={ref} {...rest}>
-        {customHeader || (title ? <ModalHeader>{title}</ModalHeader> : null)}
-        {customBody || (content.length > 0 ? <ModalBody>{content}</ModalBody> : null)}
+      <PopupContent ref={ref} {...rest}>
+        {customHeader || (title ? <PopupHeader>{title}</PopupHeader> : null)}
+        {customBody || (content.length > 0 ? <PopupBody>{content}</PopupBody> : null)}
         {customFooter || null}
-      </ModalContent>
+      </PopupContent>
     );
   },
 );

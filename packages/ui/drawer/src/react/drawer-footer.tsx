@@ -1,9 +1,9 @@
-import { ModalFooter, type ModalFooterProps } from '@srcube-ui/modal';
+import { PopupFooter, type PopupFooterProps } from '@srcube-ui/popup';
 
-export interface DrawerFooterProps extends ModalFooterProps {}
+export interface DrawerFooterProps extends PopupFooterProps {}
 
 function DrawerFooter(props: DrawerFooterProps) {
-  return <ModalFooter {...props} />;
+  return <PopupFooter {...props} />;
 }
 
 DrawerFooter.displayName = 'Srcube.DrawerFooter';

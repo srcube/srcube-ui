@@ -4,7 +4,7 @@ import { beforeAll, expect, it, vi } from 'vitest';
 // @ts-expect-error -- raw wxml import for tests
 import template from '../src/mini/index.wxml?raw';
 
-const testTemplate = template.replaceAll('sr-modal', 'view');
+const testTemplate = template.replaceAll('sr-popup', 'view');
 
 let definition: Record<string, unknown> | undefined;
 
@@ -41,7 +41,7 @@ it('uses sibling mini modal component mapping', () => {
     usingComponents?: Record<string, string>;
   };
 
-  expect(json.usingComponents?.['sr-modal']).toBe('../modal/index');
+  expect(json.usingComponents?.['sr-popup']).toBe('../popup/index');
 });
 
 it('binds $modal host class and className separately', () => {

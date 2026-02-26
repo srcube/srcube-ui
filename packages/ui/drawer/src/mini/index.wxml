@@ -1,4 +1,4 @@
-<sr-modal
+<sr-popup
   class="sr-drawer__modal {{$classNames.$modal}}"
   className="{{className || ''}}"
   classNames="{{$modalClassNames || classNames}}"
@@ -27,4 +27,4 @@
   <view slot="footer">
     <slot name="footer" />
   </view>
-</sr-modal>
+</sr-popup>

@@ -1,9 +1,9 @@
-import { ModalBody, type ModalBodyProps } from '@srcube-ui/modal';
+import { PopupBody, type PopupBodyProps } from '@srcube-ui/popup';
 
-export interface DrawerBodyProps extends ModalBodyProps {}
+export interface DrawerBodyProps extends PopupBodyProps {}
 
 function DrawerBody(props: DrawerBodyProps) {
-  return <ModalBody {...props} />;
+  return <PopupBody {...props} />;
 }
 
 DrawerBody.displayName = 'Srcube.DrawerBody';

@@ -1,9 +1,9 @@
-import { ModalHeader, type ModalHeaderProps } from '@srcube-ui/modal';
+import { PopupHeader, type PopupHeaderProps } from '@srcube-ui/popup';
 
-export interface DrawerHeaderProps extends ModalHeaderProps {}
+export interface DrawerHeaderProps extends PopupHeaderProps {}
 
 function DrawerHeader(props: DrawerHeaderProps) {
-  return <ModalHeader {...props} />;
+  return <PopupHeader {...props} />;
 }
 
 DrawerHeader.displayName = 'Srcube.DrawerHeader';

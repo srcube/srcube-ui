@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Modal, type ModalClassNames } from '@srcube-ui/modal';
+import { Popup, type PopupClassNames } from '@srcube-ui/popup';
 import { drawer as drawerStyles } from '../style';
 import { DrawerProvider } from './context';
 import DrawerContent from './drawer-content';
@@ -43,7 +43,7 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>((props, ref) => {
     [isOpen, placement, backdrop],
   );
 
-  const mergedClassNames = useMemo<Partial<ModalClassNames>>(
+  const mergedClassNames = useMemo<Partial<PopupClassNames>>(
     () => ({
       rootPortal: slots.rootPortal({
         class: [classNames?.rootPortal, className],
@@ -80,7 +80,7 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>((props, ref) => {
 
   return (
     <DrawerProvider value={{ title }}>
-      <Modal
+      <Popup
         ref={ref}
         {...rest}
         isOpen={isOpen}
@@ -91,7 +91,7 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>((props, ref) => {
         classNames={mergedClassNames}
       >
         {content}
-      </Modal>
+      </Popup>
     </DrawerProvider>
   );
 });
