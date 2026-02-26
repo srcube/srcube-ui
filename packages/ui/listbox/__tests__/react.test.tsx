@@ -15,8 +15,8 @@ it('renders empty content by locale', () => {
   expect(screen.getByText('暂无内容')).toBeTruthy();
 });
 
-it('triggers selection change on item click', () => {
-  const onSelectionChange = vi.fn();
+it('triggers item press on item click', () => {
+  const onItemPress = vi.fn();
 
   const { container } = render(
     <Listbox
@@ -26,7 +26,7 @@ it('triggers selection change on item click', () => {
         { id: 'b', label: 'Beta' },
       ]}
       estimateSize={40}
-      onSelectionChange={onSelectionChange}
+      onItemPress={onItemPress}
     />,
   );
 
@@ -39,8 +39,11 @@ it('triggers selection change on item click', () => {
 
   fireEvent.click(option);
 
-  expect(onSelectionChange).toHaveBeenCalledTimes(1);
-  expect(onSelectionChange).toHaveBeenCalledWith(['a']);
+  expect(onItemPress).toHaveBeenCalledTimes(1);
+  expect(onItemPress).toHaveBeenCalledWith(
+    expect.objectContaining({ id: 'a', label: 'Alpha' }),
+    0,
+  );
 
   const scrollView = container.querySelector('.overflow-y-auto') as HTMLElement;
   expect(scrollView).toBeTruthy();
@@ -127,7 +130,6 @@ it('renders sticky overlay item in vertical mode', () => {
       ]}
       estimateSize={40}
       classNames={{
-        sticky: 'test-sticky',
         stickyItem: 'test-sticky-item',
       }}
     />,
@@ -158,7 +160,6 @@ it('renders sticky overlay item in horizontal mode', () => {
       ]}
       estimateSize={120}
       classNames={{
-        sticky: 'test-sticky-x',
         stickyItem: 'test-sticky-item-x',
       }}
     />,
@@ -176,4 +177,44 @@ it('renders sticky overlay item in horizontal mode', () => {
 
   expect(stickyItem.textContent).toContain('Header');
   expect(stickyItem.style.width).toBe('120px');
+});
+
+it('applies size variant classes on list items', () => {
+  const { container } = render(
+    <Listbox
+      className="h-40"
+      size="lg"
+      items={[
+        { id: 'a', label: 'Alpha' },
+        { id: 'b', label: 'Beta' },
+      ]}
+      estimateSize={48}
+    />,
+  );
+
+  const option = container.querySelector('[role="option"]') as HTMLElement | null;
+  expect(option).toBeTruthy();
+
+  if (!option) {
+    return;
+  }
+
+  expect(option.className).toContain('min-h-12');
+  expect(option.className).toContain('text-base');
+});
+
+it('renders end icon class on default item renderer', () => {
+  const { container } = render(
+    <Listbox
+      className="h-40"
+      items={[
+        { id: 'a', label: 'Alpha', endIconClassName: 'icon-check test-item-check' },
+      ]}
+      estimateSize={40}
+    />,
+  );
+
+  const icon = container.querySelector('.test-item-check') as HTMLElement | null;
+  expect(icon).toBeTruthy();
+  expect(icon?.className ?? '').toContain('icon-check');
 });

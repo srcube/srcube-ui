@@ -10,16 +10,13 @@ import {
   useCallback,
   useMemo,
   useRef,
-  useState,
 } from 'react';
+import {
+  DEFAULT_LISTBOX_LOCALE,
+  LISTBOX_EMPTY_TEXT,
+} from '../locale';
 import { listbox, listboxItemState } from '../style';
-import type { ListboxItem, ListboxLocale, ListboxReactProps } from './props';
-
-const EMPTY_TEXT: Record<ListboxLocale, string> = {
-  en: 'No items.',
-  'zh-CN': '暂无内容',
-  'zh-TW': '暫無內容',
-};
+import type { ListboxItem, ListboxReactProps } from './props';
 
 function shouldMeasure(
   value: ListboxReactProps['shouldMeasureItem'],
@@ -30,10 +27,6 @@ function shouldMeasure(
     return value(item, index);
   }
   return value === true;
-}
-
-function getDefaultRender(item: ListboxItem) {
-  return item.label;
 }
 
 function resolveActiveStickyIndex(
@@ -69,19 +62,19 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
       overscan = 5,
       emptyContent,
       hideEmptyContent = false,
-      locale = 'en',
-      selectedKeys: selectedKeysProp,
-      defaultSelectedKeys,
-      onSelectionChange,
+      locale = DEFAULT_LISTBOX_LOCALE,
       renderItem,
       getItemKey,
       orientation = 'y',
+      size = 'md',
       hasDivider = false,
       className,
       classNames,
       itemClassName,
+      itemLabelClassName,
       style,
       shouldMeasureItem,
+      onItemPress,
       onScroll,
       hideMasks,
       upperThreshold,
@@ -107,17 +100,6 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
       onScrollToLower,
       ...rest
     } = props;
-
-    const [uncontrolledSelectedKeys, setUncontrolledSelectedKeys] = useState<
-      Array<string | number>
-    >(defaultSelectedKeys ?? []);
-
-    const mergedSelectedKeys = selectedKeysProp ?? uncontrolledSelectedKeys;
-
-    const selectedSet = useMemo(
-      () => new Set(mergedSelectedKeys),
-      [mergedSelectedKeys],
-    );
 
     const scrollElementRef = useRef<HTMLDivElement>(null);
     const activeStickyIndexRef = useRef<number | null>(null);
@@ -232,9 +214,10 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
       () =>
         listbox({
           orientation,
+          size,
           hasDivider,
         }),
-      [orientation, hasDivider],
+      [orientation, size, hasDivider],
     );
 
     const isHorizontal = orientation === 'x';
@@ -260,26 +243,6 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
         content: listboxScrollboxContentClassName,
       }),
       [listboxScrollboxContentClassName],
-    );
-
-    const handleSelect = useCallback(
-      (item: ListboxItem) => {
-        if (item.isDisabled) {
-          return;
-        }
-
-        const isSelected = selectedSet.has(item.id);
-        const next = isSelected
-          ? mergedSelectedKeys.filter((key) => key !== item.id)
-          : [...mergedSelectedKeys, item.id];
-
-        if (selectedKeysProp === undefined) {
-          setUncontrolledSelectedKeys(next);
-        }
-
-        onSelectionChange?.(next);
-      },
-      [mergedSelectedKeys, onSelectionChange, selectedKeysProp, selectedSet],
     );
 
     const activeStickyIndex = useMemo(() => {
@@ -308,7 +271,7 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
             className={slots.emptyContent({ class: classNames?.emptyContent })}
           >
             <span className={slots._iEmpty()} />
-            <span>{emptyContent ?? EMPTY_TEXT[locale]}</span>
+            <span>{emptyContent ?? LISTBOX_EMPTY_TEXT[locale]}</span>
           </div>
         </div>
       );
@@ -390,12 +353,16 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
 
               const stateClassName = listboxItemState({
                 orientation,
-                isSelected: selectedSet.has(item.id),
                 isDisabled: item.isDisabled,
               });
 
               const baseItemClassName = slots.item({
-                class: [itemClassName, classNames?.item, stateClassName],
+                class: [
+                  itemClassName,
+                  classNames?.item,
+                  item.className,
+                  stateClassName,
+                ],
               });
 
               return (
@@ -408,7 +375,6 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
                       : undefined
                   }
                   role="option"
-                  aria-selected={selectedSet.has(item.id)}
                   data-index={virtualItem.index}
                   className={
                     isActiveStickyItem
@@ -418,15 +384,52 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
                       : baseItemClassName
                   }
                   style={itemStyle}
-                  onClick={() => handleSelect(item)}
+                  onClick={() => {
+                    if (item.isDisabled) {
+                      return;
+                    }
+
+                    onItemPress?.(item, virtualItem.index);
+                  }}
                 >
-                  <span
-                    className={slots.itemLabel({ class: classNames?.itemLabel })}
-                  >
-                    {renderItem
-                      ? renderItem(item, virtualItem.index)
-                      : getDefaultRender(item)}
-                  </span>
+                  {renderItem ? (
+                    <span
+                      className={slots.itemLabel({
+                        class: [
+                          classNames?.itemLabel,
+                          itemLabelClassName,
+                          item.labelClassName,
+                        ],
+                      })}
+                    >
+                      {renderItem(item, virtualItem.index)}
+                    </span>
+                  ) : (
+                    <span
+                      className={slots.itemInner({ class: classNames?.itemInner })}
+                    >
+                      <span
+                        className={slots.itemLabel({
+                          class: [
+                            classNames?.itemLabel,
+                            itemLabelClassName,
+                            item.labelClassName,
+                          ],
+                        })}
+                      >
+                        {item.label}
+                      </span>
+
+                      {item.endIconClassName ? (
+                        <span
+                          aria-hidden
+                          className={slots.itemIcon({
+                            class: [classNames?.itemIcon, item.endIconClassName],
+                          })}
+                        />
+                      ) : null}
+                    </span>
+                  )}
                 </div>
               );
             })}

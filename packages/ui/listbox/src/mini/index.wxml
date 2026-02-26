@@ -6,7 +6,7 @@
     wx:if="{{$isEmpty && !hideEmptyContent}}"
     class="sr-listbox__empty {{$classNames.emptyContent}}"
   >
-    <text class="{{$classNames.iEmpty}}" />
+    <view class="{{$classNames.iEmpty}}" />
     <text>{{emptyContent || $emptyText}}</text>
   </view>
 
@@ -53,7 +53,15 @@
         style="{{item.style}}"
         bindtap="handleItemTap"
       >
-        <text class="{{$classNames.itemLabel}}">{{item.label}}</text>
+        <view class="{{$classNames.itemInner}}">
+          <text class="{{$classNames.itemLabel}} {{item.labelClassName}}">
+            {{item.label}}
+          </text>
+          <view
+            wx:if="{{item.endIconClassName}}"
+            class="{{$classNames.itemIcon}} {{item.endIconClassName}}"
+          />
+        </view>
       </view>
     </view>
   </sr-scrollbox>

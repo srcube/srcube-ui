@@ -14,8 +14,10 @@ export const listbox = tv({
     stickyItem: 'bg-white',
     content: 'relative',
     item:
-      'box-border flex items-center gap-2 px-3 text-sm leading-none transition-colors duration-150 min-h-11',
+      'box-border flex items-center gap-2 leading-none transition-colors duration-150',
+    itemInner: 'flex w-full min-w-0 items-center gap-2',
     itemLabel: 'truncate',
+    itemIcon: 'shrink-0',
     emptyContent:
       'flex min-h-24 w-full flex-col items-center justify-center gap-2 px-4 py-6 text-center text-sm text-slate-400',
     _iEmpty: 'icon-box-open text-2xl',
@@ -28,6 +30,7 @@ export const listbox = tv({
         sticky: 'top-0 left-0 right-0',
         content: 'w-full',
         item: 'w-full',
+        itemInner: 'w-full',
       },
       x: {
         $scrollbox: 'min-w-0',
@@ -35,6 +38,24 @@ export const listbox = tv({
         sticky: 'top-0 left-0 bottom-0',
         content: 'h-full whitespace-nowrap',
         item: 'h-full min-w-max justify-center',
+        itemInner: 'w-auto',
+      },
+    },
+    size: {
+      sm: {
+        item: 'min-h-9 px-2 text-xs',
+        itemIcon: 'text-sm',
+        emptyContent: 'min-h-20 text-xs',
+        _iEmpty: 'text-xl',
+      },
+      md: {
+        item: 'min-h-11 px-3 text-sm',
+        itemIcon: 'text-base',
+      },
+      lg: {
+        item: 'min-h-12 px-4 text-base',
+        itemIcon: 'text-lg',
+        emptyContent: 'text-base',
       },
     },
     hasDivider: {
@@ -46,6 +67,7 @@ export const listbox = tv({
   },
   defaultVariants: {
     orientation: 'y',
+    size: 'md',
     hasDivider: false,
   },
 });
@@ -57,25 +79,13 @@ export const listboxItemState = tv({
       y: 'w-full',
       x: 'h-full min-w-max',
     },
-    isSelected: {
-      true: 'bg-primary text-white',
-      false: 'text-slate-700',
-    },
     isDisabled: {
       true: 'cursor-not-allowed opacity-50',
-      false: 'cursor-pointer active:bg-slate-100',
+      false: 'text-slate-700',
     },
   },
-  compoundVariants: [
-    {
-      isSelected: true,
-      isDisabled: false,
-      class: 'active:bg-primary',
-    },
-  ],
   defaultVariants: {
     orientation: 'y',
-    isSelected: false,
     isDisabled: false,
   },
 });

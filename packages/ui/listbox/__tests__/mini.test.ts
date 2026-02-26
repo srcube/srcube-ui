@@ -75,21 +75,45 @@ it('does not force h-full on scrollbox content in horizontal mini mode', () => {
   expect(result.content ?? '').not.toContain('h-full');
 });
 
+it('computes item size classes from size variant', () => {
+  const computed = (
+    definition as {
+      computed?: Record<string, (data: Record<string, unknown>) => unknown>;
+    }
+  ).computed?.$classNames;
+
+  expect(computed).toBeTypeOf('function');
+
+  if (!computed) {
+    return;
+  }
+
+  const result = computed({
+    orientation: 'y',
+    size: 'sm',
+    hasDivider: false,
+    classNames: {},
+  }) as {
+    item?: string;
+  };
+
+  expect(result.item ?? '').toContain('min-h-9');
+  expect(result.item ?? '').toContain('text-xs');
+});
+
 it('renders empty state when items is empty', () => {
   const comp = renderListbox({ items: [] });
 
   const data = comp.data as {
     renderItems: unknown[];
-    innerSelectedKeys: Array<string | number>;
   };
 
   expect(data.renderItems.length).toBe(0);
-  expect(data.innerSelectedKeys).toEqual([]);
 
   comp.detach();
 });
 
-it('updates selected keys on item tap in uncontrolled mode', () => {
+it('emits itemtap detail on item tap', () => {
   const comp = renderListbox({
     items: [
       { id: 'a', label: 'Alpha' },
@@ -98,6 +122,7 @@ it('updates selected keys on item tap in uncontrolled mode', () => {
     estimateSize: 40,
   });
 
+  const triggerEventSpy = vi.spyOn(comp.instance, 'triggerEvent');
   const instance = comp.instance as {
     handleItemTap: (event: {
       currentTarget: { dataset: { index: number } };
@@ -106,7 +131,31 @@ it('updates selected keys on item tap in uncontrolled mode', () => {
 
   instance.handleItemTap({ currentTarget: { dataset: { index: 0 } } });
 
-  expect(comp.data.innerSelectedKeys).toEqual(['a']);
+  expect(triggerEventSpy).toHaveBeenCalledWith('itemtap', {
+    index: 0,
+    item: expect.objectContaining({ id: 'a', label: 'Alpha' }),
+  });
+
+  comp.detach();
+});
+
+it('keeps endIconClassName in render items', async () => {
+  const comp = renderListbox({
+    items: [
+      { id: 'a', label: 'Alpha', endIconClassName: 'icon-check test-item-check' },
+    ],
+    estimateSize: 40,
+  });
+
+  await new Promise((resolve) => setTimeout(resolve, 0));
+
+  const data = comp.data as {
+    renderItems: Array<{
+      endIconClassName?: string;
+    }>;
+  };
+
+  expect(data.renderItems[0]?.endIconClassName ?? '').toContain('test-item-check');
 
   comp.detach();
 });

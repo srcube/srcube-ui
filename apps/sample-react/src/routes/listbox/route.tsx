@@ -87,15 +87,9 @@ function createStickyHorizontalItems() {
 }
 
 function ListboxDemo() {
-  const [stickySelectedKeys, setStickySelectedKeys] = useState<
-    Array<string | number>
-  >(['item-2']);
-  const [horizontalSelectedKeys, setHorizontalSelectedKeys] = useState<
-    Array<string | number>
-  >(['tab-2']);
-  const [plainSelectedKeys, setPlainSelectedKeys] = useState<
-    Array<string | number>
-  >([2]);
+  const [stickyPressed, setStickyPressed] = useState<string>('none');
+  const [horizontalPressed, setHorizontalPressed] = useState<string>('none');
+  const [plainPressed, setPlainPressed] = useState<string>('none');
 
   const stickyItems = useMemo<DemoItem[]>(
     () => createStickyVerticalItems(),
@@ -131,11 +125,12 @@ function ListboxDemo() {
             estimateSize={44}
             overscan={8}
             hasDivider
-            selectedKeys={stickySelectedKeys}
-            onSelectionChange={setStickySelectedKeys}
+            onItemPress={(item) => {
+              setStickyPressed(String(item.id));
+            }}
           />
           <div className="mt-3 text-xs text-slate-500">
-            Selected: {stickySelectedKeys.join(', ') || 'none'}
+            Last Pressed: {stickyPressed}
           </div>
         </Section>
 
@@ -149,11 +144,12 @@ function ListboxDemo() {
             items={horizontalStickyItems}
             estimateSize={120}
             overscan={8}
-            selectedKeys={horizontalSelectedKeys}
-            onSelectionChange={setHorizontalSelectedKeys}
+            onItemPress={(item) => {
+              setHorizontalPressed(String(item.id));
+            }}
           />
           <div className="mt-3 text-xs text-slate-500">
-            Selected: {horizontalSelectedKeys.join(', ') || 'none'}
+            Last Pressed: {horizontalPressed}
           </div>
         </Section>
 
@@ -164,11 +160,12 @@ function ListboxDemo() {
             estimateSize={44}
             overscan={8}
             hasDivider
-            selectedKeys={plainSelectedKeys}
-            onSelectionChange={setPlainSelectedKeys}
+            onItemPress={(item) => {
+              setPlainPressed(String(item.id));
+            }}
           />
           <div className="mt-3 text-xs text-slate-500">
-            Selected: {plainSelectedKeys.join(', ') || 'none'}
+            Last Pressed: {plainPressed}
           </div>
         </Section>
 

@@ -1,10 +1,14 @@
 import type { ListboxMiniClassNames, ListboxVariants } from '../style';
+import type { ListboxLocale } from '../locale';
 
 export type ListboxMiniItem = {
   id: string | number;
   label: string;
   isDisabled?: boolean;
   isSticky?: boolean;
+  className?: string;
+  labelClassName?: string;
+  endIconClassName?: string;
 };
 
 export type ListboxMiniProps = ListboxVariants & {
@@ -14,11 +18,9 @@ export type ListboxMiniProps = ListboxVariants & {
   items?: ListboxMiniItem[];
   estimateSize?: number;
   overscan?: number;
-  selectedKeys?: Array<string | number>;
-  defaultSelectedKeys?: Array<string | number>;
   hideEmptyContent?: boolean;
   emptyContent?: string;
-  locale?: 'en' | 'zh-CN' | 'zh-TW';
+  locale?: ListboxLocale;
 
   hideMasks?: boolean;
   upperThreshold?: number;
@@ -44,6 +46,7 @@ export type ListboxMiniProps = ListboxVariants & {
 
 export const listboxMiniProps = {
   orientation: { type: null, value: 'y' },
+  size: { type: null, value: 'md' },
   hasDivider: { type: Boolean, value: false },
   className: { type: String, value: '' },
   classNames: { type: Object, value: {} },
@@ -51,8 +54,6 @@ export const listboxMiniProps = {
   items: { type: Array, value: [] },
   estimateSize: { type: Number, value: 40 },
   overscan: { type: Number, value: 5 },
-  selectedKeys: { type: null, value: null },
-  defaultSelectedKeys: { type: Array, value: [] },
   hideEmptyContent: { type: Boolean, value: false },
   emptyContent: { type: String, value: '' },
   locale: { type: String, value: 'en' },

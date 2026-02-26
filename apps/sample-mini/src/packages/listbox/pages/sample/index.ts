@@ -66,27 +66,32 @@ Page({
       isDisabled: index % 33 === 0,
     })),
     emptyItems: [],
-
-    stickySelectedKeys: ['item-2'],
-    horizontalSelectedKeys: ['tab-2'],
-    plainSelectedKeys: [2],
+    stickyPressed: 'none',
+    horizontalPressed: 'none',
+    plainPressed: 'none',
   },
 
-  handleStickySelectionChange(
-    e: WechatMiniprogram.CustomEvent<{ selectedKeys: Array<string | number> }>,
+  handleStickyItemTap(
+    e: WechatMiniprogram.CustomEvent<{ item?: { id?: string | number } }>,
   ) {
-    this.setData({ stickySelectedKeys: e.detail.selectedKeys });
+    this.setData({
+      stickyPressed: String(e.detail?.item?.id ?? 'none'),
+    });
   },
 
-  handleHorizontalSelectionChange(
-    e: WechatMiniprogram.CustomEvent<{ selectedKeys: Array<string | number> }>,
+  handleHorizontalItemTap(
+    e: WechatMiniprogram.CustomEvent<{ item?: { id?: string | number } }>,
   ) {
-    this.setData({ horizontalSelectedKeys: e.detail.selectedKeys });
+    this.setData({
+      horizontalPressed: String(e.detail?.item?.id ?? 'none'),
+    });
   },
 
-  handlePlainSelectionChange(
-    e: WechatMiniprogram.CustomEvent<{ selectedKeys: Array<string | number> }>,
+  handlePlainItemTap(
+    e: WechatMiniprogram.CustomEvent<{ item?: { id?: string | number } }>,
   ) {
-    this.setData({ plainSelectedKeys: e.detail.selectedKeys });
+    this.setData({
+      plainPressed: String(e.detail?.item?.id ?? 'none'),
+    });
   },
 });

@@ -4,6 +4,7 @@ import type {
   ListboxReactClassNames,
   ListboxVariants,
 } from '../style';
+import type { ListboxLocale } from '../locale';
 
 type ScrollboxForwardProps = Pick<
   ScrollboxReactProps,
@@ -36,9 +37,10 @@ export type ListboxItem = {
   label: React.ReactNode;
   isDisabled?: boolean;
   isSticky?: boolean;
+  className?: string;
+  labelClassName?: string;
+  endIconClassName?: string;
 };
-
-export type ListboxLocale = 'en' | 'zh-CN' | 'zh-TW';
 
 export type ListboxReactProps = ListboxVariants &
   ScrollboxForwardProps &
@@ -49,13 +51,12 @@ export type ListboxReactProps = ListboxVariants &
     emptyContent?: React.ReactNode;
     hideEmptyContent?: boolean;
     locale?: ListboxLocale;
-    selectedKeys?: Array<string | number>;
-    defaultSelectedKeys?: Array<string | number>;
-    onSelectionChange?: (selectedKeys: Array<string | number>) => void;
     renderItem?: (item: ListboxItem, index: number) => React.ReactNode;
     getItemKey?: (item: ListboxItem, index: number) => string | number;
     itemClassName?: string;
+    itemLabelClassName?: string;
     classNames?: ListboxReactClassNames;
     shouldMeasureItem?: boolean | ((item: ListboxItem, index: number) => boolean);
+    onItemPress?: (item: ListboxItem, index: number) => void;
     onScroll?: React.UIEventHandler<HTMLDivElement>;
   };

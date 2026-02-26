@@ -4,13 +4,16 @@ import {
   type Range,
   Virtualizer,
 } from '@tanstack/virtual-core';
+import {
+  DEFAULT_LISTBOX_LOCALE,
+  LISTBOX_EMPTY_TEXT,
+  type ListboxLocale,
+} from '../locale';
 import { listbox, listboxItemState } from '../style';
 import type { ListboxMiniItem, ListboxMiniProps } from './props';
 import { listboxMiniProps } from './props';
 
 type ListboxOrientation = 'x' | 'y';
-
-type ListboxLocale = 'en' | 'zh-CN' | 'zh-TW';
 
 type ScrollEventDetail = {
   scrollTop?: number;
@@ -27,26 +30,33 @@ type RenderItem = {
   index: number;
   virtualKey: string;
   className: string;
+  labelClassName: string;
+  endIconClassName: string;
   style: string;
   isActiveSticky: boolean;
-};
-
-const EMPTY_TEXT: Record<ListboxLocale, string> = {
-  en: 'No items.',
-  'zh-CN': '暂无内容',
-  'zh-TW': '暫無內容',
 };
 
 function resolveOrientation(value?: string | null): ListboxOrientation {
   return value === 'x' ? 'x' : 'y';
 }
 
-function resolveEmptyText(locale?: string): string {
-  if (locale === 'zh-CN' || locale === 'zh-TW') {
-    return EMPTY_TEXT[locale];
+function resolveSize(value?: string | null) {
+  if (value === 'sm' || value === 'lg') {
+    return value;
   }
 
-  return EMPTY_TEXT.en;
+  return 'md';
+}
+
+function resolveEmptyText(locale?: string): string {
+  if (
+    locale &&
+    Object.prototype.hasOwnProperty.call(LISTBOX_EMPTY_TEXT, locale)
+  ) {
+    return LISTBOX_EMPTY_TEXT[locale as ListboxLocale];
+  }
+
+  return LISTBOX_EMPTY_TEXT[DEFAULT_LISTBOX_LOCALE];
 }
 
 function resolveScrollDetail(rawDetail: NestedScrollDetail | undefined | null) {
@@ -90,7 +100,6 @@ type ListboxMiniVirtualState = {
   totalSize: number;
   contentStyle: string;
   renderItems: RenderItem[];
-  innerSelectedKeys: Array<string | number>;
 };
 
 type ListboxMiniData = ListboxMiniProps & ListboxMiniVirtualState;
@@ -150,10 +159,6 @@ function createVirtualizer(params: {
   });
 }
 
-function isArrayLikeValue(value: unknown): value is unknown[] {
-  return Array.isArray(value);
-}
-
 UIComponent({
   options: {
     multipleSlots: true,
@@ -170,7 +175,6 @@ UIComponent({
     totalSize: 0,
     contentStyle: '',
     renderItems: [] as RenderItem[],
-    innerSelectedKeys: [] as Array<string | number>,
   } satisfies ListboxMiniVirtualState,
 
   observers: {
@@ -186,44 +190,18 @@ UIComponent({
     orientation() {
       this.remeasureAndRecompute();
     },
-    hasDivider() {
+    size() {
       this.recomputeVirtualItems();
     },
-    selectedKeys() {
+    hasDivider() {
       this.recomputeVirtualItems();
     },
     hideEmptyContent() {
       this.recomputeVirtualItems();
     },
-    defaultSelectedKeys() {
-      if (isArrayLikeValue(this.data.selectedKeys)) {
-        return;
-      }
-
-      this.setData(
-        {
-          innerSelectedKeys: Array.isArray(this.data.defaultSelectedKeys)
-            ? [...this.data.defaultSelectedKeys]
-            : [],
-        } satisfies Partial<ListboxMiniVirtualState>,
-        () => {
-          this.recomputeVirtualItems();
-        },
-      );
-    },
   },
 
   lifetimes: {
-    attached() {
-      const selectedKeys = this.data.selectedKeys;
-      this.setData({
-        innerSelectedKeys: isArrayLikeValue(selectedKeys)
-          ? []
-          : Array.isArray(this.data.defaultSelectedKeys)
-            ? [...this.data.defaultSelectedKeys]
-            : [],
-      } satisfies Partial<ListboxMiniVirtualState>);
-    },
     ready() {
       this.remeasureAndRecompute();
     },
@@ -236,12 +214,6 @@ UIComponent({
     $isVertical(data: ListboxMiniData) {
       return resolveOrientation(data.orientation) === 'y';
     },
-    $selectedKeys(data: ListboxMiniData) {
-      if (isArrayLikeValue(data.selectedKeys)) {
-        return data.selectedKeys;
-      }
-      return data.innerSelectedKeys;
-    },
     $isEmpty(data: ListboxMiniData) {
       return !Array.isArray(data.items) || data.items.length === 0;
     },
@@ -250,8 +222,10 @@ UIComponent({
     },
     $classNames(data: ListboxMiniData) {
       const orientation = resolveOrientation(data.orientation);
+      const size = resolveSize(data.size);
       const slots = listbox({
         orientation,
+        size,
         hasDivider: data.hasDivider,
       });
       const classNames = data.classNames ?? {};
@@ -266,15 +240,19 @@ UIComponent({
         stickyItem: slots.stickyItem({ class: classNames.stickyItem }),
         content: slots.content({ class: classNames.content }),
         item: slots.item({ class: classNames.item }),
+        itemInner: slots.itemInner({ class: classNames.itemInner }),
         itemLabel: slots.itemLabel({ class: classNames.itemLabel }),
+        itemIcon: slots.itemIcon({ class: classNames.itemIcon }),
         emptyContent: slots.emptyContent({ class: classNames.emptyContent }),
         iEmpty: slots._iEmpty(),
       };
     },
     $scrollboxClassNames(data: ListboxMiniData) {
       const orientation = resolveOrientation(data.orientation);
+      const size = resolveSize(data.size);
       const slots = listbox({
         orientation,
+        size,
         hasDivider: data.hasDivider,
       });
       const classNames = data.classNames ?? {};
@@ -356,11 +334,6 @@ UIComponent({
       const overscan = Math.max(1, Number(this.data.overscan) || 5);
       const offset = Math.max(0, Number(this.data.currentOffset) || 0);
 
-      const selectedKeys = isArrayLikeValue(this.data.selectedKeys)
-        ? (this.data.selectedKeys as Array<string | number>)
-        : (this.data.innerSelectedKeys as Array<string | number>);
-      const selectedSet = new Set(selectedKeys);
-
       const stickyIndexes: number[] = [];
       items.forEach((item, index) => {
         if (item.isSticky) {
@@ -426,7 +399,6 @@ UIComponent({
 
           const stateClassName = listboxItemState({
             orientation,
-            isSelected: selectedSet.has(item.id),
             isDisabled: !!item.isDisabled,
           });
 
@@ -443,7 +415,9 @@ UIComponent({
             label: item.label,
             index: virtualItem.index,
             virtualKey: String(virtualItem.key),
-            className: stateClassName,
+            className: `${stateClassName} ${item.className ?? ''}`.trim(),
+            labelClassName: item.labelClassName ?? '',
+            endIconClassName: item.endIconClassName ?? '',
             style,
             isActiveSticky,
           };
@@ -513,34 +487,9 @@ UIComponent({
       if (!item || item.isDisabled) {
         return;
       }
-
-      const isControlled = isArrayLikeValue(this.data.selectedKeys);
-      const baseSelectedKeys = isControlled
-        ? (this.data.selectedKeys as Array<string | number>)
-        : (this.data.innerSelectedKeys as Array<string | number>);
-
-      const set = new Set(baseSelectedKeys);
-      if (set.has(item.id)) {
-        set.delete(item.id);
-      } else {
-        set.add(item.id);
-      }
-
-      const nextSelectedKeys = [...set];
-
-      if (!isControlled) {
-        this.setData({ innerSelectedKeys: nextSelectedKeys }, () => {
-          this.recomputeVirtualItems();
-        });
-      }
-
-      this.triggerEvent('selectionchange', {
-        selectedKeys: nextSelectedKeys,
-      });
       this.triggerEvent('itemtap', {
         item,
         index,
-        selectedKeys: nextSelectedKeys,
       });
     },
   },
