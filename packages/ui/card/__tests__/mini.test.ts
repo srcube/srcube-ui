@@ -6,12 +6,13 @@ import { cardMiniProps } from '../src/mini/props';
 it('contains footer and header slots in mini template', () => {
   expect(template).toContain('name="footer"');
   expect(template).toContain('name="header"');
+  expect(template).toContain('name="body"');
 });
 
 it('uses md as default radius', () => {
   expect(cardMiniProps.radius.value).toBe('md');
 });
 
-it('uses true as default bordered state', () => {
-  expect(cardMiniProps.isBordered.value).toBe(true);
+it('uses default as default color', () => {
+  expect(cardMiniProps.color.value).toBe('default');
 });

@@ -1,6 +1,7 @@
 import { Button } from '@srcube-ui/button';
 import { Card } from '@srcube-ui/card';
 import { createFileRoute } from '@tanstack/react-router';
+import PageHeader from '@/components/page-header';
 
 export const Route = createFileRoute('/card')({
   component: CardDemo,
@@ -9,57 +10,54 @@ export const Route = createFileRoute('/card')({
 function CardDemo() {
   return (
     <main className="min-h-screen bg-slate-100 pb-safe-4 text-slate-900">
-      <div className="sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-4">
-        <div className="text-lg font-semibold">Card</div>
-      </div>
+      <PageHeader title="Card" />
 
       <div className="space-y-6 p-4">
         <Card
-          title="订单信息"
-          description="2026-02-18 10:30"
-          isHeaderDivider
-          isFooterDivider
+          header={<div>订单信息</div>}
+          body={
+            <div className="space-y-2 text-sm">
+              <div>订单号：A20260218001</div>
+              <div>收货人：Srcube</div>
+              <div>金额：¥ 168.00</div>
+            </div>
+          }
           footer={
-            <>
-              <Button size="sm" variant="flat">
+            <div className="flex gap-2">
+              <Button size="sm" variant="flat" color="default">
                 取消
               </Button>
               <Button size="sm" color="primary">
                 确认
               </Button>
-            </>
+            </div>
           }
-        >
-          <div className="space-y-2 text-sm text-slate-600">
-            <div>订单号：A20260218001</div>
-            <div>收货人：Srcube</div>
-            <div>金额：¥ 168.00</div>
-          </div>
-        </Card>
-
-        <Card
-          title="无边框样式"
-          shadow="none"
-          isBordered={false}
-          radius="lg"
-          className="bg-slate-900 text-white"
-          classNames={{
-            title: 'text-white',
-            description: 'text-slate-300',
-          }}
-        >
-          <div className="text-sm text-slate-300">适用于强调块内容。</div>
-        </Card>
+        />
 
         <div className="grid grid-cols-1 gap-3">
-          <Card title="Small" size="sm">
-            <div className="text-sm text-slate-600">size=sm</div>
+          <Card header={<div>Color: default</div>}>
+            <div>默认样式</div>
           </Card>
-          <Card title="Medium" size="md">
-            <div className="text-sm text-slate-600">size=md</div>
+          <Card color="primary" header={<div>Color: primary</div>}>
+            <div>主色样式</div>
           </Card>
-          <Card title="Large" size="lg" shadow="md">
-            <div className="text-sm text-slate-600">size=lg</div>
+          <Card color="success" header={<div>Color: success</div>}>
+            <div>成功色样式</div>
+          </Card>
+          <Card color="warning" header={<div>Color: warning</div>}>
+            <div>警告色样式</div>
+          </Card>
+        </div>
+
+        <div className="grid grid-cols-1 gap-3">
+          <Card size="sm" radius="sm" header={<div>Small</div>}>
+            <div>size=sm / radius=sm</div>
+          </Card>
+          <Card size="md" radius="md" color="secondary" header={<div>Medium</div>}>
+            <div>size=md / radius=md</div>
+          </Card>
+          <Card size="lg" radius="lg" color="danger" header={<div>Large</div>}>
+            <div>size=lg / radius=lg</div>
           </Card>
         </div>
       </div>

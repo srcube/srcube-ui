@@ -1,32 +1,13 @@
 <view class="sr-card {{$classNames.base}}" style="{{style}}">
-  <view wx:if="{{$hasHeader}}" class="sr-card__header {{$classNames.header}}">
-    <slot wx:if="{{hasHeader}}" name="header" />
-
-    <block wx:else>
-      <view wx:if="{{hasStartContent}}" class="sr-card__start {{$classNames.startContent}}">
-        <slot name="startContent" />
-      </view>
-
-      <view wx:if="{{$hasTitleSection}}" class="sr-card__header-main {{$classNames.headerMain}}">
-        <view wx:if="{{title}}" class="sr-card__title {{$classNames.title}}">{{title}}</view>
-        <view wx:if="{{description}}" class="sr-card__description {{$classNames.description}}">
-          {{description}}
-        </view>
-      </view>
-
-      <view wx:if="{{hasEndContent}}" class="sr-card__end {{$classNames.endContent}}">
-        <slot name="endContent" />
-      </view>
-    </block>
+  <view wx:if="{{hasHeader}}" class="sr-card__header {{$classNames.header}}">
+    <slot name="header" />
   </view>
-
-  <view wx:if="{{$showHeaderDivider}}" class="sr-card__divider {{$classNames.divider}}" />
 
   <view class="sr-card__body {{$classNames.body}}">
-    <slot />
+    <slot name="body">
+      <slot />
+    </slot>
   </view>
-
-  <view wx:if="{{$showFooterDivider}}" class="sr-card__divider {{$classNames.divider}}" />
 
   <view wx:if="{{hasFooter}}" class="sr-card__footer {{$classNames.footer}}">
     <slot name="footer" />

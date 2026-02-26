@@ -1,10 +1,9 @@
 # Card
 
-内容容器组件，支持标题区、内容区、底部操作区。
+内容容器组件，提供 `header / body / footer` 三段式结构。
 
 - React / Mini 双端实现
-- 支持尺寸、圆角、阴影、边框
-- Header / Footer 支持分隔线控制
+- 支持 `color`、`size`、`radius`
 
 ## 使用
 
@@ -16,14 +15,12 @@ import { Card } from '@srcube-ui/card';
 export default function Demo() {
   return (
     <Card
-      title="订单信息"
-      description="2026-02-18 10:30"
+      header={<div>订单信息</div>}
+      body={<div>订单号：A20260218001</div>}
       footer={<button>查看详情</button>}
-      isHeaderDivider
-      isFooterDivider
-    >
-      <div>订单号：A20260218001</div>
-    </Card>
+      color="primary"
+      radius="lg"
+    />
   );
 }
 ```
@@ -40,13 +37,13 @@ export default function Demo() {
 
 ```xml
 <sr-card
-  title="订单信息"
-  description="2026-02-18 10:30"
+  hasHeader="{{true}}"
   hasFooter="{{true}}"
-  isHeaderDivider="{{true}}"
-  isFooterDivider="{{true}}"
+  color="primary"
+  radius="lg"
 >
-  <view>订单号：A20260218001</view>
+  <view slot="header">订单信息</view>
+  <view slot="body">订单号：A20260218001</view>
   <view slot="footer">查看详情</view>
 </sr-card>
 ```
@@ -55,26 +52,21 @@ export default function Demo() {
 
 | Prop | 说明 | 类型 | 默认值 | 平台 |
 | --- | --- | --- | --- | --- |
-| title | 标题 | React: `ReactNode`；Mini: `string` | - | 全平台 |
-| description | 描述文案 | React: `ReactNode`；Mini: `string` | - | 全平台 |
+| color | 颜色主题 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` | 全平台 |
 | size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` | 全平台 |
 | radius | 圆角 | `"none" \| "sm" \| "md" \| "lg" \| "full"` | `"md"` | 全平台 |
-| shadow | 阴影强度 | `"none" \| "sm" \| "md" \| "lg"` | `"sm"` | 全平台 |
-| isBordered | 是否显示边框 | `boolean` | `true` | 全平台 |
-| isHeaderDivider | 标题区后是否显示分隔线 | `boolean` | `false` | 全平台 |
-| isFooterDivider | 底部区前是否显示分隔线 | `boolean` | `false` | 全平台 |
+| header | 头部内容 | `ReactNode` | - | React |
+| body | 主体内容 | `ReactNode` | - | React |
+| footer | 底部内容 | `ReactNode` | - | React |
+| hasHeader | 启用 `header` 插槽容器 | `boolean` | `false` | Mini |
+| hasFooter | 启用 `footer` 插槽容器 | `boolean` | `false` | Mini |
 | className | 根节点样式 | `string` | `""` | 全平台 |
-| classNames | slots 样式映射（`base/header/headerMain/title/description/startContent/endContent/body/footer/divider`） | React: `CardReactClassNames`；Mini: `CardMiniClassNames` | - | 全平台 |
+| classNames | slots 样式映射（`base/header/body/footer`） | React: `CardReactClassNames`；Mini: `CardMiniClassNames` | - | 全平台 |
 | style | 内联样式 | React: `CSSProperties`；Mini: `string` | - | 全平台 |
+| children / slot | 主体内容（React 作为 `body` 回退；Mini 作为默认 slot） | React: `ReactNode`；Mini: 默认 slot | - | 全平台 |
 
-## 平台差异
+## Mini Slots
 
-### React
-
-- 支持 `startContent` / `endContent` / `header` / `footer` 作为 `ReactNode`。
-- `children` 渲染在 `body` 区域。
-
-### Mini
-
-- Header / Footer 内容通过 `slot` 传入：`header`、`startContent`、`endContent`、`footer`。
-- 需显式声明 `hasHeader` / `hasFooter` / `hasStartContent` / `hasEndContent` 以渲染对应 slot 容器。
+- `header`：头部区域（需 `hasHeader=true`）
+- `body`：主体区域（可选，不传时回退默认 slot）
+- `footer`：底部区域（需 `hasFooter=true`）

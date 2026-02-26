@@ -5,25 +5,39 @@ import { Card } from '../src/react';
 
 void React;
 
-it('renders title and body content', () => {
-  render(<Card title="Card Title">Card Body</Card>);
+it('renders header body and footer', () => {
+  render(
+    <Card
+      header={<span>Card Header</span>}
+      body={<span>Card Body</span>}
+      footer={<span>Card Footer</span>}
+    />,
+  );
 
-  expect(screen.getByText('Card Title')).toBeTruthy();
+  expect(screen.getByText('Card Header')).toBeTruthy();
   expect(screen.getByText('Card Body')).toBeTruthy();
+  expect(screen.getByText('Card Footer')).toBeTruthy();
 });
 
-it('renders footer when footer prop exists', () => {
-  render(<Card footer={<span>Footer Action</span>}>Content</Card>);
+it('renders children inside body when body prop is missing', () => {
+  render(<Card>Body From Children</Card>);
 
-  expect(screen.getByText('Footer Action')).toBeTruthy();
+  expect(screen.getByText('Body From Children')).toBeTruthy();
 });
 
-it('applies divider when header divider is enabled', () => {
+it('keeps default card without border classes', () => {
+  const { container } = render(<Card>Content</Card>);
+  const root = container.firstElementChild as HTMLElement | null;
+  expect(root?.className.includes('border')).toBe(false);
+});
+
+it('applies color classes without variant', () => {
   const { container } = render(
-    <Card title="Title" isHeaderDivider>
+    <Card color="primary">
       Content
     </Card>,
   );
 
-  expect(container.querySelector('.h-px')).toBeTruthy();
+  expect(container.innerHTML).toContain('bg-primary/10');
+  expect(container.innerHTML).toContain('text-primary');
 });

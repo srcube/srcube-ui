@@ -5,18 +5,12 @@ import type { CardReactProps } from './props';
 export const Card = React.forwardRef<HTMLDivElement, CardReactProps>(
   (props, ref) => {
     const {
-      title,
-      description,
-      startContent,
-      endContent,
       header,
+      body,
       footer,
-      isHeaderDivider = false,
-      isFooterDivider = false,
+      color,
       size,
       radius,
-      shadow,
-      isBordered,
       className,
       classNames,
       style,
@@ -27,18 +21,16 @@ export const Card = React.forwardRef<HTMLDivElement, CardReactProps>(
     const slots = React.useMemo(
       () =>
         card({
+          color,
           size,
           radius,
-          shadow,
-          isBordered,
         }),
-      [isBordered, radius, shadow, size],
+      [color, radius, size],
     );
 
-    const hasDefaultHeader = Boolean(
-      title !== undefined || description !== undefined || startContent || endContent,
-    );
-    const hasHeader = Boolean(header !== undefined || hasDefaultHeader);
+    const hasHeader = header !== undefined && header !== null;
+    const resolvedBody = body ?? children;
+    const hasBody = resolvedBody !== undefined && resolvedBody !== null;
     const hasFooter = footer !== undefined && footer !== null;
 
     return (
@@ -49,46 +41,11 @@ export const Card = React.forwardRef<HTMLDivElement, CardReactProps>(
         {...rest}
       >
         {hasHeader ? (
-          <div className={slots.header({ class: classNames?.header })}>
-            {header !== undefined && header !== null ? (
-              header
-            ) : (
-              <>
-                {startContent ? (
-                  <div className={slots.startContent({ class: classNames?.startContent })}>
-                    {startContent}
-                  </div>
-                ) : null}
-
-                <div className={slots.headerMain({ class: classNames?.headerMain })}>
-                  {title !== undefined && title !== null ? (
-                    <div className={slots.title({ class: classNames?.title })}>{title}</div>
-                  ) : null}
-                  {description !== undefined && description !== null ? (
-                    <div className={slots.description({ class: classNames?.description })}>
-                      {description}
-                    </div>
-                  ) : null}
-                </div>
-
-                {endContent ? (
-                  <div className={slots.endContent({ class: classNames?.endContent })}>
-                    {endContent}
-                  </div>
-                ) : null}
-              </>
-            )}
-          </div>
+          <div className={slots.header({ class: classNames?.header })}>{header}</div>
         ) : null}
 
-        {hasHeader && isHeaderDivider ? (
-          <div className={slots.divider({ class: classNames?.divider })} />
-        ) : null}
-
-        <div className={slots.body({ class: classNames?.body })}>{children}</div>
-
-        {hasFooter && isFooterDivider ? (
-          <div className={slots.divider({ class: classNames?.divider })} />
+        {hasBody ? (
+          <div className={slots.body({ class: classNames?.body })}>{resolvedBody}</div>
         ) : null}
 
         {hasFooter ? (

@@ -6,35 +6,47 @@ import {
 
 export const card = tv({
   slots: {
-    base: 'w-full overflow-hidden bg-white',
-    header: 'flex items-start gap-3 px-4 pt-4',
-    headerMain: 'min-w-0 flex-1',
-    title: 'text-base font-semibold text-slate-900',
-    description: 'mt-1 text-sm text-slate-500',
-    startContent: 'shrink-0',
-    endContent: 'shrink-0',
-    body: 'px-4 py-4',
-    footer: 'flex items-center justify-end gap-2 px-4 pb-4',
-    divider: 'mx-4 h-px bg-slate-200',
+    base: 'w-full overflow-hidden',
+    header: 'px-4 pt-4 text-base font-semibold',
+    body: 'px-4 py-4 text-sm',
+    footer: 'px-4 pb-4 text-sm',
   },
   variants: {
+    color: {
+      default: {
+        base: 'bg-white text-slate-900',
+      },
+      primary: {
+        base: 'bg-primary/10 text-primary',
+      },
+      secondary: {
+        base: 'bg-secondary/10 text-secondary',
+      },
+      success: {
+        base: 'bg-success/10 text-success',
+      },
+      warning: {
+        base: 'bg-warning/10 text-warning',
+      },
+      danger: {
+        base: 'bg-danger/10 text-danger',
+      },
+    },
     size: {
       sm: {
-        header: 'px-3 pt-3',
-        title: 'text-sm',
-        description: 'text-xs',
-        body: 'px-3 py-3',
-        footer: 'px-3 pb-3',
-        divider: 'mx-3',
+        header: 'px-3 pt-3 text-sm',
+        body: 'px-3 py-3 text-xs',
+        footer: 'px-3 pb-3 text-xs',
       },
-      md: {},
+      md: {
+        header: 'px-4 pt-4 text-base',
+        body: 'px-4 py-4 text-sm',
+        footer: 'px-4 pb-4 text-sm',
+      },
       lg: {
-        header: 'px-5 pt-5',
-        title: 'text-lg',
-        description: 'text-sm',
-        body: 'px-5 py-5',
-        footer: 'px-5 pb-5',
-        divider: 'mx-5',
+        header: 'px-5 pt-5 text-lg',
+        body: 'px-5 py-5 text-base',
+        footer: 'px-5 pb-5 text-base',
       },
     },
     radius: {
@@ -51,35 +63,14 @@ export const card = tv({
         base: 'rounded-2xl',
       },
       full: {
-        base: 'rounded-[999px]',
+        base: 'rounded-full',
       },
-    },
-    shadow: {
-      none: {
-        base: 'shadow-none',
-      },
-      sm: {
-        base: 'shadow-sm',
-      },
-      md: {
-        base: 'shadow',
-      },
-      lg: {
-        base: 'shadow-lg',
-      },
-    },
-    isBordered: {
-      true: {
-        base: 'border border-slate-200',
-      },
-      false: {},
     },
   },
   defaultVariants: {
+    color: 'default',
     size: 'md',
     radius: 'md',
-    shadow: 'sm',
-    isBordered: true,
   },
 });
 
