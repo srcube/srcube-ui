@@ -1,0 +1,196 @@
+<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
+  <sr-navbar
+    className="sticky top-0 z-20 border-b border-slate-200"
+    title="Selectbox"
+    withBack="{{true}}"
+    hasSafeTop="{{true}}"
+  />
+
+  <view class="p-4 space-y-6">
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Controls</view>
+      <view class="mt-1 text-xs text-slate-500">
+        color + size + selectionMode + selectIcon
+      </view>
+
+      <view class="mt-3 space-y-2">
+        <sr-button-group size="sm" isBlock>
+          <sr-button
+            color="default"
+            variant="{{color === 'default' ? 'solid' : 'flat'}}"
+            data-color="default"
+            bind:tap="handleColorTap"
+          >
+            default
+          </sr-button>
+          <sr-button
+            color="{{color === 'primary' ? 'primary' : 'default'}}"
+            variant="{{color === 'primary' ? 'solid' : 'flat'}}"
+            data-color="primary"
+            bind:tap="handleColorTap"
+          >
+            primary
+          </sr-button>
+          <sr-button
+            color="{{color === 'secondary' ? 'secondary' : 'default'}}"
+            variant="{{color === 'secondary' ? 'solid' : 'flat'}}"
+            data-color="secondary"
+            bind:tap="handleColorTap"
+          >
+            secondary
+          </sr-button>
+        </sr-button-group>
+
+        <sr-button-group size="sm" isBlock>
+          <sr-button
+            color="{{color === 'success' ? 'success' : 'default'}}"
+            variant="{{color === 'success' ? 'solid' : 'flat'}}"
+            data-color="success"
+            bind:tap="handleColorTap"
+          >
+            success
+          </sr-button>
+          <sr-button
+            color="{{color === 'warning' ? 'warning' : 'default'}}"
+            variant="{{color === 'warning' ? 'solid' : 'flat'}}"
+            data-color="warning"
+            bind:tap="handleColorTap"
+          >
+            warning
+          </sr-button>
+          <sr-button
+            color="{{color === 'danger' ? 'danger' : 'default'}}"
+            variant="{{color === 'danger' ? 'solid' : 'flat'}}"
+            data-color="danger"
+            bind:tap="handleColorTap"
+          >
+            danger
+          </sr-button>
+        </sr-button-group>
+
+        <sr-button-group size="sm" isBlock>
+          <sr-button
+            color="{{size === 'sm' ? 'primary' : 'default'}}"
+            variant="{{size === 'sm' ? 'solid' : 'flat'}}"
+            data-size="sm"
+            bind:tap="handleSizeTap"
+          >
+            sm
+          </sr-button>
+          <sr-button
+            color="{{size === 'md' ? 'primary' : 'default'}}"
+            variant="{{size === 'md' ? 'solid' : 'flat'}}"
+            data-size="md"
+            bind:tap="handleSizeTap"
+          >
+            md
+          </sr-button>
+          <sr-button
+            color="{{size === 'lg' ? 'primary' : 'default'}}"
+            variant="{{size === 'lg' ? 'solid' : 'flat'}}"
+            data-size="lg"
+            bind:tap="handleSizeTap"
+          >
+            lg
+          </sr-button>
+        </sr-button-group>
+
+        <sr-button-group size="sm" isBlock>
+          <sr-button
+            color="{{mode === 'multiple' ? 'primary' : 'default'}}"
+            variant="{{mode === 'multiple' ? 'solid' : 'flat'}}"
+            data-mode="multiple"
+            bind:tap="handleModeTap"
+          >
+            multiple
+          </sr-button>
+          <sr-button
+            color="{{mode === 'single' ? 'primary' : 'default'}}"
+            variant="{{mode === 'single' ? 'solid' : 'flat'}}"
+            data-mode="single"
+            bind:tap="handleModeTap"
+          >
+            single
+          </sr-button>
+        </sr-button-group>
+
+        <sr-button-group size="sm" isBlock>
+          <sr-button
+            color="{{selectIcon ? 'primary' : 'default'}}"
+            variant="{{selectIcon ? 'solid' : 'flat'}}"
+            data-enabled="true"
+            bind:tap="handleSelectIconTap"
+          >
+            icon-on
+          </sr-button>
+          <sr-button
+            color="{{!selectIcon ? 'primary' : 'default'}}"
+            variant="{{!selectIcon ? 'solid' : 'flat'}}"
+            data-enabled="false"
+            bind:tap="handleSelectIconTap"
+          >
+            icon-off
+          </sr-button>
+        </sr-button-group>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Vertical</view>
+      <view class="mt-1 text-xs text-slate-500">
+        基于 Listbox，支持 sticky + disabled + virtual
+      </view>
+
+      <sr-selectbox
+        className="mt-3 h-80 rounded-2xl border border-slate-200"
+        color="{{color}}"
+        size="{{size}}"
+        selectionMode="{{mode}}"
+        selectIcon="{{selectIcon}}"
+        items="{{items}}"
+        value="{{value}}"
+        hasDivider="{{true}}"
+        bind:valuechange="handleValueChange"
+      />
+
+      <view class="mt-3 text-xs text-slate-500">
+        Value: {{valueText}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Horizontal</view>
+      <view class="mt-1 text-xs text-slate-500">orientation=x + single</view>
+
+      <sr-selectbox
+        className="mt-3 h-24 rounded-2xl border border-slate-200"
+        orientation="x"
+        color="{{color}}"
+        size="{{size}}"
+        selectionMode="single"
+        selectIcon="{{selectIcon}}"
+        items="{{horizontalItems}}"
+        value="{{horizontalValue}}"
+        estimateSize="120"
+        bind:valuechange="handleHorizontalValueChange"
+      />
+
+      <view class="mt-3 text-xs text-slate-500">
+        Value: {{horizontalValueText}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Empty</view>
+      <view class="mt-1 text-xs text-slate-500">locale=zh-CN</view>
+
+      <sr-selectbox
+        className="mt-3 h-32 rounded-2xl border border-slate-200"
+        size="{{size}}"
+        selectIcon="{{selectIcon}}"
+        items="{{[]}}"
+        locale="zh-CN"
+      />
+    </view>
+  </view>
+</view>
