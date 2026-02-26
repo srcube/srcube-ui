@@ -190,6 +190,14 @@ export const fieldStyle = tv({
       },
     },
     {
+      labelPlacement: 'inside',
+      isMultiline: true,
+      class: {
+        controlWrapper: 'items-start gap-2',
+        label: 'self-start pt-0.5',
+      },
+    },
+    {
       variant: ['outline', 'underline'],
       color: [
         'default',
