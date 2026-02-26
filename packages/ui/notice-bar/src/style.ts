@@ -6,12 +6,18 @@ import {
 
 export const noticeBar = tv({
   slots: {
-    base: 'flex w-full items-center gap-2 border px-3',
-    icon: 'shrink-0 text-sm',
-    content: 'min-w-0 flex-1',
-    text: 'truncate',
-    action: 'shrink-0 text-xs font-medium',
-    close: 'shrink-0 text-xs opacity-70 transition-opacity duration-150 hover:opacity-100',
+    base: 'flex w-full items-center gap-2 border px-3 leading-none',
+    icon: 'inline-flex shrink-0 items-center text-sm leading-none',
+    content: 'flex h-full min-w-0 flex-1 items-center overflow-hidden',
+    ticker: 'relative flex h-full w-full items-center overflow-hidden',
+    line: 'flex h-full min-w-full items-center leading-none',
+    lineAnimated: 'animate-notice-bar-switch-down',
+    text: 'inline-flex items-center whitespace-nowrap leading-[1.2]',
+    textMarquee: 'animate-notice-bar-marquee',
+    action: 'inline-flex shrink-0 items-center text-xs font-medium leading-none',
+    close:
+      'inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full opacity-70 transition-opacity duration-150 hover:opacity-100',
+    closeIcon: 'icon-close text-sm leading-none',
   },
   variants: {
     color: {
@@ -35,16 +41,22 @@ export const noticeBar = tv({
       sm: {
         base: 'h-8 px-2.5 text-xs rounded-lg',
         icon: 'text-xs',
+        close: 'h-5 w-5',
+        closeIcon: 'text-xs',
         action: 'text-[11px]',
       },
       md: {
         base: 'h-10 px-3 text-sm rounded-xl',
         icon: 'text-sm',
+        close: 'h-6 w-6',
+        closeIcon: 'text-sm',
         action: 'text-xs',
       },
       lg: {
         base: 'h-12 px-4 text-base rounded-2xl',
         icon: 'text-base',
+        close: 'h-7 w-7',
+        closeIcon: 'text-base',
         action: 'text-sm',
       },
     },

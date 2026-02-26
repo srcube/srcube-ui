@@ -6,6 +6,8 @@ import { noticeBarMiniProps } from '../src/mini/props';
 
 it('contains close handler in template', () => {
   expect(template).toContain('bindtap="handleCloseTap"');
+  expect(template).toContain('_switchToken');
+  expect(template).toContain('$classNames.closeIcon');
 });
 
 it('accepts text in mini render data', () => {
@@ -27,4 +29,8 @@ it('accepts text in mini render data', () => {
 
 it('uses false as default isClosable value', () => {
   expect(noticeBarMiniProps.isClosable.value).toBe(false);
+});
+
+it('uses false as default isAutoPlay value', () => {
+  expect(noticeBarMiniProps.isAutoPlay.value).toBe(false);
 });

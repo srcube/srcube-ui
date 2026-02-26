@@ -106,6 +106,30 @@
   }
 }
 
+@keyframes action-sheet-in {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes action-sheet-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
 @keyframes dialog-in {
   0% {
     opacity: 0;
@@ -294,6 +318,52 @@
   }
 }
 
+@keyframes collapse-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes collapse-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes notice-bar-switch-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-40%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes notice-bar-marquee {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 @utility animate-blink-caret {
   animation: blink-caret var(--caret-blink-duration, 0.8s) steps(1, start)
     var(--caret-blink-delay, 0s) infinite both;
@@ -334,6 +404,20 @@
     var(--default-animation-dely, 0s) both;
 }
 
+@utility animate-notice-bar-switch-down {
+  animation: notice-bar-switch-down
+    var(--notice-switch-duration, var(--default-animation-duration, 0.28s))
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-notice-bar-marquee {
+  animation: notice-bar-marquee
+    var(--notice-marquee-duration, 6s)
+    linear
+    var(--default-animation-dely, 0s) infinite;
+}
+
 @utility animate-drawer-from-top-out {
   animation: drawer-from-top-out
     var(--default-animation-duration, 0.3s)
@@ -350,6 +434,20 @@
 
 @utility animate-drawer-from-bottom-out {
   animation: drawer-from-bottom-out
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-action-sheet-in {
+  animation: action-sheet-in
+    var(--default-animation-duration, 0.3s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-action-sheet-out {
+  animation: action-sheet-out
     var(--default-animation-duration, 0.3s)
     var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
     var(--default-animation-dely, 0s) both;
@@ -448,5 +546,17 @@
 @utility animate-slide-out-to-bottom {
   animation: slide-out-to-bottom var(--default-animation-duration, 0.3s)
     var(--default-animation-timing-function, ease-in)
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-collapse-down {
+  animation: collapse-down var(--collapse-animation-duration, 0.2s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
+    var(--default-animation-dely, 0s) both;
+}
+
+@utility animate-collapse-up {
+  animation: collapse-up var(--collapse-animation-duration, 0.18s)
+    var(--default-animation-timing-function, cubic-bezier(0.4, 0, 0.2, 1))
     var(--default-animation-dely, 0s) both;
 }

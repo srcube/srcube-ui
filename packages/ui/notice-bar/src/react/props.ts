@@ -9,9 +9,15 @@ type NoticeBarNativeProps = Omit<
 export type NoticeBarReactProps = NoticeBarVariants &
   NoticeBarNativeProps & {
     text?: React.ReactNode;
+    items?: string[];
     icon?: React.ReactNode;
     action?: React.ReactNode;
     isClosable?: boolean;
+    isAutoPlay?: boolean;
+    isMarquee?: boolean;
+    switchInterval?: number;
+    switchDuration?: number;
+    marqueeDuration?: number;
     isVisible?: boolean;
     defaultVisible?: boolean;
     className?: string;

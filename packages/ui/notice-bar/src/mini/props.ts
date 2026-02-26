@@ -5,9 +5,15 @@ import type {
 
 export type NoticeBarMiniProps = NoticeBarVariants & {
   text?: string;
+  items?: string[];
   icon?: string;
   actionText?: string;
   isClosable?: boolean;
+  isAutoPlay?: boolean;
+  isMarquee?: boolean;
+  switchInterval?: number;
+  switchDuration?: number;
+  marqueeDuration?: number;
   isVisible?: boolean;
   defaultVisible?: boolean;
   className?: string;
@@ -17,9 +23,15 @@ export type NoticeBarMiniProps = NoticeBarVariants & {
 
 export const noticeBarMiniProps = {
   text: { type: String, value: '' },
+  items: { type: Array, value: [] },
   icon: { type: String, value: '' },
   actionText: { type: String, value: '' },
   isClosable: { type: Boolean, value: false },
+  isAutoPlay: { type: Boolean, value: false },
+  isMarquee: { type: Boolean, value: false },
+  switchInterval: { type: Number, value: 3000 },
+  switchDuration: { type: Number, value: 280 },
+  marqueeDuration: { type: Number, value: 6000 },
   isVisible: { type: Boolean, value: true },
   defaultVisible: { type: Boolean, value: true },
   color: { type: null, value: 'default' },

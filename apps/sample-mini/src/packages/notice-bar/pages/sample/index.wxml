@@ -1,9 +1,10 @@
 <view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
-  <view class="sticky top-0 z-20 bg-white border-b border-slate-200">
-    <view class="p-4">
-      <view class="text-lg font-semibold">Notice Bar</view>
-    </view>
-  </view>
+  <sr-navbar
+    className="sticky top-0 z-20 border-b border-slate-200"
+    title="Notice Bar"
+    withBack="{{true}}"
+    hasSafeTop="{{true}}"
+  />
 
   <view class="p-4 space-y-6">
     <view class="rounded-2xl bg-white p-4 shadow-sm">
@@ -21,6 +22,58 @@
         <view><sr-notice-bar color="success" text="成功提示" /></view>
         <view><sr-notice-bar color="warning" text="警告提示" /></view>
         <view><sr-notice-bar color="danger" text="危险提示" /></view>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Auto Switch / Marquee</view>
+      <view class="mt-3 space-y-2">
+        <view>
+          <sr-notice-bar
+            icon="!"
+            items="{{noticeItems}}"
+            isAutoPlay="{{true}}"
+            switchInterval="{{switchInterval}}"
+            marqueeDuration="{{marqueeDuration}}"
+          />
+        </view>
+        <view>
+          <sr-notice-bar
+            color="info"
+            text="这是一条超长文案示例，用于展示从右向左移动的文字轮播动画。"
+            isMarquee="{{true}}"
+            marqueeDuration="{{marqueeDuration}}"
+          />
+        </view>
+      </view>
+      <view class="mt-3 space-y-2">
+        <view class="text-xs text-slate-500">切换间隔（switchInterval）</view>
+        <sr-button-group size="sm" isBlock>
+          <block wx:for="{{switchIntervalOptions}}" wx:for-item="option" wx:key="value">
+            <sr-button
+              color="{{switchInterval === option.value ? 'primary' : 'default'}}"
+              variant="{{switchInterval === option.value ? 'solid' : 'flat'}}"
+              data-value="{{option.value}}"
+              bind:tap="handleSwitchIntervalTap"
+            >
+              {{option.label}}
+            </sr-button>
+          </block>
+        </sr-button-group>
+
+        <view class="text-xs text-slate-500">文字滚动时长（marqueeDuration）</view>
+        <sr-button-group size="sm" isBlock>
+          <block wx:for="{{marqueeDurationOptions}}" wx:for-item="option" wx:key="value">
+            <sr-button
+              color="{{marqueeDuration === option.value ? 'primary' : 'default'}}"
+              variant="{{marqueeDuration === option.value ? 'solid' : 'flat'}}"
+              data-value="{{option.value}}"
+              bind:tap="handleMarqueeDurationTap"
+            >
+              {{option.label}}
+            </sr-button>
+          </block>
+        </sr-button-group>
       </view>
     </view>
 
