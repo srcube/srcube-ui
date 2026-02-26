@@ -1,0 +1,25 @@
+<view
+  wx:if="{{isVisible}}"
+  class="sr-popup__root {{$classNames.rootPortal}} {{className}}"
+  style="{{style}}"
+>
+  <view
+    wx:if="{{hasBackdrop}}"
+    class="sr-popup__backdrop {{$classNames.backdrop}}"
+    bindtap="handleBackdropTap"
+    catchtouchmove="handleTouchMoveCapture"
+  />
+  <view class="sr-popup__content {{$classNames.content}}">
+    <view class="sr-popup__header {{$classNames.header}}">
+      <slot name="header" />
+    </view>
+    <view class="sr-popup__body {{$classNames.body}}">
+      <slot name="body">
+        <slot />
+      </slot>
+    </view>
+    <view class="sr-popup__footer {{$classNames.footer}}">
+      <slot name="footer" />
+    </view>
+  </view>
+</view>

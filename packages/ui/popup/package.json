@@ -1,0 +1,45 @@
+{
+  "name": "@srcube-ui/popup",
+  "version": "0.0.0",
+  "type": "module",
+  "miniprogram": "dist/mini",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "test": "pnpm -w vitest run --config vitest.config.ts --dir packages/ui/popup"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/style.js"
+    },
+    "./mini": {
+      "types": "./dist/mini/index.d.ts",
+      "import": "./dist/mini/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    }
+  },
+  "devDependencies": {
+    "@srcube-ui/config": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-aria-components": "catalog:"
+  },
+  "peerDependencies": {
+    "@srcube-ui/theme": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-aria-components": "catalog:",
+    "@srcube-ui/runtime": "workspace:*"
+  }
+}
