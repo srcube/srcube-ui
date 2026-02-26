@@ -40,8 +40,10 @@ export function Demo() {
 | --- | --- | --- | --- |
 | items | 步骤数据 | `StepsItem[]` | `[]` |
 | current | 当前步骤索引 | `number` | `0` |
-| direction | 布局方向 | `'horizontal' | 'vertical'` | `'horizontal'` |
+| orientation | 布局方向 | `'x' | 'y'` | `'x'` |
 | size | 尺寸 | `'sm' | 'md' | 'lg'` | `'md'` |
+| color | 主题色 | `'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'` | `'primary'` |
+| variant | 样式变体（与 Button 对齐，含 `twotone`） | `'solid' | 'outline' | 'flat' | 'text' | 'twotone'` | `'solid'` |
 | isDot | 是否使用点状步骤 | `boolean` | `false` |
 | className | 根节点类名 | `string` | `''` |
 | classNames | 槽位类名覆盖 | `Partial<StepsClassNames>` | `{}` |
@@ -57,6 +59,8 @@ export function Demo() {
 | icon | 自定义图标 | `ReactNode / string` | `''` |
 | status | 步骤状态（不传时按 `current` 自动推导） | `'wait' | 'process' | 'finish' | 'error'` | `auto` |
 
+> 默认图标：`finish` 使用 `icon-steps-success`，`error` 使用 `icon-steps-error`（theme icons）。
+
 ### Slots
 
 - `base`
@@ -64,7 +68,12 @@ export function Demo() {
 - `item`
 - `indicatorWrap`
 - `indicator`
+- `indicatorIcon`
+- `indicatorText`
 - `line`
+- `lineStart`
+- `lineEnd`
 - `content`
+- `titleSpacer`
 - `title`
 - `description`

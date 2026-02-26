@@ -6,13 +6,21 @@ type StepsMiniRenderItem = {
   key: string;
   title: string;
   description: string;
+  hasDescription: boolean;
+  topSpacerText: string;
+  bottomSpacerText: string;
   iconText: string;
+  isStatusIcon: boolean;
   classes: {
     item: string;
     indicatorWrap: string;
     indicator: string;
-    line: string;
+    indicatorIcon: string;
+    indicatorText: string;
+    lineStart: string;
+    lineEnd: string;
     content: string;
+    titleSpacer: string;
     title: string;
     description: string;
   };
@@ -57,17 +65,9 @@ function resolveStatus(item: StepsMiniItem, index: number, current: number): Ste
   return 'wait';
 }
 
-function resolveIconText(item: StepsMiniItem, status: StepStatus, index: number) {
+function resolveIconText(item: StepsMiniItem, index: number) {
   if (item.icon) {
     return item.icon;
-  }
-
-  if (status === 'finish') {
-    return '✓';
-  }
-
-  if (status === 'error') {
-    return '!';
   }
 
   return String(index + 1);
@@ -84,8 +84,10 @@ UIComponent({
   computed: {
     $classNames(data: StepsMiniProps) {
       const slots = stepsStyle({
-        direction: data.direction,
+        orientation: data.orientation,
         size: data.size,
+        color: data.color,
+        variant: data.variant,
         isDot: Boolean(data.isDot),
       });
       const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
@@ -101,33 +103,56 @@ UIComponent({
       const current = Number.isFinite(Number(data.current))
         ? Number(data.current)
         : 0;
-      const direction = data.direction;
       const size = data.size;
+      const color = data.color;
+      const variant = data.variant;
       const isDot = Boolean(data.isDot);
       const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
 
       return items.map((rawItem, index) => {
         const item = normalizeItem(rawItem, index);
+        const description = String(item.description ?? '');
+        const hasDescription = description.length > 0;
         const status = resolveStatus(item, index, current);
+        const isStatusIcon =
+          !isDot &&
+          !item.icon &&
+          (status === 'finish' || status === 'error');
+        const iconText = isDot || isStatusIcon ? '' : resolveIconText(item, index);
         const slots = stepsStyle({
-          direction,
+          orientation: data.orientation,
           size,
+          color,
+          variant,
           isDot,
           status,
           isLast: index === items.length - 1,
+          isFirst: index === 0,
         });
 
         return {
           key: String(item.key ?? index),
           title: String(item.title ?? ''),
-          description: String(item.description ?? ''),
-          iconText: isDot ? '' : resolveIconText(item, status, index),
+          description,
+          hasDescription,
+          topSpacerText: hasDescription ? description : 'placeholder',
+          bottomSpacerText: 'placeholder',
+          iconText,
+          isStatusIcon,
           classes: {
             item: slots.item({ class: custom.item }),
             indicatorWrap: slots.indicatorWrap({ class: custom.indicatorWrap }),
             indicator: slots.indicator({ class: custom.indicator }),
-            line: slots.line({ class: custom.line }),
+            indicatorIcon: slots.indicatorIcon({ class: custom.indicatorIcon }),
+            indicatorText: slots.indicatorText({ class: custom.indicatorText }),
+            lineStart: slots.lineStart({
+              class: [custom.line, custom.lineStart],
+            }),
+            lineEnd: slots.lineEnd({
+              class: [custom.line, custom.lineEnd],
+            }),
             content: slots.content({ class: custom.content }),
+            titleSpacer: slots.titleSpacer({ class: custom.titleSpacer }),
             title: slots.title({ class: custom.title }),
             description: slots.description({ class: custom.description }),
           },

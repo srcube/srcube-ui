@@ -3,20 +3,36 @@
     <block wx:for="{{$renderItems}}" wx:key="key" wx:for-item="item">
       <view class="sr-steps__item {{item.classes.item}}">
         <view class="sr-steps__indicator-wrap {{item.classes.indicatorWrap}}">
-          <text class="sr-steps__indicator {{item.classes.indicator}}">
-            {{item.iconText}}
-          </text>
-          <view class="sr-steps__line {{item.classes.line}}" />
+          <view class="sr-steps__line-start {{item.classes.lineStart}}" />
+          <view class="sr-steps__line-end {{item.classes.lineEnd}}" />
+          <view class="sr-steps__indicator {{item.classes.indicator}}">
+            <view
+              wx:if="{{item.isStatusIcon}}"
+              class="{{item.classes.indicatorIcon}}"
+            />
+            <text wx:elif="{{item.iconText}}" class="{{item.classes.indicatorText}}">{{item.iconText}}</text>
+          </view>
         </view>
 
         <view class="sr-steps__content {{item.classes.content}}">
-          <text class="sr-steps__title {{item.classes.title}}">{{item.title}}</text>
-          <text
-            wx:if="{{item.description}}"
+          <view
+            class="sr-steps__title-spacer {{item.classes.titleSpacer}}"
+          >
+            {{item.topSpacerText}}
+          </view>
+          <view class="sr-steps__title {{item.classes.title}}">{{item.title}}</view>
+          <view
+            wx:if="{{item.hasDescription}}"
             class="sr-steps__description {{item.classes.description}}"
           >
             {{item.description}}
-          </text>
+          </view>
+          <view
+            wx:else
+            class="sr-steps__title-spacer {{item.classes.titleSpacer}}"
+          >
+            {{item.bottomSpacerText}}
+          </view>
         </view>
       </view>
     </block>

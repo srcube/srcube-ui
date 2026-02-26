@@ -1,38 +1,26 @@
-import * as React from 'react';
-import type { StepStatus } from '../style';
-import { stepsStyle } from '../style';
-import type { StepsItem, StepsReactProps } from './props';
+import * as React from "react";
+import type { StepStatus } from "../style";
+import { stepsStyle } from "../style";
+import type { StepsItem, StepsReactProps } from "./props";
 
-function resolveStatus(item: StepsItem, index: number, current: number): StepStatus {
+function resolveStatus(
+  item: StepsItem,
+  index: number,
+  current: number,
+): StepStatus {
   if (item.status) {
     return item.status;
   }
 
   if (index < current) {
-    return 'finish';
+    return "finish";
   }
 
   if (index === current) {
-    return 'process';
+    return "process";
   }
 
-  return 'wait';
-}
-
-function resolveIcon(item: StepsItem, status: StepStatus, index: number) {
-  if (item.icon !== undefined && item.icon !== null) {
-    return item.icon;
-  }
-
-  if (status === 'finish') {
-    return '✓';
-  }
-
-  if (status === 'error') {
-    return '!';
-  }
-
-  return index + 1;
+  return "wait";
 }
 
 export const Steps = React.forwardRef<HTMLDivElement, StepsReactProps>(
@@ -40,23 +28,28 @@ export const Steps = React.forwardRef<HTMLDivElement, StepsReactProps>(
     const {
       items = [],
       current = 0,
-      direction,
+      orientation,
       size,
+      color,
+      variant,
       isDot = false,
       className,
       classNames,
       style,
       ...rest
     } = props;
+    const resolvedOrientation = orientation;
 
     const rootSlots = React.useMemo(
       () =>
         stepsStyle({
-          direction,
+          orientation: resolvedOrientation,
           size,
+          color,
+          variant,
           isDot,
         }),
-      [direction, isDot, size],
+      [color, isDot, resolvedOrientation, size, variant],
     );
 
     return (
@@ -69,12 +62,21 @@ export const Steps = React.forwardRef<HTMLDivElement, StepsReactProps>(
         <ol className={rootSlots.list({ class: classNames?.list })}>
           {items.map((item, index) => {
             const status = resolveStatus(item, index, current);
+            const indicatorNumber = index + 1;
+            const hasDescription =
+              item.description !== undefined &&
+              item.description !== null &&
+              item.description !== "";
+            const placeholderText = "placeholder";
             const slots = stepsStyle({
-              direction,
+              orientation: resolvedOrientation,
               size,
+              color,
+              variant,
               isDot,
               status,
               isLast: index === items.length - 1,
+              isFirst: index === 0,
             });
 
             return (
@@ -88,24 +90,78 @@ export const Steps = React.forwardRef<HTMLDivElement, StepsReactProps>(
                   })}
                 >
                   <span
-                    className={slots.indicator({ class: classNames?.indicator })}
+                    className={slots.lineStart({
+                      class: [classNames?.line, classNames?.lineStart],
+                    })}
+                  />
+                  <span
+                    className={slots.indicator({
+                      class: classNames?.indicator,
+                    })}
                   >
-                    {isDot ? null : resolveIcon(item, status, index)}
+                    {isDot ? null : item.icon !== undefined &&
+                      item.icon !== null ? (
+                      <span
+                        className={slots.indicatorText({
+                          class: classNames?.indicatorText,
+                        })}
+                      >
+                        {item.icon}
+                      </span>
+                    ) : status === "finish" || status === "error" ? (
+                      <span
+                        aria-hidden
+                        className={slots.indicatorIcon({
+                          class: classNames?.indicatorIcon,
+                        })}
+                      />
+                    ) : (
+                      <span
+                        className={slots.indicatorText({
+                          class: classNames?.indicatorText,
+                        })}
+                      >
+                        {indicatorNumber}
+                      </span>
+                    )}
                   </span>
-                  <span className={slots.line({ class: classNames?.line })} />
+                  <span
+                    className={slots.lineEnd({
+                      class: [classNames?.line, classNames?.lineEnd],
+                    })}
+                  />
                 </div>
 
                 <div className={slots.content({ class: classNames?.content })}>
+                  <div
+                    aria-hidden
+                    className={slots.titleSpacer({
+                      class: classNames?.titleSpacer,
+                    })}
+                  >
+                    {hasDescription ? item.description : placeholderText}
+                  </div>
                   <div className={slots.title({ class: classNames?.title })}>
                     {item.title}
                   </div>
-                  {item.description ? (
+                  {hasDescription ? (
                     <div
-                      className={slots.description({ class: classNames?.description })}
+                      className={slots.description({
+                        class: classNames?.description,
+                      })}
                     >
                       {item.description}
                     </div>
-                  ) : null}
+                  ) : (
+                    <div
+                      aria-hidden
+                      className={slots.titleSpacer({
+                        class: classNames?.titleSpacer,
+                      })}
+                    >
+                      {placeholderText}
+                    </div>
+                  )}
                 </div>
               </li>
             );
@@ -116,4 +172,4 @@ export const Steps = React.forwardRef<HTMLDivElement, StepsReactProps>(
   },
 );
 
-Steps.displayName = 'Srcube.Steps';
+Steps.displayName = "Srcube.Steps";

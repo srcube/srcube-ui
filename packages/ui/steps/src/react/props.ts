@@ -9,15 +9,21 @@ export type StepsItem = {
   status?: StepStatus;
 };
 
+export type StepsOrientation = 'x' | 'y';
+
 type StepsNativeProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
-  'className' | 'style' | keyof StepsVariants
+  'className' | 'style' | keyof StepsVariants | 'orientation'
 >;
 
-export type StepsReactProps = Omit<StepsVariants, 'status' | 'isLast'> &
+export type StepsReactProps = Omit<
+  StepsVariants,
+  'status' | 'isLast' | 'isFirst' | 'orientation'
+> &
   StepsNativeProps & {
     items?: StepsItem[];
     current?: number;
+    orientation?: StepsOrientation;
     className?: string;
     classNames?: Partial<StepsClassNames>;
     style?: React.CSSProperties;

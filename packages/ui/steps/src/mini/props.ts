@@ -8,10 +8,14 @@ export type StepsMiniItem = {
   status?: StepStatus;
 };
 
-export type StepsMiniProps = Omit<StepsVariants, 'status' | 'isLast'> & {
+export type StepsMiniProps = Omit<
+  StepsVariants,
+  'status' | 'isLast' | 'isFirst' | 'orientation'
+> & {
   id?: string;
   items?: StepsMiniItem[];
   current?: number;
+  orientation?: 'x' | 'y';
   className?: string;
   classNames?: Partial<StepsMiniClassNames>;
   style?: string;
@@ -30,13 +34,21 @@ export const stepsMiniProps = {
     type: Number,
     value: 0,
   },
-  direction: {
+  orientation: {
     type: null,
-    value: 'horizontal',
+    value: 'x',
   },
   size: {
     type: null,
     value: 'md',
+  },
+  color: {
+    type: null,
+    value: 'primary',
+  },
+  variant: {
+    type: null,
+    value: 'solid',
   },
   isDot: {
     type: Boolean,

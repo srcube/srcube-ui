@@ -22,7 +22,7 @@ it('renders step titles', () => {
 });
 
 it('resolves current step status with finish icon', () => {
-  render(
+  const { container } = render(
     <Steps
       current={1}
       items={[
@@ -32,7 +32,7 @@ it('resolves current step status with finish icon', () => {
     />,
   );
 
-  expect(screen.getByText('✓')).toBeTruthy();
+  expect(container.querySelector('.icon-steps-success')).toBeTruthy();
   expect(screen.getByText('2')).toBeTruthy();
 });
 
@@ -49,4 +49,53 @@ it('supports dot mode', () => {
 
   expect(screen.getByText('Dot A')).toBeTruthy();
   expect(screen.queryByText('1')).toBeNull();
+});
+
+it('supports color and variant', () => {
+  const { container } = render(
+    <Steps
+      current={0}
+      color="warning"
+      variant="outline"
+      items={[
+        { title: 'Warn A' },
+        { title: 'Warn B' },
+      ]}
+    />,
+  );
+
+  const indicator = container.querySelector('.border-warning');
+  expect(indicator?.className).toContain('border-warning');
+});
+
+it('supports twotone variant', () => {
+  const { container } = render(
+    <Steps
+      current={0}
+      color="success"
+      variant="twotone"
+      items={[
+        { title: 'Tone A' },
+        { title: 'Tone B' },
+      ]}
+    />,
+  );
+
+  const indicator = container.querySelector('.bg-success-100');
+  expect(indicator?.className).toContain('bg-success-100');
+});
+
+it('supports orientation y', () => {
+  render(
+    <Steps
+      orientation="y"
+      items={[
+        { title: 'Vertical A' },
+        { title: 'Vertical B' },
+      ]}
+    />,
+  );
+
+  const list = screen.getByText('Vertical A').closest('ol');
+  expect(list?.className).toContain('flex-col');
 });
