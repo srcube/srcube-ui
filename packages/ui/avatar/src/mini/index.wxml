@@ -1,6 +1,6 @@
 <sr-skeleton
   className="sr-avatar {{$classNames.base}}"
-  classNames="{{$skeletonClassNames}}"
+  classNames="{{$skeletonClassNames || classNames}}"
   style="{{style}}"
   radius="{{radius}}"
   isLoaded="{{!$isLoading}}"

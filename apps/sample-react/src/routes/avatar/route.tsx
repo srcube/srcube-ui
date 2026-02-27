@@ -1,5 +1,6 @@
 import { Avatar } from '@srcube-ui/avatar';
 import { createFileRoute } from '@tanstack/react-router';
+import PageHeader from '@/components/page-header';
 
 export const Route = createFileRoute('/avatar')({
   component: AvatarDemo,
@@ -12,9 +13,7 @@ function Card({ children }: { children: React.ReactNode }) {
 function AvatarDemo() {
   return (
     <main className="min-h-screen bg-slate-100 pb-16 text-slate-900">
-      <div className="sticky top-0 z-20 border-b border-slate-200 bg-white px-4 py-4">
-        <div className="text-lg font-semibold">Avatar</div>
-      </div>
+      <PageHeader title="Avatar" />
 
       <div className="space-y-6 p-4">
         <Card>
@@ -23,6 +22,7 @@ function AvatarDemo() {
             <Avatar name="Srcube User" />
             <Avatar name="Taylor Swift" color="primary" />
             <Avatar icon="?" color="warning" />
+            <Avatar src="/sample-avatar.png" fallback="FB" color="danger" />
           </div>
         </Card>
 

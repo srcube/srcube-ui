@@ -12,6 +12,7 @@ it('contains image error handler in template', () => {
   expect(template).toContain('bindload="handleImageLoad"');
   expect(template).toContain('<sr-skeleton');
   expect(template).toContain('radius="{{radius}}"');
+  expect(template).toContain('classNames="{{$skeletonClassNames || classNames}}"');
 });
 
 it('accepts name in mini render data', () => {

@@ -1,9 +1,10 @@
 <view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
-  <view class="sticky top-0 z-20 bg-white border-b border-slate-200">
-    <view class="p-4">
-      <view class="text-lg font-semibold">Avatar</view>
-    </view>
-  </view>
+  <sr-navbar
+    className="sticky top-0 z-20 border-b border-slate-200"
+    title="Avatar"
+    withBack="{{true}}"
+    hasSafeTop="{{true}}"
+  />
 
   <view class="p-4 space-y-6">
     <view class="rounded-2xl bg-white p-4 shadow-sm">
@@ -12,6 +13,7 @@
         <sr-avatar name="Srcube User" />
         <sr-avatar name="Taylor Swift" color="primary" />
         <sr-avatar icon="?" color="warning" />
+        <sr-avatar src="/sample-avatar.png" fallback="FB" color="danger" />
       </view>
     </view>
 

@@ -35,7 +35,7 @@ UIComponent({
   data: {
     _hasError: false,
     _isImageLoaded: false,
-  } satisfies AvatarMiniState,
+  } as AvatarMiniState,
 
   observers: {
     src() {
@@ -68,7 +68,8 @@ UIComponent({
     $isLoading(data: AvatarMiniData) {
       return Boolean(data.src) && !data._hasError && !data._isImageLoaded;
     },
-    $skeletonClassNames() {
+    $skeletonClassNames(data: AvatarMiniData) {
+      void data;
       return {
         // Force slot content to fill avatar box in mini program layout.
         content: 'absolute inset-0 h-full w-full flex items-center justify-center',
