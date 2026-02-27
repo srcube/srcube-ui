@@ -1,87 +1,117 @@
-# 组件模板
+# UI 组件模板（_template）
 
-用于创建 `packages/ui/<component>` 的基础模板，遵循移动端组件库的架构约束：双端独立实现、API 语义一致、仅共享样式 tokens/variants。
+`packages/ui/_template` 是创建新组件的起始模板，用于保证 React / Mini 双端结构统一、规则一致。
+
+## 模板约定
+
+- 单组件包多端实现：同包内包含 `style + react + mini`
+- 双端逻辑独立：不共享逻辑与 props 类型
+- 仅共享样式 tokens/variants：统一放在 `style.ts`
+- API 语义一致：以组件 README 的 API 表为唯一真相
+- Boolean props 命名必须是 `is/has/should/can`
+- 实现层避免直接写 Tailwind 类，统一通过 `style.ts` + slots 输出
+- RAC 仅用于交互型组件（Button/Toggle/Slider 等）
+- Mini props 仅保留必要原生字段，其他按组件场景扩展
 
 ## 目录结构
 
-```
+```txt
 src/
-  style.ts        # 仅样式：variants/tokens
-  react/          # React Web 实现
+  style.ts        # 样式定义：tokens / slots / variants
+  locale.ts       # 可选：仅国际化组件需要（如 listbox/src/locale.ts）
+  react/          # React 实现
   mini/           # 小程序实现
+  index.ts        # 导出入口
+__tests__/
+  react.test.tsx  # React 基础渲染与交互测试
+  mini.test.ts    # Mini 模板/props/事件基础测试
 ```
 
-> 提供 `src/index.ts` 作为默认入口，直接 re-export React 组件与 style。
+`locale.ts` 只放 locale type / 文案映射 / 默认 locale，不放平台逻辑。
 
-## API 约定（语义一致）
+## 单元测试（__tests__）
 
-- **props 语义一致**：同名 prop 表达相同含义（允许形态不同）。
-- **Boolean 命名**：必须以 `is/has/should/can` 开头。
-- **样式共享**：仅 `style.ts` 共享，逻辑不共享。
-- **样式规则**：实现层避免直接写 Tailwind 类，统一通过 `style.ts` + slots 输出。
-
-## API 同步规约（必须遵守）
-
-- 组件 README 的 **API 表** 是唯一真相。
-- React 与 Mini 的 API 字段、默认值、语义必须一一对应。
-- 任一端新增/修改 API，必须同步更新另一端与 README。
-
-## 平台差异说明（必须写入组件 README）
-
-### React 端
-- **使用 RAC 组件时**，`className` 支持函数式写法：
-  - `className?: string | ((state) => string)`
-  - `state` 为 RAC 提供的 `isPressed/isHovered/...` 等状态
-- **不使用 RAC 时**，`className` 只能是 `string`
-- **RAC 使用边界**：仅交互型组件（Button/Toggle/Slider 等）使用 RAC；展示型组件默认不用 RAC
-
-### Mini 端
-- `className` 仅支持 `string`
-- `props` 直接用于 `properties`，必须包含原生属性
-- **原生属性策略**：仅保留必要字段，其它按组件场景扩展
-
-## 默认 props（模板内置）
-
-### 通用
-- `classNames?: VariantClasses`（slot 样式映射）
-- variants（来自 `style.ts`）
-
-### React
-- `className`（RAC 时可函数）
-- `style`（React CSSProperties）
-
-### Mini
-- `id?: string`
-- `className?: string`
-- `style?: string`
-- `isDisabled?: boolean`
-
-## 实现提示（React）
-
-- 模板默认不使用 RAC，直接使用普通 DOM 元素
-- 若需要 RAC：通过 `composeTwRenderProps` 合并 `className` + variants（参考 HeroUI v3 的合成方式）
-
-示例（RAC）：
-
-```ts
-import { composeTwRenderProps } from "@srcube-ui/runtime/react";
-import { Button as AriaButton } from "react-aria-components";
-
-const styles = button({ variant: "solid" });
-
-<AriaButton
-  className={composeTwRenderProps(className, styles)}
->
-  {children}
-</AriaButton>
-```
+- 每个组件包默认包含 `__tests__/react.test.tsx` 与 `__tests__/mini.test.ts`
+- React 测试建议覆盖：渲染、核心 props、生效 class、关键交互回调
+- Mini 测试建议覆盖：模板关键节点、默认 props、事件触发、基础数据绑定
+- 测试命名保持稳定语义（描述行为，不描述实现细节）
+- 执行命令：`pnpm -C packages/ui/<component> test`
 
 ## 创建流程
 
-1. 复制模板到 `packages/ui/<component>`
-2. 修改 `package.json` 的 name/exports
-3. 替换 `Component*` 命名
-4. 先实现 `style.ts`（variants/tokens）
-5. 再实现 `react/*`（按需使用 RAC）
-6. 最后实现 `mini/*`（补全 properties）
-7. 在组件 README 中补充 **平台差异说明** 与 API 表
+1. 复制 `_template` 到 `packages/ui/<component>`
+2. 修改 `package.json`（`name` / `exports` / `types` / `miniprogram`）
+3. 替换 `Component*` 命名为实际组件名
+4. 实现 `src/style.ts`
+5. 实现 `src/react/*`
+6. 实现 `src/mini/*`
+7. 完成组件 README（使用下方模板）
+8. 若有国际化，再新增 `src/locale.ts` 并在双端复用
+
+## 组件 README 模板
+
+每个组件 README 建议使用下面结构（复制后替换占位符即可）：
+
+~~~md
+# <ComponentName>
+
+<一行组件定位说明，支持 React / Mini 双端>
+
+## 使用
+
+### React
+
+```tsx
+import { <ComponentName> } from '@srcube-ui/<component>';
+
+<<ComponentName> ... />
+```
+
+### Mini
+
+```json
+{
+  "usingComponents": {
+    "sr-<component>": "@srcube-ui/<component>/index"
+  }
+}
+```
+
+```xml
+<sr-<component> ... />
+```
+
+## API
+
+| Prop | 说明 | 类型 | 默认值 | 平台 |
+| --- | --- | --- | --- | --- |
+| ... | ... | ... | ... | 全平台 / React / Mini |
+
+> 约束：API 表是唯一真相。React/Mini 必须一一对应（字段、默认值、语义）。
+
+## Slots（仅在需要时）
+
+### React
+
+- `...`
+
+### Mini
+
+- `...`
+
+## 平台差异
+
+- React：<差异说明>
+- Mini：<差异说明>
+
+## 备注（可选）
+
+- 可补充交互细节、受控/非受控说明、无障碍说明等。
+~~~
+
+### README 编写检查清单
+
+- API 表是否覆盖了所有公开 props/事件
+- React/Mini 示例是否可直接运行
+- 平台差异是否仅描述“形式差异”，而不是“语义差异”
+- 是否注明了默认行为（如 `defaultOpen`、`isDismissable` 等）
