@@ -23,6 +23,7 @@ UIComponent({
     groupVariant: null,
     groupSize: null,
     groupRadius: null,
+    groupOrientation: null,
     groupIsBlock: null,
     groupIsDisabled: null,
   },
@@ -50,6 +51,7 @@ UIComponent({
         isDisabled,
         isInGroup,
         groupPosition,
+        groupOrientation,
         className,
         classNames,
         _autoLoading,
@@ -65,6 +67,7 @@ UIComponent({
       const resolvedVariant = variant ?? groupVariant ?? 'solid';
       const resolvedSize = size ?? groupSize ?? 'md';
       const resolvedRadius = radius ?? groupRadius ?? 'md';
+      const resolvedOrientation = groupOrientation ?? 'x';
       const resolvedIsBlock = isBlock ?? groupIsBlock ?? false;
       const loading = isLoading === 'auto' ? _autoLoading : isLoading;
       const disabled = isDisabled || groupIsDisabled || loading;
@@ -81,6 +84,7 @@ UIComponent({
         isInGroup,
         groupIsBlock: groupIsBlock ?? false,
         groupPosition: radius ? 'none' : groupPosition,
+        groupOrientation: resolvedOrientation,
       });
 
       return {

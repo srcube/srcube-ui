@@ -1,12 +1,13 @@
 import * as React from 'react';
-import type { ButtonVariants } from '../style';
+import type { ButtonGroupVariants, ButtonVariants } from '../style';
 import { buttonGroup } from '../style';
 import type { ButtonGroupReactProps, ButtonReactProps } from './props';
 
 type ButtonGroupContextValue = Pick<
   ButtonVariants,
   'color' | 'variant' | 'size' | 'radius' | 'isBlock' | 'isDisabled'
->;
+> &
+  Pick<ButtonGroupVariants, 'orientation'>;
 
 const ButtonGroupContext = React.createContext<
   ButtonGroupContextValue | undefined
@@ -27,6 +28,7 @@ export const ButtonGroup = React.forwardRef<
     radius = 'md',
     isBlock = false,
     isDisabled = false,
+    orientation = 'x',
     className,
     children,
     ...rest
@@ -36,9 +38,10 @@ export const ButtonGroup = React.forwardRef<
     () =>
       buttonGroup({
         isBlock,
+        orientation,
         className,
       }),
-    [isBlock, className],
+    [isBlock, orientation, className],
   );
 
   const context = React.useMemo(
@@ -49,8 +52,9 @@ export const ButtonGroup = React.forwardRef<
       radius,
       isBlock,
       isDisabled,
+      orientation,
     }),
-    [color, variant, size, radius, isBlock, isDisabled],
+    [color, variant, size, radius, isBlock, isDisabled, orientation],
   );
 
   const total = React.Children.count(children);

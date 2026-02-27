@@ -87,6 +87,7 @@ export default function Demo() {
 - ButtonGroup 会向子按钮注入 `color/variant/size/radius/isBlock/isDisabled` 的默认值。
 - 子按钮显式传值时会覆盖 Group 的默认值。
 - `isBlock` 会让 Group 宽度占满，同时子按钮在组内等分宽度。
+- `orientation` 支持 `"x" | "y"`，用于横向/纵向排列按钮组（默认 `"x"`）。
 
 ## 平台差异
 

@@ -34,3 +34,16 @@ it('applies group position styles', () => {
   expect(first.className).toContain('rounded-r-none');
   expect(last.className).toContain('rounded-l-none');
 });
+
+it('supports vertical group orientation', () => {
+  render(
+    <ButtonGroup orientation="y">
+      <Button>Top</Button>
+      <Button>Bottom</Button>
+    </ButtonGroup>,
+  );
+
+  const [top, bottom] = screen.getAllByRole('button');
+  expect(top.className).toContain('rounded-b-none');
+  expect(bottom.className).toContain('rounded-t-none');
+});

@@ -39,6 +39,7 @@ export const buttonMiniProps = {
   isDisabled: { type: null, value: null },
   isInGroup: { type: Boolean, value: false },
   groupPosition: { type: null, value: 'none' },
+  groupOrientation: { type: null, value: 'x' },
 
   buttonId: String,
   className: String,

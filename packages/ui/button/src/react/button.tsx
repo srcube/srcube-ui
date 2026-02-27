@@ -55,6 +55,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
           isInGroup: resolvedIsInGroup,
           groupIsBlock: group?.isBlock,
           groupPosition: resolvedGroupPosition,
+          groupOrientation: group?.orientation ?? 'x',
         }),
       [
         resolvedColor,
@@ -68,6 +69,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
         resolvedIsInGroup,
         resolvedGroupPosition,
         group?.isBlock,
+        group?.orientation,
       ],
     );
 

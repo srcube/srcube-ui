@@ -28,6 +28,7 @@ UIComponent({
     variant: { type: null, value: 'solid' },
     size: { type: null, value: 'md' },
     radius: { type: null, value: 'md' },
+    orientation: { type: null, value: 'x' },
     isBlock: { type: Boolean, value: false },
     isDisabled: { type: Boolean, value: false },
     className: { type: String, value: '' },
@@ -36,13 +37,13 @@ UIComponent({
 
   computed: {
     $className(data) {
-      const { isBlock, className } = data;
-      return buttonGroup({ isBlock, className });
+      const { isBlock, orientation, className } = data;
+      return buttonGroup({ isBlock, orientation, className });
     },
   },
 
   observers: {
-    'color, variant, size, radius, isBlock, isDisabled': function () {
+    'color, variant, size, radius, orientation, isBlock, isDisabled': function () {
       this._updateChildren();
     },
   },
@@ -68,12 +69,14 @@ UIComponent({
           }
         }
 
-        const { color, variant, size, radius, isDisabled, isBlock } = this.data;
+        const { color, variant, size, radius, orientation, isDisabled, isBlock } =
+          this.data;
 
         const childData = child.data as Record<string, unknown>;
         child.setData({
           isInGroup: true,
           groupPosition,
+          groupOrientation: orientation,
           groupColor: color,
           groupVariant: variant,
           groupSize: size,

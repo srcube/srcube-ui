@@ -2,7 +2,7 @@
   class="sr-button__wrapper {{$classNames.base}}"
   style="{{style}}"
 >
-  <text wx:if="{{$isLoading}}" class="{{$classNames._iLoading}}" />
+  <view wx:if="{{$isLoading}}" class="{{$classNames._iLoading}}" />
   <block wx:if="{{!isIcon || !$isLoading}}">
     <slot />
   </block>

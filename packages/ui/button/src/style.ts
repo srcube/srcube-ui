@@ -82,10 +82,14 @@ export const button = tv({
       true: { base: 'flex-1' },
     },
     groupPosition: {
-      first: { base: 'rounded-r-none border-r-0' },
-      middle: { base: 'rounded-none border-x-0' },
-      last: { base: 'rounded-l-none border-l-0' },
+      first: { base: '' },
+      middle: { base: '' },
+      last: { base: '' },
       none: {},
+    },
+    groupOrientation: {
+      x: { base: '' },
+      y: { base: '' },
     },
   },
   compoundVariants: [
@@ -262,34 +266,106 @@ export const button = tv({
       class: { base: 'min-w-12 w-12 h-12' },
     },
     {
+      groupOrientation: 'x',
+      groupPosition: 'first',
+      class: { base: 'border-r-0' },
+    },
+    {
+      groupOrientation: 'x',
+      groupPosition: 'middle',
+      class: { base: 'border-x-0' },
+    },
+    {
+      groupOrientation: 'x',
+      groupPosition: 'last',
+      class: { base: 'border-l-0' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'first',
+      class: { base: 'border-b-0' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'middle',
+      class: { base: 'border-y-0' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'last',
+      class: { base: 'border-t-0' },
+    },
+    {
+      groupOrientation: 'x',
       groupPosition: 'first',
       size: 'sm',
       class: { base: 'rounded-l-lg rounded-r-none' },
     },
     {
+      groupOrientation: 'x',
       groupPosition: 'first',
       size: 'md',
       class: { base: 'rounded-l-xl rounded-r-none' },
     },
     {
+      groupOrientation: 'x',
       groupPosition: 'first',
       size: 'lg',
       class: { base: 'rounded-l-2xl rounded-r-none' },
     },
     {
+      groupOrientation: 'y',
+      groupPosition: 'first',
+      size: 'sm',
+      class: { base: 'rounded-t-lg rounded-b-none' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'first',
+      size: 'md',
+      class: { base: 'rounded-t-xl rounded-b-none' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'first',
+      size: 'lg',
+      class: { base: 'rounded-t-2xl rounded-b-none' },
+    },
+    {
+      groupOrientation: 'x',
       groupPosition: 'last',
       size: 'sm',
       class: { base: 'rounded-r-lg rounded-l-none' },
     },
     {
+      groupOrientation: 'x',
       groupPosition: 'last',
       size: 'md',
       class: { base: 'rounded-r-xl rounded-l-none' },
     },
     {
+      groupOrientation: 'x',
       groupPosition: 'last',
       size: 'lg',
       class: { base: 'rounded-r-2xl rounded-l-none' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'last',
+      size: 'sm',
+      class: { base: 'rounded-b-lg rounded-t-none' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'last',
+      size: 'md',
+      class: { base: 'rounded-b-xl rounded-t-none' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'last',
+      size: 'lg',
+      class: { base: 'rounded-b-2xl rounded-t-none' },
     },
     {
       groupPosition: 'middle',
@@ -301,14 +377,28 @@ export const button = tv({
       class: { base: 'rounded-none' },
     },
     {
+      groupOrientation: 'x',
       groupPosition: 'first',
       radius: 'full',
       class: { base: 'rounded-l-full rounded-r-none' },
     },
     {
+      groupOrientation: 'x',
       groupPosition: 'last',
       radius: 'full',
       class: { base: 'rounded-r-full rounded-l-none' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'first',
+      radius: 'full',
+      class: { base: 'rounded-t-full rounded-b-none' },
+    },
+    {
+      groupOrientation: 'y',
+      groupPosition: 'last',
+      radius: 'full',
+      class: { base: 'rounded-b-full rounded-t-none' },
     },
     {
       isDisabled: true,
@@ -323,15 +413,23 @@ export const button = tv({
     size: 'md',
     radius: 'md',
     isBlock: false,
+    groupOrientation: 'x',
   },
 });
 
 export const buttonGroup = tv({
-  base: 'inline-flex flex-row items-center justify-center h-auto',
+  base: 'inline-flex h-auto justify-center',
   variants: {
     isBlock: {
       true: 'w-full',
     },
+    orientation: {
+      x: 'flex-row items-center',
+      y: 'flex-col items-stretch',
+    },
+  },
+  defaultVariants: {
+    orientation: 'x',
   },
 });
 
