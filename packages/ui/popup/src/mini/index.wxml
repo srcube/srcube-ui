@@ -2,6 +2,7 @@
   wx:if="{{isVisible}}"
   class="sr-popup__root {{$classNames.rootPortal}} {{className}}"
   style="{{style}}"
+  catchtouchmove="handleTouchMoveCapture"
 >
   <view
     wx:if="{{hasBackdrop}}"

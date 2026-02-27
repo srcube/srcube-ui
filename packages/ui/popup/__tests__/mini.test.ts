@@ -5,6 +5,7 @@ import { popupMiniProps } from '../src/mini/props';
 
 it('contains popup root and backdrop binding in template', () => {
   expect(template).toContain('sr-popup__root');
+  expect(template).toContain('catchtouchmove="handleTouchMoveCapture"');
   expect(template).toContain('bindtap="handleBackdropTap"');
 });
 
