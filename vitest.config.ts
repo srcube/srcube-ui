@@ -4,6 +4,11 @@ import { preview } from '@vitest/browser-preview';
 import { defineConfig } from 'vitest/config';
 
 const setupFile = fileURLToPath(new URL('./tests/setup.ts', import.meta.url));
+const commonExclude = [
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/.turbo/**',
+];
 
 export default defineConfig({
   plugins: [react()],
@@ -20,6 +25,7 @@ export default defineConfig({
             'tests/**/*.{test,spec}.{ts,tsx}',
           ],
           exclude: [
+            ...commonExclude,
             'tests/browser/**/*',
             'tests/**/*.browser.{test,spec}.{ts,tsx}',
           ],
@@ -33,6 +39,7 @@ export default defineConfig({
             'tests/browser/**/*.{test,spec}.{ts,tsx}',
             'tests/**/*.browser.{test,spec}.{ts,tsx}',
           ],
+          exclude: [...commonExclude],
           browser: {
             provider: preview(),
             instances: [{ browser: 'chromium' }],
