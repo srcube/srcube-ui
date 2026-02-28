@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Design"
+  short_description: "Design, implement, test, and review UI components"
+  default_prompt: "Implement or iterate a component in srcube-ui-pro with the built-in designer, developer, tester, and reviewer flow."

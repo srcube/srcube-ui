@@ -31,11 +31,7 @@
 - BMAD 产物统一放在 `_bmad-output/`。
 
 ## Team Skills
-- **Architect**: `skills/ui-architect/SKILL.md` — API design, cross-platform parity, architecture
-- **Designer**: `skills/ui-designer/SKILL.md` — visual specs, style.ts, design tokens
-- **Developer**: `skills/ui-developer/SKILL.md` — React/Mini implementation, README, samples
-- **Tester**: `skills/ui-tester/SKILL.md` — behavior tests, style mapping, regression
-- **Reviewer**: `skills/ui-reviewer/SKILL.md` — code review, compliance checks, findings
+- **UI Design**: `skills/ui-design/SKILL.md` — 统一组件技能，内置 `designer/developer/tester/reviewer` 四个智能体，用于新组件实现与已有组件迭代（支持交互协作与全自动）。
 
 ## 示例应用
 - `apps/sample-react` / `apps/sample-mini` 用于验证与回归。
