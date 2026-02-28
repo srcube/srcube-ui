@@ -23,7 +23,6 @@ UIComponent({
     groupVariant: null,
     groupSize: null,
     groupRadius: null,
-    groupOrientation: null,
     groupIsBlock: null,
     groupIsDisabled: null,
   },
@@ -71,6 +70,7 @@ UIComponent({
       const resolvedIsBlock = isBlock ?? groupIsBlock ?? false;
       const loading = isLoading === 'auto' ? _autoLoading : isLoading;
       const disabled = isDisabled || groupIsDisabled || loading;
+      const custom = (classNames ?? {}) as Record<'base', string | undefined>;
 
       const slots = button({
         color: resolvedColor,
@@ -88,7 +88,7 @@ UIComponent({
       });
 
       return {
-        base: slots.base({ class: [classNames?.base, className] }),
+        base: slots.base({ class: [custom.base, className] }),
         _iLoading: slots._iLoading(),
       };
     },

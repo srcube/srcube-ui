@@ -1,22 +1,33 @@
 Page({
   data: {
     isOpen: false,
+    customOpen: false,
+    footerOpen: false,
+    cancelPropsOpen: false,
+    sizeSmOpen: false,
+    sizeMdOpen: false,
+    sizeLgOpen: false,
     result: '-',
+    cancelButtonProps: {
+      color: 'danger',
+      variant: 'flat',
+      className: 'font-semibold',
+    },
     actions: [
       {
         value: 'edit',
-        label: '编辑',
-        description: '修改当前内容',
+        label: 'Edit',
+        description: 'Update current content',
       },
       {
         value: 'share',
-        label: '分享',
-        description: '分享给好友',
+        label: 'Share',
+        description: 'Share with teammates',
       },
       {
         value: 'delete',
-        label: '删除',
-        description: '删除后不可恢复',
+        label: 'Delete',
+        description: 'This action cannot be undone',
         color: 'danger',
       },
     ],
@@ -28,6 +39,56 @@ Page({
     });
   },
 
+  handleOpenCustom() {
+    this.setData({
+      customOpen: true,
+    });
+  },
+
+  handleOpenFooter() {
+    this.setData({
+      footerOpen: true,
+    });
+  },
+
+  handleOpenCancelProps() {
+    this.setData({
+      cancelPropsOpen: true,
+    });
+  },
+
+  handleFooterLater() {
+    this.setData({
+      result: 'later',
+      footerOpen: false,
+    });
+  },
+
+  handleFooterDismiss() {
+    this.setData({
+      result: 'dismiss',
+      footerOpen: false,
+    });
+  },
+
+  handleOpenSizeSm() {
+    this.setData({
+      sizeSmOpen: true,
+    });
+  },
+
+  handleOpenSizeMd() {
+    this.setData({
+      sizeMdOpen: true,
+    });
+  },
+
+  handleOpenSizeLg() {
+    this.setData({
+      sizeLgOpen: true,
+    });
+  },
+
   handleChange(
     event: WechatMiniprogram.CustomEvent<{
       isOpen?: boolean;
@@ -35,6 +96,66 @@ Page({
   ) {
     this.setData({
       isOpen: Boolean(event.detail?.isOpen),
+    });
+  },
+
+  handleCustomChange(
+    event: WechatMiniprogram.CustomEvent<{
+      isOpen?: boolean;
+    }>,
+  ) {
+    this.setData({
+      customOpen: Boolean(event.detail?.isOpen),
+    });
+  },
+
+  handleSizeSmChange(
+    event: WechatMiniprogram.CustomEvent<{
+      isOpen?: boolean;
+    }>,
+  ) {
+    this.setData({
+      sizeSmOpen: Boolean(event.detail?.isOpen),
+    });
+  },
+
+  handleSizeMdChange(
+    event: WechatMiniprogram.CustomEvent<{
+      isOpen?: boolean;
+    }>,
+  ) {
+    this.setData({
+      sizeMdOpen: Boolean(event.detail?.isOpen),
+    });
+  },
+
+  handleSizeLgChange(
+    event: WechatMiniprogram.CustomEvent<{
+      isOpen?: boolean;
+    }>,
+  ) {
+    this.setData({
+      sizeLgOpen: Boolean(event.detail?.isOpen),
+    });
+  },
+
+  handleFooterChange(
+    event: WechatMiniprogram.CustomEvent<{
+      isOpen?: boolean;
+    }>,
+  ) {
+    this.setData({
+      footerOpen: Boolean(event.detail?.isOpen),
+    });
+  },
+
+  handleCancelPropsChange(
+    event: WechatMiniprogram.CustomEvent<{
+      isOpen?: boolean;
+    }>,
+  ) {
+    this.setData({
+      cancelPropsOpen: Boolean(event.detail?.isOpen),
     });
   },
 

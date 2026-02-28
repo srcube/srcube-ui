@@ -60,7 +60,7 @@ export default function Demo() {
 | isLoading | 加载态（`"auto"` 支持自动 loading） | `boolean \| "auto"` | `false` | 全平台 |
 | isDisabled | 禁用态 | `boolean` | `false` | 全平台 |
 | onTap | 点击事件 | `(event) => void \| Promise<void>` | - | 全平台 |
-| classNames | slots 样式映射 | `VariantClasses` | - | 全平台 |
+| classNames | slots 样式映射（仅公开 slot） | `ButtonClasses` | - | 全平台 |
 | className | 根节点 class | React: `string \| ((state) => string)`；Mini: `string` | - | 全平台 |
 | style | 内联样式 | React: `CSSProperties`；Mini: `string` | - | 全平台 |
 | buttonId | 原生 button id | `string` | - | Mini |
@@ -103,3 +103,8 @@ export default function Demo() {
 - `onTap` 在 `isLoading="auto"` 时支持 `e.detail.wait(Promise)` 自动 loading。
 - 原生 button 事件由内部隐形 button 承载，外层 view 只负责样式。
 - 小程序组件本身就是一个节点，布局/原生样式需要显式加在组件本身（例如 `class="flex-1"`）。
+
+### Slots
+
+- `button` 组件对外仅公开 `base` slot。
+- `_iLoading` 为内部私有 slot，不对外暴露，不能通过 `classNames` 覆盖。

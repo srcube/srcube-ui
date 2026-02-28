@@ -434,5 +434,6 @@ export const buttonGroup = tv({
 });
 
 export type ButtonVariants = VariantProps<typeof button>;
-export type ButtonClasses = VariantClasses<typeof button>;
+type ButtonInternalClasses = VariantClasses<typeof button>;
+export type ButtonClasses = Omit<ButtonInternalClasses, '_iLoading'>;
 export type ButtonGroupVariants = VariantProps<typeof buttonGroup>;

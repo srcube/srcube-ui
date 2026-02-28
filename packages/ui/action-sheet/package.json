@@ -8,8 +8,9 @@
   ],
   "types": "./dist/index.d.ts",
   "scripts": {
+    "dev": "tsdown --watch",
     "build": "tsdown",
-    "test": "pnpm -w vitest run --config vitest.config.ts --dir packages/ui/action-sheet"
+    "test": "pnpm -w vitest run --project unit --config vitest.config.ts packages/ui/action-sheet/__tests__/react.test.tsx packages/ui/action-sheet/__tests__/mini.test.ts"
   },
   "exports": {
     ".": {
@@ -29,12 +30,18 @@
       "import": "./dist/react/index.js"
     }
   },
+  "dependencies": {
+    "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/popup": "workspace:*"
+  },
   "devDependencies": {
     "@srcube-ui/config": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "peerDependencies": {
+    "@srcube-ui/button": "workspace:*",
+    "@srcube-ui/popup": "workspace:*",
     "@srcube-ui/theme": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",

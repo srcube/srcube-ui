@@ -8,8 +8,9 @@
     "dist"
   ],
   "scripts": {
+    "dev": "tsdown --watch",
     "build": "tsdown",
-    "test": "pnpm -w vitest run --config vitest.config.ts --dir packages/ui/button"
+    "test": "pnpm -w vitest run --project unit --config vitest.config.ts packages/ui/button"
   },
   "exports": {
     ".": {

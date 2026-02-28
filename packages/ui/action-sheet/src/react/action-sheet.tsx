@@ -1,8 +1,41 @@
-import * as React from 'react';
-import { actionSheet, actionSheetActionState } from '../style';
-import type { ActionSheetItem, ActionSheetReactProps } from './props';
+import * as React from "react";
+import { Button, ButtonGroup } from "@srcube-ui/button";
+import { composeTwRenderProps } from "@srcube-ui/runtime/react";
+import {
+  Popup,
+  PopupContent,
+  type PopupClassNames,
+  type PopupRef,
+} from "@srcube-ui/popup";
+import {
+  ACTION_SHEET_CANCEL_TEXT,
+  DEFAULT_ACTION_SHEET_LOCALE,
+} from "../locale";
+import {
+  actionSheet,
+  actionSheetAction,
+  type ActionSheetActionColor,
+} from "../style";
+import type {
+  ActionSheetCancelButtonProps,
+  ActionSheetItem,
+  ActionSheetReactProps,
+} from "./props";
 
-export const ActionSheet = React.forwardRef<HTMLDivElement, ActionSheetReactProps>(
+const DEFAULT_ACTION_COLOR: ActionSheetActionColor = "default";
+
+function resolveRadiusBySize(size: NonNullable<ActionSheetReactProps["size"]>) {
+  switch (size) {
+    case "sm":
+      return "sm";
+    case "lg":
+      return "lg";
+    default:
+      return "md";
+  }
+}
+
+export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
   (props, ref) => {
     const {
       isOpen,
@@ -10,9 +43,12 @@ export const ActionSheet = React.forwardRef<HTMLDivElement, ActionSheetReactProp
       title,
       description,
       actions,
-      cancelText = '取消',
+      hasFooter = false,
+      cancelText,
+      cancelButtonProps,
+      footer,
+      locale = DEFAULT_ACTION_SHEET_LOCALE,
       isClosable = true,
-      shouldCloseOnOverlayPress = true,
       size,
       radius,
       isInset,
@@ -28,15 +64,45 @@ export const ActionSheet = React.forwardRef<HTMLDivElement, ActionSheetReactProp
     const isControlled = isOpen !== null && isOpen !== undefined;
     const [innerOpen, setInnerOpen] = React.useState(Boolean(defaultOpen));
     const open = isControlled ? Boolean(isOpen) : innerOpen;
+    const resolvedSize = size ?? "md";
+    const resolvedRadius = radius ?? resolveRadiusBySize(resolvedSize);
+    const resolvedCancelText = cancelText ?? ACTION_SHEET_CANCEL_TEXT[locale];
+    const hasCustomFooter = footer !== null && footer !== undefined;
+    const resolvedHasFooter = hasFooter || hasCustomFooter;
+
+    const {
+      className: cancelButtonClassName,
+      onTap: onCancelButtonTap,
+      ...restCancelButtonProps
+    } = cancelButtonProps ?? {};
 
     const slots = React.useMemo(
       () =>
         actionSheet({
-          size,
-          radius,
+          isOpen: open,
+          size: resolvedSize,
+          radius: resolvedRadius,
           isInset,
         }),
-      [isInset, radius, size],
+      [open, resolvedRadius, resolvedSize, isInset],
+    );
+
+    const cancelButtonMergedClassName = React.useMemo(
+      () =>
+        composeTwRenderProps(
+          cancelButtonClassName,
+          slots.cancel({ class: classNames?.cancel }),
+        ),
+      [cancelButtonClassName, classNames?.cancel, slots],
+    );
+
+    const popupClassNames = React.useMemo<Partial<PopupClassNames>>(
+      () => ({
+        base: slots.base({ class: [classNames?.base, className] }),
+        backdrop: slots.overlay({ class: classNames?.overlay }),
+        content: slots.panel({ class: classNames?.panel }),
+      }),
+      [className, classNames, slots],
     );
 
     const setOpen = React.useCallback(
@@ -66,87 +132,170 @@ export const ActionSheet = React.forwardRef<HTMLDivElement, ActionSheetReactProp
       setOpen(false);
     }, [onCancel, setOpen]);
 
-    if (!open) {
-      return null;
-    }
+    const handleCancelTap = React.useCallback(
+      (
+        event: Parameters<
+          NonNullable<ActionSheetCancelButtonProps["onTap"]>
+        >[0],
+      ) => {
+        onCancelButtonTap?.(event);
+        handleCancel();
+      },
+      [handleCancel, onCancelButtonTap],
+    );
 
     return (
-      <div
+      <Popup
         ref={ref}
-        className={slots.base({ class: [classNames?.base, className] })}
-        style={style}
-        role="dialog"
-        aria-modal="true"
         {...rest}
+        isOpen={open}
+        hasBackdrop
+        isDismissable={false}
+        motion="none"
+        onOpenChange={setOpen}
+        classNames={popupClassNames}
+        style={style}
       >
-        <div
-          className={slots.overlay({ class: classNames?.overlay })}
-          onClick={() => {
-            if (shouldCloseOnOverlayPress) {
-              handleCancel();
-            }
-          }}
-        />
+        <PopupContent>
+          <div className={slots.content({ class: classNames?.content })}>
+            {title || description ? (
+              <div className={slots.header({ class: classNames?.header })}>
+                {title ? (
+                  <div className={slots.title({ class: classNames?.title })}>
+                    {title}
+                  </div>
+                ) : null}
+                {description ? (
+                  <div
+                    className={slots.description({
+                      class: classNames?.description,
+                    })}
+                  >
+                    {description}
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
 
-        <div className={slots.panel({ class: classNames?.panel })}>
-          {title || description ? (
-            <div className={slots.header({ class: classNames?.header })}>
-              {title ? <div className={slots.title({ class: classNames?.title })}>{title}</div> : null}
-              {description ? (
-                <div className={slots.description({ class: classNames?.description })}>
-                  {description}
-                </div>
-              ) : null}
+            <div className={slots.list({ class: classNames?.list })}>
+              <ButtonGroup
+                orientation="y"
+                isBlock
+                variant="text"
+                size={resolvedSize}
+                radius="none"
+                className={slots.actionGroup({
+                  class: classNames?.actionGroup,
+                })}
+              >
+                {actions.flatMap((item, index) => {
+                  const nodes: React.ReactNode[] = [];
+                  const itemColor = item.color ?? DEFAULT_ACTION_COLOR;
+                  const itemActionClass = actionSheetAction({
+                    color: itemColor,
+                  });
+
+                  if (index > 0) {
+                    nodes.push(
+                      <div
+                        key={`divider:${index}`}
+                        className={slots.actionDivider({
+                          class: classNames?.actionDivider,
+                        })}
+                      />,
+                    );
+                  }
+
+                  nodes.push(
+                    <Button
+                      key={`action:${typeof item.value}:${String(
+                        item.value,
+                      )}:${index}`}
+                      variant="text"
+                      color="default"
+                      radius="none"
+                      isDisabled={Boolean(item.isDisabled)}
+                      isBlock
+                      className={slots.action({
+                        class: [
+                          classNames?.action,
+                          itemActionClass,
+                          index === actions.length - 1
+                            ? slots.actionLast({
+                                class: classNames?.actionLast,
+                              })
+                            : "",
+                        ],
+                      })}
+                      onTap={() => {
+                        handleAction(item, index);
+                      }}
+                    >
+                      <span
+                        className={slots.actionContent({
+                          class: classNames?.actionContent,
+                        })}
+                      >
+                        <span
+                          className={slots.actionLabel({
+                            class: classNames?.actionLabel,
+                          })}
+                        >
+                          {item.label}
+                        </span>
+                        {item.description ? (
+                          <span
+                            className={slots.actionDescription({
+                              class: classNames?.actionDescription,
+                            })}
+                          >
+                            {item.description}
+                          </span>
+                        ) : null}
+                      </span>
+                    </Button>,
+                  );
+
+                  return nodes;
+                })}
+              </ButtonGroup>
+            </div>
+          </div>
+
+          {resolvedHasFooter ? (
+            <div className={slots.footer({ class: classNames?.footer })}>
+              {footer}
             </div>
           ) : null}
 
-          <div className={slots.list({ class: classNames?.list })}>
-            {actions.map((item, index) => {
-              const actionState = actionSheetActionState({
-                color: item.color,
-                isDisabled: Boolean(item.isDisabled),
-              });
-
-              return (
-                <button
-                  key={`${typeof item.value}:${String(item.value)}`}
-                  type="button"
-                  className={slots.action({ class: [classNames?.action, actionState] })}
-                  onClick={() => {
-                    handleAction(item, index);
-                  }}
-                  disabled={item.isDisabled}
+          {!resolvedHasFooter && isClosable ? (
+            <div className={slots.footer({ class: classNames?.footer })}>
+              <ButtonGroup
+                orientation="y"
+                isBlock
+                variant="text"
+                color="default"
+                size={resolvedSize}
+                radius={resolvedRadius}
+                className={slots.cancelGroup({
+                  class: classNames?.cancelGroup,
+                })}
+              >
+                <Button
+                  {...restCancelButtonProps}
+                  isBlock={restCancelButtonProps.isBlock ?? true}
+                  className={cancelButtonMergedClassName}
+                  onTap={handleCancelTap}
                 >
-                  <span className={slots.actionLabel({ class: classNames?.actionLabel })}>
-                    {item.label}
-                  </span>
-                  {item.description ? (
-                    <span
-                      className={slots.actionDescription({
-                        class: classNames?.actionDescription,
-                      })}
-                    >
-                      {item.description}
-                    </span>
-                  ) : null}
-                </button>
-              );
-            })}
-          </div>
-
-          {isClosable ? (
-            <button
-              type="button"
-              className={slots.cancel({ class: classNames?.cancel })}
-              onClick={handleCancel}
-            >
-              {cancelText}
-            </button>
+                  {resolvedCancelText}
+                </Button>
+              </ButtonGroup>
+            </div>
           ) : null}
-        </div>
-      </div>
+        </PopupContent>
+      </Popup>
     );
   },
 );
 
-ActionSheet.displayName = 'Srcube.ActionSheet';
+ActionSheet.displayName = "Srcube.ActionSheet";
