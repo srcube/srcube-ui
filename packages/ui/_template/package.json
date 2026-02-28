@@ -9,8 +9,9 @@
   ],
   "types": "./dist/index.d.ts",
   "scripts": {
+    "dev": "tsdown --watch",
     "build": "tsdown",
-    "test": "pnpm -w vitest run --config vitest.config.ts --dir packages/ui/_template"
+    "test": "pnpm -w vitest run --project unit --config vitest.config.ts packages/ui/_template"
   },
   "exports": {
     ".": {
