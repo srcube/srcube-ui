@@ -43,7 +43,7 @@ catalog:
   sass: ^1.97.3
   tailwind-variants: ^3.2.0
   tailwindcss: ^4.1.0
-  tsdown: ^0.20.1
+  tsdown: ^0.20.3
   turbo: ^2.0.0
   typescript: ^5.5.4
   vite: ^7.3.1

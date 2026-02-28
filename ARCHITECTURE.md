@@ -22,6 +22,7 @@ packages/
     <component>/       # 单一组件包（多端共存）
       src/
         style.ts       # 共享：tailwind 样式 tokens
+        locale.ts      # 可选：跨端共用文案/locale 定义（仅 type + 文案映射）
         mini/          # 小程序实现（独立逻辑）
           index.ts     # 小程序逻辑
           index.wxml   # 小程序结构
@@ -46,11 +47,17 @@ packages/
 ### Template Governance（模板规则）
 - **API 同步**：组件 README 的 API 表为唯一真相；React/Mini 必须一一对应。
 - **Sample 对齐规则**：`apps/sample-react` 与 `apps/sample-mini` 的同组件示例必须覆盖一致的核心场景（如 colors/variants/states），并尽量保持一致的交互模型（例如使用 ButtonGroup 进行颜色切换）；如需平台差异，必须在组件 README 说明原因。
+- **Locale 约定**：跨端共用的文案语言定义单独放在组件根 `src/locale.ts`（仅包含 locale type 与文案映射），平台逻辑仍分别在 `react/*` 与 `mini/*` 实现。
 - **RAC 使用边界**：仅交互型组件使用 RAC（Button/Toggle/Slider 等）。
 - **样式规则**：实现层避免直接写 Tailwind 类，统一通过 `style.ts` + slots 输出。
+- **样式规则（强制）**：
+  - 禁止在 `react/*`、`mini/*` 逻辑层写 Tailwind 字符串（包括 `animate-*`、`text-*`、`bg-*`、`active:*`、`rounded-*` 等）。
+  - 禁止在逻辑层做 Tailwind 条件拼接（如 `isOpen ? 'animate-in' : 'animate-out'`）；状态样式必须在 `style.ts` 中通过 `tv variants/slots/compoundVariants` 表达。
+  - 逻辑层允许的 class 来源仅限：`slots.xxx({ class: ... })`、`style.ts` 导出的样式 helper（例如 `xxxTone/xxxMotion`）返回值，以及用户透传的 `className/classNames`。
+  - 文案与语言同理：跨端文案映射放 `src/locale.ts`，逻辑层仅做“取值与兜底”，不内联文案字面量。
 - **`$xxx` slots 规则**：`$` 前缀 slot 为适配层专用命名，仅用于小程序实现里“组件套组件”场景下给子组件节点本身挂载 class（例如 `$scrollbox`）；React 侧不消费这类 slot。非 `$` slot 保持通用语义（用于组件自身结构或透传到子组件公开样式入口，如 `className/classNames`）。
 - **Mini 原生属性策略**：仅保留必要字段，其它按组件场景扩展。
-- **Mini 节点约定**：小程序组件本身就是一个节点，`class/style` 等原生样式需显式加在组件本身；布局依赖（如等分宽度）也应加在组件本身。若存在原生按钮事件，内部使用隐藏原生节点承载事件，外层仅负责样式。
+- **Mini 节点约定**：小程序标签节点（含自定义组件标签）自身样式与布局只认 `class/style`，必须显式写在该节点上（例如等分宽度这类布局依赖）。`className/classNames` 仅作为组件 props 传入供组件内部消费，不能替代节点自身的 `class/style`。若存在原生按钮事件，内部使用隐藏原生节点承载事件，外层仅负责样式。
 
 ## 4. 代码范式
 - 平台无关：共享样式/工具层不引用 `window/document/navigator`，用 `globalThis` 兼容。
@@ -60,6 +67,11 @@ packages/
 - runtime 与聚合分层：`@srcube-ui/runtime/*` 负责运行时能力；`@srcube-ui/react` / `@srcube-ui/mini` 仅负责组件聚合导出。
 - 命名统一：组件名 `PascalCase`，包名 `kebab-case`，事件 `on*`，布尔 `is/has/should/can`。
 - 布尔 Props 规则：所有布尔型 props 必须使用 `is/has/should/can` 前缀。
+
+### 样式审查清单（CR 必过）
+- 任一 `react/*`、`mini/*` 逻辑文件中，不应出现 Tailwind 原子类字面量。
+- 动画/按压/主题色/圆角等“状态样式”必须可在 `style.ts` 一处定位并修改。
+- 若发现逻辑层存在 Tailwind 字符串，必须回收至 `style.ts` 后再合并。
 
 ## 5. 公开导入
 - `@srcube-ui/theme`

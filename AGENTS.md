@@ -2,6 +2,7 @@
 
 ## 项目概览
 - 移动端组件库：React Web 与 Mini 独立实现。
+- Workspace 分层：`@srcube-ui/runtime`（运行时）+ `@srcube-ui/react` / `@srcube-ui/mini`（聚合导出）。
 
 ## 开发环境
 - Install deps: `pnpm install`
@@ -19,6 +20,8 @@
 - React 端仅交互型组件使用 RAC（Button/Toggle/Slider 等）。
 - Mini 端 props 只保留必要原生字段，其它按组件场景扩展。
 - Boolean 命名：`is/has/should/can`。
+- 依赖方向：组件包只依赖 `@srcube-ui/runtime` 与 `@srcube-ui/theme`，禁止依赖聚合包 `@srcube-ui/react` / `@srcube-ui/mini`。
+- Mini 聚合分发：`@srcube-ui/mini` 构建后产物路径为 `dist/<component>/index*`，并声明 `miniprogram: dist`。
 
 ## Template 规则
 - README 的 API 表为唯一真相；React/Mini 必须一一对应（字段/默认值/语义）。
@@ -27,8 +30,12 @@
 ## 文档与产出
 - BMAD 产物统一放在 `_bmad-output/`。
 
-## Workflows
-- 组件生成工作流：`workflows/ui.md`
+## Team Skills
+- **Architect**: `skills/ui-architect/SKILL.md` — API design, cross-platform parity, architecture
+- **Designer**: `skills/ui-designer/SKILL.md` — visual specs, style.ts, design tokens
+- **Developer**: `skills/ui-developer/SKILL.md` — React/Mini implementation, README, samples
+- **Tester**: `skills/ui-tester/SKILL.md` — behavior tests, style mapping, regression
+- **Reviewer**: `skills/ui-reviewer/SKILL.md` — code review, compliance checks, findings
 
 ## 示例应用
 - `apps/sample-react` / `apps/sample-mini` 用于验证与回归。

@@ -46,3 +46,6 @@ _bmad-output
 # editor
 .vscode
 .idea
+
+# locals
+*.local.md

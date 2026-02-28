@@ -12,7 +12,7 @@
 - [x] `input`（`packages/ui/input`）
 - [x] `input-otp`（`packages/ui/input-otp`）
 - [x] `listbox`（`packages/ui/listbox`）
-- [x] `modal`（`packages/ui/modal`）
+- [x] `popup`（`packages/ui/popup`）
 - [x] `pickbox`（`packages/ui/pickbox`）
 - [x] `picker`（`packages/ui/picker`）
 - [x] `radio`（`packages/ui/radio`）
@@ -30,25 +30,23 @@
 ### 表单输入
 
 - [x] `stepper`
-- [x] `date-picker`（`packages/ui/picker` 内置 `DatePicker`）
-- [x] `time-picker`（`packages/ui/picker` 内置 `TimePicker`）
-- [x] `cascader`
+- [x] `cascader`（已移除，能力并入 `picker.options` 级联多列）
 - [ ] `uploader`
+- [ ] `picker-calendar`（待 `calendar` 组件能力完善后新增）
+- [ ] `picker-calendar-range`（待 `calendar` 组件能力完善后新增）
 
 ### 容器与导航
 
 - [x] `navbar`
 - [x] `tabbar`
-- [x] `accordion`
 - [x] `collapse`
 
 ### 反馈与浮层
 
 - [ ] `toaster`
 - [x] `action-sheet`
-- [x] `popover`
-- [ ] `tooltip`
-- [ ] `skeleton`
+- [x] `menu`
+- [x] `skeleton`
 - [x] `notice-bar`
 
 ### 展示组件

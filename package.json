@@ -10,14 +10,17 @@
   "author": "chioio",
   "license": "MIT",
   "engines": {
+    "node": ">=22 <23",
     "pnpm": ">=10 <11"
   },
   "type": "module",
   "packageManager": "pnpm@10.28.2",
   "scripts": {
     "dev": "turbo run dev",
+    "dev:pkg": "turbo run dev --filter=./packages/**",
     "dev:mini": "pnpm -C apps/sample-mini dev",
     "dev:react": "pnpm -C apps/sample-react dev",
+    "dev:docs": "pnpm -C apps/docs dev",
     "build": "turbo run build",
     "build:pkg": "turbo run build --filter=./packages/**",
     "test": "turbo run test",
