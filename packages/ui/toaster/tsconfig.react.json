@@ -1,0 +1,10 @@
+{
+  "extends": "@srcube-ui/config/tsconfig.react.json",
+  "include": [
+    "src/react/**/*",
+    "src/style.ts",
+    "src/registry.ts",
+    "src/types.ts",
+    "src/index.ts"
+  ]
+}

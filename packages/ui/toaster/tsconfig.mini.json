@@ -1,0 +1,9 @@
+{
+  "extends": "@srcube-ui/config/tsconfig.mini.json",
+  "include": [
+    "src/mini/**/*",
+    "src/style.ts",
+    "src/registry.ts",
+    "src/types.ts"
+  ]
+}
