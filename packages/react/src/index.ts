@@ -30,3 +30,4 @@ export * from './components/steps';
 export * from './components/tabbar';
 export * from './components/timeline';
 export * from './components/toaster';
+export * from './components/picker';

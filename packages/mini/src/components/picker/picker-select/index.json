@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "sr-field": "../../field/index",
+    "sr-drawer": "../../drawer/index",
+    "sr-selectbox": "../../selectbox/index",
+    "sr-button": "../../button/index"
+  }
+}

@@ -175,6 +175,11 @@
       "types": "./dist/components/toaster/index.d.ts",
       "import": "./dist/components/toaster/index.js",
       "default": "./dist/components/toaster/index.js"
+    },
+    "./picker": {
+      "types": "./dist/components/picker/index.d.ts",
+      "import": "./dist/components/picker/index.js",
+      "default": "./dist/components/picker/index.js"
     }
   },
   "dependencies": {

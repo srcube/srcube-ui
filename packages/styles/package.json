@@ -193,6 +193,11 @@
       "types": "./src/components/toaster/style.ts",
       "import": "./src/components/toaster/style.ts",
       "default": "./src/components/toaster/style.ts"
+    },
+    "./components/picker/style": {
+      "types": "./src/components/picker/style.ts",
+      "import": "./src/components/picker/style.ts",
+      "default": "./src/components/picker/style.ts"
     }
   },
   "dependencies": {
