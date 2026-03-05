@@ -1,0 +1,41 @@
+<view
+  id="{{id}}"
+  class="sr-uploader {{$classNames.base}}"
+  style="{{style}}"
+>
+  <view class="sr-uploader__list {{$classNames.list}}">
+    <block wx:for="{{$resolvedValue}}" wx:key="id" wx:for-item="item" wx:for-index="index">
+      <view class="sr-uploader__item {{$classNames.item}}">
+        <image
+          class="sr-uploader__preview {{$classNames.preview}}"
+          src="{{item.url}}"
+          mode="aspectFill"
+          data-index="{{index}}"
+          bindtap="handlePreviewTap"
+        />
+
+        <view
+          wx:if="{{isRemovable && !isDisabled}}"
+          class="sr-uploader__remove {{$classNames.removeButton}}"
+          data-index="{{index}}"
+          catchtap="handleRemoveTap"
+        >
+          <view class="{{$classNames._iRemove}}" />
+        </view>
+      </view>
+    </block>
+
+    <view
+      wx:if="{{$canAdd}}"
+      class="sr-uploader__add {{$classNames.addButton}}"
+      bindtap="handleAddTap"
+    >
+      <text class="sr-uploader__add-icon {{$classNames.addIcon}}">+</text>
+      <text class="sr-uploader__add-text {{$classNames.addText}}">{{addText}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{helperText}}" class="sr-uploader__helper {{$classNames.helperText}}">
+    {{helperText}}
+  </view>
+</view>

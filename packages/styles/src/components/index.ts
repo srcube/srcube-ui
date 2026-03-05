@@ -31,3 +31,4 @@ export * from './tabbar';
 export * from './timeline';
 export * from './toaster';
 export * from './picker';
+export * from './uploader';

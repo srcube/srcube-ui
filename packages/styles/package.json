@@ -198,6 +198,11 @@
       "types": "./src/components/picker/style.ts",
       "import": "./src/components/picker/style.ts",
       "default": "./src/components/picker/style.ts"
+    },
+    "./components/uploader/style": {
+      "types": "./src/components/uploader/style.ts",
+      "import": "./src/components/uploader/style.ts",
+      "default": "./src/components/uploader/style.ts"
     }
   },
   "dependencies": {

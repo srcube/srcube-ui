@@ -1,0 +1,9 @@
+.sr-uploader {}
+.sr-uploader__list {}
+.sr-uploader__item {}
+.sr-uploader__preview {}
+.sr-uploader__remove {}
+.sr-uploader__add {}
+.sr-uploader__add-icon {}
+.sr-uploader__add-text {}
+.sr-uploader__helper {}

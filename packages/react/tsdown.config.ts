@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    'components/uploader/index': 'src/components/uploader/index.ts',
     'components/picker/index': 'src/components/picker/index.ts',
     'components/toaster/index': 'src/components/toaster/index.ts',
     'components/timeline/index': 'src/components/timeline/index.ts',

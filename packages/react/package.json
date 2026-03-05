@@ -180,6 +180,11 @@
       "types": "./dist/components/picker/index.d.ts",
       "import": "./dist/components/picker/index.js",
       "default": "./dist/components/picker/index.js"
+    },
+    "./uploader": {
+      "types": "./dist/components/uploader/index.d.ts",
+      "import": "./dist/components/uploader/index.js",
+      "default": "./dist/components/uploader/index.js"
     }
   },
   "dependencies": {
