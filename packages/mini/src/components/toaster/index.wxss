@@ -1,0 +1,10 @@
+.sr-toaster {}
+.sr-toaster__stack {}
+.sr-toaster__item {}
+.sr-toaster__card {}
+.sr-toaster__icon {}
+.sr-toaster__text-wrap {}
+.sr-toaster__title {}
+.sr-toaster__description {}
+.sr-toaster__close-layer {}
+.sr-toaster__close {}

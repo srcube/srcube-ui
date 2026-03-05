@@ -170,6 +170,11 @@
       "types": "./dist/components/timeline/index.d.ts",
       "import": "./dist/components/timeline/index.js",
       "default": "./dist/components/timeline/index.js"
+    },
+    "./toaster": {
+      "types": "./dist/components/toaster/index.d.ts",
+      "import": "./dist/components/toaster/index.js",
+      "default": "./dist/components/toaster/index.js"
     }
   },
   "dependencies": {

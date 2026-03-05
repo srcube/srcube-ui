@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    'components/toaster/index': 'src/components/toaster/index.ts',
     'components/timeline/index': 'src/components/timeline/index.ts',
     'components/tabbar/index': 'src/components/tabbar/index.ts',
     'components/steps/index': 'src/components/steps/index.ts',

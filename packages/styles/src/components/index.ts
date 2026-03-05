@@ -29,3 +29,4 @@ export * from './notice-bar';
 export * from './steps';
 export * from './tabbar';
 export * from './timeline';
+export * from './toaster';
