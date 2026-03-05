@@ -55,6 +55,11 @@
       "types": "./dist/components/scrollbox/index.d.ts",
       "import": "./dist/components/scrollbox/index.js",
       "default": "./dist/components/scrollbox/index.js"
+    },
+    "./pickbox": {
+      "types": "./dist/components/pickbox/index.d.ts",
+      "import": "./dist/components/pickbox/index.js",
+      "default": "./dist/components/pickbox/index.js"
     }
   },
   "dependencies": {

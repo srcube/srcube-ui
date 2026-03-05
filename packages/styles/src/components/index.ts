@@ -6,3 +6,4 @@ export * from './popup';
 export * from './radio';
 export * from './switch';
 export * from './scrollbox';
+export * from './pickbox';

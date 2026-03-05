@@ -73,6 +73,11 @@
       "types": "./src/components/scrollbox/style.ts",
       "import": "./src/components/scrollbox/style.ts",
       "default": "./src/components/scrollbox/style.ts"
+    },
+    "./components/pickbox/style": {
+      "types": "./src/components/pickbox/style.ts",
+      "import": "./src/components/pickbox/style.ts",
+      "default": "./src/components/pickbox/style.ts"
     }
   },
   "dependencies": {
