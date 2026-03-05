@@ -155,6 +155,11 @@
       "types": "./dist/components/notice-bar/index.d.ts",
       "import": "./dist/components/notice-bar/index.js",
       "default": "./dist/components/notice-bar/index.js"
+    },
+    "./steps": {
+      "types": "./dist/components/steps/index.d.ts",
+      "import": "./dist/components/steps/index.js",
+      "default": "./dist/components/steps/index.js"
     }
   },
   "dependencies": {

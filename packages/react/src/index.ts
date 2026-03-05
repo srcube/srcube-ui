@@ -26,3 +26,4 @@ export * from './components/input-otp';
 export * from './components/menu';
 export * from './components/navbar';
 export * from './components/notice-bar';
+export * from './components/steps';

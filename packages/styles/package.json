@@ -173,6 +173,11 @@
       "types": "./src/components/notice-bar/style.ts",
       "import": "./src/components/notice-bar/style.ts",
       "default": "./src/components/notice-bar/style.ts"
+    },
+    "./components/steps/style": {
+      "types": "./src/components/steps/style.ts",
+      "import": "./src/components/steps/style.ts",
+      "default": "./src/components/steps/style.ts"
     }
   },
   "dependencies": {
