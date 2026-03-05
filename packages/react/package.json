@@ -24,6 +24,11 @@
       "import": "./dist/components/checkbox/index.js",
       "default": "./dist/components/checkbox/index.js"
     },
+    "./field": {
+      "types": "./dist/components/field/index.d.ts",
+      "import": "./dist/components/field/index.js",
+      "default": "./dist/components/field/index.js"
+    },
     "./radio": {
       "types": "./dist/components/radio/index.d.ts",
       "import": "./dist/components/radio/index.js",

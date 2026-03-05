@@ -7,6 +7,7 @@ export default defineConfig({
     'components/checkbox/index': 'src/components/checkbox/index.ts',
     'components/radio/index': 'src/components/radio/index.ts',
     'components/switch/index': 'src/components/switch/index.ts',
+    'components/field/index': 'src/components/field/index.ts',
   },
   external: [/^@srcube-ui\/styles(\/.*)?$/, 'react', 'react-dom', 'react-aria-components', 'tailwind-variants'],
   skipNodeModulesBundle: true,
