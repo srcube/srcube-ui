@@ -118,6 +118,11 @@
       "types": "./src/components/stepper/style.ts",
       "import": "./src/components/stepper/style.ts",
       "default": "./src/components/stepper/style.ts"
+    },
+    "./components/textarea/style": {
+      "types": "./src/components/textarea/style.ts",
+      "import": "./src/components/textarea/style.ts",
+      "default": "./src/components/textarea/style.ts"
     }
   },
   "dependencies": {
