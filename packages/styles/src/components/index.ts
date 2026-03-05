@@ -5,3 +5,4 @@ export * from './input';
 export * from './popup';
 export * from './radio';
 export * from './switch';
+export * from './scrollbox';

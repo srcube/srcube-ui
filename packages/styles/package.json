@@ -68,6 +68,11 @@
       "types": "./src/components/popup/style.ts",
       "import": "./src/components/popup/style.ts",
       "default": "./src/components/popup/style.ts"
+    },
+    "./components/scrollbox/style": {
+      "types": "./src/components/scrollbox/style.ts",
+      "import": "./src/components/scrollbox/style.ts",
+      "default": "./src/components/scrollbox/style.ts"
     }
   },
   "dependencies": {

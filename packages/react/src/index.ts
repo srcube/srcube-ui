@@ -5,3 +5,4 @@ export * from './components/input';
 export * from './components/popup';
 export * from './components/radio';
 export * from './components/switch';
+export * from './components/scrollbox';

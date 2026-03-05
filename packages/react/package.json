@@ -50,6 +50,11 @@
       "types": "./dist/components/switch/index.d.ts",
       "import": "./dist/components/switch/index.js",
       "default": "./dist/components/switch/index.js"
+    },
+    "./scrollbox": {
+      "types": "./dist/components/scrollbox/index.d.ts",
+      "import": "./dist/components/scrollbox/index.js",
+      "default": "./dist/components/scrollbox/index.js"
     }
   },
   "dependencies": {
