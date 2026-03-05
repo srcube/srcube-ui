@@ -65,6 +65,11 @@
       "types": "./dist/components/skeleton/index.d.ts",
       "import": "./dist/components/skeleton/index.js",
       "default": "./dist/components/skeleton/index.js"
+    },
+    "./listbox": {
+      "types": "./dist/components/listbox/index.d.ts",
+      "import": "./dist/components/listbox/index.js",
+      "default": "./dist/components/listbox/index.js"
     }
   },
   "dependencies": {

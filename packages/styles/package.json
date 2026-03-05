@@ -83,6 +83,11 @@
       "types": "./src/components/skeleton/style.ts",
       "import": "./src/components/skeleton/style.ts",
       "default": "./src/components/skeleton/style.ts"
+    },
+    "./components/listbox/style": {
+      "types": "./src/components/listbox/style.ts",
+      "import": "./src/components/listbox/style.ts",
+      "default": "./src/components/listbox/style.ts"
     }
   },
   "dependencies": {
