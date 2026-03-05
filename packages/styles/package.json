@@ -78,6 +78,11 @@
       "types": "./src/components/pickbox/style.ts",
       "import": "./src/components/pickbox/style.ts",
       "default": "./src/components/pickbox/style.ts"
+    },
+    "./components/skeleton/style": {
+      "types": "./src/components/skeleton/style.ts",
+      "import": "./src/components/skeleton/style.ts",
+      "default": "./src/components/skeleton/style.ts"
     }
   },
   "dependencies": {

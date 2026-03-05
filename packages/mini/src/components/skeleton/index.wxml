@@ -1,0 +1,6 @@
+<view id="{{id}}" class="sr-skeleton {{$classNames.base}}" style="{{style}}">
+  <view class="sr-skeleton__content {{$classNames.content}}">
+    <slot />
+  </view>
+  <view class="sr-skeleton__placeholder {{$classNames.placeholder}}" />
+</view>

@@ -60,6 +60,11 @@
       "types": "./dist/components/pickbox/index.d.ts",
       "import": "./dist/components/pickbox/index.js",
       "default": "./dist/components/pickbox/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/components/skeleton/index.d.ts",
+      "import": "./dist/components/skeleton/index.js",
+      "default": "./dist/components/skeleton/index.js"
     }
   },
   "dependencies": {
