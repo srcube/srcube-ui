@@ -1,13 +1,14 @@
-name: Weapp Dev Upload
+name: Weapp CI
 
 on:
   workflow_dispatch:
   push:
     branches:
       - dev
+      - feat/arch
     paths:
       - 'apps/sample-weapp/**'
-      - '.github/workflows/weapp-dev-upload.yml'
+      - '.github/workflows/ci-weapp.yml'
 
 jobs:
   upload:
@@ -22,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
