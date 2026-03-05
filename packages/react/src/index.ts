@@ -19,3 +19,4 @@ export * from './components/textarea';
 export * from './components/tabs';
 export * from './components/swipe-action';
 export * from './components/tour';
+export * from './components/card';

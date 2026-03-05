@@ -138,6 +138,11 @@
       "types": "./src/components/tour/style.ts",
       "import": "./src/components/tour/style.ts",
       "default": "./src/components/tour/style.ts"
+    },
+    "./components/card/style": {
+      "types": "./src/components/card/style.ts",
+      "import": "./src/components/card/style.ts",
+      "default": "./src/components/card/style.ts"
     }
   },
   "dependencies": {

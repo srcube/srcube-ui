@@ -120,6 +120,11 @@
       "types": "./dist/components/tour/index.d.ts",
       "import": "./dist/components/tour/index.js",
       "default": "./dist/components/tour/index.js"
+    },
+    "./card": {
+      "types": "./dist/components/card/index.d.ts",
+      "import": "./dist/components/card/index.js",
+      "default": "./dist/components/card/index.js"
     }
   },
   "dependencies": {

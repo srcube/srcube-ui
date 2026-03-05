@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    'components/card/index': 'src/components/card/index.ts',
     'components/tour/index': 'src/components/tour/index.ts',
     'components/swipe-action/index': 'src/components/swipe-action/index.ts',
     'components/tabs/index': 'src/components/tabs/index.ts',
