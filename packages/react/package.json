@@ -135,6 +135,11 @@
       "types": "./dist/components/image/index.d.ts",
       "import": "./dist/components/image/index.js",
       "default": "./dist/components/image/index.js"
+    },
+    "./input-otp": {
+      "types": "./dist/components/input-otp/index.d.ts",
+      "import": "./dist/components/input-otp/index.js",
+      "default": "./dist/components/input-otp/index.js"
     }
   },
   "dependencies": {

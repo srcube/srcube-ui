@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    'components/input-otp/index': 'src/components/input-otp/index.ts',
     'components/image/index': 'src/components/image/index.ts',
     'components/collapse/index': 'src/components/collapse/index.ts',
     'components/card/index': 'src/components/card/index.ts',
