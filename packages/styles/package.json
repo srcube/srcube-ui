@@ -183,6 +183,11 @@
       "types": "./src/components/tabbar/style.ts",
       "import": "./src/components/tabbar/style.ts",
       "default": "./src/components/tabbar/style.ts"
+    },
+    "./components/timeline/style": {
+      "types": "./src/components/timeline/style.ts",
+      "import": "./src/components/timeline/style.ts",
+      "default": "./src/components/timeline/style.ts"
     }
   },
   "dependencies": {

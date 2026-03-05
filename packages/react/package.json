@@ -165,6 +165,11 @@
       "types": "./dist/components/tabbar/index.d.ts",
       "import": "./dist/components/tabbar/index.js",
       "default": "./dist/components/tabbar/index.js"
+    },
+    "./timeline": {
+      "types": "./dist/components/timeline/index.d.ts",
+      "import": "./dist/components/timeline/index.js",
+      "default": "./dist/components/timeline/index.js"
     }
   },
   "dependencies": {
