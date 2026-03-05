@@ -39,6 +39,11 @@
       "import": "./src/components/checkbox/style.ts",
       "default": "./src/components/checkbox/style.ts"
     },
+    "./components/radio/style": {
+      "types": "./src/components/radio/style.ts",
+      "import": "./src/components/radio/style.ts",
+      "default": "./src/components/radio/style.ts"
+    },
     "./components/*": {
       "types": "./src/components/*/index.ts",
       "import": "./src/components/*/index.ts",
