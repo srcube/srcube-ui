@@ -130,6 +130,11 @@
       "types": "./dist/components/collapse/index.d.ts",
       "import": "./dist/components/collapse/index.js",
       "default": "./dist/components/collapse/index.js"
+    },
+    "./image": {
+      "types": "./dist/components/image/index.d.ts",
+      "import": "./dist/components/image/index.js",
+      "default": "./dist/components/image/index.js"
     }
   },
   "dependencies": {

@@ -21,3 +21,4 @@ export * from './components/swipe-action';
 export * from './components/tour';
 export * from './components/card';
 export * from './components/collapse';
+export * from './components/image';

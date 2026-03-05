@@ -148,6 +148,11 @@
       "types": "./src/components/collapse/style.ts",
       "import": "./src/components/collapse/style.ts",
       "default": "./src/components/collapse/style.ts"
+    },
+    "./components/image/style": {
+      "types": "./src/components/image/style.ts",
+      "import": "./src/components/image/style.ts",
+      "default": "./src/components/image/style.ts"
     }
   },
   "dependencies": {

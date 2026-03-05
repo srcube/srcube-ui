@@ -1,0 +1,18 @@
+<view
+  id="{{id}}"
+  class="sr-image {{$classNames.base}}"
+  style="{{style}}"
+  bindtap="handlePreviewTap"
+>
+  <image
+    wx:if="{{src}}"
+    class="sr-image__image {{$classNames.image}}"
+    src="{{src}}"
+    mode="{{$imageMode}}"
+    bindload="handleImageLoad"
+    binderror="handleImageError"
+  />
+  <text class="sr-image__placeholder {{$classNames.placeholder}}">
+    {{$placeholderText}}
+  </text>
+</view>
