@@ -22,7 +22,7 @@ pnpm install
 ```bash
 pnpm dev          # 启动所有
 pnpm dev:react    # 仅 React 示例
-pnpm dev:mini     # 仅小程序示例
+pnpm dev:weapp    # 仅小程序示例
 ```
 
 ### 构建
@@ -60,7 +60,7 @@ pnpm format
 ```txt
 apps/
   sample-react/      # React 示例
-  sample-mini/       # 小程序示例
+  sample-weapp/       # 小程序示例
 packages/
   styles/            # 样式契约
   react/             # React 实现

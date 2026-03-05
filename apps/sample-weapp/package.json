@@ -1,5 +1,5 @@
 {
-  "name": "@srcube-app/mini",
+  "name": "@srcube-app/weapp",
   "type": "module",
   "version": "1.0.3",
   "private": true,

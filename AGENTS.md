@@ -84,7 +84,7 @@ packages/mini/__tests__/<name>/           # 小程序测试
 
 ## 示例应用
 - `apps/sample-react` - React 验证
-- `apps/sample-mini` - 小程序验证
+- `apps/sample-weapp` - 小程序验证
 
 ## Team Skills
 - **UI Design**: `skills/ui-design/SKILL.md` - 组件开发技能（designer/developer/tester/reviewer）

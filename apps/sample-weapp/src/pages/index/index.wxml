@@ -5,7 +5,7 @@
       <view>
         <view class="text-lg font-semibold">
           Srcube UI
-          <text class="text-slate-500">mini</text>
+          <text class="text-slate-500">weapp</text>
         </view>
         <view class="text-xs text-slate-500">用于验证小程序端组件实现的精简示例</view>
       </view>

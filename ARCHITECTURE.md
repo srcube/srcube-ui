@@ -15,7 +15,7 @@
 ```txt
 apps/
   sample-react/          # React 示例应用
-  sample-mini/           # 小程序示例应用
+  sample-weapp/           # 小程序示例应用
 packages/
   styles/                # 样式契约层
     src/
@@ -148,7 +148,7 @@ packages/mini/__tests__/button/button.test.ts
 - mini 产物无 React 依赖（检查 dist/@mini）
 - react 产物无 mini 符号（检查 dist）
 - 双平台 API 语义一致（对照文档 API 表）
-- 示例应用正常运行（apps/sample-react、apps/sample-mini）
+- 示例应用正常运行（apps/sample-react、apps/sample-weapp）
 
 ## 9. 文档规范
 每个组件必须提供双平台文档：

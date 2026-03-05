@@ -98,7 +98,7 @@ description: Unified UI component workflow skill for srcube-ui. Use when users a
 - 实现 `packages/mini/src/components/<name>/*`
 - 编写文档：`packages/react/docs/components/<name>.md` 和 `packages/mini/docs/components/<name>.md`
 - 更新导出：`packages/react/src/index.ts` 和 `packages/mini/src/index.ts`
-- 更新示例：`apps/sample-react` 和 `apps/sample-mini`
+- 更新示例：`apps/sample-react` 和 `apps/sample-weapp`
 
 禁止项：
 - 跨平台依赖（react 依赖 mini 或反之）
