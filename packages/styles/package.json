@@ -44,6 +44,11 @@
       "import": "./src/components/radio/style.ts",
       "default": "./src/components/radio/style.ts"
     },
+    "./components/switch/style": {
+      "types": "./src/components/switch/style.ts",
+      "import": "./src/components/switch/style.ts",
+      "default": "./src/components/switch/style.ts"
+    },
     "./components/*": {
       "types": "./src/components/*/index.ts",
       "import": "./src/components/*/index.ts",

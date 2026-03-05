@@ -28,6 +28,11 @@
       "types": "./dist/components/radio/index.d.ts",
       "import": "./dist/components/radio/index.js",
       "default": "./dist/components/radio/index.js"
+    },
+    "./switch": {
+      "types": "./dist/components/switch/index.d.ts",
+      "import": "./dist/components/switch/index.js",
+      "default": "./dist/components/switch/index.js"
     }
   },
   "dependencies": {
