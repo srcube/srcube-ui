@@ -143,6 +143,11 @@
       "types": "./src/components/card/style.ts",
       "import": "./src/components/card/style.ts",
       "default": "./src/components/card/style.ts"
+    },
+    "./components/collapse/style": {
+      "types": "./src/components/collapse/style.ts",
+      "import": "./src/components/collapse/style.ts",
+      "default": "./src/components/collapse/style.ts"
     }
   },
   "dependencies": {

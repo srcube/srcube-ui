@@ -125,6 +125,11 @@
       "types": "./dist/components/card/index.d.ts",
       "import": "./dist/components/card/index.js",
       "default": "./dist/components/card/index.js"
+    },
+    "./collapse": {
+      "types": "./dist/components/collapse/index.d.ts",
+      "import": "./dist/components/collapse/index.js",
+      "default": "./dist/components/collapse/index.js"
     }
   },
   "dependencies": {

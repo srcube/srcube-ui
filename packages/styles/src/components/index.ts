@@ -20,3 +20,4 @@ export * from './tabs';
 export * from './swipe-action';
 export * from './tour';
 export * from './card';
+export * from './collapse';
