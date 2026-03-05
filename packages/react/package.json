@@ -150,6 +150,11 @@
       "types": "./dist/components/navbar/index.d.ts",
       "import": "./dist/components/navbar/index.js",
       "default": "./dist/components/navbar/index.js"
+    },
+    "./notice-bar": {
+      "types": "./dist/components/notice-bar/index.d.ts",
+      "import": "./dist/components/notice-bar/index.js",
+      "default": "./dist/components/notice-bar/index.js"
     }
   },
   "dependencies": {

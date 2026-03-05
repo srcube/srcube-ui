@@ -1,0 +1,37 @@
+<view wx:if="{{$isVisible}}" class="sr-notice-bar {{$classNames.base}}" style="{{style}}">
+  <view wx:if="{{icon}}" class="sr-notice-bar__icon {{$classNames.icon}}">{{icon}}</view>
+
+  <view class="sr-notice-bar__content {{$classNames.content}}">
+    <view class="sr-notice-bar__ticker {{$classNames.ticker}}">
+      <block wx:for="{{[_switchToken]}}" wx:key="*this">
+        <view
+          class="sr-notice-bar__line {{$classNames.line}} {{_isAutoSwitching ? $classNames.lineAnimated : ''}}"
+          style="{{_lineStyle}}"
+        >
+          <view
+            class="sr-notice-bar__text {{$classNames.text}} {{_shouldMarquee ? $classNames.textMarquee : ''}}"
+            style="{{_textStyle}}"
+          >
+            {{_activeText}}
+          </view>
+        </view>
+      </block>
+      <slot />
+    </view>
+  </view>
+
+  <view wx:if="{{actionText}}" class="sr-notice-bar__action {{$classNames.action}}">
+    {{actionText}}
+  </view>
+
+  <button
+    wx:if="{{isClosable}}"
+    class="sr-notice-bar__close {{$classNames.close}}"
+    bindtap="handleCloseTap"
+    type="default"
+    plain="{{true}}"
+    hover-class="none"
+  >
+    <view class="sr-notice-bar__close-icon {{$classNames.closeIcon}}" />
+  </button>
+</view>

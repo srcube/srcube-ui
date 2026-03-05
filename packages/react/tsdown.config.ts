@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    'components/notice-bar/index': 'src/components/notice-bar/index.ts',
     'components/navbar/index': 'src/components/navbar/index.ts',
     'components/menu/index': 'src/components/menu/index.ts',
     'components/input-otp/index': 'src/components/input-otp/index.ts',

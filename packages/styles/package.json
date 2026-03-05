@@ -168,6 +168,11 @@
       "types": "./src/components/navbar/style.ts",
       "import": "./src/components/navbar/style.ts",
       "default": "./src/components/navbar/style.ts"
+    },
+    "./components/notice-bar/style": {
+      "types": "./src/components/notice-bar/style.ts",
+      "import": "./src/components/notice-bar/style.ts",
+      "default": "./src/components/notice-bar/style.ts"
     }
   },
   "dependencies": {
