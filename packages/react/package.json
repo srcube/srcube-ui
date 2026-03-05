@@ -18,6 +18,11 @@
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js",
       "default": "./dist/components/button/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/components/checkbox/index.d.ts",
+      "import": "./dist/components/checkbox/index.js",
+      "default": "./dist/components/checkbox/index.js"
     }
   },
   "dependencies": {

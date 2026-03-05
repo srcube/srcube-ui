@@ -34,6 +34,11 @@
       "import": "./src/components/button/style.ts",
       "default": "./src/components/button/style.ts"
     },
+    "./components/checkbox/style": {
+      "types": "./src/components/checkbox/style.ts",
+      "import": "./src/components/checkbox/style.ts",
+      "default": "./src/components/checkbox/style.ts"
+    },
     "./components/*": {
       "types": "./src/components/*/index.ts",
       "import": "./src/components/*/index.ts",
