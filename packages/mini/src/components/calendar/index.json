@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "sr-button": "../button/index",
+    "sr-pickbox": "../pickbox/index"
+  }
+}

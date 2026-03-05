@@ -108,6 +108,11 @@
       "types": "./src/components/avatar/style.ts",
       "import": "./src/components/avatar/style.ts",
       "default": "./src/components/avatar/style.ts"
+    },
+    "./components/calendar/style": {
+      "types": "./src/components/calendar/style.ts",
+      "import": "./src/components/calendar/style.ts",
+      "default": "./src/components/calendar/style.ts"
     }
   },
   "dependencies": {

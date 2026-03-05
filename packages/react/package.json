@@ -90,6 +90,11 @@
       "types": "./dist/components/avatar/index.d.ts",
       "import": "./dist/components/avatar/index.js",
       "default": "./dist/components/avatar/index.js"
+    },
+    "./calendar": {
+      "types": "./dist/components/calendar/index.d.ts",
+      "import": "./dist/components/calendar/index.js",
+      "default": "./dist/components/calendar/index.js"
     }
   },
   "dependencies": {

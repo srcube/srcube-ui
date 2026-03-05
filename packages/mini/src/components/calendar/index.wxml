@@ -1,0 +1,92 @@
+<view id="{{id}}" class="sr-calendar {{$classNames.base}}" style="{{style}}">
+  <view class="sr-calendar__header {{$classNames.header}}">
+    <sr-button
+      class="sr-calendar__trigger {{$classNames.pickerTrigger}}"
+      className="{{$classNames.pickerTrigger}}"
+      variant="flat"
+      color="default"
+      size="{{size}}"
+      radius="full"
+      bind:tap="handlePickerToggle"
+    >
+      <text class="{{$classNames.title}}">{{$title}}</text>
+      <view class="icon-chevron-down {{$classNames.pickerIcon}}" />
+    </sr-button>
+  </view>
+
+  <view class="sr-calendar__panel {{$classNames.panel}}">
+    <view class="sr-calendar__week {{$classNames.weekRow}}">
+      <block wx:for="{{$weekLabels}}" wx:key="*this">
+        <view class="sr-calendar__week-cell {{$classNames.weekCell}}">{{item}}</view>
+      </block>
+    </view>
+
+    <scroll-view
+      class="sr-calendar__months {{$classNames.monthList}}"
+      scroll-y
+      enhanced="{{true}}"
+      show-scrollbar="{{false}}"
+      scroll-top="{{_scrollTop}}"
+      scroll-with-animation="{{false}}"
+      bindscroll="handleMonthScroll"
+    >
+      <block wx:for="{{$monthPanels}}" wx:key="key" wx:for-item="month">
+        <view
+          id="{{month.headerId}}"
+          class="sr-calendar__month-header {{month.headerClass}}"
+          style="{{month.headerStyle}}"
+        >
+          {{month.title}}
+        </view>
+
+        <view
+          class="sr-calendar__month-body {{month.bodyClass}}"
+          style="{{month.bodyStyle}}"
+        >
+          <view class="sr-calendar__grid {{$classNames.grid}}">
+            <block wx:for="{{month.cells}}" wx:key="key" wx:for-item="cell">
+              <view
+                wx:if="{{cell.isPlaceholder}}"
+                class="sr-calendar__day-placeholder {{cell.classes.placeholder}}"
+              />
+
+              <view wx:else class="sr-calendar__day-cell {{cell.classes.dayCell}}">
+                <view
+                  class="sr-calendar__day-btn {{cell.classes.dayButton}}"
+                  data-key="{{cell.key}}"
+                  data-disabled="{{cell.disabled}}"
+                  bindtap="handleDayTap"
+                >
+                  <text class="sr-calendar__day-text {{cell.classes.dayText}}">{{cell.label}}</text>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+
+    <block wx:if="{{_isPickerOpen}}">
+      <view
+        class="sr-calendar__picker-backdrop {{$classNames.pickerBackdrop}}"
+        catchtap="handlePickerBackdropTap"
+      />
+
+      <view class="sr-calendar__picker-overlay {{$classNames.pickerOverlay}}">
+        <view class="sr-calendar__picker-panel {{$classNames.pickerPanel}}">
+          <sr-pickbox
+            class="sr-calendar__picker-pickbox {{$classNames.pickerPickbox}}"
+            size="{{size}}"
+            color="{{color}}"
+            columns="{{$pickerColumns}}"
+            value="{{$pickerValue}}"
+            scrollEndDelay="100"
+            bind:valuechange="handlePickerValueChange"
+          />
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{$helperText}}" class="sr-calendar__helper {{$classNames.helper}}">{{$helperText}}</view>
+</view>
