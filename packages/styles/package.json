@@ -123,6 +123,11 @@
       "types": "./src/components/textarea/style.ts",
       "import": "./src/components/textarea/style.ts",
       "default": "./src/components/textarea/style.ts"
+    },
+    "./components/tabs/style": {
+      "types": "./src/components/tabs/style.ts",
+      "import": "./src/components/tabs/style.ts",
+      "default": "./src/components/tabs/style.ts"
     }
   },
   "dependencies": {

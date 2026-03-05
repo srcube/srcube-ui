@@ -1,0 +1,3 @@
+.sr-tabs__tabs-list {
+  position: relative;
+}

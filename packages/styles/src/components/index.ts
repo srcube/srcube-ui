@@ -16,3 +16,4 @@ export * from './avatar';
 export * from './calendar';
 export * from './stepper';
 export * from './textarea';
+export * from './tabs';

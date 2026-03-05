@@ -105,6 +105,11 @@
       "types": "./dist/components/textarea/index.d.ts",
       "import": "./dist/components/textarea/index.js",
       "default": "./dist/components/textarea/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/components/tabs/index.d.ts",
+      "import": "./dist/components/tabs/index.js",
+      "default": "./dist/components/tabs/index.js"
     }
   },
   "dependencies": {

@@ -1,0 +1,43 @@
+<view
+  class="sr-tabs__base {{$classNames.base}} {{className}}"
+  style="{{style}}"
+>
+  <view class="sr-tabs__tabs-wrapper {{$classNames.tabsWrapper}}">
+    <sr-scrollbox
+      class="sr-tabs__scroll-host {{$classNames.$scrollbox}}"
+      className="{{$classNames.scrollbox || className || ''}}"
+      classNames="{{$scrollboxClassNames || classNames}}"
+      orientation="{{$orientation}}"
+      hideMasks="{{hideMasks}}"
+      showScrollbar="{{false}}"
+      scrollTop="{{_scrollTop}}"
+      scrollLeft="{{_scrollLeft}}"
+      scrollWithAnimation="{{_scrollWithAnimation}}"
+      bind:scroll="handleScroll"
+      bind:scrollend="handleScrollEnd"
+    >
+      <view class="sr-tabs__tabs-list {{$classNames.tabsList}}" style="{{tabsContentStyle}}">
+        <view
+          wx:if="{{indicatorStyle}}"
+          class="sr-tabs__indicator {{$classNames.indicator}}"
+          style="{{indicatorStyle}}"
+        />
+
+        <view
+          wx:for="{{renderTabs}}"
+          wx:key="token"
+          class="sr-tabs__tab-item {{item.tabClassName}}"
+          style="{{item.style}}"
+          data-index="{{item.index}}"
+          bindtap="handleTabTap"
+        >
+          <text class="{{item.tabLabelClassName}}">{{item.label}}</text>
+        </view>
+      </view>
+    </sr-scrollbox>
+  </view>
+
+  <view class="sr-tabs__panels {{$classNames.panels}}">
+    <slot />
+  </view>
+</view>

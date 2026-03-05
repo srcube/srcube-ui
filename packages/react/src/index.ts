@@ -16,3 +16,4 @@ export * from './components/avatar';
 export * from './components/calendar';
 export * from './components/stepper';
 export * from './components/textarea';
+export * from './components/tabs';
