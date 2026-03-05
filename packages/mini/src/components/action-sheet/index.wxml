@@ -1,0 +1,99 @@
+<sr-popup
+  class="sr-action-sheet"
+  className="{{className || ''}}"
+  classNames="{{$modalClassNames || classNames}}"
+  style="{{style || ''}}"
+  isOpen="{{$resolvedOpen}}"
+  isDismissable="{{false}}"
+  hasBackdrop="{{true}}"
+  motion="none"
+  backdrop="opaque"
+>
+  <view slot="body">
+    <view class="sr-action-sheet__content {{$classNames.content}}">
+      <view wx:if="{{title || description}}" class="sr-action-sheet__header {{$classNames.header}}">
+        <view wx:if="{{title}}" class="sr-action-sheet__title {{$classNames.title}}">
+          {{title}}
+        </view>
+        <view wx:if="{{description}}" class="sr-action-sheet__description {{$classNames.description}}">
+          {{description}}
+        </view>
+      </view>
+
+      <view class="sr-action-sheet__list {{$classNames.list}}">
+        <sr-button-group
+          className="{{$classNames.actionGroup || ''}}"
+          orientation="y"
+          isBlock="{{true}}"
+          variant="text"
+          size="{{$resolvedSize}}"
+          radius="none"
+        >
+          <block wx:for="{{$renderActions}}" wx:key="key">
+            <view
+              wx:if="{{item.index > 0}}"
+              class="sr-action-sheet__action-divider {{$classNames.actionDivider}}"
+            />
+            <sr-button
+              className="sr-action-sheet__action {{$classNames.action}} {{item.actionClass}} {{item.isLast ? $classNames.actionLast : ''}}"
+              variant="{{item.variant}}"
+              color="default"
+              radius="none"
+              isDisabled="{{item.isDisabled}}"
+              isBlock="{{true}}"
+              data-index="{{item.index}}"
+              bind:tap="handleActionTap"
+            >
+              <view class="sr-action-sheet__action-content {{$classNames.actionContent}}">
+                <view class="sr-action-sheet__action-label {{$classNames.actionLabel}}">
+                  {{item.label}}
+                </view>
+                <view
+                  wx:if="{{item.description}}"
+                  class="sr-action-sheet__action-description {{$classNames.actionDescription}}"
+                >
+                  {{item.description}}
+                </view>
+              </view>
+            </sr-button>
+          </block>
+        </sr-button-group>
+      </view>
+    </view>
+
+    <view wx:if="{{hasFooter}}" class="sr-action-sheet__footer {{$classNames.footer}}">
+      <slot name="footer" />
+    </view>
+
+    <view wx:elif="{{isClosable}}" class="sr-action-sheet__footer {{$classNames.footer}}">
+      <sr-button-group
+        className="{{$classNames.cancelGroup || ''}}"
+        orientation="y"
+        isBlock="{{true}}"
+        variant="text"
+        color="default"
+        size="{{$resolvedSize}}"
+        radius="{{$resolvedRadius}}"
+      >
+        <sr-button
+          className="sr-action-sheet__cancel {{$classNames.cancel || ''}} {{$cancelButtonProps.className || ''}}"
+          style="{{$cancelButtonProps.style || ''}}"
+          buttonId="{{$cancelButtonProps.buttonId || ''}}"
+          color="{{$cancelButtonProps.color}}"
+          variant="{{$cancelButtonProps.variant}}"
+          size="{{$cancelButtonProps.size}}"
+          radius="{{$cancelButtonProps.radius}}"
+          isBlock="{{$cancelButtonProps.isBlock}}"
+          isDisabled="{{$cancelButtonProps.isDisabled}}"
+          isLoading="{{$cancelButtonProps.isLoading}}"
+          hoverClass="{{($cancelButtonProps && $cancelButtonProps.hoverClass) || 'none'}}"
+          hoverStopPropagation="{{$cancelButtonProps.hoverStopPropagation}}"
+          ariaLabel="{{$cancelButtonProps.ariaLabel || ''}}"
+          bind:tap="handleCancelTap"
+        >
+          {{$cancelText}}
+        </sr-button>
+      </sr-button-group>
+    </view>
+  </view>
+</sr-popup>

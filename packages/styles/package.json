@@ -98,6 +98,11 @@
       "types": "./src/components/drawer/style.ts",
       "import": "./src/components/drawer/style.ts",
       "default": "./src/components/drawer/style.ts"
+    },
+    "./components/action-sheet/style": {
+      "types": "./src/components/action-sheet/style.ts",
+      "import": "./src/components/action-sheet/style.ts",
+      "default": "./src/components/action-sheet/style.ts"
     }
   },
   "dependencies": {

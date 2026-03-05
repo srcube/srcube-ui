@@ -11,3 +11,4 @@ export * from './components/skeleton';
 export * from './components/listbox';
 export * from './components/selectbox';
 export * from './components/drawer';
+export * from './components/action-sheet';

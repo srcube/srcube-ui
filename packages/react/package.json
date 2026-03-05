@@ -80,6 +80,11 @@
       "types": "./dist/components/drawer/index.d.ts",
       "import": "./dist/components/drawer/index.js",
       "default": "./dist/components/drawer/index.js"
+    },
+    "./action-sheet": {
+      "types": "./dist/components/action-sheet/index.d.ts",
+      "import": "./dist/components/action-sheet/index.js",
+      "default": "./dist/components/action-sheet/index.js"
     }
   },
   "dependencies": {
