@@ -23,3 +23,4 @@ export * from './card';
 export * from './collapse';
 export * from './image';
 export * from './input-otp';
+export * from './menu';

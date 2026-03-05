@@ -1,0 +1,29 @@
+<view class="sr-menu {{$classNames.base}}" style="{{style}}">
+  <view class="sr-menu__trigger {{$classNames.trigger}}" bindtap="handleTriggerTap">
+    <slot name="trigger" />
+  </view>
+
+  <view wx:if="{{$isOpen}}" class="sr-menu__layer {{$classNames.layer}}">
+    <view class="sr-menu__content {{$classNames.content}}">
+      <view class="sr-menu__list {{$classNames.list}}">
+        <view
+          wx:for="{{$renderItems}}"
+          wx:key="key"
+          class="sr-menu__item {{$classNames.item}} {{item.itemClassName}}"
+          data-index="{{item.index}}"
+          bindtap="handleItemTap"
+        >
+          <view class="sr-menu__item-label {{$classNames.itemLabel}}">{{item.label}}</view>
+        </view>
+      </view>
+      <slot />
+    </view>
+    <view wx:if="{{hasArrow}}" class="sr-menu__arrow {{$classNames.arrow}}" />
+  </view>
+
+  <view
+    wx:if="{{$isOpen && shouldCloseOnOutsidePress}}"
+    class="sr-menu__backdrop {{$classNames.backdrop}}"
+    bindtap="handleBackdropTap"
+  />
+</view>

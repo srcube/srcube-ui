@@ -140,6 +140,11 @@
       "types": "./dist/components/input-otp/index.d.ts",
       "import": "./dist/components/input-otp/index.js",
       "default": "./dist/components/input-otp/index.js"
+    },
+    "./menu": {
+      "types": "./dist/components/menu/index.d.ts",
+      "import": "./dist/components/menu/index.js",
+      "default": "./dist/components/menu/index.js"
     }
   },
   "dependencies": {

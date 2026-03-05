@@ -158,6 +158,11 @@
       "types": "./src/components/input-otp/style.ts",
       "import": "./src/components/input-otp/style.ts",
       "default": "./src/components/input-otp/style.ts"
+    },
+    "./components/menu/style": {
+      "types": "./src/components/menu/style.ts",
+      "import": "./src/components/menu/style.ts",
+      "default": "./src/components/menu/style.ts"
     }
   },
   "dependencies": {

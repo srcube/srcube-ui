@@ -23,3 +23,4 @@ export * from './components/card';
 export * from './components/collapse';
 export * from './components/image';
 export * from './components/input-otp';
+export * from './components/menu';
