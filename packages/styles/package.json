@@ -44,6 +44,11 @@
       "import": "./src/components/field/style.ts",
       "default": "./src/components/field/style.ts"
     },
+    "./components/input/style": {
+      "types": "./src/components/input/style.ts",
+      "import": "./src/components/input/style.ts",
+      "default": "./src/components/input/style.ts"
+    },
     "./components/radio/style": {
       "types": "./src/components/radio/style.ts",
       "import": "./src/components/radio/style.ts",

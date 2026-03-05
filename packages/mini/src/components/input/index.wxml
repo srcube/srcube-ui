@@ -1,0 +1,51 @@
+<sr-field
+  id="{{id}}"
+  label="{{label}}"
+  labelPlacement="{{labelPlacement}}"
+  value="{{$resolvedValue}}"
+  description="{{description}}"
+  errorMessage="{{errorMessage}}"
+  color="{{color}}"
+  variant="{{variant}}"
+  size="{{size}}"
+  radius="{{radius}}"
+  isClearable="{{isClearable}}"
+  isDisabled="{{isDisabled}}"
+  isReadOnly="{{isReadOnly}}"
+  isInvalid="{{isInvalid}}"
+  isRequired="{{isRequired}}"
+  isLoading="{{isLoading}}"
+  hasControl="{{true}}"
+  hasStartContent="{{hasStartContent}}"
+  hasEndContent="{{hasEndContent}}"
+  hasClearContent="{{hasClearContent}}"
+  className="{{className}}"
+  classNames="{{$fieldClassNames}}"
+  style="{{style}}"
+  bind:tap="handleFieldTap"
+  bind:valuechange="handleFieldValueChange"
+  bind:clear="handleFieldClear"
+>
+  <slot wx:if="{{hasStartContent}}" name="start" slot="start" />
+
+  <input
+    slot=""
+    class="{{$inputClassName}}"
+    value="{{$resolvedValue}}"
+    placeholder="{{placeholder}}"
+    type="{{inputType}}"
+    maxlength="{{maxLength}}"
+    disabled="{{isDisabled || isReadOnly}}"
+    password="{{isPassword}}"
+    confirm-type="{{confirmType}}"
+    confirm-hold="{{isConfirmHold}}"
+    always-embed="{{isAlwaysEmbed}}"
+    bindinput="handleInput"
+    bindfocus="handleFocus"
+    bindblur="handleBlur"
+    bindconfirm="handleConfirm"
+  />
+
+  <slot wx:if="{{hasEndContent}}" name="end" slot="end" />
+  <slot wx:if="{{hasClearContent}}" name="clear" slot="clear" />
+</sr-field>

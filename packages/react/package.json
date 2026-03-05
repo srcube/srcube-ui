@@ -29,6 +29,11 @@
       "import": "./dist/components/field/index.js",
       "default": "./dist/components/field/index.js"
     },
+    "./input": {
+      "types": "./dist/components/input/index.d.ts",
+      "import": "./dist/components/input/index.js",
+      "default": "./dist/components/input/index.js"
+    },
     "./radio": {
       "types": "./dist/components/radio/index.d.ts",
       "import": "./dist/components/radio/index.js",
