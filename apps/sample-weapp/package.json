@@ -20,6 +20,7 @@
     "dev:open": "node scripts/sync-miniprogram-npm.mjs & weapp-vite dev -o",
     "build": "weapp-vite build",
     "open": "weapp-vite open",
+    "upload": "pnpm run build && node scripts/upload-ci.mjs",
     "g": "weapp-vite generate",
     "postinstall": "weapp-tw patch"
   },
@@ -33,6 +34,7 @@
     "@iconify/json": "catalog:",
     "@tailwindcss/postcss": "catalog:",
     "miniprogram-api-typings": "catalog:",
+    "miniprogram-ci": "^2.1.13",
     "postcss": "catalog:",
     "sass": "catalog:",
     "tailwindcss": "catalog:",
