@@ -1,3 +1,0 @@
-<view class="sr-checkbox-group {{$className}}" style="{{style}}">
-  <slot />
-</view>

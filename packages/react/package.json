@@ -1,58 +1,35 @@
 {
   "name": "@srcube-ui/react",
-  "version": "0.0.0",
   "private": true,
   "type": "module",
+  "files": ["dist"],
+  "scripts": {
+    "dev": "tsdown --watch --config tsdown.config.ts",
+    "build": "tsdown --config tsdown.config.ts",
+    "test": "pnpm -w vitest --run --project unit packages/react/__tests__"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./button": {
+      "types": "./dist/components/button/index.d.ts",
+      "import": "./dist/components/button/index.js",
+      "default": "./dist/components/button/index.js"
     }
   },
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsdown"
-  },
   "dependencies": {
-    "@srcube-ui/accordion": "workspace:*",
-    "@srcube-ui/action-sheet": "workspace:*",
-    "@srcube-ui/avatar": "workspace:*",
-    "@srcube-ui/button": "workspace:*",
-    "@srcube-ui/cascader": "workspace:*",
-    "@srcube-ui/calendar": "workspace:*",
-    "@srcube-ui/card": "workspace:*",
-    "@srcube-ui/checkbox": "workspace:*",
-    "@srcube-ui/collapse": "workspace:*",
-    "@srcube-ui/drawer": "workspace:*",
-    "@srcube-ui/field": "workspace:*",
-    "@srcube-ui/image": "workspace:*",
-    "@srcube-ui/input": "workspace:*",
-    "@srcube-ui/input-otp": "workspace:*",
-    "@srcube-ui/listbox": "workspace:*",
-    "@srcube-ui/modal": "workspace:*",
-    "@srcube-ui/navbar": "workspace:*",
-    "@srcube-ui/notice-bar": "workspace:*",
-    "@srcube-ui/pickbox": "workspace:*",
-    "@srcube-ui/picker": "workspace:*",
-    "@srcube-ui/popover": "workspace:*",
-    "@srcube-ui/radio": "workspace:*",
-    "@srcube-ui/scrollbox": "workspace:*",
-    "@srcube-ui/skeleton": "workspace:*",
-    "@srcube-ui/steps": "workspace:*",
-    "@srcube-ui/stepper": "workspace:*",
-    "@srcube-ui/swipe-action": "workspace:*",
-    "@srcube-ui/switch": "workspace:*",
-    "@srcube-ui/tabbar": "workspace:*",
-    "@srcube-ui/tabs": "workspace:*",
-    "@srcube-ui/textarea": "workspace:*",
-    "@srcube-ui/timeline": "workspace:*",
-    "@srcube-ui/tour": "workspace:*"
+    "@srcube-ui/styles": "workspace:*",
+    "tailwind-variants": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-aria-components": "catalog:"
   },
   "devDependencies": {
-    "@srcube-ui/config": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }

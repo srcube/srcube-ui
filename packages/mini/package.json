@@ -1,59 +1,19 @@
 {
   "name": "@srcube-ui/mini",
-  "version": "0.0.0",
   "private": true,
   "type": "module",
+  "files": ["dist"],
   "miniprogram": "dist",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "tsdown && node ./scripts/sync-miniprogram.mjs"
+    "dev": "tsdown --watch --config tsdown.config.ts",
+    "build": "tsdown --config tsdown.config.ts",
+    "test": "pnpm -w vitest --run --project unit packages/mini/__tests__"
   },
   "dependencies": {
-    "@srcube-ui/accordion": "workspace:*",
-    "@srcube-ui/action-sheet": "workspace:*",
-    "@srcube-ui/avatar": "workspace:*",
-    "@srcube-ui/button": "workspace:*",
-    "@srcube-ui/cascader": "workspace:*",
-    "@srcube-ui/calendar": "workspace:*",
-    "@srcube-ui/card": "workspace:*",
-    "@srcube-ui/checkbox": "workspace:*",
-    "@srcube-ui/collapse": "workspace:*",
-    "@srcube-ui/drawer": "workspace:*",
-    "@srcube-ui/field": "workspace:*",
-    "@srcube-ui/image": "workspace:*",
-    "@srcube-ui/input": "workspace:*",
-    "@srcube-ui/input-otp": "workspace:*",
-    "@srcube-ui/listbox": "workspace:*",
-    "@srcube-ui/modal": "workspace:*",
-    "@srcube-ui/navbar": "workspace:*",
-    "@srcube-ui/notice-bar": "workspace:*",
-    "@srcube-ui/pickbox": "workspace:*",
-    "@srcube-ui/picker": "workspace:*",
-    "@srcube-ui/popover": "workspace:*",
-    "@srcube-ui/radio": "workspace:*",
-    "@srcube-ui/scrollbox": "workspace:*",
-    "@srcube-ui/skeleton": "workspace:*",
-    "@srcube-ui/steps": "workspace:*",
-    "@srcube-ui/stepper": "workspace:*",
-    "@srcube-ui/swipe-action": "workspace:*",
-    "@srcube-ui/switch": "workspace:*",
-    "@srcube-ui/tabbar": "workspace:*",
-    "@srcube-ui/tabs": "workspace:*",
-    "@srcube-ui/textarea": "workspace:*",
-    "@srcube-ui/timeline": "workspace:*",
-    "@srcube-ui/tour": "workspace:*"
+    "@srcube-ui/styles": "workspace:*",
+    "miniprogram-computed": "catalog:"
   },
   "devDependencies": {
-    "@srcube-ui/config": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }

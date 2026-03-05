@@ -1,0 +1,47 @@
+{
+  "name": "@srcube-ui/styles",
+  "type": "module",
+  "miniprogram": "dist/@mini",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsdown --watch --config tsdown.config.ts",
+    "build": "tsdown --config tsdown.config.ts",
+    "test": "pnpm -w vitest --run --project unit packages/styles/__tests__"
+  },
+  "exports": {
+    ".": {
+      "style": "./theme/index.css",
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./style.css": {
+      "style": "./theme/index.css",
+      "default": "./theme/index.css"
+    },
+    "./index.css": {
+      "style": "./theme/index.css",
+      "default": "./theme/index.css"
+    },
+    "./css": {
+      "style": "./theme/index.css",
+      "default": "./theme/index.css"
+    },
+    "./components/button/style": {
+      "types": "./src/components/button/style.ts",
+      "import": "./src/components/button/style.ts",
+      "default": "./src/components/button/style.ts"
+    },
+    "./components/*": {
+      "types": "./src/components/*/index.ts",
+      "import": "./src/components/*/index.ts",
+      "default": "./src/components/*/index.ts"
+    }
+  },
+  "dependencies": {
+    "@weapp-tailwindcss/variants": "catalog:",
+    "tailwind-variants": "catalog:"
+  }
+}

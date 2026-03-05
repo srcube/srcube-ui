@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm view:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm approve-builds:*)",
+      "Bash(pnpm list:*)",
+      "Skill(bmad-orchestrator)",
+      "Bash(echo === $pkg ===:*)",
+      "Bash(ln:*)",
+      "Bash(python3:*)",
+      "Bash(pnpm:*)"
+    ]
+  }
+}

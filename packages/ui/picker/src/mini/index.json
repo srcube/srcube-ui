@@ -1,9 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "sr-field": "../field/index",
-    "sr-drawer": "../drawer/index",
-    "sr-pickbox": "../pickbox/index",
-    "sr-button": "../button/index"
-  }
-}

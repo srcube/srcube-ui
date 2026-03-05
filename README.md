@@ -1,63 +1,73 @@
 # srcube-ui
 
-A UI component library workspace for React and MiniProgram.
+移动端组件库，支持 React Web 与小程序双平台。
 
-## Status
-This repo is scaffolded; `apps/` and `packages/` are currently empty. This README is a starter and should be updated as packages land.
+## 架构
 
-## Workspace layout
-- `apps/` demo apps, docs site, playgrounds
-- `packages/` publishable libraries
-- `pnpm-workspace.yaml` workspace config
-- `turbo.json` task pipeline
+三层分离架构：
+- `@srcube-ui/styles` - 样式契约层（theme + variants）
+- `@srcube-ui/react` - React 组件实现
+- `@srcube-ui/mini` - 小程序组件实现
 
-## Requirements
-- Node.js (LTS recommended)
-- pnpm 10.x
+详见 [ARCHITECTURE.md](./ARCHITECTURE.md)
 
-## Getting Started
-### 1) 安装依赖
+## 快速开始
+
+### 安装依赖
 ```bash
 pnpm install
 ```
 
-### 2) 本地开发
+### 开发
 ```bash
-# 同时启动 workspace dev 任务
-pnpm dev
-
-# 只启动 React 示例
-pnpm dev:react
-
-# 只启动 Mini 示例
-pnpm dev:mini
+pnpm dev          # 启动所有
+pnpm dev:react    # 仅 React 示例
+pnpm dev:mini     # 仅小程序示例
 ```
 
-### 3) 构建
+### 构建
 ```bash
-# 构建整个 workspace
-pnpm build
-
-# 仅构建 packages 下的包
-pnpm build:pkg
+pnpm build        # 构建所有
+pnpm build:pkg    # 仅构建 packages
 ```
 
-### 4) 校验
+### 测试与校验
 ```bash
 pnpm test
 pnpm lint
 pnpm format
 ```
 
-### 5) 新增组件（推荐流程）
-1. 复制模板：`packages/ui/_template` → `packages/ui/<component-name>`
-2. 按顺序实现：`style.ts` → `react/*` → `mini/*`
-3. 同步更新 README 的 API 表，保持 React / Mini 语义一致
+## 组件开发
 
-## Conventions
-- ESM only (`"type": "module"`).
-- Prefer TypeScript.
-- Build outputs in `dist/` or `build/` (per `turbo.json`).
+### 开发流程
+1. 定义样式契约：`packages/styles/src/components/<name>/style.ts`
+2. 实现 React 组件：`packages/react/src/components/<name>/`
+3. 实现小程序组件：`packages/mini/src/components/<name>/`
+4. 编写文档：`react/docs/` 和 `mini/docs/`
+5. 编写测试：`react/__tests__/` 和 `mini/__tests__/`
+
+### 核心约定
+- 样式通过 `style.ts` + slots 输出，禁止直接写 Tailwind 类
+- 双平台 API 语义一致，文档 API 表为唯一真相
+- 布尔命名：`is/has/should/can`
+- React 交互组件使用 React Aria Components
+- 小程序组件保留必要原生字段
+
+详见 [ARCHITECTURE.md](./ARCHITECTURE.md)
+
+## Workspace 结构
+```txt
+apps/
+  sample-react/      # React 示例
+  sample-mini/       # 小程序示例
+packages/
+  styles/            # 样式契约
+  react/             # React 实现
+  mini/              # 小程序实现
+  _config/           # 构建配置
+  _storybook/        # 文档配置
+```
 
 ## License
 MIT

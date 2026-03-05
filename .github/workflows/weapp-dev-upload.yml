@@ -1,0 +1,48 @@
+name: Weapp Dev Upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'apps/sample-weapp/**'
+      - '.github/workflows/weapp-dev-upload.yml'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    env:
+      WEAPP_APPID: ${{ vars.WEAPP_APPID || vars['WEAPP-APPID'] || secrets.WEAPP_APPID || secrets['WEAPP-APPID'] }}
+      WEAPP_UPLOAD_KEY: ${{ secrets.WEAPP_UPLOAD_KEY || secrets['WEAPP-UPLOAD-KEY'] }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Write upload private key
+        shell: bash
+        run: |
+          mkdir -p apps/sample-weapp/.secret
+          cat > apps/sample-weapp/.secret/upload.key <<'KEY'
+          ${{ env.WEAPP_UPLOAD_KEY }}
+          KEY
+
+      - name: Upload weapp dev build
+        run: pnpm -C apps/sample-weapp run upload
+
+      - name: Cleanup secrets
+        if: always()
+        run: rm -rf apps/sample-weapp/.secret

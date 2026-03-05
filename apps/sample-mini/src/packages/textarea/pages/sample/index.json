@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "Textarea",
-  "usingComponents": {
-    "sr-textarea": "@srcube-ui/textarea/index",
-    "sr-button": "@srcube-ui/button/index",
-    "sr-button-group": "@srcube-ui/button/button-group/index"
-  }
-}

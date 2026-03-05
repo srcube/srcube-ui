@@ -1,0 +1,4 @@
+{
+  "extends": "../_config/tsconfig/base.json",
+  "include": ["src", "theme/**/*", "tsdown.config.ts"]
+}

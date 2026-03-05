@@ -49,3 +49,6 @@ _bmad-output
 
 # locals
 *.local.md
+
+# backup
+.bak

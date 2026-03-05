@@ -1,8 +1,0 @@
-{
-  "$schema": "https://vite.icebreaker.top/page.json",
-  "usingComponents": {
-    "sr-image": "@srcube-ui/image/index"
-  },
-  "navigationBarTitleText": "Image",
-  "backgroundColor": "#f1f5f9"
-}

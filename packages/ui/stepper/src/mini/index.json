@@ -1,7 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "sr-field": "../field/index",
-    "sr-button": "../button/index"
-  }
-}

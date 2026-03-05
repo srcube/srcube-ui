@@ -1,4 +1,4 @@
 {
-  "extends": "@srcube-ui/config/tsconfig.react.json",
-  "include": ["src/**/*"]
+  "extends": "../_config/tsconfig/react.json",
+  "include": ["src/**/*", "tsdown.config.ts"]
 }

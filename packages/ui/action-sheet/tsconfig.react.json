@@ -1,9 +1,0 @@
-{
-  "extends": "@srcube-ui/config/tsconfig.react.json",
-  "include": [
-    "src/react/**/*",
-    "src/style.ts",
-    "src/locale.ts",
-    "src/index.ts"
-  ]
-}

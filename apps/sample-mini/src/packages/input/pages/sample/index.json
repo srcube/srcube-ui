@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "Input",
-  "usingComponents": {
-    "sr-input": "@srcube-ui/input/index",
-    "sr-button": "@srcube-ui/button/index",
-    "sr-button-group": "@srcube-ui/button/button-group/index"
-  }
-}

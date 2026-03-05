@@ -1,8 +1,0 @@
-<view
-  wx:if="{{$shouldRender}}"
-  hidden="{{!$isActive}}"
-  class="sr-tab-panel__base {{$classNames.base}}"
-  style="{{style}}"
->
-  <slot />
-</view>

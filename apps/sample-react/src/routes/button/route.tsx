@@ -1,7 +1,6 @@
 import { Button, ButtonGroup } from '@srcube-ui/button';
 import { createFileRoute } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import PageHeader from '@/components/page-header';
 
 export const Route = createFileRoute('/button')({
   component: ButtonDemo,
@@ -77,8 +76,10 @@ function ButtonDemo() {
 
   return (
     <main className="min-h-screen bg-slate-100 pb-24 text-slate-900">
-      <PageHeader title="Button" />
-      <div className="px-4 pb-8">
+      <div className="border-b border-slate-200 bg-white px-4 py-3 text-base font-semibold">
+        Button
+      </div>
+      <div className="px-4 py-6">
         <Section title="Colors" description="color + variant=solid">
           {colors.map((item) => (
             <Button key={item.value} color={item.value as never}>
@@ -126,11 +127,9 @@ function ButtonDemo() {
         </Section>
 
         <Section title="Icon">
-          <Button isIcon aria-label="Add">
-            <span className="icon-[mdi--plus] text-lg" aria-hidden />
-          </Button>
+          <Button isIcon aria-label="Add">+</Button>
           <Button>
-            <span className="icon-[mdi--star-outline] text-lg" aria-hidden />
+            <span>+</span>
             <span>Star</span>
           </Button>
         </Section>

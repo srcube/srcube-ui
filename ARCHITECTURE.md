@@ -1,104 +1,175 @@
 # 架构文档
 
 ## 1. 定位与目标
-从零搭建一个跨端 UI 组件库：**单一组件包**，内部包含 **style + 多端实现（mini / react）**。每个端的逻辑实现互不影响，只共享**样式 tokens**；props 各端独立维护。
+移动端组件库，支持 React Web 与小程序双平台，采用分层架构：
+- `styles`：跨平台共享样式契约（theme + variants）
+- `react`：React 平台组件实现
+- `mini`：小程序平台组件实现
 
-## 2. Workspace 范式
-```
+核心目标：
+- 单仓维护，平台实现隔离
+- mini 构建零 React 依赖污染
+- 双平台 API 语义一致，实现独立演进
+
+## 2. Workspace 结构
+```txt
 apps/
-  sample-react/
-  sample-mini/
+  sample-react/          # React 示例应用
+  sample-mini/           # 小程序示例应用
 packages/
-  config/              # 共享 tsconfig（mini/react）
-  theme/               # 设计 tokens 与 Tailwind 插件（构建期/样式系统）
-  runtime/             # 跨端运行时能力（供组件实现层依赖）
+  styles/                # 样式契约层
     src/
-      react/           # React 运行时工具（如 composeTwRenderProps）
-      mini/            # Mini 运行时工具（如 UIComponent）
-  react/               # React 聚合导出层（聚合 @srcube-ui/<component>/react）
-  mini/                # Mini 聚合分发层（聚合并分发 dist/<component>/index）
-  shared/              # 跨包共享小工具
-  ui/
-    <component>/       # 单一组件包（多端共存）
-      src/
-        style.ts       # 共享：tailwind 样式 tokens
-        locale.ts      # 可选：跨端共用文案/locale 定义（仅 type + 文案映射）
-        mini/          # 小程序实现（独立逻辑）
-          index.ts     # 小程序逻辑
-          index.wxml   # 小程序结构
-          index.wxss   # 小程序样式
-          index.json   # 小程序声明
-          props.ts     # mini 侧 props
-        react/         # React 实现（独立逻辑）
-          index.tsx    # React 组件
-          props.ts     # react 侧 props
-      src/index.ts     # 仅导出 style
-      tsdown.config.ts
+      theme/             # design tokens
+      components/        # 组件样式契约
+      shared/            # tv 工具
+  react/                 # React 实现层
+    src/
+      components/        # React 组件
+      shared/            # React 工具
+    docs/                # React 组件文档
+    __tests__/           # React 测试
+  mini/                  # 小程序实现层
+    src/
+      components/        # 小程序组件
+      shared/            # 小程序工具
+    docs/                # 小程序组件文档
+    __tests__/           # 小程序测试
+  _config/               # 共享构建配置
+  _storybook/            # 文档工程配置
 ```
 
-## 3. 组件包范式
-- **单组件包**：每个组件独立一包，内部含共享 style + 多端实现层。
-- **共享最小化**：只共享样式 tokens；props 各端维护。
-- **依赖方向**：组件包仅依赖 `@srcube-ui/runtime` 与 `@srcube-ui/theme`，禁止依赖聚合包 `@srcube-ui/react` / `@srcube-ui/mini`（避免循环依赖）。
-- **API 同步**：语义必须一致，形式允许不同；通过 README 的 API 章节明确对齐项与差异项。
-- **逻辑私域**：各端实现自行处理状态、交互与渲染。
-- **导出清晰**：对外只暴露稳定入口，禁止深层路径依赖。
+## 3. 分层职责
+### `@srcube-ui/styles`
+- design tokens / theme 配置
+- 组件 variants / slots 契约（基于 tailwind-variants）
+- 禁止：React/mini 运行时逻辑、DOM/小程序 API
 
-### Template Governance（模板规则）
-- **API 同步**：组件 README 的 API 表为唯一真相；React/Mini 必须一一对应。
-- **Sample 对齐规则**：`apps/sample-react` 与 `apps/sample-mini` 的同组件示例必须覆盖一致的核心场景（如 colors/variants/states），并尽量保持一致的交互模型（例如使用 ButtonGroup 进行颜色切换）；如需平台差异，必须在组件 README 说明原因。
-- **Locale 约定**：跨端共用的文案语言定义单独放在组件根 `src/locale.ts`（仅包含 locale type 与文案映射），平台逻辑仍分别在 `react/*` 与 `mini/*` 实现。
-- **RAC 使用边界**：仅交互型组件使用 RAC（Button/Toggle/Slider 等）。
-- **样式规则**：实现层避免直接写 Tailwind 类，统一通过 `style.ts` + slots 输出。
-- **样式规则（强制）**：
-  - 禁止在 `react/*`、`mini/*` 逻辑层写 Tailwind 字符串（包括 `animate-*`、`text-*`、`bg-*`、`active:*`、`rounded-*` 等）。
-  - 禁止在逻辑层做 Tailwind 条件拼接（如 `isOpen ? 'animate-in' : 'animate-out'`）；状态样式必须在 `style.ts` 中通过 `tv variants/slots/compoundVariants` 表达。
-  - 逻辑层允许的 class 来源仅限：`slots.xxx({ class: ... })`、`style.ts` 导出的样式 helper（例如 `xxxTone/xxxMotion`）返回值，以及用户透传的 `className/classNames`。
-  - 文案与语言同理：跨端文案映射放 `src/locale.ts`，逻辑层仅做“取值与兜底”，不内联文案字面量。
-- **`$xxx` slots 规则**：`$` 前缀 slot 为适配层专用命名，仅用于小程序实现里“组件套组件”场景下给子组件节点本身挂载 class（例如 `$scrollbox`）；React 侧不消费这类 slot。非 `$` slot 保持通用语义（用于组件自身结构或透传到子组件公开样式入口，如 `className/classNames`）。
-- **Mini 原生属性策略**：仅保留必要字段，其它按组件场景扩展。
-- **Mini 节点约定**：小程序标签节点（含自定义组件标签）自身样式与布局只认 `class/style`，必须显式写在该节点上（例如等分宽度这类布局依赖）。`className/classNames` 仅作为组件 props 传入供组件内部消费，不能替代节点自身的 `class/style`。若存在原生按钮事件，内部使用隐藏原生节点承载事件，外层仅负责样式。
+### `@srcube-ui/react`
+- React 组件实现（基于 React Aria Components）
+- 样式消费自 `@srcube-ui/styles`
+- 禁止依赖 `@srcube-ui/mini`
 
-## 4. 代码范式
-- 平台无关：共享样式/工具层不引用 `window/document/navigator`，用 `globalThis` 兼容。
-- 样式与逻辑分离：仅共享 Tailwind tokens。
-- tv 统一入口：业务统一写 `@srcube-ui/theme/tv`，构建侧做分端别名（Web → tv-web，Mini → tv-mini）。
-- 逻辑分端实现：平台侧不依赖其它平台代码。
-- runtime 与聚合分层：`@srcube-ui/runtime/*` 负责运行时能力；`@srcube-ui/react` / `@srcube-ui/mini` 仅负责组件聚合导出。
-- 命名统一：组件名 `PascalCase`，包名 `kebab-case`，事件 `on*`，布尔 `is/has/should/can`。
-- 布尔 Props 规则：所有布尔型 props 必须使用 `is/has/should/can` 前缀。
+### `@srcube-ui/mini`
+- 小程序组件实现（wxml/wxss/js）
+- 样式消费自 `@srcube-ui/styles`
+- 禁止依赖 `@srcube-ui/react`
 
-### 样式审查清单（CR 必过）
-- 任一 `react/*`、`mini/*` 逻辑文件中，不应出现 Tailwind 原子类字面量。
-- 动画/按压/主题色/圆角等“状态样式”必须可在 `style.ts` 一处定位并修改。
-- 若发现逻辑层存在 Tailwind 字符串，必须回收至 `style.ts` 后再合并。
+### `@srcube-ui/config` 与 `@srcube-ui/storybook`
+- `_config`：tsconfig/构建配置基座
+- `_storybook`：文档/演示工程配置
 
-## 5. 公开导入
-- `@srcube-ui/theme`
-- `@srcube-ui/runtime`
-- `@srcube-ui/runtime/react`
-- `@srcube-ui/runtime/mini`
-- `@srcube-ui/react`
-- `@srcube-ui/mini`
-- `@srcube-ui/mini/<component>/index`（小程序 `usingComponents` 注册路径）
-- `@srcube-ui/shared`
-- `@srcube-ui/config`
-- `@srcube-ui/<component>`
-- `@srcube-ui/<component>/style`
-- `@srcube-ui/<component>/mini`
-- `@srcube-ui/<component>/react`
+## 4. 依赖边界
+- `styles` 不依赖任何平台包
+- `react` 仅依赖 `styles`，禁止依赖 `mini`
+- `mini` 仅依赖 `styles`，禁止依赖 `react`
+- 禁止 `react <-> mini` 循环依赖
 
-## 6. 构建与验证
-- monorepo：pnpm workspace
-- 任务编排：Turbo
-- 构建：tsdown（组件包）
-- mini 聚合构建：`@srcube-ui/mini` 在 build 后将 `@srcube-ui/<component>/dist/mini` 同步为 `@srcube-ui/mini/dist/<component>/index*`，并开启严格检查（任一组件未构建则报错中断）。
-- 示例：apps 用于组件验证与回归
+## 5. 组件结构
+每个组件按以下结构组织：
+```txt
+packages/styles/src/components/button/
+  index.ts              # 样式契约导出
+  style.ts              # variants 定义
 
-## 7. 文档位置
-- BMAD 产物统一放在 `_bmad-output/`（包含 prd / architecture / sprint / stories）
+packages/react/src/components/button/
+  index.ts              # React 组件实现
+  button.tsx
+  button-group.tsx
 
+packages/mini/src/components/button/
+  index.ts              # 小程序组件脚本
+  index.wxml
+  index.wxss
+  index.json
 
-## 8. 层级规范
-- Overlay/Modal 类组件遮罩层从 `z-index: 1000` 开始。
-- 弹窗内容层为遮罩层 `+1`（默认 `1001`）。
+packages/react/docs/components/button.md    # React 文档
+packages/mini/docs/components/button.md     # 小程序文档
+
+packages/react/__tests__/button/button.test.tsx
+packages/mini/__tests__/button/button.test.ts
+```
+
+## 6. 开发流程
+组件开发顺序：
+1. `styles/components/<name>/style.ts` - 定义样式契约（tokens/slots/variants）
+2. `react/src/components/<name>/` - 实现 React 组件
+3. `mini/src/components/<name>/` - 实现小程序组件
+4. `react/docs/components/<name>.md` - React 文档
+5. `mini/docs/components/<name>.md` - 小程序文档
+6. `react/__tests__/<name>/` - React 测试
+7. `mini/__tests__/<name>/` - 小程序测试
+
+## 7. 开发约定
+
+### 7.1 样式规范
+- 样式定义统一在 `styles/components/<name>/style.ts`
+- 使用 tailwind-variants 定义 variants 和 slots
+- 实现层禁止直接写 Tailwind 类，必须通过 style.ts 输出
+- `_` 前缀 slot 为内部私有，不对外暴露
+- `$` 前缀 slot 仅用于小程序适配层“组件套组件”场景给子组件节点本身挂载 class（如 `$scrollbox`），React 不消费；非 `$` slot 保持通用语义
+
+### 7.2 API 规范
+- 组件文档的 API 表是唯一真相
+- React/Mini 必须保持字段、默认值、语义一致
+- 布尔 props 命名：`is/has/should/can`
+- 平台差异仅限形式差异（如 className 类型），禁止语义差异
+- 命名：组件名 `PascalCase`，包名 `kebab-case`，事件 `on*`
+
+### 7.3 React 规范
+- 交互型组件（Button/Toggle/Slider 等）使用 React Aria Components
+- `className` 支持函数式：`(state) => string`
+- 事件命名统一为 `onTap`（而非 onClick）
+- 支持 `isLoading="auto"` 时 Promise 自动 loading
+
+### 7.4 Mini 规范
+- 保留必要的原生字段，其它按组件场景扩展
+- 支持 `isLoading="auto"` 时 `e.detail.wait(Promise)` 自动 loading
+- 小程序组件本身就是一个节点，`class/style` 等原生样式需显式加在组件本身；布局依赖（如等分宽度）也应加在组件本身。若存在原生按钮事件，内部使用隐藏原生节点承载事件，外层仅负责样式
+
+### 7.5 测试规范
+- React 测试覆盖：渲染、核心 props、class 生效、交互回调
+- Mini 测试覆盖：模板节点、默认 props、事件触发、数据绑定
+- 测试命名描述行为，不描述实现细节
+
+### 7.6 国际化规范
+- 需要国际化的组件在 `styles/components/<name>/locale.ts` 定义
+- locale.ts 仅放 locale type / 文案映射 / 默认 locale
+- 禁止在 locale.ts 放平台逻辑
+
+### 7.7 依赖规范
+- `react/mini` 仅依赖 `styles`，禁止互相依赖
+
+## 8. 构建与验收
+- monorepo: pnpm workspace + Turbo
+- 构建工具: tsdown (基于 Rolldown)
+- 样式处理: Tailwind CSS + tailwind-variants
+
+验收标准：
+- mini 产物无 React 依赖（检查 dist/@mini）
+- react 产物无 mini 符号（检查 dist）
+- 双平台 API 语义一致（对照文档 API 表）
+- 示例应用正常运行（apps/sample-react、apps/sample-mini）
+
+## 9. 文档规范
+每个组件必须提供双平台文档：
+- `react/docs/components/<name>.md`
+- `mini/docs/components/<name>.md`
+
+文档结构：
+```md
+# ComponentName
+
+<组件定位说明>
+
+## 使用
+<平台特定的使用示例>
+
+## API
+<API 表，标注平台支持情况>
+
+## 特性
+<平台特定特性说明>
+
+## Slots（可选）
+<slots 说明>
+```

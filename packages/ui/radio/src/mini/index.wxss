@@ -1,8 +1,0 @@
-.sr-radio__native {
-  position: absolute;
-  inset: 0;
-  /* biome-ignore lint/complexity/noImportantStyles: override native radio */
-  width: 100% !important;
-  height: 100%;
-  opacity: 0;
-}
