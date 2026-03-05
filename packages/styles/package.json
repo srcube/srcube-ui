@@ -133,6 +133,11 @@
       "types": "./src/components/swipe-action/style.ts",
       "import": "./src/components/swipe-action/style.ts",
       "default": "./src/components/swipe-action/style.ts"
+    },
+    "./components/tour/style": {
+      "types": "./src/components/tour/style.ts",
+      "import": "./src/components/tour/style.ts",
+      "default": "./src/components/tour/style.ts"
     }
   },
   "dependencies": {

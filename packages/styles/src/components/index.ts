@@ -18,3 +18,4 @@ export * from './stepper';
 export * from './textarea';
 export * from './tabs';
 export * from './swipe-action';
+export * from './tour';

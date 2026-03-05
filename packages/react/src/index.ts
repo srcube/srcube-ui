@@ -18,3 +18,4 @@ export * from './components/stepper';
 export * from './components/textarea';
 export * from './components/tabs';
 export * from './components/swipe-action';
+export * from './components/tour';

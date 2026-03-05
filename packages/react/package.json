@@ -115,6 +115,11 @@
       "types": "./dist/components/swipe-action/index.d.ts",
       "import": "./dist/components/swipe-action/index.js",
       "default": "./dist/components/swipe-action/index.js"
+    },
+    "./tour": {
+      "types": "./dist/components/tour/index.d.ts",
+      "import": "./dist/components/tour/index.js",
+      "default": "./dist/components/tour/index.js"
     }
   },
   "dependencies": {

@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "sr-popup": "../popup/index",
+    "sr-button": "../button/index"
+  }
+}
