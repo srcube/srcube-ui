@@ -160,6 +160,11 @@
       "types": "./dist/components/steps/index.d.ts",
       "import": "./dist/components/steps/index.js",
       "default": "./dist/components/steps/index.js"
+    },
+    "./tabbar": {
+      "types": "./dist/components/tabbar/index.d.ts",
+      "import": "./dist/components/tabbar/index.js",
+      "default": "./dist/components/tabbar/index.js"
     }
   },
   "dependencies": {

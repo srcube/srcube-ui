@@ -1,0 +1,28 @@
+<view class="sr-tabbar {{$classNames.base}}" style="{{style}}">
+  <view class="sr-tabbar__list {{$classNames.list}}">
+    <button
+      wx:for="{{$renderItems}}"
+      wx:key="key"
+      class="sr-tabbar__item {{$classNames.item}} {{item.itemClassName}}"
+      data-index="{{item.index}}"
+      bindtap="handleItemTap"
+      disabled="{{item.isDisabled}}"
+      type="default"
+      plain="{{true}}"
+      hover-class="none"
+    >
+      <view class="sr-tabbar__main {{$classNames.main}}">
+        <text wx:if="{{item.icon}}" class="sr-tabbar__icon {{$classNames.icon}}">
+          {{item.icon}}
+        </text>
+        <text class="sr-tabbar__label {{$classNames.label}}">{{item.label}}</text>
+        <view wx:if="{{item.hasBadge}}" class="sr-tabbar__badge {{$classNames.badge}}">
+          <view wx:if="{{item.badgeIsDot}}" class="sr-tabbar__badge-dot {{$classNames.badgeDot}}" />
+          <text wx:else class="sr-tabbar__badge-content {{$classNames.badgeContent}}">
+            {{item.badgeText}}
+          </text>
+        </view>
+      </view>
+    </button>
+  </view>
+</view>

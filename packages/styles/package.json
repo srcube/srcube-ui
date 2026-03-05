@@ -178,6 +178,11 @@
       "types": "./src/components/steps/style.ts",
       "import": "./src/components/steps/style.ts",
       "default": "./src/components/steps/style.ts"
+    },
+    "./components/tabbar/style": {
+      "types": "./src/components/tabbar/style.ts",
+      "import": "./src/components/tabbar/style.ts",
+      "default": "./src/components/tabbar/style.ts"
     }
   },
   "dependencies": {

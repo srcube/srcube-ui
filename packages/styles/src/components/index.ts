@@ -27,3 +27,4 @@ export * from './menu';
 export * from './navbar';
 export * from './notice-bar';
 export * from './steps';
+export * from './tabbar';
