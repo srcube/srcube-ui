@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    'components/popup/index': 'src/components/popup/index.ts',
     index: 'src/index.ts',
     'components/button/index': 'src/components/button/index.ts',
     'components/checkbox/index': 'src/components/checkbox/index.ts',

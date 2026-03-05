@@ -2,7 +2,9 @@
   "name": "@srcube-ui/react",
   "private": true,
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "tsdown --watch --config tsdown.config.ts",
     "build": "tsdown --config tsdown.config.ts",
@@ -38,6 +40,11 @@
       "types": "./dist/components/radio/index.d.ts",
       "import": "./dist/components/radio/index.js",
       "default": "./dist/components/radio/index.js"
+    },
+    "./popup": {
+      "types": "./dist/components/popup/index.d.ts",
+      "import": "./dist/components/popup/index.js",
+      "default": "./dist/components/popup/index.js"
     },
     "./switch": {
       "types": "./dist/components/switch/index.d.ts",

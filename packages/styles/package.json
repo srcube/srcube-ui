@@ -63,6 +63,11 @@
       "types": "./src/components/*/index.ts",
       "import": "./src/components/*/index.ts",
       "default": "./src/components/*/index.ts"
+    },
+    "./components/popup/style": {
+      "types": "./src/components/popup/style.ts",
+      "import": "./src/components/popup/style.ts",
+      "default": "./src/components/popup/style.ts"
     }
   },
   "dependencies": {
