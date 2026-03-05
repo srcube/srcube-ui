@@ -1,0 +1,36 @@
+<sr-skeleton
+  className="sr-avatar {{$classNames.base}}"
+  classNames="{{$skeletonClassNames || classNames}}"
+  style="{{style}}"
+  radius="{{radius}}"
+  isLoaded="{{!$isLoading}}"
+>
+  <image
+    wx:if="{{$showImage}}"
+    class="sr-avatar__image {{$classNames.image}}"
+    style="width: 100%; height: 100%;"
+    src="{{src}}"
+    mode="aspectFill"
+    bindload="handleImageLoad"
+    binderror="handleImageError"
+  />
+  <view wx:else class="sr-avatar__fallback {{$classNames.fallback}}">
+    <view
+      wx:if="{{$isGradientOrb}}"
+      class="sr-avatar__fallback-orb {{$classNames.fallbackOrb}}"
+      style="{{$orbStyle}}"
+    />
+    <view
+      wx:if="{{$isGradientOrb}}"
+      class="sr-avatar__fallback-glow {{$classNames.fallbackGlow}}"
+      style="{{$orbGlowStyle}}"
+    />
+    <view
+      wx:if="{{$isGradientOrb}}"
+      class="sr-avatar__fallback-highlight {{$classNames.fallbackHighlight}}"
+    />
+    <text class="sr-avatar__fallback-text {{$classNames.fallbackText}}" style="{{$fallbackTextStyle}}">
+      {{$fallbackText}}
+    </text>
+  </view>
+</sr-skeleton>

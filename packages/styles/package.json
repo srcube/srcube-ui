@@ -103,6 +103,11 @@
       "types": "./src/components/action-sheet/style.ts",
       "import": "./src/components/action-sheet/style.ts",
       "default": "./src/components/action-sheet/style.ts"
+    },
+    "./components/avatar/style": {
+      "types": "./src/components/avatar/style.ts",
+      "import": "./src/components/avatar/style.ts",
+      "default": "./src/components/avatar/style.ts"
     }
   },
   "dependencies": {

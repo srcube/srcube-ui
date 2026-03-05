@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    'components/avatar/index': 'src/components/avatar/index.ts',
     'components/action-sheet/index': 'src/components/action-sheet/index.ts',
     'components/drawer/index': 'src/components/drawer/index.ts',
     'components/selectbox/index': 'src/components/selectbox/index.ts',
