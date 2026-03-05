@@ -14,3 +14,4 @@ export * from './drawer';
 export * from './action-sheet';
 export * from './avatar';
 export * from './calendar';
+export * from './stepper';

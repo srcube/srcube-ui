@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    'components/stepper/index': 'src/components/stepper/index.ts',
     'components/calendar/index': 'src/components/calendar/index.ts',
     'components/avatar/index': 'src/components/avatar/index.ts',
     'components/action-sheet/index': 'src/components/action-sheet/index.ts',

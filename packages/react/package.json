@@ -95,6 +95,11 @@
       "types": "./dist/components/calendar/index.d.ts",
       "import": "./dist/components/calendar/index.js",
       "default": "./dist/components/calendar/index.js"
+    },
+    "./stepper": {
+      "types": "./dist/components/stepper/index.d.ts",
+      "import": "./dist/components/stepper/index.js",
+      "default": "./dist/components/stepper/index.js"
     }
   },
   "dependencies": {

@@ -113,6 +113,11 @@
       "types": "./src/components/calendar/style.ts",
       "import": "./src/components/calendar/style.ts",
       "default": "./src/components/calendar/style.ts"
+    },
+    "./components/stepper/style": {
+      "types": "./src/components/stepper/style.ts",
+      "import": "./src/components/stepper/style.ts",
+      "default": "./src/components/stepper/style.ts"
     }
   },
   "dependencies": {

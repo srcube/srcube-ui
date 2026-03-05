@@ -14,3 +14,4 @@ export * from './components/drawer';
 export * from './components/action-sheet';
 export * from './components/avatar';
 export * from './components/calendar';
+export * from './components/stepper';
