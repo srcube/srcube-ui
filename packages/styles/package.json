@@ -93,6 +93,11 @@
       "types": "./src/components/selectbox/style.ts",
       "import": "./src/components/selectbox/style.ts",
       "default": "./src/components/selectbox/style.ts"
+    },
+    "./components/drawer/style": {
+      "types": "./src/components/drawer/style.ts",
+      "import": "./src/components/drawer/style.ts",
+      "default": "./src/components/drawer/style.ts"
     }
   },
   "dependencies": {

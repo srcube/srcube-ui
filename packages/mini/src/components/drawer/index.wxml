@@ -1,0 +1,30 @@
+<sr-popup
+  class="sr-drawer__modal {{$classNames.$modal}}"
+  className="{{className || ''}}"
+  classNames="{{$modalClassNames || classNames}}"
+  style="{{style}}"
+  isOpen="{{$resolvedOpen}}"
+  isDismissable="{{isDismissable}}"
+  hasBackdrop="{{hasBackdrop}}"
+  motion="none"
+  backdrop="{{backdrop}}"
+  bind:openchange="handleOpenChange"
+  bind:close="handleClose"
+  bind:backdropclick="handleBackdropClick"
+>
+  <view slot="header">
+    <slot name="header">
+      <view wx:if="{{title}}" class="w-full truncate">{{title}}</view>
+    </slot>
+  </view>
+
+  <view slot="body">
+    <slot name="body">
+      <slot />
+    </slot>
+  </view>
+
+  <view slot="footer">
+    <slot name="footer" />
+  </view>
+</sr-popup>

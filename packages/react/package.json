@@ -75,6 +75,11 @@
       "types": "./dist/components/selectbox/index.d.ts",
       "import": "./dist/components/selectbox/index.js",
       "default": "./dist/components/selectbox/index.js"
+    },
+    "./drawer": {
+      "types": "./dist/components/drawer/index.d.ts",
+      "import": "./dist/components/drawer/index.js",
+      "default": "./dist/components/drawer/index.js"
     }
   },
   "dependencies": {
