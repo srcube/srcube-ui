@@ -10,6 +10,7 @@ export default defineConfig({
     'components/switch/index': 'src/components/switch/index.ts',
     'components/field/index': 'src/components/field/index.ts',
     'components/input/index': 'src/components/input/index.ts',
+    'components/field/index': 'src/components/field/index.ts',
   },
   external: [/^@srcube-ui\/styles(\/.*)?$/, 'react', 'react-dom', 'react-aria-components', 'tailwind-variants'],
   skipNodeModulesBundle: true,
