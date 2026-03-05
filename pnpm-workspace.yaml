@@ -33,6 +33,7 @@ catalog:
   jsdom: ^27.0.0
   lucide-react: ^0.561.0
   miniprogram-api-typings: ^5.0.0
+  miniprogram-ci: ^2.1.26
   miniprogram-computed: ^5.1.0
   miniprogram-simulate: ^1.6.1
   nitro: npm:nitro-nightly@latest

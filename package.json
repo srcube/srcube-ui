@@ -19,6 +19,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "dev:weapp": "pnpm -C apps/sample-weapp dev",
+    "dev:weapp:open": "pnpm -C apps/sample-weapp dev:open",
     "dev:react": "pnpm -C apps/sample-react dev",
     "dev:pkg": "turbo run dev --filter=./packages/**",
     "build": "turbo run build",
@@ -55,7 +56,6 @@
     "jsdom": "catalog:",
     "miniprogram-simulate": "catalog:",
     "@vitest/browser-preview": "catalog:",
-    "vitest-browser-react": "catalog:",
-    "miniprogram-ci": "^2.1.13"
+    "vitest-browser-react": "catalog:"
   }
 }

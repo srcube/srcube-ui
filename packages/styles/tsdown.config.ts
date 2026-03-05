@@ -1,4 +1,5 @@
 import type { Plugin } from 'rolldown';
+import path from 'node:path';
 import { defineConfig } from 'tsdown';
 
 /**
@@ -9,7 +10,7 @@ const tvMiniAliasPlugin: Plugin = {
   name: 'srcube-tv-mini-alias',
   resolveId(source) {
     if (source === './tv-web' || source === './tv-web.ts') {
-      return { id: './tv-mini.js', external: true };
+      return path.resolve(import.meta.dirname, 'src/shared/tv-mini.ts');
     }
     return null;
   },
@@ -35,6 +36,12 @@ export default defineConfig([
     ...baseConfig,
     entry: ['src/**/*.ts', '!src/shared/tv-web.ts'],
     outDir: 'dist/@mini',
+    format: 'cjs',
+    target: 'es2015',
+    outExtensions: () => ({
+      js: '.js',
+      dts: '.d.ts',
+    }),
     plugins: [tvMiniAliasPlugin],
     copy: [{ from: 'theme/**/*', to: 'dist/@mini', flatten: false }],
   },

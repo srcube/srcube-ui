@@ -6,6 +6,12 @@ export default defineConfig({
     '*': 'components/**/*.ts',
     '_shared/*': 'shared/**/*.ts',
   },
+  format: 'cjs',
+  target: 'es2015',
+  outExtensions: () => ({
+    js: '.js',
+    dts: '.d.ts',
+  }),
   outDir: '../dist',
   copy: [
     {

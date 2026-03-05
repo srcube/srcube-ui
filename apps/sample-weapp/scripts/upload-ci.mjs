@@ -10,9 +10,14 @@ const __dirname = import.meta.dirname;
 const APP_ROOT = path.resolve(__dirname, '..');
 const SECRET_DIR = path.resolve(APP_ROOT, '.secret');
 const DEFAULT_KEY_PATH = path.resolve(SECRET_DIR, 'upload.key');
+const CACHE_ROOT = path.resolve(APP_ROOT, '.cache/miniprogram-ci');
 
 function readEnv(name, legacyName) {
-  return process.env[name] ?? (legacyName ? process.env[legacyName] : undefined);
+  const raw =
+    process.env[name] ?? (legacyName ? process.env[legacyName] : undefined);
+  if (raw === undefined || raw === null) return undefined;
+  const trimmed = String(raw).trim();
+  return trimmed.length ? trimmed : undefined;
 }
 
 async function ensureKeyPath() {
@@ -21,8 +26,11 @@ async function ensureKeyPath() {
     return { keyPath: keyPathFromEnv, cleanup: false };
   }
 
-  if (fs.existsSync(DEFAULT_KEY_PATH) && !readEnv('WEAPP_UPLOAD_KEY', 'WEAPP-UPLOAD-KEY')) {
-    return { keyPath: DEFAULT_KEY_PATH, cleanup: false };
+  const existingKeyPath = [DEFAULT_KEY_PATH].find((p) =>
+    fs.existsSync(p),
+  );
+  if (existingKeyPath && !readEnv('WEAPP_UPLOAD_KEY', 'WEAPP-UPLOAD-KEY')) {
+    return { keyPath: existingKeyPath, cleanup: false };
   }
 
   const keyContent = readEnv('WEAPP_UPLOAD_KEY', 'WEAPP-UPLOAD-KEY');
@@ -94,6 +102,10 @@ async function main() {
   const { keyPath, cleanup } = await ensureKeyPath();
   const version = resolveVersion();
   const desc = resolveDesc();
+  const prevCwd = process.cwd();
+
+  fs.mkdirSync(CACHE_ROOT, { recursive: true });
+  process.chdir(CACHE_ROOT);
 
   const project = new ci.Project({
     appid: appId,
@@ -101,6 +113,22 @@ async function main() {
     projectPath: APP_ROOT,
     privateKeyPath: keyPath,
   });
+
+  const formatProgress = (info) => {
+    if (typeof info === 'string') return info;
+    if (!info || typeof info !== 'object') return '';
+    const parts = [];
+    if (info.id) parts.push(info.id);
+    if (info.progress !== undefined && info.progress !== null) {
+      const progress =
+        typeof info.progress === 'number' && info.progress <= 1
+          ? Math.round(info.progress * 100)
+          : info.progress;
+      parts.push(`${progress}%`);
+    }
+    if (info.message) parts.push(info.message);
+    return parts.join(' | ');
+  };
 
   try {
     console.log(`[weapp] Upload start: version=${version} desc="${desc}"`);
@@ -110,11 +138,19 @@ async function main() {
       desc,
       onProgressUpdate(info) {
         if (!info) return;
-        console.log(`[weapp] ${info.status || 'progress'} ${info.progress || ''}`.trim());
+        const status = info.status || 'progress';
+        const detail = formatProgress(info);
+        const line = detail ? `[weapp] ${status} ${detail}` : `[weapp] ${status}`;
+        if (status === 'warn') {
+          console.warn(line);
+        } else {
+          console.log(line);
+        }
       },
     });
     console.log('[weapp] Upload complete.');
   } finally {
+    process.chdir(prevCwd);
     if (cleanup) {
       try {
         await fsp.rm(keyPath, { force: true });

@@ -1,7 +1,7 @@
 {
   "name": "@srcube-app/weapp",
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "private": true,
   "description": "原生微信小程序 weapp-vite + tailwindcss 模板",
   "author": "ice breaker <1324318532@qq.com>",
@@ -34,7 +34,7 @@
     "@iconify/json": "catalog:",
     "@tailwindcss/postcss": "catalog:",
     "miniprogram-api-typings": "catalog:",
-    "miniprogram-ci": "^2.1.13",
+    "miniprogram-ci": "catalog:",
     "postcss": "catalog:",
     "sass": "catalog:",
     "tailwindcss": "catalog:",
