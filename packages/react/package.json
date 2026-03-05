@@ -70,6 +70,11 @@
       "types": "./dist/components/listbox/index.d.ts",
       "import": "./dist/components/listbox/index.js",
       "default": "./dist/components/listbox/index.js"
+    },
+    "./selectbox": {
+      "types": "./dist/components/selectbox/index.d.ts",
+      "import": "./dist/components/selectbox/index.js",
+      "default": "./dist/components/selectbox/index.js"
     }
   },
   "dependencies": {

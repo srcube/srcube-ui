@@ -9,3 +9,4 @@ export * from './components/scrollbox';
 export * from './components/pickbox';
 export * from './components/skeleton';
 export * from './components/listbox';
+export * from './components/selectbox';

@@ -88,6 +88,11 @@
       "types": "./src/components/listbox/style.ts",
       "import": "./src/components/listbox/style.ts",
       "default": "./src/components/listbox/style.ts"
+    },
+    "./components/selectbox/style": {
+      "types": "./src/components/selectbox/style.ts",
+      "import": "./src/components/selectbox/style.ts",
+      "default": "./src/components/selectbox/style.ts"
     }
   },
   "dependencies": {
