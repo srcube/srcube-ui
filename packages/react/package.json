@@ -110,6 +110,11 @@
       "types": "./dist/components/tabs/index.d.ts",
       "import": "./dist/components/tabs/index.js",
       "default": "./dist/components/tabs/index.js"
+    },
+    "./swipe-action": {
+      "types": "./dist/components/swipe-action/index.d.ts",
+      "import": "./dist/components/swipe-action/index.js",
+      "default": "./dist/components/swipe-action/index.js"
     }
   },
   "dependencies": {

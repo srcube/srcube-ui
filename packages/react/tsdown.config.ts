@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    'components/swipe-action/index': 'src/components/swipe-action/index.ts',
     'components/tabs/index': 'src/components/tabs/index.ts',
     'components/textarea/index': 'src/components/textarea/index.ts',
     'components/stepper/index': 'src/components/stepper/index.ts',

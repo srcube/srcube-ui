@@ -1,0 +1,3 @@
+.sr-swipe-action__action {
+  box-sizing: border-box;
+}

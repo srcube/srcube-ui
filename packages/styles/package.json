@@ -128,6 +128,11 @@
       "types": "./src/components/tabs/style.ts",
       "import": "./src/components/tabs/style.ts",
       "default": "./src/components/tabs/style.ts"
+    },
+    "./components/swipe-action/style": {
+      "types": "./src/components/swipe-action/style.ts",
+      "import": "./src/components/swipe-action/style.ts",
+      "default": "./src/components/swipe-action/style.ts"
     }
   },
   "dependencies": {
