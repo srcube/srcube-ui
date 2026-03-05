@@ -1,0 +1,20 @@
+<view class="sr-navbar {{$classNames.base}}" style="{{style}}">
+  <view class="sr-navbar__inner {{$classNames.inner}}">
+    <view class="sr-navbar__start {{$classNames.start}}">
+      <view
+        wx:if="{{withBack}}"
+        class="sr-navbar__back {{$classNames.back}}"
+        bind:tap="handleBackTap"
+      >
+        <view class="sr-navbar__back-icon {{$classNames.iBack}}" />
+      </view>
+      <slot name="start" />
+    </view>
+    <view class="sr-navbar__title {{$classNames.title}}">
+      {{title}}
+    </view>
+    <view class="sr-navbar__end {{$classNames.end}}">
+      <slot name="end" />
+    </view>
+  </view>
+</view>

@@ -145,6 +145,11 @@
       "types": "./dist/components/menu/index.d.ts",
       "import": "./dist/components/menu/index.js",
       "default": "./dist/components/menu/index.js"
+    },
+    "./navbar": {
+      "types": "./dist/components/navbar/index.d.ts",
+      "import": "./dist/components/navbar/index.js",
+      "default": "./dist/components/navbar/index.js"
     }
   },
   "dependencies": {
