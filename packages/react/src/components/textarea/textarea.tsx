@@ -1,7 +1,7 @@
-import type { FieldClassNames } from '@srcube-ui/styles/components/field';
-import { textareaStyle } from '@srcube-ui/styles/components/textarea';
-import * as React from 'react';
 import { Field } from '../field';
+import type { FieldClassNames } from '@srcube-ui/styles/components/field';
+import * as React from 'react';
+import { textareaStyle } from '@srcube-ui/styles/components/textarea';
 import type { TextareaReactProps } from './props';
 
 function mergeClassName(...parts: Array<string | undefined>) {
@@ -82,8 +82,14 @@ export const Textarea = React.forwardRef<
     isAutoHeight,
   });
 
+  const isOutsideLeftLabel = labelPlacement === 'outside-left';
   const fieldClassNames = {
     ...classNames,
+    base: mergeClassName(
+      classNames?.base,
+      isOutsideLeftLabel ? 'items-start' : undefined,
+    ),
+    label: mergeClassName(classNames?.label, 'h-[1.5em] leading-[1.5em]'),
     controlWrapper: mergeClassName(classNames?.controlWrapper, 'py-2'),
     control: mergeClassName(
       classNames?.control,
@@ -96,7 +102,7 @@ export const Textarea = React.forwardRef<
     ),
     startContent: mergeClassName(
       classNames?.startContent,
-      'self-start h-[1.5em]',
+      'self-start h-[1.5em] leading-[1.5em]',
     ),
     endContent: mergeClassName(classNames?.endContent, slots.endContent()),
     clearButton: mergeClassName(classNames?.clearButton, slots.clearButton()),

@@ -1,5 +1,5 @@
-import { textareaStyle } from '@srcube-ui/styles/components/textarea/style';
 import { UIComponent } from '../../shared/ui-component';
+import { textareaStyle } from '@srcube-ui/styles/components/textarea/style';
 import { textareaMiniProps } from './props';
 
 function normalizeValue(value: unknown): string {
@@ -97,9 +97,15 @@ UIComponent({
         isAutoHeight: data.isAutoHeight,
       });
       const classNames = (data.classNames ?? {}) as Record<string, string>;
+      const isOutsideLeftLabel = data.labelPlacement === 'outside-left';
 
       return {
         ...classNames,
+        base: mergeClassName(
+          classNames.base,
+          isOutsideLeftLabel ? 'items-start' : undefined,
+        ),
+        label: mergeClassName(classNames.label, 'h-[1.5em] leading-[1.5em]'),
         controlWrapper: mergeClassName(classNames.controlWrapper, 'py-2'),
         control: mergeClassName(
           classNames.control,
@@ -112,9 +118,12 @@ UIComponent({
         ),
         startContent: mergeClassName(
           classNames.startContent,
-          'self-start h-[1.5em]',
+          'self-start h-[1.5em] leading-[1.5em]',
         ),
-        endContent: mergeClassName(classNames.endContent, slots.endContent()),
+        endContent: mergeClassName(
+          classNames.endContent,
+          slots.endContent(),
+        ),
         clearButton: mergeClassName(
           classNames.clearButton,
           slots.clearButton(),
