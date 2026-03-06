@@ -48,22 +48,22 @@ export const avatar = tv({
     },
     color: {
       default: {
-        base: 'bg-slate-200',
+        base: 'bg-[radial-gradient(circle_at_50%_20%,#cbd5e1,#64748b)]',
       },
       primary: {
-        base: 'bg-primary',
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-primary),color-mix(in_srgb,var(--color-primary)_70%,black))]',
       },
       secondary: {
-        base: 'bg-secondary',
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-secondary),color-mix(in_srgb,var(--color-secondary)_70%,black))]',
       },
       success: {
-        base: 'bg-success',
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-success),color-mix(in_srgb,var(--color-success)_70%,black))]',
       },
       warning: {
-        base: 'bg-warning text-black',
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-warning),color-mix(in_srgb,var(--color-warning)_70%,black))] text-black',
       },
       danger: {
-        base: 'bg-danger',
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-danger),color-mix(in_srgb,var(--color-danger)_70%,black))]',
       },
     },
     isBordered: {

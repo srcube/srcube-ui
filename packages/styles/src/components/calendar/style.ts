@@ -27,7 +27,7 @@ export const calendarStyle = tv({
     pickerBackdrop: 'absolute inset-0 z-10 bg-white/70 backdrop-blur-[1px]',
     pickerOverlay: 'absolute inset-0 z-20 overflow-hidden bg-white',
     pickerPanel: 'h-full p-2',
-    pickerPickbox: 'h-full',
+    pickerPickbox: 'h-full border-none',
   },
   variants: {
     size: {
