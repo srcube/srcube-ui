@@ -3,7 +3,6 @@ import type {
   ToastItem,
   ToastLifecycleState,
   ToastOptions,
-  ToastTone,
 } from './types';
 
 const DEFAULT_DURATION = 1800;
@@ -18,25 +17,11 @@ let activeToastId: string | null = null;
 
 function emit() {
   const snapshot = items.map(({ onClose, ...rest }) => ({ ...rest }));
-  listeners.forEach((listener) => {
-    listener(snapshot);
-  });
+  listeners.forEach((listener) => listener(snapshot));
 }
 
 function createId() {
   return `srcube-toast-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-}
-
-function normalizeTone(tone: string | undefined): ToastTone {
-  if (tone === 'primary') {
-    return 'info';
-  }
-
-  if (tone === 'danger') {
-    return 'error';
-  }
-
-  return tone ?? 'dark';
 }
 
 function normalizeOptions(options: ToastOptions): ToastItem {
@@ -49,7 +34,7 @@ function normalizeOptions(options: ToastOptions): ToastItem {
     id: options.id ?? createId(),
     title: options.title?.trim() ?? '',
     description: options.description?.trim() ?? '',
-    tone: normalizeTone(options.tone as string | undefined),
+    tone: options.tone ?? 'dark',
     icon: options.icon ?? '',
     duration,
     shouldAutoDismiss: options.shouldAutoDismiss !== false,
@@ -123,11 +108,7 @@ function pauseAndResetExistingToasts() {
   activeToastId = null;
 
   items = items.map((item) => {
-    if (
-      item.state === 'leave' ||
-      item.lifecycle === 'closing' ||
-      item.lifecycle === 'closed'
-    ) {
+    if (item.state === 'leave' || item.lifecycle === 'closing' || item.lifecycle === 'closed') {
       return item;
     }
 
@@ -207,9 +188,7 @@ function scheduleLeaveRemoval(
   leaveTimers.set(id, timer);
 }
 
-export function subscribeToasts(
-  listener: (value: Omit<ToastItem, 'onClose'>[]) => void,
-) {
+export function subscribeToasts(listener: (value: Omit<ToastItem, 'onClose'>[]) => void) {
   listeners = [...listeners, listener];
   const snapshot = items.map(({ onClose, ...rest }) => ({ ...rest }));
   listener(snapshot);
@@ -307,8 +286,12 @@ export const toast = Object.assign(addToast, {
     addToast({ ...options, tone: 'success' }),
   warning: (options: Omit<ToastOptions, 'tone'>) =>
     addToast({ ...options, tone: 'warning' }),
+  danger: (options: Omit<ToastOptions, 'tone'>) =>
+    addToast({ ...options, tone: 'danger' }),
   error: (options: Omit<ToastOptions, 'tone'>) =>
     addToast({ ...options, tone: 'error' }),
+  primary: (options: Omit<ToastOptions, 'tone'>) =>
+    addToast({ ...options, tone: 'primary' }),
   info: (options: Omit<ToastOptions, 'tone'>) =>
     addToast({ ...options, tone: 'info' }),
 });
