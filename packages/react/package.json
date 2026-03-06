@@ -189,6 +189,7 @@
   },
   "dependencies": {
     "@srcube-ui/styles": "workspace:*",
+    "@tanstack/react-virtual": "catalog:",
     "tailwind-variants": "catalog:"
   },
   "peerDependencies": {
@@ -196,8 +197,5 @@
     "react-dom": "catalog:",
     "react-aria-components": "catalog:"
   },
-  "devDependencies": {
-    "tsdown": "catalog:",
-    "typescript": "catalog:"
-  }
+  "devDependencies": {}
 }

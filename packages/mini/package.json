@@ -13,8 +13,5 @@
     "@srcube-ui/styles": "workspace:*",
     "miniprogram-computed": "catalog:"
   },
-  "devDependencies": {
-    "tsdown": "catalog:",
-    "typescript": "catalog:"
-  }
+  "devDependencies": {}
 }

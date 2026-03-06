@@ -33,6 +33,9 @@ catalogs:
     '@tanstack/react-router-devtools':
       specifier: ^1.132.0
       version: 1.157.17
+    '@tanstack/react-virtual':
+      specifier: ^3.13.18
+      version: 3.13.20
     '@tanstack/router-plugin':
       specifier: ^1.132.0
       version: 1.157.17
@@ -323,19 +326,15 @@ importers:
       miniprogram-computed:
         specifier: 'catalog:'
         version: 5.1.0
-    devDependencies:
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.20.3(typescript@5.9.3)(vue-tsc@3.2.5(typescript@5.9.3))
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
 
   packages/react:
     dependencies:
       '@srcube-ui/styles':
         specifier: workspace:*
         version: link:../styles
+      '@tanstack/react-virtual':
+        specifier: 'catalog:'
+        version: 3.13.20(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
         specifier: 'catalog:'
         version: 19.2.4
@@ -348,13 +347,6 @@ importers:
       tailwind-variants:
         specifier: 'catalog:'
         version: 3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.2.1)
-    devDependencies:
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.20.3(typescript@5.9.3)(vue-tsc@3.2.5(typescript@5.9.3))
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
 
   packages/styles:
     dependencies:
@@ -3536,6 +3528,12 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
+  '@tanstack/react-virtual@3.13.20':
+    resolution: {integrity: sha512-LkFkwMMKKJ0zcbN4s37hTbj+22sHCXpaqV6+kh2x74aFg59kKCfdeeKtvCETVw8vP8oqtoWo+v+3JWkuGLqF/A==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   '@tanstack/router-core@1.157.16':
     resolution: {integrity: sha512-eJuVgM7KZYTTr4uPorbUzUflmljMVcaX2g6VvhITLnHmg9SBx9RAgtQ1HmT+72mzyIbRSlQ1q0fY/m+of/fosA==}
     engines: {node: '>=12'}
@@ -3581,6 +3579,9 @@ packages:
 
   '@tanstack/store@0.8.0':
     resolution: {integrity: sha512-Om+BO0YfMZe//X2z0uLF2j+75nQga6TpTJgLJQBiq85aOyZNIhkCgleNcud2KQg4k4v9Y9l+Uhru3qWMPGTOzQ==}
+
+  '@tanstack/virtual-core@3.13.20':
+    resolution: {integrity: sha512-Djnq7ujPWcRAKyDpwqL4JDe6ZTN9AWAqE2wLstBlsEu4OnO7Im0p8KsHzLU7TPIvLQgNKpkn9EmgBH6xs8yjfA==}
 
   '@tanstack/virtual-file-routes@1.154.7':
     resolution: {integrity: sha512-cHHDnewHozgjpI+MIVp9tcib6lYEQK5MyUr0ChHpHFGBl8Xei55rohFK0I0ve/GKoHeioaK42Smd8OixPp6CTg==}
@@ -12103,6 +12104,12 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
       use-sync-external-store: 1.6.0(react@19.2.4)
 
+  '@tanstack/react-virtual@3.13.20(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@tanstack/virtual-core': 3.13.20
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
   '@tanstack/router-core@1.157.16':
     dependencies:
       '@tanstack/history': 1.154.14
@@ -12170,6 +12177,8 @@ snapshots:
       - supports-color
 
   '@tanstack/store@0.8.0': {}
+
+  '@tanstack/virtual-core@3.13.20': {}
 
   '@tanstack/virtual-file-routes@1.154.7': {}
 

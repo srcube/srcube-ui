@@ -1,5 +1,5 @@
 {
-  "name": "@srcube-app/weapp",
+  "name": "sample-weapp",
   "type": "module",
   "version": "1.0.0",
   "private": true,
