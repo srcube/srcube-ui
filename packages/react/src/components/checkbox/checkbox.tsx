@@ -134,6 +134,12 @@ export const Checkbox: React.ForwardRefExoticComponent<
       });
     }
 
+    // Don't render icon when unchecked & not indeterminate to avoid
+    // a flash of the icon's background-color during loading→idle transition.
+    if (!state.isSelected && !state.isIndeterminate) {
+      return null;
+    }
+
     if (state.isIndeterminate) {
       return (
         <span className={classes.iconWrapper}>

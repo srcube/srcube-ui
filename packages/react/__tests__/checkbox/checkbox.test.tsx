@@ -30,6 +30,26 @@ it('calls onValueChange for standalone', () => {
   expect(onValueChange).toHaveBeenCalledWith(true);
 });
 
+it('does not render icon element when unchecked and not loading', () => {
+  const { container } = render(<Checkbox>Idle</Checkbox>);
+  const label = container.querySelector('label')!;
+  // The checkbox wrapper span should not contain an icon-check or icon-spinner
+  const icons = label.querySelectorAll('.icon-check, .icon-spinner');
+  expect(icons.length).toBe(0);
+});
+
+it('renders spinner when loading', () => {
+  const { container } = render(<Checkbox isLoading>Loading</Checkbox>);
+  const spinner = container.querySelector('.icon-spinner');
+  expect(spinner).not.toBeNull();
+});
+
+it('renders check icon when selected', () => {
+  const { container } = render(<Checkbox isSelected>Checked</Checkbox>);
+  const check = container.querySelector('.icon-check');
+  expect(check).not.toBeNull();
+});
+
 it('calls onValueChange for group', () => {
   const onValueChange = vi.fn();
   render(
