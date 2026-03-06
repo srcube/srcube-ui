@@ -3,7 +3,139 @@
   "pages": ["pages/index/index"],
   "subPackages": [
     {
+      "root": "packages/action-sheet",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/avatar",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/calendar",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/card",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/collapse",
+      "pages": ["pages/sample/index"]
+    },
+    {
       "root": "packages/button",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/checkbox",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/field",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/image",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/scrollbox",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/selectbox",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/radio",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/switch",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/swipe-action",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/skeleton",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/steps",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/stepper",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/input-otp",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/listbox",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/pickbox",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/picker",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/menu",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/notice-bar",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/popup",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/navbar",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/drawer",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/tabs",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/timeline",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/tabbar",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/tour",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/toaster",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/uploader",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/input",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/textarea",
       "pages": ["pages/sample/index"]
     }
   ],

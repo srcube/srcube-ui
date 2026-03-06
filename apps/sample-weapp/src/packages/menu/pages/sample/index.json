@@ -1,0 +1,10 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-navbar": "@srcube-ui/mini/navbar/index",
+    "sr-menu": "@srcube-ui/mini/menu/index"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "Menu",
+  "backgroundColor": "#f1f5f9"
+}

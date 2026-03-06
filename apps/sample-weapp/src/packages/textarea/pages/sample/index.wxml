@@ -1,0 +1,197 @@
+<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
+  <sr-navbar
+    className="sticky top-0 z-20 border-b border-slate-200"
+    title="Textarea"
+    withBack="{{true}}"
+    hasSafeTop="{{true}}"
+  />
+
+  <view class="p-4 space-y-6">
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Basic</view>
+      <view class="mt-1 text-xs text-slate-500">多行内容时，start/end/clear 对齐首行</view>
+
+      <sr-textarea
+        class="mt-3"
+        label="简介"
+        value="{{basicValue}}"
+        placeholder="请输入内容"
+        description="可输入多行文本"
+        rows="4"
+        isClearable
+        bind:valuechange="handleBasicValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">Value: {{basicValue || 'empty'}}</view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Label Placement</view>
+      <view class="mt-1 text-xs text-slate-500">outside / outside-left / inside</view>
+
+      <view class="mt-3 space-y-3">
+        <view>
+          <sr-textarea
+            label="Outside"
+            value="field value"
+            rows="3"
+            labelPlacement="outside"
+            isClearable
+            showCount
+            maxLength="-1"
+          />
+        </view>
+        <view>
+          <sr-textarea
+            label="Outside Left"
+            value="field value"
+            rows="3"
+            labelPlacement="outside-left"
+            isClearable
+            showCount
+            maxLength="-1"
+          />
+        </view>
+        <view>
+          <sr-textarea
+            label="Inside"
+            value="field value"
+            rows="3"
+            labelPlacement="inside"
+            isClearable
+            showCount
+            maxLength="-1"
+          />
+        </view>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Auto Height</view>
+      <view class="mt-1 text-xs text-slate-500">isAutoHeight=true 时按内容增长高度</view>
+
+      <sr-textarea
+        class="mt-3"
+        label="Auto Height"
+        value="{{autoValue}}"
+        isAutoHeight
+        isClearable
+        bind:valuechange="handleAutoValueChange"
+      />
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Variants</view>
+      <view class="mt-1 text-xs text-slate-500">default / outline / twotone / underline</view>
+
+      <view class="mt-3 space-y-3">
+        <view>
+          <sr-textarea label="Default" value="field value" variant="default" />
+        </view>
+        <view>
+          <sr-textarea label="Outline" value="field value" variant="outline" />
+        </view>
+        <view>
+          <sr-textarea label="Twotone" value="field value" variant="twotone" />
+        </view>
+        <view>
+          <sr-textarea
+            label="Underline"
+            value="field value"
+            variant="underline"
+          />
+        </view>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Sizes</view>
+      <view class="mt-1 text-xs text-slate-500">sm / md / lg</view>
+
+      <view class="mt-3 space-y-3">
+        <view>
+          <sr-textarea label="Small" value="field value" size="sm" />
+        </view>
+        <view>
+          <sr-textarea label="Medium" value="field value" size="md" />
+        </view>
+        <view>
+          <sr-textarea label="Large" value="field value" size="lg" />
+        </view>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">States</view>
+      <view class="mt-1 text-xs text-slate-500">invalid / disabled / readOnly</view>
+
+      <view class="mt-3 space-y-3">
+        <view>
+          <sr-textarea
+            label="Invalid"
+            value="invalid value"
+            errorMessage="该字段格式不正确"
+            variant="outline"
+            color="danger"
+            isInvalid
+          />
+        </view>
+        <view>
+          <sr-textarea
+            label="Disabled"
+            value="disabled value"
+            description="disabled state"
+            isDisabled
+          />
+        </view>
+        <view>
+          <sr-textarea
+            label="Readonly"
+            value="readonly value"
+            description="readonly state"
+            isReadOnly
+          />
+        </view>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Colors</view>
+      <view class="mt-1 text-xs text-slate-500">use 2 sm ButtonGroup to switch color</view>
+
+      <view class="mt-3 flex flex-col gap-2">
+        <block
+          wx:for="{{colorGroups}}"
+          wx:for-item="group"
+          wx:for-index="groupIndex"
+          wx:key="groupIndex"
+        >
+          <sr-button-group size="sm" isBlock>
+            <block wx:for="{{group}}" wx:for-item="option" wx:key="value">
+              <sr-button
+                class="flex-1"
+                color="{{activeColor === option.value ? option.value : 'default'}}"
+                variant="{{activeColor === option.value ? 'solid' : 'flat'}}"
+                data-color="{{option.value}}"
+                bind:tap="handleColorTap"
+              >
+                {{option.label}}
+              </sr-button>
+            </block>
+          </sr-button-group>
+        </block>
+      </view>
+
+      <sr-textarea
+        class="mt-3"
+        label="Color Preview"
+        value="{{colorValue}}"
+        color="{{activeColor}}"
+        isClearable
+        bind:valuechange="handleColorValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">Color: {{activeColor}}</view>
+    </view>
+  </view>
+</view>

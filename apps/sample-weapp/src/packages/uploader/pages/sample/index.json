@@ -1,0 +1,10 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-navbar": "@srcube-ui/mini/navbar/index",
+    "sr-uploader": "@srcube-ui/mini/uploader/index"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "Uploader",
+  "backgroundColor": "#f1f5f9"
+}

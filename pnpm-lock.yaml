@@ -225,9 +225,6 @@ importers:
       '@biomejs/biome':
         specifier: 'catalog:'
         version: 2.3.13
-      '@iconify/json':
-        specifier: 'catalog:'
-        version: 2.2.433
       '@tanstack/devtools-vite':
         specifier: 'catalog:'
         version: 0.3.12(vite@7.3.1(@types/node@22.19.7)(jiti@2.6.1)(less@4.5.1)(lightningcss@1.31.1)(sass@1.97.3)(tsx@4.21.0)(yaml@2.8.2))

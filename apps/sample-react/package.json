@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
-    "@iconify/json": "catalog:",
     "@tanstack/devtools-vite": "catalog:",
     "@testing-library/dom": "catalog:",
     "@testing-library/react": "catalog:",

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-navbar": "@srcube-ui/mini/navbar/index",
+    "sr-timeline": "@srcube-ui/mini/timeline/index"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "Timeline",
+  "backgroundColor": "#f1f5f9"
+}

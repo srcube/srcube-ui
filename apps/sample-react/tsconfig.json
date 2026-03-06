@@ -22,7 +22,8 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@srcube-ui/react": ["../../packages/react/src/index.ts"]
     }
   }
 }

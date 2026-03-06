@@ -36,15 +36,15 @@
       "import": "./dist/components/input/index.js",
       "default": "./dist/components/input/index.js"
     },
-    "./radio": {
-      "types": "./dist/components/radio/index.d.ts",
-      "import": "./dist/components/radio/index.js",
-      "default": "./dist/components/radio/index.js"
-    },
     "./popup": {
       "types": "./dist/components/popup/index.d.ts",
       "import": "./dist/components/popup/index.js",
       "default": "./dist/components/popup/index.js"
+    },
+    "./radio": {
+      "types": "./dist/components/radio/index.d.ts",
+      "import": "./dist/components/radio/index.js",
+      "default": "./dist/components/radio/index.js"
     },
     "./switch": {
       "types": "./dist/components/switch/index.d.ts",

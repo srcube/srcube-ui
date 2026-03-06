@@ -24,6 +24,7 @@
     "dev:pkg": "turbo run dev --filter=./packages/**",
     "build": "turbo run build",
     "build:weapp": "pnpm -C apps/sample-weapp build",
+    "build:weapp:open": "pnpm -C apps/sample-weapp build:open",
     "build:react": "pnpm -C apps/sample-react build",
     "build:pkg": "turbo run build --filter=./packages/**",
     "preview:react": "pnpm -C apps/sample-react preview",

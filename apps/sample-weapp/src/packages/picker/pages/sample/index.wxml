@@ -1,0 +1,194 @@
+<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
+  <sr-navbar
+    className="sticky top-0 z-20 border-b border-slate-200"
+    title="Picker"
+    withBack="{{true}}"
+    hasSafeTop="{{true}}"
+  />
+
+  <view class="p-4 space-y-6">
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Datetime Mode</view>
+      <view class="mt-1 text-xs text-slate-500">datetime / date / time</view>
+
+      <view class="mt-3">
+        <sr-button-group size="sm" isBlock>
+          <sr-button
+            class="flex-1"
+            color="{{datetimeMode === 'datetime' ? 'primary' : 'default'}}"
+            variant="{{datetimeMode === 'datetime' ? 'solid' : 'flat'}}"
+            data-mode="datetime"
+            bind:tap="handleDatetimeModeTap"
+          >
+            datetime
+          </sr-button>
+          <sr-button
+            class="flex-1"
+            color="{{datetimeMode === 'date' ? 'primary' : 'default'}}"
+            variant="{{datetimeMode === 'date' ? 'solid' : 'flat'}}"
+            data-mode="date"
+            bind:tap="handleDatetimeModeTap"
+          >
+            date
+          </sr-button>
+          <sr-button
+            class="flex-1"
+            color="{{datetimeMode === 'time' ? 'primary' : 'default'}}"
+            variant="{{datetimeMode === 'time' ? 'solid' : 'flat'}}"
+            data-mode="time"
+            bind:tap="handleDatetimeModeTap"
+          >
+            time
+          </sr-button>
+        </sr-button-group>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Size</view>
+      <view class="mt-1 text-xs text-slate-500">
+        同步到 Drawer title、Pickbox/Selectbox 与 footer button
+      </view>
+
+      <view class="mt-3">
+        <sr-button-group size="sm" isBlock>
+          <sr-button
+            class="flex-1"
+            color="{{pickerSize === 'sm' ? 'primary' : 'default'}}"
+            variant="{{pickerSize === 'sm' ? 'solid' : 'flat'}}"
+            data-size="sm"
+            bind:tap="handleSizeTap"
+          >
+            sm
+          </sr-button>
+          <sr-button
+            class="flex-1"
+            color="{{pickerSize === 'md' ? 'primary' : 'default'}}"
+            variant="{{pickerSize === 'md' ? 'solid' : 'flat'}}"
+            data-size="md"
+            bind:tap="handleSizeTap"
+          >
+            md
+          </sr-button>
+          <sr-button
+            class="flex-1"
+            color="{{pickerSize === 'lg' ? 'primary' : 'default'}}"
+            variant="{{pickerSize === 'lg' ? 'solid' : 'flat'}}"
+            data-size="lg"
+            bind:tap="handleSizeTap"
+          >
+            lg
+          </sr-button>
+        </sr-button-group>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Single</view>
+      <view class="mt-1 text-xs text-slate-500">
+        Field + Drawer(bottom) + Pickbox，dismiss=取消
+      </view>
+
+      <sr-picker
+        className="mt-3"
+        label="城市"
+        size="{{pickerSize}}"
+        color="primary"
+        items="{{singleItems}}"
+        value="{{singleValue}}"
+        bind:valuechange="handleSingleValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{singleValue[0] || 'none'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Cascader Columns</view>
+      <view class="mt-1 text-xs text-slate-500">
+        使用 options 构建级联多列（替代原 multiple 示例）
+      </view>
+
+      <sr-picker
+        className="mt-3"
+        label="商品偏好"
+        color="secondary"
+        size="{{pickerSize}}"
+        options="{{cascadeOptions}}"
+        value="{{cascadeValue}}"
+        bind:valuechange="handleCascadeValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{cascadeValueText}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">PickerSelect</view>
+      <view class="mt-1 text-xs text-slate-500">
+        多选场景使用 PickerSelect（内部为 Selectbox）
+      </view>
+
+      <sr-picker-select
+        className="mt-3"
+        label="里程碑"
+        color="primary"
+        size="{{pickerSize}}"
+        items="{{selectItems}}"
+        value="{{selectValue}}"
+        selectionMode="multiple"
+        bind:valuechange="handleSelectValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{selectValueText}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">PickerDatetime</view>
+      <view class="mt-1 text-xs text-slate-500">
+        mode + format；mode=datetime 时展示全宽 Date/Time Tab
+      </view>
+
+      <sr-picker-datetime
+        className="mt-3"
+        label="日期时间"
+        color="success"
+        size="{{pickerSize}}"
+        mode="{{datetimeMode}}"
+        format="{{datetimeFormat}}"
+        value="{{datetimeValue}}"
+        bind:valuechange="handleDatetimeValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{datetimeValue || 'none'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">PickerDatetimeRange</view>
+      <view class="mt-1 text-xs text-slate-500">
+        start/end + date/time 双层全宽 Tab，支持 format
+      </view>
+
+      <sr-picker-datetime-range
+        className="mt-3"
+        label="日期时间区间"
+        color="primary"
+        size="{{pickerSize}}"
+        mode="{{datetimeMode}}"
+        format="{{datetimeFormat}}"
+        value="{{datetimeRangeValue}}"
+        bind:valuechange="handleDatetimeRangeValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{datetimeRangeValue.start || '--'}} ~ {{datetimeRangeValue.end || '--'}}
+      </view>
+    </view>
+  </view>
+</view>

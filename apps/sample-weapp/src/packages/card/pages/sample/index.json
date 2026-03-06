@@ -1,0 +1,11 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "sr-navbar": "@srcube-ui/mini/navbar/index",
+    "sr-card": "@srcube-ui/mini/card/index",
+    "sr-button": "@srcube-ui/mini/button/index"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "Card",
+  "backgroundColor": "#f1f5f9"
+}

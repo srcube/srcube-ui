@@ -1,0 +1,10 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "Textarea",
+  "usingComponents": {
+    "sr-navbar": "@srcube-ui/mini/navbar/index",
+    "sr-textarea": "@srcube-ui/mini/textarea/index",
+    "sr-button": "@srcube-ui/mini/button/index",
+    "sr-button-group": "@srcube-ui/mini/button/button-group/index"
+  }
+}

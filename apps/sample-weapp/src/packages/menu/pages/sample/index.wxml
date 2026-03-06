@@ -1,0 +1,80 @@
+<view class="min-h-screen bg-slate-100 pb-safe text-slate-900">
+  <sr-navbar
+    className="sticky top-0 z-20 border-b border-slate-200"
+    title="Menu"
+    withBack="{{true}}"
+    hasSafeTop="{{true}}"
+  />
+
+  <view class="p-4 space-y-6">
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Basic (Controlled)</view>
+      <view class="mt-3">
+        <sr-menu
+          items="{{menuItems}}"
+          value="{{controlledValue}}"
+          isOpen="{{controlledOpen}}"
+          bind:change="handleOpenChange"
+          bind:select="handleSelect"
+          color="primary"
+          variant="flat"
+        >
+          <button slot="trigger">更多操作</button>
+        </sr-menu>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Orientation</view>
+      <view class="mt-3">
+        <sr-menu items="{{horizontalItems}}" orientation="x" defaultValue="all" hasArrow="{{false}}">
+          <button slot="trigger">横向菜单</button>
+        </sr-menu>
+      </view>
+      <view class="mt-3">
+        <sr-menu items="{{menuItems}}" orientation="y" defaultValue="edit" color="secondary">
+          <button slot="trigger">纵向菜单</button>
+        </sr-menu>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Size & Radius</view>
+      <view class="mt-3 flex flex-wrap gap-3">
+        <sr-menu items="{{menuItems}}" size="sm" radius="sm" hasArrow="{{false}}">
+          <button slot="trigger">SM</button>
+        </sr-menu>
+        <sr-menu items="{{menuItems}}" size="md" radius="md" hasArrow="{{false}}">
+          <button slot="trigger">MD</button>
+        </sr-menu>
+        <sr-menu items="{{menuItems}}" size="lg" radius="full" hasArrow="{{false}}">
+          <button slot="trigger">LG</button>
+        </sr-menu>
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Tone + Variant + Color</view>
+      <view class="mt-3 flex flex-wrap gap-3">
+        <sr-menu
+          items="{{menuItems}}"
+          defaultValue="share"
+          color="success"
+          variant="solid"
+          tone="default"
+        >
+          <button slot="trigger">Default Tone</button>
+        </sr-menu>
+        <sr-menu
+          items="{{darkItems}}"
+          defaultValue="high"
+          color="warning"
+          variant="flat"
+          tone="dark"
+        >
+          <button slot="trigger">Dark Tone</button>
+        </sr-menu>
+      </view>
+    </view>
+  </view>
+</view>
