@@ -280,6 +280,9 @@ importers:
       '@iconify/json':
         specifier: 'catalog:'
         version: 2.2.433
+      '@iconify/tailwind4':
+        specifier: 'catalog:'
+        version: 1.2.3(tailwindcss@4.1.18)
       '@tailwindcss/postcss':
         specifier: 'catalog:'
         version: 4.1.18
