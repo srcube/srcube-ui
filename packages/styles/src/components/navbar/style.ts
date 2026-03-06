@@ -11,8 +11,8 @@ export const navbar = tv({
     start: 'flex min-w-0 shrink-0 items-center justify-start',
     title: 'min-w-0 truncate font-semibold text-slate-900',
     end: 'flex min-w-0 shrink-0 items-center justify-end',
-    placeholder: 'inline-flex h-12 w-12 shrink-0',
-    back: 'inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-slate-700 transition-colors duration-150 active:bg-slate-100',
+    placeholder: 'inline-flex h-10 w-10 shrink-0',
+    back: 'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-700 transition-colors duration-150 active:bg-slate-100',
     _iBack: 'icon-chevron-left text-2xl leading-none',
   },
   variants: {

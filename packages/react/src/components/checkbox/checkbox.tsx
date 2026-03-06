@@ -89,6 +89,7 @@ export const Checkbox: React.ForwardRefExoticComponent<
           setAutoLoading(true);
           try {
             await result;
+            await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
           } catch (error) {
             console.error('Checkbox async error:', error);
           } finally {
@@ -134,23 +135,13 @@ export const Checkbox: React.ForwardRefExoticComponent<
       });
     }
 
-    // Don't render icon when unchecked & not indeterminate to avoid
-    // a flash of the icon's background-color during loading→idle transition.
-    if (!state.isSelected && !state.isIndeterminate) {
-      return null;
-    }
-
-    if (state.isIndeterminate) {
-      return (
-        <span className={classes.iconWrapper}>
-          <span className={classes.iIndeterminate} />
-        </span>
-      );
-    }
-
     return (
       <span className={classes.iconWrapper}>
-        {icon ?? <span className={classes.iDefault} />}
+        {state.isIndeterminate ? (
+          <span className={classes.iIndeterminate} />
+        ) : (
+          icon ?? <span className={classes.iDefault} />
+        )}
       </span>
     );
   };

@@ -15,7 +15,7 @@ export const checkbox = tv({
     spinner: 'icon-spinner z-10 text-current',
     content: 'relative text-sm',
     iconWrapper:
-      'relative z-10 flex items-center justify-center transition duration-200 opacity-0 scale-50 pointer-events-none',
+      'relative z-10 flex items-center justify-center transition duration-200 opacity-0 scale-50 invisible pointer-events-none',
     iDefault: 'icon-check w-[inherit] h-[inherit]',
     iIndeterminate: 'icon-indeterminate w-[inherit] h-[inherit]',
     nCheckbox: 'absolute inset-0 opacity-0 pointer-events-none',
@@ -78,14 +78,14 @@ export const checkbox = tv({
     },
     isSelected: {
       true: {
-        iconWrapper: 'opacity-100 scale-100 pointer-events-auto',
+        iconWrapper: 'opacity-100 scale-100 visible pointer-events-auto',
         checkbox: 'after:opacity-100 after:scale-100',
       },
       false: {},
     },
     isIndeterminate: {
       true: {
-        iconWrapper: 'opacity-100 scale-100 pointer-events-auto',
+        iconWrapper: 'opacity-100 scale-100 visible pointer-events-auto',
         checkbox: 'after:opacity-100 after:scale-100',
       },
       false: {},

@@ -20,6 +20,7 @@
     "dev": "turbo run dev",
     "dev:react": "turbo run dev --filter=...sample-react",
     "dev:weapp": "turbo run dev --filter=...sample-weapp",
+    "dev:weapp:open": "turbo run dev:open --filter=sample-weapp",
     "dev:pkg": "turbo run dev --filter=\"./packages/**\"",
     "build": "turbo run build",
     "build:react": "turbo run build --filter=...sample-react",
