@@ -31,5 +31,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build workspace packages
+        run: pnpm build:pkg
+
       - name: Upload weapp dev build
         run: pnpm -C apps/sample-weapp run upload
