@@ -1,12 +1,20 @@
-import { UIComponent } from '../../shared/ui-component';
-import { calendarStyle, type CalendarMode } from '@srcube-ui/styles/components/calendar/style';
 import {
-  calendarMiniProps,
+  type CalendarMode,
+  calendarStyle,
+} from '@srcube-ui/styles/components/calendar/style';
+import { UIComponent } from '../../shared/ui-component';
+import {
   type CalendarMiniProps,
   type CalendarMiniRangeValue,
+  calendarMiniProps,
 } from './props';
 
-type CalendarDayStatus = 'normal' | 'today' | 'selected' | 'inRange' | 'disabled';
+type CalendarDayStatus =
+  | 'normal'
+  | 'today'
+  | 'selected'
+  | 'inRange'
+  | 'disabled';
 
 type CalendarMiniState = {
   _anchorMonth: string;
@@ -69,6 +77,8 @@ type RenderMonthPanel = {
 const WEEK_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const MONTH_WINDOW = 12;
+const DEFAULT_MIN_DATE_KEY = '1900-01-01';
+const DEFAULT_MAX_DATE_KEY = '2099-12-31';
 
 function pad(num: number) {
   return String(num).padStart(2, '0');
@@ -89,13 +99,13 @@ function parseDateKey(value?: string | null) {
   const day = Number(match[3]);
 
   if (
-    !Number.isFinite(year)
-    || !Number.isFinite(month)
-    || !Number.isFinite(day)
-    || month < 1
-    || month > 12
-    || day < 1
-    || day > 31
+    !Number.isFinite(year) ||
+    !Number.isFinite(month) ||
+    !Number.isFinite(day) ||
+    month < 1 ||
+    month > 12 ||
+    day < 1 ||
+    day > 31
   ) {
     return null;
   }
@@ -116,7 +126,12 @@ function parseMonthKey(value?: string | null) {
   const year = Number(match[1]);
   const month = Number(match[2]);
 
-  if (!Number.isFinite(year) || !Number.isFinite(month) || month < 1 || month > 12) {
+  if (
+    !Number.isFinite(year) ||
+    !Number.isFinite(month) ||
+    month < 1 ||
+    month > 12
+  ) {
     return null;
   }
 
@@ -209,7 +224,10 @@ function resolveWeekStart(value?: number) {
 }
 
 function resolveWeekLabels(weekStartsOn: number) {
-  return Array.from({ length: 7 }, (_, index) => WEEK_LABELS[(index + weekStartsOn) % 7]);
+  return Array.from(
+    { length: 7 },
+    (_, index) => WEEK_LABELS[(index + weekStartsOn) % 7],
+  );
 }
 
 function resolveSizeMetrics(size?: string | null): SizeMetrics {
@@ -268,8 +286,10 @@ function resolveMonthBounds(params: {
   focusMonth: Date;
 }): MonthBounds {
   const focusMonth = startOfMonth(params.focusMonth);
-  const minDate = parseDateKey(params.minDate);
-  const maxDate = parseDateKey(params.maxDate);
+  const minDate =
+    parseDateKey(params.minDate) ?? parseDateKey(DEFAULT_MIN_DATE_KEY);
+  const maxDate =
+    parseDateKey(params.maxDate) ?? parseDateKey(DEFAULT_MAX_DATE_KEY);
 
   let startMonth = minDate ? startOfMonth(minDate) : null;
   let endMonth = maxDate ? startOfMonth(maxDate) : null;
@@ -337,7 +357,11 @@ function clampMonth(value: Date, bounds: MonthBounds) {
 
 function getWeeksInMonth(monthDate: Date, weekStartsOn: number) {
   const firstDay = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
-  const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
+  const daysInMonth = new Date(
+    monthDate.getFullYear(),
+    monthDate.getMonth() + 1,
+    0,
+  ).getDate();
   const leadingBlank = (firstDay.getDay() - weekStartsOn + 7) % 7;
   const totalCells = leadingBlank + daysInMonth;
   return Math.ceil(totalCells / 7);
@@ -357,9 +381,9 @@ function buildMonthSeries(params: {
   while (compareMonth(current, bounds.endMonth) <= 0) {
     const weekCount = getWeeksInMonth(current, weekStartsOn);
     const bodyHeight =
-      weekCount * metrics.dayHeight
-      + Math.max(0, weekCount - 1) * metrics.rowGap
-      + metrics.bodyPaddingBottom;
+      weekCount * metrics.dayHeight +
+      Math.max(0, weekCount - 1) * metrics.rowGap +
+      metrics.bodyPaddingBottom;
 
     series.push({
       monthDate: current,
@@ -379,7 +403,11 @@ function buildMonthSeries(params: {
 
 function buildMonthMatrix(monthDate: Date, weekStartsOn: number) {
   const firstDay = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
-  const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
+  const daysInMonth = new Date(
+    monthDate.getFullYear(),
+    monthDate.getMonth() + 1,
+    0,
+  ).getDate();
   const leadingBlank = (firstDay.getDay() - weekStartsOn + 7) % 7;
   const totalCells = leadingBlank + daysInMonth;
   const weekCount = Math.ceil(totalCells / 7);
@@ -392,7 +420,11 @@ function buildMonthMatrix(monthDate: Date, weekStartsOn: number) {
         return null;
       }
 
-      const date = new Date(monthDate.getFullYear(), monthDate.getMonth(), dateNumber);
+      const date = new Date(
+        monthDate.getFullYear(),
+        monthDate.getMonth(),
+        dateNumber,
+      );
 
       return {
         date,
@@ -440,7 +472,7 @@ function resolveCalendarContext(data: CalendarMiniData) {
   const normalizedValue = normalizeDateValue(data.value);
   const fallbackDate =
     mode === 'range'
-      ? (normalizedRange.start || normalizedRange.end)
+      ? normalizedRange.start || normalizedRange.end
       : normalizedValue;
 
   const initialMonth = resolveInitialMonth({
@@ -486,7 +518,9 @@ function resolvePickerValue(value: unknown, bounds: MonthBounds) {
   const nextMonth = Number.isFinite(month) ? month : fallback.getMonth() + 1;
 
   const clamped = clampMonth(new Date(nextYear, nextMonth - 1, 1), bounds);
-  return [clamped.getFullYear(), clamped.getMonth() + 1] as Array<number | null>;
+  return [clamped.getFullYear(), clamped.getMonth() + 1] as Array<
+    number | null
+  >;
 }
 
 function resolvePickerColumns(params: {
@@ -510,8 +544,8 @@ function resolvePickerColumns(params: {
     const month = index + 1;
     const monthDate = new Date(draftYear, index, 1);
     const isDisabled =
-      compareMonth(monthDate, bounds.startMonth) < 0
-      || compareMonth(monthDate, bounds.endMonth) > 0;
+      compareMonth(monthDate, bounds.startMonth) < 0 ||
+      compareMonth(monthDate, bounds.endMonth) > 0;
 
     return {
       id: month,
@@ -532,7 +566,10 @@ function resolvePickerColumns(params: {
   ];
 }
 
-function resolveVisibleMonthOffset(series: MonthSeriesItem[], monthKey: string) {
+function resolveVisibleMonthOffset(
+  series: MonthSeriesItem[],
+  monthKey: string,
+) {
   const index = series.findIndex((item) => item.monthKey === monthKey);
   if (index < 0) {
     return 0;
@@ -589,7 +626,9 @@ function buildRenderedMonths(data: CalendarMiniData): RenderMonthPanel[] {
             isPlaceholder: true,
             disabled: true,
             classes: {
-              placeholder: baseSlots.dayPlaceholder({ class: custom.dayPlaceholder }),
+              placeholder: baseSlots.dayPlaceholder({
+                class: custom.dayPlaceholder,
+              }),
               dayCell: '',
               dayButton: '',
               dayText: '',
@@ -609,14 +648,16 @@ function buildRenderedMonths(data: CalendarMiniData): RenderMonthPanel[] {
         let isRangeEnd = false;
 
         if (context.mode === 'range') {
-          const isStart = Boolean(rangeStart && isSameDate(cell.date, rangeStart));
+          const isStart = Boolean(
+            rangeStart && isSameDate(cell.date, rangeStart),
+          );
           const isEnd = Boolean(rangeEnd && isSameDate(cell.date, rangeEnd));
           const isEdge = isStart || isEnd;
           const isSelectedRange = Boolean(
-            rangeStart
-              && rangeEnd
-              && isInRange(cell.date, rangeStart, rangeEnd)
-              && !isEdge,
+            rangeStart &&
+              rangeEnd &&
+              isInRange(cell.date, rangeStart, rangeEnd) &&
+              !isEdge,
           );
 
           if (disabled) {
@@ -682,7 +723,8 @@ UIComponent({
     styleIsolation: 'apply-shared',
   },
 
-  properties: calendarMiniProps satisfies WechatMiniprogram.Component.PropertyOption,
+  properties:
+    calendarMiniProps satisfies WechatMiniprogram.Component.PropertyOption,
 
   data: {
     _anchorMonth: '' as string,
@@ -789,7 +831,8 @@ UIComponent({
     $pickerColumns(data: CalendarMiniData) {
       const context = resolveCalendarContext(data);
       const pickerValue = resolvePickerValue(data._pickerValue, context.bounds);
-      const draftYear = Number(pickerValue[0]) || context.visibleMonth.getFullYear();
+      const draftYear =
+        Number(pickerValue[0]) || context.visibleMonth.getFullYear();
 
       return resolvePickerColumns({
         bounds: context.bounds,
@@ -800,6 +843,12 @@ UIComponent({
     $pickerValue(data: CalendarMiniData) {
       const context = resolveCalendarContext(data);
       return resolvePickerValue(data._pickerValue, context.bounds);
+    },
+
+    $pickerClassNames() {
+      return {
+        base: 'border-none shadow-none',
+      };
     },
   },
 
@@ -813,7 +862,10 @@ UIComponent({
 
       const visibleMonthKey = toMonthKey(context.visibleMonth);
       const pickerValue = resolvePickerValue(data._pickerValue, context.bounds);
-      const scrollTop = resolveVisibleMonthOffset(context.series, visibleMonthKey);
+      const scrollTop = resolveVisibleMonthOffset(
+        context.series,
+        visibleMonthKey,
+      );
 
       this.setData({
         _anchorMonth: toMonthKey(anchorMonth),
@@ -850,7 +902,10 @@ UIComponent({
 
       this.setData({
         _visibleMonth: nextMonthKey,
-        _pickerValue: [monthItem.monthDate.getFullYear(), monthItem.monthDate.getMonth() + 1],
+        _pickerValue: [
+          monthItem.monthDate.getFullYear(),
+          monthItem.monthDate.getMonth() + 1,
+        ],
       } satisfies Partial<CalendarMiniState>);
 
       this.triggerEvent('monthchange', { month: nextMonthKey });
@@ -865,7 +920,8 @@ UIComponent({
       }
 
       const context = resolveCalendarContext(data);
-      const visibleMonth = parseMonthKey(data._visibleMonth) ?? context.visibleMonth;
+      const visibleMonth =
+        parseMonthKey(data._visibleMonth) ?? context.visibleMonth;
 
       this.setData({
         _isPickerOpen: true,
@@ -877,14 +933,34 @@ UIComponent({
       this.closePickerAndApply();
     },
 
-    handlePickerValueChange(event: WechatMiniprogram.CustomEvent<{ value?: unknown }>) {
+    handlePickerValueChange(
+      event: WechatMiniprogram.CustomEvent<{ value?: unknown }>,
+    ) {
       const data = this.data as CalendarMiniData;
       const context = resolveCalendarContext(data);
       const nextValue = resolvePickerValue(event.detail?.value, context.bounds);
+      const nextMonthDate = new Date(
+        Number(nextValue[0]),
+        Number(nextValue[1]) - 1,
+        1,
+      );
+      const nextMonth = clampMonth(nextMonthDate, context.bounds);
+      const nextMonthKey = toMonthKey(nextMonth);
+      const nextScrollTop = resolveVisibleMonthOffset(
+        context.series,
+        nextMonthKey,
+      );
+      const changed = nextMonthKey !== data._visibleMonth;
 
       this.setData({
-        _pickerValue: nextValue,
+        _pickerValue: [nextMonth.getFullYear(), nextMonth.getMonth() + 1],
+        _visibleMonth: nextMonthKey,
+        _scrollTop: nextScrollTop,
       } satisfies Partial<CalendarMiniState>);
+
+      if (changed) {
+        this.triggerEvent('monthchange', { month: nextMonthKey });
+      }
     },
 
     closePickerAndApply() {
@@ -899,7 +975,10 @@ UIComponent({
       );
       const nextMonth = clampMonth(nextMonthDate, context.bounds);
       const nextMonthKey = toMonthKey(nextMonth);
-      const nextScrollTop = resolveVisibleMonthOffset(context.series, nextMonthKey);
+      const nextScrollTop = resolveVisibleMonthOffset(
+        context.series,
+        nextMonthKey,
+      );
 
       const changed = nextMonthKey !== data._visibleMonth;
 

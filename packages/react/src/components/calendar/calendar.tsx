@@ -1,19 +1,20 @@
+import { calendarStyle } from '@srcube-ui/styles/components/calendar';
+import * as React from 'react';
 import { Button } from '../button';
 import { Listbox, type ListboxItem } from '../listbox';
-import {
-  Pickbox,
-  type PickboxColumn,
-  type PickboxValue,
-} from '../pickbox';
-import * as React from 'react';
-import { calendarStyle } from '@srcube-ui/styles/components/calendar';
+import { Pickbox, type PickboxColumn, type PickboxValue } from '../pickbox';
 import type {
   CalendarRangeReactProps,
   CalendarRangeValue,
   CalendarReactProps,
 } from './props';
 
-type CalendarDayStatus = 'normal' | 'today' | 'selected' | 'inRange' | 'disabled';
+type CalendarDayStatus =
+  | 'normal'
+  | 'today'
+  | 'selected'
+  | 'inRange'
+  | 'disabled';
 
 type CalendarDayCell = {
   date: Date;
@@ -60,6 +61,8 @@ type SizeMetrics = {
 const WEEK_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const;
 
 const MONTH_WINDOW = 12;
+const DEFAULT_MIN_DATE_KEY = '1900-01-01';
+const DEFAULT_MAX_DATE_KEY = '2099-12-31';
 
 function pad(num: number) {
   return String(num).padStart(2, '0');
@@ -80,13 +83,13 @@ function parseDateKey(value?: string | null) {
   const day = Number(match[3]);
 
   if (
-    !Number.isFinite(year)
-    || !Number.isFinite(month)
-    || !Number.isFinite(day)
-    || month < 1
-    || month > 12
-    || day < 1
-    || day > 31
+    !Number.isFinite(year) ||
+    !Number.isFinite(month) ||
+    !Number.isFinite(day) ||
+    month < 1 ||
+    month > 12 ||
+    day < 1 ||
+    day > 31
   ) {
     return null;
   }
@@ -107,7 +110,12 @@ function parseMonthKey(value?: string | null) {
   const year = Number(match[1]);
   const month = Number(match[2]);
 
-  if (!Number.isFinite(year) || !Number.isFinite(month) || month < 1 || month > 12) {
+  if (
+    !Number.isFinite(year) ||
+    !Number.isFinite(month) ||
+    month < 1 ||
+    month > 12
+  ) {
     return null;
   }
 
@@ -190,7 +198,10 @@ function resolveWeekStart(value?: number) {
 }
 
 function resolveWeekLabels(weekStartsOn: number) {
-  return Array.from({ length: 7 }, (_, index) => WEEK_LABELS[(index + weekStartsOn) % 7]);
+  return Array.from(
+    { length: 7 },
+    (_, index) => WEEK_LABELS[(index + weekStartsOn) % 7],
+  );
 }
 
 function resolveInitialMonth(params: {
@@ -243,8 +254,10 @@ function resolveMonthBounds(params: {
   focusMonth: Date;
 }): MonthBounds {
   const focusMonth = startOfMonth(params.focusMonth);
-  const minDate = parseDateKey(params.minDate);
-  const maxDate = parseDateKey(params.maxDate);
+  const minDate =
+    parseDateKey(params.minDate) ?? parseDateKey(DEFAULT_MIN_DATE_KEY);
+  const maxDate =
+    parseDateKey(params.maxDate) ?? parseDateKey(DEFAULT_MAX_DATE_KEY);
 
   let startMonth = minDate ? startOfMonth(minDate) : null;
   let endMonth = maxDate ? startOfMonth(maxDate) : null;
@@ -312,7 +325,11 @@ function clampMonth(value: Date, bounds: MonthBounds) {
 
 function buildMonthWeeks(monthDate: Date, weekStartsOn: number) {
   const firstDay = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
-  const daysInMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0).getDate();
+  const daysInMonth = new Date(
+    monthDate.getFullYear(),
+    monthDate.getMonth() + 1,
+    0,
+  ).getDate();
   const leadingBlank = (firstDay.getDay() - weekStartsOn + 7) % 7;
   const totalCells = leadingBlank + daysInMonth;
   const weekCount = Math.ceil(totalCells / 7);
@@ -354,9 +371,9 @@ function buildMonthPanels(params: {
     const monthKey = toMonthKey(current);
     const weeks = buildMonthWeeks(current, weekStartsOn);
     const bodyHeight =
-      weeks.length * metrics.dayHeight
-      + Math.max(0, weeks.length - 1) * metrics.rowGap
-      + metrics.bodyPaddingBottom;
+      weeks.length * metrics.dayHeight +
+      Math.max(0, weeks.length - 1) * metrics.rowGap +
+      metrics.bodyPaddingBottom;
 
     months.push({
       monthDate: current,
@@ -429,8 +446,8 @@ function resolvePickerColumns(params: {
     const month = index + 1;
     const monthDate = new Date(draftYear, index, 1);
     const isDisabled =
-      compareMonth(monthDate, bounds.startMonth) < 0
-      || compareMonth(monthDate, bounds.endMonth) > 0;
+      compareMonth(monthDate, bounds.startMonth) < 0 ||
+      compareMonth(monthDate, bounds.endMonth) > 0;
 
     return {
       id: month,
@@ -505,7 +522,13 @@ type CalendarPanelProps = {
   onMonthChange?: (month: string) => void;
   size?: 'sm' | 'md' | 'lg';
   radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
-  color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+  color?:
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'warning'
+    | 'danger';
   className?: string;
   classNames?: CalendarReactProps['classNames'];
   style?: React.CSSProperties;
@@ -513,7 +536,10 @@ type CalendarPanelProps = {
   rootProps?: Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
   fallbackDate?: string;
   onDayPress: (day: CalendarDayCell) => void;
-  resolveDayVisual: (day: CalendarDayCell, isDisabled: boolean) => CalendarDayVisual;
+  resolveDayVisual: (
+    day: CalendarDayCell,
+    isDisabled: boolean,
+  ) => CalendarDayVisual;
 };
 
 function CalendarPanel(props: CalendarPanelProps) {
@@ -538,8 +564,14 @@ function CalendarPanel(props: CalendarPanelProps) {
     resolveDayVisual,
   } = props;
 
-  const weekStart = React.useMemo(() => resolveWeekStart(weekStartsOn), [weekStartsOn]);
-  const weekLabels = React.useMemo(() => resolveWeekLabels(weekStart), [weekStart]);
+  const weekStart = React.useMemo(
+    () => resolveWeekStart(weekStartsOn),
+    [weekStartsOn],
+  );
+  const weekLabels = React.useMemo(
+    () => resolveWeekLabels(weekStart),
+    [weekStart],
+  );
 
   const [visibleMonthKey, setVisibleMonthKey] = React.useState(() =>
     toMonthKey(resolveInitialMonth({ month, fallbackDate })),
@@ -556,7 +588,9 @@ function CalendarPanel(props: CalendarPanelProps) {
 
   const visibleMonthDate = React.useMemo(() => {
     const parsed = parseMonthKey(visibleMonthKey);
-    return parsed ? startOfMonth(parsed) : resolveInitialMonth({ month, fallbackDate });
+    return parsed
+      ? startOfMonth(parsed)
+      : resolveInitialMonth({ month, fallbackDate });
   }, [fallbackDate, month, visibleMonthKey]);
 
   const anchorMonthDate = React.useMemo(() => {
@@ -590,7 +624,10 @@ function CalendarPanel(props: CalendarPanelProps) {
     [bounds, metrics, weekStart],
   );
 
-  const monthOffsets = React.useMemo(() => buildMonthOffsets(monthPanels), [monthPanels]);
+  const monthOffsets = React.useMemo(
+    () => buildMonthOffsets(monthPanels),
+    [monthPanels],
+  );
 
   const monthIndexByKey = React.useMemo(() => {
     const map = new Map<string, number>();
@@ -718,7 +755,9 @@ function CalendarPanel(props: CalendarPanelProps) {
         return 1;
       }
 
-      return item.type === 'header' ? metrics.headerHeight : item.month.bodyHeight;
+      return item.type === 'header'
+        ? metrics.headerHeight
+        : item.month.bodyHeight;
     },
     [metrics.headerHeight, monthItems],
   );
@@ -775,7 +814,11 @@ function CalendarPanel(props: CalendarPanelProps) {
       value: pickerDraft,
       bounds,
     });
-    const nextMonth = new Date(Number(normalized[0]), Number(normalized[1]) - 1, 1);
+    const nextMonth = new Date(
+      Number(normalized[0]),
+      Number(normalized[1]) - 1,
+      1,
+    );
     const nextMonthKey = toMonthKey(nextMonth);
 
     setPickerDraft(normalized);
@@ -817,13 +860,17 @@ function CalendarPanel(props: CalendarPanelProps) {
           variant="flat"
           radius="full"
           size={size}
-          className={rootSlots.pickerTrigger({ class: classNames?.pickerTrigger })}
+          className={rootSlots.pickerTrigger({
+            class: classNames?.pickerTrigger,
+          })}
           onTap={handlePickerToggle}
         >
           <span className={rootSlots.title({ class: classNames?.title })}>
             {toMonthKey(currentVisibleMonth)}
           </span>
-          <span className={rootSlots.pickerIcon({ class: classNames?.pickerIcon })}>
+          <span
+            className={rootSlots.pickerIcon({ class: classNames?.pickerIcon })}
+          >
             <span className="icon-chevron-down" />
           </span>
         </Button>
@@ -863,7 +910,9 @@ function CalendarPanel(props: CalendarPanelProps) {
               return (
                 <div
                   id={monthItem.month.headerId}
-                  className={rootSlots.monthHeader({ class: classNames?.monthHeader })}
+                  className={rootSlots.monthHeader({
+                    class: classNames?.monthHeader,
+                  })}
                   style={{ height: `${metrics.headerHeight}px` }}
                 >
                   {monthItem.month.monthTitle}
@@ -874,62 +923,77 @@ function CalendarPanel(props: CalendarPanelProps) {
             return (
               <div
                 id={monthItem.month.bodyId}
-                className={rootSlots.monthBody({ class: classNames?.monthBody })}
+                className={rootSlots.monthBody({
+                  class: classNames?.monthBody,
+                })}
                 style={{ height: `${monthItem.month.bodyHeight}px` }}
               >
                 <div className={rootSlots.grid({ class: classNames?.grid })}>
-                  {monthItem.month.weeks.map((week: Array<CalendarDayCell | null>, weekIndex: number) =>
-                    week.map((cell: CalendarDayCell | null, dayIndex: number) => {
-                      if (!cell) {
-                        return (
-                          <div
-                            key={`${monthItem.month.monthKey}-${weekIndex}-${dayIndex}`}
-                            className={rootSlots.dayPlaceholder({ class: classNames?.dayPlaceholder })}
-                          />
-                        );
-                      }
+                  {monthItem.month.weeks.map(
+                    (week: Array<CalendarDayCell | null>, weekIndex: number) =>
+                      week.map(
+                        (cell: CalendarDayCell | null, dayIndex: number) => {
+                          if (!cell) {
+                            return (
+                              <div
+                                key={`${monthItem.month.monthKey}-${weekIndex}-${dayIndex}`}
+                                className={rootSlots.dayPlaceholder({
+                                  class: classNames?.dayPlaceholder,
+                                })}
+                              />
+                            );
+                          }
 
-                      const disabled = isDateDisabled({
-                        date: cell.date,
-                        minDate: minDateObj,
-                        maxDate: maxDateObj,
-                        disabledSet,
-                      });
+                          const disabled = isDateDisabled({
+                            date: cell.date,
+                            minDate: minDateObj,
+                            maxDate: maxDateObj,
+                            disabledSet,
+                          });
 
-                      const visual = resolveDayVisual(cell, disabled);
-                      const daySlots = calendarStyle({
-                        size,
-                        radius,
-                        color,
-                        dayStatus: visual.dayStatus,
-                        isRangeStart: Boolean(visual.isRangeStart),
-                        isRangeEnd: Boolean(visual.isRangeEnd),
-                      });
+                          const visual = resolveDayVisual(cell, disabled);
+                          const daySlots = calendarStyle({
+                            size,
+                            radius,
+                            color,
+                            dayStatus: visual.dayStatus,
+                            isRangeStart: Boolean(visual.isRangeStart),
+                            isRangeEnd: Boolean(visual.isRangeEnd),
+                          });
 
-                      return (
-                        <div
-                          key={cell.key}
-                          className={daySlots.dayCell({ class: classNames?.dayCell })}
-                        >
-                          <button
-                            type="button"
-                            className={daySlots.dayButton({ class: classNames?.dayButton })}
-                            disabled={disabled}
-                            onClick={() => {
-                              if (disabled) {
-                                return;
-                              }
+                          return (
+                            <div
+                              key={cell.key}
+                              className={daySlots.dayCell({
+                                class: classNames?.dayCell,
+                              })}
+                            >
+                              <button
+                                type="button"
+                                className={daySlots.dayButton({
+                                  class: classNames?.dayButton,
+                                })}
+                                disabled={disabled}
+                                onClick={() => {
+                                  if (disabled) {
+                                    return;
+                                  }
 
-                              onDayPress(cell);
-                            }}
-                          >
-                            <span className={daySlots.dayText({ class: classNames?.dayText })}>
-                              {cell.label}
-                            </span>
-                          </button>
-                        </div>
-                      );
-                    }),
+                                  onDayPress(cell);
+                                }}
+                              >
+                                <span
+                                  className={daySlots.dayText({
+                                    class: classNames?.dayText,
+                                  })}
+                                >
+                                  {cell.label}
+                                </span>
+                              </button>
+                            </div>
+                          );
+                        },
+                      ),
                   )}
                 </div>
               </div>
@@ -942,26 +1006,48 @@ function CalendarPanel(props: CalendarPanelProps) {
             <button
               type="button"
               aria-label="Close year month picker"
-              className={rootSlots.pickerBackdrop({ class: classNames?.pickerBackdrop })}
+              className={rootSlots.pickerBackdrop({
+                class: classNames?.pickerBackdrop,
+              })}
               onClick={closePickerAndApply}
             />
 
-            <div className={rootSlots.pickerOverlay({ class: classNames?.pickerOverlay })}>
-              <div className={rootSlots.pickerPanel({ class: classNames?.pickerPanel })}>
+            <div
+              className={rootSlots.pickerOverlay({
+                class: classNames?.pickerOverlay,
+              })}
+            >
+              <div
+                className={rootSlots.pickerPanel({
+                  class: classNames?.pickerPanel,
+                })}
+              >
                 <Pickbox
-                  className={rootSlots.pickerPickbox({ class: classNames?.pickerPickbox })}
+                  className={rootSlots.pickerPickbox({
+                    class: classNames?.pickerPickbox,
+                  })}
+                  classNames={{
+                    base: 'border-none shadow-none',
+                  }}
                   size={size}
                   color={color === 'default' ? 'default' : color}
                   columns={pickerColumns}
                   value={pickerDraft}
                   scrollEndDelay={100}
                   onValueChange={(next: PickboxValue) => {
-                    setPickerDraft(
-                      normalizePickerDraft({
-                        value: next,
-                        bounds,
-                      }),
+                    const normalized = normalizePickerDraft({
+                      value: next,
+                      bounds,
+                    });
+                    const nextMonthDate = new Date(
+                      Number(normalized[0]),
+                      Number(normalized[1]) - 1,
+                      1,
                     );
+                    const nextMonthKey = toMonthKey(nextMonthDate);
+
+                    setPickerDraft(normalized);
+                    jumpToMonth(nextMonthKey, true);
                   }}
                 />
               </div>
@@ -1003,10 +1089,15 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarReactProps>(
     } = props;
     void _children;
 
-    const [internalValue, setInternalValue] = React.useState(defaultValue ?? '');
+    const [internalValue, setInternalValue] = React.useState(
+      defaultValue ?? '',
+    );
     const selectedValue = value ?? internalValue;
 
-    const selectedDate = React.useMemo(() => parseDateKey(selectedValue), [selectedValue]);
+    const selectedDate = React.useMemo(
+      () => parseDateKey(selectedValue),
+      [selectedValue],
+    );
 
     return (
       <CalendarPanel
@@ -1063,146 +1154,160 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarReactProps>(
 
 Calendar.displayName = 'Srcube.Calendar';
 
-export const CalendarRange = React.forwardRef<HTMLDivElement, CalendarRangeReactProps>(
-  (props, ref) => {
-    const {
-      value,
-      defaultValue,
-      onValueChange,
-      month,
-      minDate,
-      maxDate,
-      disabledDates,
-      weekStartsOn = 0,
-      helperText,
-      onMonthChange,
-      size,
-      radius,
-      color,
-      className,
-      classNames,
-      style,
-      children: _children,
-      ...rest
-    } = props;
-    void _children;
+export const CalendarRange = React.forwardRef<
+  HTMLDivElement,
+  CalendarRangeReactProps
+>((props, ref) => {
+  const {
+    value,
+    defaultValue,
+    onValueChange,
+    month,
+    minDate,
+    maxDate,
+    disabledDates,
+    weekStartsOn = 0,
+    helperText,
+    onMonthChange,
+    size,
+    radius,
+    color,
+    className,
+    classNames,
+    style,
+    children: _children,
+    ...rest
+  } = props;
+  void _children;
 
-    const [internalValue, setInternalValue] = React.useState<CalendarRangeValue>(
-      normalizeRange(defaultValue ?? {}),
-    );
+  const [internalValue, setInternalValue] = React.useState<CalendarRangeValue>(
+    normalizeRange(defaultValue ?? {}),
+  );
 
-    const selectedValue = React.useMemo(
-      () => normalizeRange(value ?? internalValue),
-      [internalValue, value],
-    );
+  const selectedValue = React.useMemo(
+    () => normalizeRange(value ?? internalValue),
+    [internalValue, value],
+  );
 
-    const selectedStart = React.useMemo(
-      () => parseDateKey(selectedValue.start),
-      [selectedValue.start],
-    );
+  const selectedStart = React.useMemo(
+    () => parseDateKey(selectedValue.start),
+    [selectedValue.start],
+  );
 
-    const selectedEnd = React.useMemo(
-      () => parseDateKey(selectedValue.end),
-      [selectedValue.end],
-    );
+  const selectedEnd = React.useMemo(
+    () => parseDateKey(selectedValue.end),
+    [selectedValue.end],
+  );
 
-    return (
-      <CalendarPanel
-        month={month}
-        minDate={minDate}
-        maxDate={maxDate}
-        disabledDates={disabledDates}
-        weekStartsOn={weekStartsOn}
-        helperText={helperText ?? `${selectedValue.start ?? '--'} ~ ${selectedValue.end ?? '--'}`}
-        onMonthChange={onMonthChange}
-        size={size}
-        radius={radius}
-        color={color}
-        className={className}
-        classNames={classNames}
-        style={style}
-        rootRef={ref}
-        rootProps={rest}
-        fallbackDate={selectedValue.start || selectedValue.end || defaultValue?.start || defaultValue?.end}
-        onDayPress={(day) => {
-          let nextValue: CalendarRangeValue;
-          if (!selectedValue.start || (selectedValue.start && selectedValue.end)) {
+  return (
+    <CalendarPanel
+      month={month}
+      minDate={minDate}
+      maxDate={maxDate}
+      disabledDates={disabledDates}
+      weekStartsOn={weekStartsOn}
+      helperText={
+        helperText ??
+        `${selectedValue.start ?? '--'} ~ ${selectedValue.end ?? '--'}`
+      }
+      onMonthChange={onMonthChange}
+      size={size}
+      radius={radius}
+      color={color}
+      className={className}
+      classNames={classNames}
+      style={style}
+      rootRef={ref}
+      rootProps={rest}
+      fallbackDate={
+        selectedValue.start ||
+        selectedValue.end ||
+        defaultValue?.start ||
+        defaultValue?.end
+      }
+      onDayPress={(day) => {
+        let nextValue: CalendarRangeValue;
+        if (
+          !selectedValue.start ||
+          (selectedValue.start && selectedValue.end)
+        ) {
+          nextValue = {
+            start: day.key,
+            end: undefined,
+          };
+        } else {
+          const startDate = parseDateKey(selectedValue.start);
+
+          if (!startDate) {
             nextValue = {
               start: day.key,
               end: undefined,
             };
+          } else if (compareDate(day.date, startDate) < 0) {
+            nextValue = {
+              start: day.key,
+              end: selectedValue.start,
+            };
           } else {
-            const startDate = parseDateKey(selectedValue.start);
-
-            if (!startDate) {
-              nextValue = {
-                start: day.key,
-                end: undefined,
-              };
-            } else if (compareDate(day.date, startDate) < 0) {
-              nextValue = {
-                start: day.key,
-                end: selectedValue.start,
-              };
-            } else {
-              nextValue = {
-                start: selectedValue.start,
-                end: day.key,
-              };
-            }
-          }
-
-          const normalized = normalizeRange(nextValue);
-          if (value === undefined) {
-            setInternalValue(normalized);
-          }
-
-          onValueChange?.(normalized);
-        }}
-        resolveDayVisual={(day, isDisabled) => {
-          if (isDisabled) {
-            return {
-              dayStatus: 'disabled',
+            nextValue = {
+              start: selectedValue.start,
+              end: day.key,
             };
           }
+        }
 
-          const isStart = selectedStart ? isSameDate(day.date, selectedStart) : false;
-          const isEnd = selectedEnd ? isSameDate(day.date, selectedEnd) : false;
-          const isEdge = isStart || isEnd;
-          const isSelectedRange = Boolean(
-            selectedStart
-              && selectedEnd
-              && isInRange(day.date, selectedStart, selectedEnd)
-              && !isEdge,
-          );
+        const normalized = normalizeRange(nextValue);
+        if (value === undefined) {
+          setInternalValue(normalized);
+        }
 
-          if (isEdge) {
-            return {
-              dayStatus: 'selected',
-              isRangeStart: Boolean(isStart && selectedEnd),
-              isRangeEnd: Boolean(isEnd && selectedStart),
-            };
-          }
-
-          if (isSelectedRange) {
-            return {
-              dayStatus: 'inRange',
-            };
-          }
-
-          if (day.isToday) {
-            return {
-              dayStatus: 'today',
-            };
-          }
-
+        onValueChange?.(normalized);
+      }}
+      resolveDayVisual={(day, isDisabled) => {
+        if (isDisabled) {
           return {
-            dayStatus: 'normal',
+            dayStatus: 'disabled',
           };
-        }}
-      />
-    );
-  },
-);
+        }
+
+        const isStart = selectedStart
+          ? isSameDate(day.date, selectedStart)
+          : false;
+        const isEnd = selectedEnd ? isSameDate(day.date, selectedEnd) : false;
+        const isEdge = isStart || isEnd;
+        const isSelectedRange = Boolean(
+          selectedStart &&
+            selectedEnd &&
+            isInRange(day.date, selectedStart, selectedEnd) &&
+            !isEdge,
+        );
+
+        if (isEdge) {
+          return {
+            dayStatus: 'selected',
+            isRangeStart: Boolean(isStart && selectedEnd),
+            isRangeEnd: Boolean(isEnd && selectedStart),
+          };
+        }
+
+        if (isSelectedRange) {
+          return {
+            dayStatus: 'inRange',
+          };
+        }
+
+        if (day.isToday) {
+          return {
+            dayStatus: 'today',
+          };
+        }
+
+        return {
+          dayStatus: 'normal',
+        };
+      }}
+    />
+  );
+});
 
 CalendarRange.displayName = 'Srcube.CalendarRange';

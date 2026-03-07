@@ -12,8 +12,8 @@
       <view class="mt-3">
         <sr-calendar
           value="{{singleValue}}"
-          min-date="2026-01-03"
-          max-date="2026-04-26"
+          min-date="1900-01-01"
+          max-date="2099-12-31"
           disabled-dates="{{['2026-01-09','2026-02-20','2026-03-12']}}"
           helper-text="Selected: {{singleValue}}"
           bind:valuechange="handleSingleValueChange"
@@ -28,8 +28,8 @@
           mode="range"
           range-value="{{rangeValue}}"
           color="secondary"
-          min-date="2026-01-01"
-          max-date="2026-05-31"
+          min-date="1900-01-01"
+          max-date="2099-12-31"
           bind:valuechange="handleRangeValueChange"
         />
       </view>

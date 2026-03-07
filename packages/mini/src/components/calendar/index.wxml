@@ -76,6 +76,8 @@
         <view class="sr-calendar__picker-panel {{$classNames.pickerPanel}}">
           <sr-pickbox
             class="sr-calendar__picker-pickbox {{$classNames.pickerPickbox}}"
+            className="{{$classNames.pickerPickbox}}"
+            classNames="{{$pickerClassNames}}"
             size="{{size}}"
             color="{{color}}"
             columns="{{$pickerColumns}}"

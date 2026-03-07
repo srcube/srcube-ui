@@ -1,8 +1,4 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export type CalendarMode = 'single' | 'range';
 
@@ -21,17 +17,15 @@ export const calendarStyle = tv({
     monthHeader:
       'sticky top-0 z-10 flex items-center px-1 font-semibold bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80',
     monthBody: 'pb-2',
-    grid: 'grid grid-cols-7 gap-1',
+    grid: 'grid grid-cols-7 gap-y-1',
     dayCell: 'relative min-h-0',
     dayPlaceholder: 'h-full rounded-xl',
     dayButton:
       'inline-flex h-9 w-full items-center justify-center rounded-xl border border-transparent transition-colors duration-150',
     dayText: 'text-sm text-slate-900',
     helper: 'mt-3 text-xs text-slate-500',
-    pickerBackdrop:
-      'absolute inset-0 z-10 bg-white/70 backdrop-blur-[1px]',
-    pickerOverlay:
-      'absolute inset-0 z-20 overflow-hidden bg-white',
+    pickerBackdrop: 'absolute inset-0 z-10 bg-white/70 backdrop-blur-[1px]',
+    pickerOverlay: 'absolute inset-0 z-20 overflow-hidden bg-white',
     pickerPanel: 'h-full p-2',
     pickerPickbox: 'h-full',
   },
@@ -130,7 +124,7 @@ export const calendarStyle = tv({
         dayText: 'text-white',
       },
       inRange: {
-        dayButton: 'bg-primary/10',
+        dayButton: 'rounded-none bg-primary/10',
         dayText: 'text-primary',
       },
       disabled: {
@@ -148,18 +142,84 @@ export const calendarStyle = tv({
     },
     isRangeStart: {
       true: {
-        dayButton: 'rounded-r-md',
+        dayButton: 'rounded-r-none',
       },
       false: {},
     },
     isRangeEnd: {
       true: {
-        dayButton: 'rounded-l-md',
+        dayButton: 'rounded-l-none',
       },
       false: {},
     },
   },
   compoundVariants: [
+    {
+      size: 'sm',
+      isRangeStart: true,
+      class: {
+        dayButton: 'rounded-l-lg',
+      },
+    },
+    {
+      size: 'sm',
+      isRangeEnd: true,
+      class: {
+        dayButton: 'rounded-r-lg',
+      },
+    },
+    {
+      size: 'md',
+      isRangeStart: true,
+      class: {
+        dayButton: 'rounded-l-xl',
+      },
+    },
+    {
+      size: 'md',
+      isRangeEnd: true,
+      class: {
+        dayButton: 'rounded-r-xl',
+      },
+    },
+    {
+      size: 'lg',
+      isRangeStart: true,
+      class: {
+        dayButton: 'rounded-l-xl',
+      },
+    },
+    {
+      size: 'lg',
+      isRangeEnd: true,
+      class: {
+        dayButton: 'rounded-r-xl',
+      },
+    },
+    {
+      size: 'sm',
+      isRangeStart: true,
+      isRangeEnd: true,
+      class: {
+        dayButton: 'rounded-lg',
+      },
+    },
+    {
+      size: 'md',
+      isRangeStart: true,
+      isRangeEnd: true,
+      class: {
+        dayButton: 'rounded-xl',
+      },
+    },
+    {
+      size: 'lg',
+      isRangeStart: true,
+      isRangeEnd: true,
+      class: {
+        dayButton: 'rounded-xl',
+      },
+    },
     {
       color: 'default',
       dayStatus: 'selected',

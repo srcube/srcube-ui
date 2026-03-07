@@ -8,7 +8,9 @@ export const Route = createFileRoute('/calendar')({
 });
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <section className="rounded-2xl bg-white p-4 shadow-sm">{children}</section>;
+  return (
+    <section className="rounded-2xl bg-white p-4 shadow-sm">{children}</section>
+  );
 }
 
 function CalendarDemo() {
@@ -29,8 +31,8 @@ function CalendarDemo() {
             <Calendar
               value={singleValue}
               onValueChange={setSingleValue}
-              minDate="2026-01-03"
-              maxDate="2026-04-26"
+              minDate="1900-01-01"
+              maxDate="2099-12-31"
               disabledDates={['2026-01-09', '2026-02-20', '2026-03-12']}
               helperText={`Selected: ${singleValue}`}
             />
@@ -43,8 +45,8 @@ function CalendarDemo() {
             <CalendarRange
               value={rangeValue}
               color="secondary"
-              minDate="2026-01-01"
-              maxDate="2026-05-31"
+              minDate="1900-01-01"
+              maxDate="2099-12-31"
               onValueChange={(next) => {
                 setRangeValue({
                   start: next.start ?? '',
