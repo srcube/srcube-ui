@@ -21,7 +21,7 @@
 | id | 自定义 ID | `string` | 自动生成 | 全平台 |
 | title | 标题 | `string` | `''` | 全平台 |
 | description | 描述 | `string` | `''` | 全平台 |
-| tone | 语义色 | `'light' \| 'dark' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | `'dark'` | 全平台 |
+| tone | 语义色 | `'light' \| 'dark' \| 'info' \| 'secondary' \| 'success' \| 'warning' \| 'error'` | `'dark'` | 全平台 |
 | icon | 自定义图标文本 | `string` | `''` | 全平台 |
 | duration | 自动关闭时长（ms） | `number` | `1800` | 全平台 |
 | shouldAutoDismiss | 是否自动关闭 | `boolean` | `true` | 全平台 |
@@ -47,8 +47,8 @@
 | `subscribeToasts(listener)` | 订阅 toast 列表变化 |
 | `toast.success(options)` | 成功提示 |
 | `toast.warning(options)` | 警告提示 |
-| `toast.danger(options)` | 危险提示 |
-| `toast.primary(options)` | 主题色提示 |
+| `toast.error(options)` | 错误提示 |
+| `toast.info(options)` | 信息提示 |
 
 ## 平台差异
 

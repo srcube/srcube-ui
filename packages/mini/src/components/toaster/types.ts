@@ -1,11 +1,11 @@
 export type ToastTone =
   | 'light'
   | 'dark'
-  | 'primary'
+  | 'info'
   | 'secondary'
   | 'success'
   | 'warning'
-  | 'danger';
+  | 'error';
 
 export type ToastState = 'enter' | 'leave';
 export type ToastLifecycleState =

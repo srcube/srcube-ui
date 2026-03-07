@@ -8,20 +8,20 @@
       <view class="sr-toaster__item {{item.classes.layer}}" style="{{item.layerStyle}}">
         <view class="sr-toaster__card {{item.classes.toast}}">
           <view class="sr-toaster__icon {{item.classes.icon}}">
-            <text wx:if="{{item.icon}}">{{item.icon}}</text>
+            <view wx:if="{{item.icon}}">{{item.icon}}</view>
             <view wx:else class="{{item.classes._iIcon}}" />
           </view>
 
           <view class="sr-toaster__text-wrap {{item.classes.textWrap}}">
-            <text wx:if="{{item.title}}" class="sr-toaster__title {{item.classes.title}}">
+            <view wx:if="{{item.title}}" class="sr-toaster__title {{item.classes.title}}">
               {{item.title}}
-            </text>
-            <text
+            </view>
+            <view
               wx:if="{{item.description}}"
               class="sr-toaster__description {{item.classes.description}}"
             >
               {{item.description}}
-            </text>
+            </view>
           </view>
         </view>
       </view>

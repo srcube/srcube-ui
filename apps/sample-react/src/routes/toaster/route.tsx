@@ -1,7 +1,7 @@
-import { Button } from '@srcube-ui/react';
 import {
   type AddToastResult,
   addToast,
+  Button,
   clearToasts,
   closeToast,
   getToasts,
@@ -33,11 +33,11 @@ const tones: Array<{
 }> = [
   { tone: 'light', label: 'Light', buttonColor: 'default' },
   { tone: 'dark', label: 'Dark', buttonColor: 'default' },
-  { tone: 'primary', label: 'Primary', buttonColor: 'primary' },
+  { tone: 'info', label: 'Info', buttonColor: 'primary' },
   { tone: 'secondary', label: 'Secondary', buttonColor: 'secondary' },
   { tone: 'success', label: 'Success', buttonColor: 'success' },
   { tone: 'warning', label: 'Warning', buttonColor: 'warning' },
-  { tone: 'danger', label: 'Danger', buttonColor: 'danger' },
+  { tone: 'error', label: 'Error', buttonColor: 'danger' },
 ];
 
 function Card({ children }: { children: React.ReactNode }) {
@@ -136,7 +136,7 @@ function ToasterDemo() {
       title: 'Saving...',
       description: 'Please wait',
       shouldAutoDismiss: false,
-      tone: 'primary',
+      tone: 'info',
     });
     setHandleStatus(`saving:${handle.id.slice(-6)}`);
 
@@ -222,7 +222,7 @@ function ToasterDemo() {
                   id,
                   title: 'Custom ID',
                   description: id,
-                  tone: 'primary',
+                  tone: 'info',
                   showClose: true,
                 });
               }}
@@ -303,25 +303,25 @@ function ToasterDemo() {
               color="danger"
               variant="flat"
               onTap={() => {
-                toast.danger({
-                  title: 'toast.danger',
+                toast.error({
+                  title: 'toast.error',
                   description: 'helper API',
                 });
               }}
             >
-              toast.danger
+              toast.error
             </Button>
             <Button
               color="primary"
               variant="flat"
               onTap={() => {
-                toast.primary({
-                  title: 'toast.primary',
+                toast.info({
+                  title: 'toast.info',
                   description: 'helper API',
                 });
               }}
             >
-              toast.primary
+              toast.info
             </Button>
           </div>
 

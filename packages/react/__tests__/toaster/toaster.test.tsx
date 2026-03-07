@@ -1,8 +1,20 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import * as React from 'react';
 import { afterEach, expect, it, vi } from 'vitest';
-import { addToast, clearToasts, closeToast, getToasts, toast } from '../../src/components/toaster/registry';
 import { Toaster } from '../../src/components/toaster';
+import {
+  addToast,
+  clearToasts,
+  closeToast,
+  getToasts,
+  toast,
+} from '../../src/components/toaster/registry';
 
 void React;
 
@@ -63,20 +75,25 @@ it('renders description only when title is omitted', async () => {
 // Tone variants
 // ---------------------------------------------------------------------------
 
-it.each(['light', 'dark', 'primary', 'secondary', 'success', 'warning', 'danger'] as const)(
-  'renders %s tone without error',
-  async (tone) => {
-    render(<Toaster />);
+it.each([
+  'light',
+  'dark',
+  'info',
+  'secondary',
+  'success',
+  'warning',
+  'error',
+] as const)('renders %s tone without error', async (tone) => {
+  render(<Toaster />);
 
-    act(() => {
-      addToast({ title: `Tone: ${tone}`, tone });
-    });
+  act(() => {
+    addToast({ title: `Tone: ${tone}`, tone });
+  });
 
-    await waitFor(() => {
-      expect(screen.getByText(`Tone: ${tone}`)).toBeTruthy();
-    });
-  },
-);
+  await waitFor(() => {
+    expect(screen.getByText(`Tone: ${tone}`)).toBeTruthy();
+  });
+});
 
 it('defaults to dark tone', async () => {
   render(<Toaster />);
@@ -109,7 +126,11 @@ it('renders close button outside toast layer container', async () => {
   render(<Toaster />);
 
   act(() => {
-    addToast({ title: 'Layer close button', showClose: true, shouldAutoDismiss: false });
+    addToast({
+      title: 'Layer close button',
+      showClose: true,
+      shouldAutoDismiss: false,
+    });
   });
 
   const button = await screen.findByRole('button', { name: 'close toast' });
@@ -165,8 +186,12 @@ it('renders only one close button for the latest toast and hands it to next afte
     addToast({ title: 'Layer C', showClose: true, shouldAutoDismiss: false });
   });
 
-  expect(screen.getAllByRole('button', { name: 'close toast' })).toHaveLength(1);
-  expect(document.body.querySelector('[data-toast-layer="0"]')?.textContent).toContain('Layer C');
+  expect(screen.getAllByRole('button', { name: 'close toast' })).toHaveLength(
+    1,
+  );
+  expect(
+    document.body.querySelector('[data-toast-layer="0"]')?.textContent,
+  ).toContain('Layer C');
 
   fireEvent.click(screen.getByRole('button', { name: 'close toast' }));
 
@@ -175,8 +200,12 @@ it('renders only one close button for the latest toast and hands it to next afte
   });
 
   expect(screen.queryByText('Layer C')).toBeNull();
-  expect(document.body.querySelector('[data-toast-layer="0"]')?.textContent).toContain('Layer B');
-  expect(screen.getAllByRole('button', { name: 'close toast' })).toHaveLength(1);
+  expect(
+    document.body.querySelector('[data-toast-layer="0"]')?.textContent,
+  ).toContain('Layer B');
+  expect(screen.getAllByRole('button', { name: 'close toast' })).toHaveLength(
+    1,
+  );
 });
 
 // ---------------------------------------------------------------------------
@@ -226,7 +255,11 @@ it('keeps auto-dismiss timing when showClose is true', () => {
   render(<Toaster />);
 
   act(() => {
-    addToast({ title: 'Closable auto dismiss', duration: 500, showClose: true });
+    addToast({
+      title: 'Closable auto dismiss',
+      duration: 500,
+      showClose: true,
+    });
   });
 
   expect(screen.getByText('Closable auto dismiss')).toBeTruthy();
@@ -274,8 +307,12 @@ it('gates countdown to the active toast and activates next only after close comp
   });
 
   let snapshot = getToasts();
-  expect(snapshot.find((item) => item.id === 'toast-a')?.lifecycle).toBe('paused');
-  expect(snapshot.find((item) => item.id === 'toast-b')?.lifecycle).toBe('active');
+  expect(snapshot.find((item) => item.id === 'toast-a')?.lifecycle).toBe(
+    'paused',
+  );
+  expect(snapshot.find((item) => item.id === 'toast-b')?.lifecycle).toBe(
+    'active',
+  );
 
   act(() => {
     vi.advanceTimersByTime(1000);
@@ -283,7 +320,9 @@ it('gates countdown to the active toast and activates next only after close comp
 
   snapshot = getToasts();
   expect(snapshot.find((item) => item.id === 'toast-b')?.state).toBe('leave');
-  expect(snapshot.find((item) => item.id === 'toast-a')?.lifecycle).toBe('paused');
+  expect(snapshot.find((item) => item.id === 'toast-a')?.lifecycle).toBe(
+    'paused',
+  );
 
   act(() => {
     vi.advanceTimersByTime(300);
@@ -291,7 +330,9 @@ it('gates countdown to the active toast and activates next only after close comp
 
   snapshot = getToasts();
   expect(snapshot.find((item) => item.id === 'toast-b')).toBeUndefined();
-  expect(snapshot.find((item) => item.id === 'toast-a')?.lifecycle).toBe('active');
+  expect(snapshot.find((item) => item.id === 'toast-a')?.lifecycle).toBe(
+    'active',
+  );
 
   // If timer was not reset on stack, Toast A would close around 600ms after reactivation.
   act(() => {
@@ -405,7 +446,10 @@ it('addToast with custom id uses provided id', () => {
 });
 
 it('result.close() closes the toast', () => {
-  const result = addToast({ title: 'Close via result', shouldAutoDismiss: false });
+  const result = addToast({
+    title: 'Close via result',
+    shouldAutoDismiss: false,
+  });
 
   result.close();
 
@@ -513,16 +557,24 @@ it('toast.warning sets tone to warning', () => {
   expect(items[items.length - 1].tone).toBe('warning');
 });
 
-it('toast.danger sets tone to danger', () => {
-  toast.danger({ title: 'Danger!' });
+it('toast.error sets tone to error', () => {
+  toast.error({ title: 'Error!' });
   const items = getToasts();
-  expect(items[items.length - 1].tone).toBe('danger');
+  expect(items[items.length - 1].tone).toBe('error');
 });
 
-it('toast.primary sets tone to primary', () => {
-  toast.primary({ title: 'Primary!' });
+it('toast.info sets tone to info', () => {
+  toast.info({ title: 'Info!' });
   const items = getToasts();
-  expect(items[items.length - 1].tone).toBe('primary');
+  expect(items[items.length - 1].tone).toBe('info');
+});
+
+it('maps legacy tones to info/error for compatibility', () => {
+  addToast({ title: 'Legacy primary', tone: 'primary' as never });
+  addToast({ title: 'Legacy danger', tone: 'danger' as never });
+  const items = getToasts();
+  expect(items[items.length - 2].tone).toBe('info');
+  expect(items[items.length - 1].tone).toBe('error');
 });
 
 it('toast shorthands return AddToastResult', () => {
@@ -552,7 +604,9 @@ it('applies custom className to base element', async () => {
 });
 
 it('applies classNames overrides to slots', async () => {
-  render(<Toaster classNames={{ stack: 'custom-stack', toast: 'custom-toast' }} />);
+  render(
+    <Toaster classNames={{ stack: 'custom-stack', toast: 'custom-toast' }} />,
+  );
 
   act(() => {
     addToast({ title: 'ClassNames test' });
@@ -610,7 +664,8 @@ it('uses enlarged icon size for visual balance', async () => {
   });
 
   const defaultIcon = document.body.querySelector('[class*="icon-info"]');
-  const iconWrapperClass = defaultIcon?.parentElement?.getAttribute('class') ?? '';
+  const iconWrapperClass =
+    defaultIcon?.parentElement?.getAttribute('class') ?? '';
   expect(iconWrapperClass).toContain('text-3xl');
 });
 
@@ -618,7 +673,11 @@ it('renders close button with mobile-friendly hit area', async () => {
   render(<Toaster />);
 
   act(() => {
-    addToast({ title: 'Closable hit area', showClose: true, shouldAutoDismiss: false });
+    addToast({
+      title: 'Closable hit area',
+      showClose: true,
+      shouldAutoDismiss: false,
+    });
   });
 
   const button = await screen.findByRole('button', { name: 'close toast' });

@@ -1,13 +1,13 @@
 import {
+  type AddToastResult,
   addToast,
   clearToasts,
   closeToast,
   getToasts,
   showToast,
   subscribeToasts,
-  toast,
-  type AddToastResult,
   type ToastTone,
+  toast,
 } from '@srcube-ui/mini/toaster/index';
 
 type PageExtras = {
@@ -105,7 +105,7 @@ Page({
       id,
       title: 'Custom ID',
       description: id,
-      tone: 'primary',
+      tone: 'info',
       showClose: true,
     });
   },
@@ -162,16 +162,16 @@ Page({
     });
   },
 
-  showByDanger() {
-    toast.danger({
-      title: 'toast.danger',
+  showByError() {
+    toast.error({
+      title: 'toast.error',
       description: 'helper API',
     });
   },
 
-  showByPrimary() {
-    toast.primary({
-      title: 'toast.primary',
+  showByInfo() {
+    toast.info({
+      title: 'toast.info',
       description: 'helper API',
     });
   },
@@ -262,7 +262,7 @@ Page({
       title: 'Saving...',
       description: 'Please wait',
       shouldAutoDismiss: false,
-      tone: 'primary',
+      tone: 'info',
     });
 
     this.setData({

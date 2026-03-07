@@ -1,13 +1,9 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export const toasterStyle = tv({
   slots: {
     base: 'fixed inset-0 z-[1400] pointer-events-none grid place-items-center px-4',
-    stack: 'relative grid w-full max-w-[17rem] place-items-center pb-safe-4',
+    stack: 'relative grid w-full max-w-[22rem] place-items-center pb-safe-4',
     closeLayer:
       'pointer-events-none absolute inset-0 z-10 grid place-items-center',
   },
@@ -18,14 +14,14 @@ export const toastStyle = tv({
     layer:
       'col-start-1 row-start-1 transition-[transform,opacity] duration-200 ease-out will-change-transform',
     toast:
-      'pointer-events-auto relative flex h-36 w-36 flex-col items-center justify-center gap-2 rounded-3xl border border-transparent px-4 py-4 text-center shadow-lg backdrop-blur-md',
+      'pointer-events-auto relative flex min-h-44 w-48 flex-col items-center justify-center gap-2 rounded-3xl border border-transparent px-5 py-5 text-center shadow-lg backdrop-blur-md',
     icon: 'inline-flex h-10 w-10 shrink-0 items-center justify-center text-3xl leading-none',
     _iIcon: 'icon-info size-[1em]',
     textWrap: 'min-w-0 w-full',
     title: 'truncate text-sm font-semibold leading-5',
     description: 'mt-1 line-clamp-2 text-xs leading-4',
     closeButton:
-      'pointer-events-auto relative z-[1] inline-flex h-10 w-10 translate-y-[5rem] items-center justify-center rounded-full bg-black/10 text-current/80 transition-[background-color,transform,opacity] duration-150 active:scale-95',
+      'pointer-events-auto relative z-[1] inline-flex h-10 w-10 translate-y-[7.5rem] items-center justify-center rounded-full bg-black/10 text-current/80 transition-[background-color,transform,opacity] duration-150 active:scale-95',
     _iClose: 'icon-close size-4',
   },
   variants: {
@@ -38,7 +34,7 @@ export const toastStyle = tv({
         toast: 'bg-slate-950/88 text-white',
         description: 'text-white/80',
       },
-      primary: {
+      info: {
         toast: 'bg-primary-50/92 text-primary',
         title: 'text-primary',
         description: 'text-primary/80',
@@ -60,7 +56,7 @@ export const toastStyle = tv({
         description: 'text-warning/80',
         _iIcon: 'icon-toast-warning size-[1em]',
       },
-      danger: {
+      error: {
         toast: 'bg-danger-50/92 text-danger',
         title: 'text-danger',
         description: 'text-danger/80',
