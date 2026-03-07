@@ -29,8 +29,8 @@
       wx:if="{{$isGradientOrb}}"
       class="sr-avatar__fallback-highlight {{$classNames.fallbackHighlight}}"
     />
-    <text class="sr-avatar__fallback-text {{$classNames.fallbackText}}" style="{{$fallbackTextStyle}}">
+    <view class="sr-avatar__fallback-text {{$classNames.fallbackText}}" style="{{$fallbackTextStyle}}">
       {{$fallbackText}}
-    </text>
+    </view>
   </view>
 </sr-skeleton>

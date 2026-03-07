@@ -1,3 +1,4 @@
+import { avatar } from '@srcube-ui/styles/components/avatar/style';
 import { UIComponent } from '../../shared/ui-component';
 import {
   createAvatarFallbackSeed,
@@ -7,7 +8,6 @@ import {
   resolveAvatarFallbackStyle,
   resolveAvatarGradientTheme,
 } from './fallback';
-import { avatar } from '@srcube-ui/styles/components/avatar/style';
 import { type AvatarMiniProps, avatarMiniProps } from './props';
 
 type AvatarMiniState = {

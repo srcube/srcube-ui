@@ -1,8 +1,4 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export const avatar = tv({
   slots: {
