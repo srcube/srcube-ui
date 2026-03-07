@@ -6,8 +6,8 @@
     "dist"
   ],
   "scripts": {
-    "dev": "tsdown --watch --config tsdown.config.ts",
-    "build": "tsdown --config tsdown.config.ts",
+    "dev": "tsdown --watch",
+    "build": "tsdown",
     "test": "pnpm -w vitest --run --project unit packages/styles/__tests__"
   },
   "exports": {

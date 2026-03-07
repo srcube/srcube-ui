@@ -1,13 +1,12 @@
 {
   "name": "@srcube-ui/react",
-  "private": true,
   "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "tsdown --watch --config tsdown.config.ts",
-    "build": "tsdown --config tsdown.config.ts",
+    "dev": "tsdown --watch",
+    "build": "tsdown",
     "test": "pnpm -w vitest --run --project unit packages/react/__tests__"
   },
   "exports": {
@@ -16,175 +15,10 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./button": {
-      "types": "./dist/components/button/index.d.ts",
-      "import": "./dist/components/button/index.js",
-      "default": "./dist/components/button/index.js"
-    },
-    "./checkbox": {
-      "types": "./dist/components/checkbox/index.d.ts",
-      "import": "./dist/components/checkbox/index.js",
-      "default": "./dist/components/checkbox/index.js"
-    },
-    "./field": {
-      "types": "./dist/components/field/index.d.ts",
-      "import": "./dist/components/field/index.js",
-      "default": "./dist/components/field/index.js"
-    },
-    "./input": {
-      "types": "./dist/components/input/index.d.ts",
-      "import": "./dist/components/input/index.js",
-      "default": "./dist/components/input/index.js"
-    },
-    "./popup": {
-      "types": "./dist/components/popup/index.d.ts",
-      "import": "./dist/components/popup/index.js",
-      "default": "./dist/components/popup/index.js"
-    },
-    "./radio": {
-      "types": "./dist/components/radio/index.d.ts",
-      "import": "./dist/components/radio/index.js",
-      "default": "./dist/components/radio/index.js"
-    },
-    "./switch": {
-      "types": "./dist/components/switch/index.d.ts",
-      "import": "./dist/components/switch/index.js",
-      "default": "./dist/components/switch/index.js"
-    },
-    "./scrollbox": {
-      "types": "./dist/components/scrollbox/index.d.ts",
-      "import": "./dist/components/scrollbox/index.js",
-      "default": "./dist/components/scrollbox/index.js"
-    },
-    "./pickbox": {
-      "types": "./dist/components/pickbox/index.d.ts",
-      "import": "./dist/components/pickbox/index.js",
-      "default": "./dist/components/pickbox/index.js"
-    },
-    "./skeleton": {
-      "types": "./dist/components/skeleton/index.d.ts",
-      "import": "./dist/components/skeleton/index.js",
-      "default": "./dist/components/skeleton/index.js"
-    },
-    "./listbox": {
-      "types": "./dist/components/listbox/index.d.ts",
-      "import": "./dist/components/listbox/index.js",
-      "default": "./dist/components/listbox/index.js"
-    },
-    "./selectbox": {
-      "types": "./dist/components/selectbox/index.d.ts",
-      "import": "./dist/components/selectbox/index.js",
-      "default": "./dist/components/selectbox/index.js"
-    },
-    "./drawer": {
-      "types": "./dist/components/drawer/index.d.ts",
-      "import": "./dist/components/drawer/index.js",
-      "default": "./dist/components/drawer/index.js"
-    },
-    "./action-sheet": {
-      "types": "./dist/components/action-sheet/index.d.ts",
-      "import": "./dist/components/action-sheet/index.js",
-      "default": "./dist/components/action-sheet/index.js"
-    },
-    "./avatar": {
-      "types": "./dist/components/avatar/index.d.ts",
-      "import": "./dist/components/avatar/index.js",
-      "default": "./dist/components/avatar/index.js"
-    },
-    "./calendar": {
-      "types": "./dist/components/calendar/index.d.ts",
-      "import": "./dist/components/calendar/index.js",
-      "default": "./dist/components/calendar/index.js"
-    },
-    "./stepper": {
-      "types": "./dist/components/stepper/index.d.ts",
-      "import": "./dist/components/stepper/index.js",
-      "default": "./dist/components/stepper/index.js"
-    },
-    "./textarea": {
-      "types": "./dist/components/textarea/index.d.ts",
-      "import": "./dist/components/textarea/index.js",
-      "default": "./dist/components/textarea/index.js"
-    },
-    "./tabs": {
-      "types": "./dist/components/tabs/index.d.ts",
-      "import": "./dist/components/tabs/index.js",
-      "default": "./dist/components/tabs/index.js"
-    },
-    "./swipe-action": {
-      "types": "./dist/components/swipe-action/index.d.ts",
-      "import": "./dist/components/swipe-action/index.js",
-      "default": "./dist/components/swipe-action/index.js"
-    },
-    "./tour": {
-      "types": "./dist/components/tour/index.d.ts",
-      "import": "./dist/components/tour/index.js",
-      "default": "./dist/components/tour/index.js"
-    },
-    "./card": {
-      "types": "./dist/components/card/index.d.ts",
-      "import": "./dist/components/card/index.js",
-      "default": "./dist/components/card/index.js"
-    },
-    "./collapse": {
-      "types": "./dist/components/collapse/index.d.ts",
-      "import": "./dist/components/collapse/index.js",
-      "default": "./dist/components/collapse/index.js"
-    },
-    "./image": {
-      "types": "./dist/components/image/index.d.ts",
-      "import": "./dist/components/image/index.js",
-      "default": "./dist/components/image/index.js"
-    },
-    "./input-otp": {
-      "types": "./dist/components/input-otp/index.d.ts",
-      "import": "./dist/components/input-otp/index.js",
-      "default": "./dist/components/input-otp/index.js"
-    },
-    "./menu": {
-      "types": "./dist/components/menu/index.d.ts",
-      "import": "./dist/components/menu/index.js",
-      "default": "./dist/components/menu/index.js"
-    },
-    "./navbar": {
-      "types": "./dist/components/navbar/index.d.ts",
-      "import": "./dist/components/navbar/index.js",
-      "default": "./dist/components/navbar/index.js"
-    },
-    "./notice-bar": {
-      "types": "./dist/components/notice-bar/index.d.ts",
-      "import": "./dist/components/notice-bar/index.js",
-      "default": "./dist/components/notice-bar/index.js"
-    },
-    "./steps": {
-      "types": "./dist/components/steps/index.d.ts",
-      "import": "./dist/components/steps/index.js",
-      "default": "./dist/components/steps/index.js"
-    },
-    "./tabbar": {
-      "types": "./dist/components/tabbar/index.d.ts",
-      "import": "./dist/components/tabbar/index.js",
-      "default": "./dist/components/tabbar/index.js"
-    },
-    "./timeline": {
-      "types": "./dist/components/timeline/index.d.ts",
-      "import": "./dist/components/timeline/index.js",
-      "default": "./dist/components/timeline/index.js"
-    },
-    "./toaster": {
-      "types": "./dist/components/toaster/index.d.ts",
-      "import": "./dist/components/toaster/index.js",
-      "default": "./dist/components/toaster/index.js"
-    },
-    "./picker": {
-      "types": "./dist/components/picker/index.d.ts",
-      "import": "./dist/components/picker/index.js",
-      "default": "./dist/components/picker/index.js"
-    },
-    "./uploader": {
-      "types": "./dist/components/uploader/index.d.ts",
-      "import": "./dist/components/uploader/index.js",
-      "default": "./dist/components/uploader/index.js"
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*/index.js",
+      "default": "./dist/*/index.js"
     }
   },
   "dependencies": {

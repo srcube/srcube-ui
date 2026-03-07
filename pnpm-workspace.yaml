@@ -22,6 +22,7 @@ catalog:
   '@tanstack/react-virtual': ^3.13.18
   '@tanstack/virtual-core': ^3.13.18
   '@testing-library/dom': ^10.4.0
+  '@tsdown/css': ^0.21.0
   '@testing-library/react': ^16.2.0
   '@vitest/browser-preview': ^4.0.17
   '@types/node': ^22.19.7
@@ -44,7 +45,7 @@ catalog:
   sass: ^1.97.3
   tailwind-variants: ^3.2.0
   tailwindcss: ^4.1.0
-  tsdown: ^0.20.3
+  tsdown: ^0.21.0
   turbo: ^2.0.0
   typescript: ^5.5.4
   vite: ^7.3.1

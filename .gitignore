@@ -48,7 +48,7 @@ _bmad-output
 .idea
 
 # locals
-*.local.md
+*.local.*
 
 # backup
 .bak
