@@ -82,6 +82,10 @@ packages/mini/__tests__/<name>/           # 小程序测试
 - `locale.ts` 仅放 locale type / 文案映射 / 默认 locale
 - 禁止在 `locale.ts` 放平台逻辑
 
+### 提交规范
+- Git commit message 必须使用英文
+- 推荐使用 Conventional Commits（如 `feat:`, `fix:`, `chore:`）
+
 ## 示例应用
 - `apps/sample-react` - React 验证
 - `apps/sample-weapp` - 小程序验证
