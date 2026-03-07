@@ -11,6 +11,7 @@
       <view class="text-sm font-semibold">Sticky Vertical</view>
       <view class="mt-1 text-xs text-slate-500">@tanstack/virtual-core + rangeExtractor (orientation=y)</view>
       <sr-listbox
+        class="mt-3 h-80 rounded-2xl border border-slate-200"
         className="mt-3 h-80 rounded-2xl border border-slate-200"
         items="{{stickyItems}}"
         estimateSize="44"
@@ -27,6 +28,7 @@
       <view class="text-sm font-semibold">Sticky Horizontal</view>
       <view class="mt-1 text-xs text-slate-500">orientation=x + sticky section item</view>
       <sr-listbox
+        class="mt-3 h-20 rounded-2xl border border-slate-200"
         className="mt-3 h-20 rounded-2xl border border-slate-200"
         orientation="x"
         items="{{horizontalStickyItems}}"
@@ -43,6 +45,7 @@
       <view class="text-sm font-semibold">Virtualized List</view>
       <view class="mt-1 text-xs text-slate-500">plain mode (1000 items)</view>
       <sr-listbox
+        class="mt-3 h-80 rounded-2xl border border-slate-200"
         className="mt-3 h-80 rounded-2xl border border-slate-200"
         items="{{plainItems}}"
         estimateSize="44"
@@ -59,6 +62,7 @@
       <view class="text-sm font-semibold">Empty</view>
       <view class="mt-1 text-xs text-slate-500">locale=zh-CN</view>
       <sr-listbox
+        class="mt-3 h-32 rounded-2xl border border-slate-200"
         className="mt-3 h-32 rounded-2xl border border-slate-200"
         items="{{emptyItems}}"
         estimateSize="44"
