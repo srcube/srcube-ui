@@ -82,19 +82,8 @@ export const Textarea = React.forwardRef<
     isAutoHeight,
   });
 
-  const isOutsideLeftLabel = labelPlacement === 'outside-left';
-  const shouldAlignLabelWithFirstLine =
-    labelPlacement === 'outside-left' || labelPlacement === 'inside';
   const fieldClassNames = {
     ...classNames,
-    base: mergeClassName(
-      classNames?.base,
-      isOutsideLeftLabel ? 'items-start' : undefined,
-    ),
-    label: mergeClassName(
-      classNames?.label,
-      shouldAlignLabelWithFirstLine ? 'pt-[0.625rem]' : undefined,
-    ),
     controlWrapper: mergeClassName(classNames?.controlWrapper, 'py-2'),
     control: mergeClassName(
       classNames?.control,

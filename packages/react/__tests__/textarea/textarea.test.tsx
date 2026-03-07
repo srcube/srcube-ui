@@ -42,6 +42,7 @@ it('uses multiline textarea classes without single-line truncate', () => {
   const textarea = screen.getByRole('textbox');
   const className = textarea.getAttribute('class') ?? '';
 
+  expect(className).toContain('p-0');
   expect(className).toContain('whitespace-pre-wrap');
   expect(className.includes('truncate')).toBe(false);
 });
