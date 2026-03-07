@@ -6,6 +6,19 @@ Page({
       { value: 'msg', label: '消息', icon: '✉', badge: 12 },
       { value: 'me', label: '我的', icon: '☺', badge: '99+' },
     ],
+    colorItems: [
+      { value: 'discover', label: '发现', icon: '⌂' },
+      { value: 'notify', label: '通知', icon: '✉', badge: '99+' },
+      { value: 'profile', label: '我的', icon: '☺' },
+    ],
+    colorCases: [
+      { color: 'default', label: 'Default' },
+      { color: 'primary', label: 'Primary' },
+      { color: 'secondary', label: 'Secondary' },
+      { color: 'success', label: 'Success' },
+      { color: 'warning', label: 'Warning' },
+      { color: 'danger', label: 'Danger' },
+    ],
   },
 
   handleChange(

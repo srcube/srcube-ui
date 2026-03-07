@@ -12,16 +12,18 @@
       hover-class="none"
     >
       <view class="sr-tabbar__main {{$classNames.main}}">
-        <text wx:if="{{item.icon}}" class="sr-tabbar__icon {{$classNames.icon}}">
-          {{item.icon}}
-        </text>
-        <text class="sr-tabbar__label {{$classNames.label}}">{{item.label}}</text>
-        <view wx:if="{{item.hasBadge}}" class="sr-tabbar__badge {{$classNames.badge}}">
-          <view wx:if="{{item.badgeIsDot}}" class="sr-tabbar__badge-dot {{$classNames.badgeDot}}" />
-          <text wx:else class="sr-tabbar__badge-content {{$classNames.badgeContent}}">
-            {{item.badgeText}}
+        <view wx:if="{{item.icon || item.hasBadge}}" class="sr-tabbar__icon-wrap {{$classNames.iconWrap}}">
+          <text wx:if="{{item.icon}}" class="sr-tabbar__icon {{$classNames.icon}}">
+            {{item.icon}}
           </text>
+          <view wx:if="{{item.hasBadge}}" class="sr-tabbar__badge {{$classNames.badge}}">
+            <view wx:if="{{item.badgeIsDot}}" class="sr-tabbar__badge-dot {{$classNames.badgeDot}}" />
+            <text wx:else class="sr-tabbar__badge-content {{$classNames.badgeContent}}">
+              {{item.badgeText}}
+            </text>
+          </view>
         </view>
+        <text class="sr-tabbar__label {{$classNames.label}}">{{item.label}}</text>
       </view>
     </button>
   </view>

@@ -1,8 +1,4 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export const tabbar = tv({
   slots: {
@@ -10,9 +6,11 @@ export const tabbar = tv({
     list: 'flex w-full items-stretch',
     item: 'flex min-w-0 flex-1 items-center justify-center px-2 transition-colors',
     main: 'relative inline-flex min-w-0 flex-col items-center justify-center gap-1',
+    iconWrap: 'relative inline-flex items-center justify-center',
     icon: 'text-base',
     label: 'truncate text-xs font-medium',
-    badge: 'pointer-events-none absolute -right-2 -top-1 z-[1]',
+    badge:
+      'pointer-events-none absolute right-0 top-0 z-[1] translate-x-1/2 -translate-y-1/2',
     badgeDot: 'block h-2 w-2 rounded-full bg-danger',
     badgeContent:
       'inline-flex min-h-4 min-w-4 items-center justify-center rounded-full bg-danger px-1 text-[10px] font-medium leading-none text-white',
@@ -21,7 +19,7 @@ export const tabbar = tv({
     size: {
       sm: {
         item: 'h-12',
-        badge: '-right-1.5 -top-1',
+        badge: 'translate-x-[42%] -translate-y-[46%]',
         badgeDot: 'h-1.5 w-1.5',
         badgeContent: 'min-h-3.5 min-w-3.5 px-1 text-[9px]',
         icon: 'text-sm',
@@ -29,7 +27,7 @@ export const tabbar = tv({
       },
       md: {
         item: 'h-14',
-        badge: '-right-2 -top-1',
+        badge: 'translate-x-[48%] -translate-y-[52%]',
         badgeDot: 'h-2 w-2',
         badgeContent: 'min-h-4 min-w-4 px-1 text-[10px]',
         icon: 'text-base',
@@ -37,7 +35,7 @@ export const tabbar = tv({
       },
       lg: {
         item: 'h-16',
-        badge: '-right-2.5 -top-1.5',
+        badge: 'translate-x-[54%] -translate-y-[56%]',
         badgeDot: 'h-2.5 w-2.5',
         badgeContent: 'min-h-5 min-w-5 px-1.5 text-[11px]',
         icon: 'text-lg',

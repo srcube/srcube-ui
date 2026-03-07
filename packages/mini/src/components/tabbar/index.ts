@@ -1,5 +1,8 @@
+import {
+  tabbar,
+  tabbarItemState,
+} from '@srcube-ui/styles/components/tabbar/style';
 import { UIComponent } from '../../shared/ui-component';
-import { tabbar, tabbarItemState } from '@srcube-ui/styles/components/tabbar/style';
 import type { TabbarMiniItem, TabbarMiniProps, TabbarMiniValue } from './props';
 import { tabbarMiniProps } from './props';
 
@@ -156,13 +159,17 @@ UIComponent({
         size: data.size,
         isBordered: Boolean(data.isBordered),
       });
-      const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
+      const custom = (data.classNames ?? {}) as Record<
+        string,
+        string | undefined
+      >;
 
       return {
         base: slots.base({ class: [custom.base, data.className] }),
         list: slots.list({ class: custom.list }),
         item: slots.item({ class: custom.item }),
         main: slots.main({ class: custom.main }),
+        iconWrap: slots.iconWrap({ class: custom.iconWrap }),
         icon: slots.icon({ class: custom.icon }),
         label: slots.label({ class: custom.label }),
         badge: slots.badge({ class: custom.badge }),

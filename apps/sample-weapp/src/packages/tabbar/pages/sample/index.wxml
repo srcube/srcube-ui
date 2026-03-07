@@ -20,12 +20,14 @@
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Colors</view>
-      <view class="mt-3 space-y-2">
-        <view>
-          <sr-tabbar color="primary" items="{{items}}" />
-        </view>
-        <view>
-          <sr-tabbar color="success" size="sm" items="{{items}}" />
+      <view class="mt-3 space-y-3">
+        <view wx:for="{{colorCases}}" wx:key="color" wx:for-item="item">
+          <view class="mb-1 text-xs text-slate-500">{{item.label}}</view>
+          <sr-tabbar
+            color="{{item.color}}"
+            size="{{item.color === 'success' ? 'sm' : 'md'}}"
+            items="{{colorItems}}"
+          />
         </view>
       </view>
     </view>

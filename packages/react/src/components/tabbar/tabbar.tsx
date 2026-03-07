@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { tabbar, tabbarItemState } from '@srcube-ui/styles/components/tabbar';
+import * as React from 'react';
 import type { TabbarReactProps, TabbarValue } from './props';
 
 function resolveColor(value: TabbarReactProps['color']) {
@@ -81,17 +81,19 @@ export const Tabbar = React.forwardRef<HTMLDivElement, TabbarReactProps>(
     } = props;
 
     const isControlled = value !== null && value !== undefined;
-    const [innerValue, setInnerValue] = React.useState<TabbarValue | null>(() => {
-      if (isControlled) {
-        return value ?? null;
-      }
+    const [innerValue, setInnerValue] = React.useState<TabbarValue | null>(
+      () => {
+        if (isControlled) {
+          return value ?? null;
+        }
 
-      if (defaultValue !== null && defaultValue !== undefined) {
-        return defaultValue;
-      }
+        if (defaultValue !== null && defaultValue !== undefined) {
+          return defaultValue;
+        }
 
-      return resolveDefaultValue(items);
-    });
+        return resolveDefaultValue(items);
+      },
+    );
 
     const activeValue = isControlled ? (value ?? null) : innerValue;
     const resolvedColor = resolveColor(color);
@@ -139,7 +141,9 @@ export const Tabbar = React.forwardRef<HTMLDivElement, TabbarReactProps>(
               <button
                 key={`${typeof item.value}:${String(item.value)}`}
                 type="button"
-                className={slots.item({ class: [classNames?.item, stateClass] })}
+                className={slots.item({
+                  class: [classNames?.item, stateClass],
+                })}
                 onClick={() => {
                   handlePress(item.value, item.isDisabled);
                 }}
@@ -147,21 +151,46 @@ export const Tabbar = React.forwardRef<HTMLDivElement, TabbarReactProps>(
                 aria-disabled={item.isDisabled ? true : undefined}
               >
                 <span className={slots.main({ class: classNames?.main })}>
-                  {item.icon ? (
-                    <span className={slots.icon({ class: classNames?.icon })}>{item.icon}</span>
-                  ) : null}
-                  <span className={slots.label({ class: classNames?.label })}>{item.label}</span>
-                  {badge.hasBadge ? (
-                    <span className={slots.badge({ class: classNames?.badge })} aria-hidden>
-                      {badge.isDot ? (
-                        <span className={slots.badgeDot({ class: classNames?.badgeDot })} />
-                      ) : (
-                        <span className={slots.badgeContent({ class: classNames?.badgeContent })}>
-                          {badge.text}
+                  {item.icon || badge.hasBadge ? (
+                    <span
+                      className={slots.iconWrap({
+                        class: classNames?.iconWrap,
+                      })}
+                    >
+                      {item.icon ? (
+                        <span
+                          className={slots.icon({ class: classNames?.icon })}
+                        >
+                          {item.icon}
                         </span>
-                      )}
+                      ) : null}
+                      {badge.hasBadge ? (
+                        <span
+                          className={slots.badge({ class: classNames?.badge })}
+                          aria-hidden
+                        >
+                          {badge.isDot ? (
+                            <span
+                              className={slots.badgeDot({
+                                class: classNames?.badgeDot,
+                              })}
+                            />
+                          ) : (
+                            <span
+                              className={slots.badgeContent({
+                                class: classNames?.badgeContent,
+                              })}
+                            >
+                              {badge.text}
+                            </span>
+                          )}
+                        </span>
+                      ) : null}
                     </span>
                   ) : null}
+                  <span className={slots.label({ class: classNames?.label })}>
+                    {item.label}
+                  </span>
                 </span>
               </button>
             );
