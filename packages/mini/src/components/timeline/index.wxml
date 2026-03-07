@@ -2,26 +2,27 @@
   <view class="sr-timeline__list {{$classNames.list}}">
     <block wx:for="{{$renderItems}}" wx:key="key" wx:for-item="item">
       <view class="sr-timeline__item {{item.classes.item}}">
-        <view class="sr-timeline__head {{item.classes.head}}">
+        <view class="sr-timeline__indicator-wrap {{item.classes.indicatorWrap}}">
+          <view class="sr-timeline__line-start {{item.classes.lineStart}}" />
           <view class="sr-timeline__node {{item.classes.node}}">
-            <text wx:if="{{item.icon}}" class="sr-timeline__icon {{item.classes.icon}}">
+            <view wx:if="{{item.icon}}" class="sr-timeline__icon {{item.classes.icon}}">
               {{item.icon}}
-            </text>
+            </view>
           </view>
-          <view class="sr-timeline__line {{item.classes.line}}" />
+          <view class="sr-timeline__line-end {{item.classes.lineEnd}}" />
         </view>
 
         <view class="sr-timeline__content {{item.classes.content}}">
-          <text class="sr-timeline__title {{item.classes.title}}">{{item.title}}</text>
-          <text wx:if="{{item.time}}" class="sr-timeline__time {{item.classes.time}}">
+          <view class="sr-timeline__title {{item.classes.title}}">{{item.title}}</view>
+          <view wx:if="{{item.time}}" class="sr-timeline__time {{item.classes.time}}">
             {{item.time}}
-          </text>
-          <text
+          </view>
+          <view
             wx:if="{{item.description}}"
             class="sr-timeline__description {{item.classes.description}}"
           >
             {{item.description}}
-          </text>
+          </view>
         </view>
       </view>
     </block>

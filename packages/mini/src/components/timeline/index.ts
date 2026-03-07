@@ -1,9 +1,12 @@
-import { UIComponent } from '../../shared/ui-component';
-import { timelineStyle, type TimelineColor } from '@srcube-ui/styles/components/timeline/style';
 import {
-  timelineMiniProps,
+  type TimelineColor,
+  timelineStyle,
+} from '@srcube-ui/styles/components/timeline/style';
+import { UIComponent } from '../../shared/ui-component';
+import {
   type TimelineMiniItem,
   type TimelineMiniProps,
+  timelineMiniProps,
 } from './props';
 
 type TimelineRenderItem = {
@@ -14,10 +17,11 @@ type TimelineRenderItem = {
   icon: string;
   classes: {
     item: string;
-    head: string;
+    indicatorWrap: string;
     node: string;
     icon: string;
-    line: string;
+    lineStart: string;
+    lineEnd: string;
     content: string;
     title: string;
     time: string;
@@ -56,7 +60,8 @@ UIComponent({
     styleIsolation: 'apply-shared',
   },
 
-  properties: timelineMiniProps satisfies WechatMiniprogram.Component.PropertyOption,
+  properties:
+    timelineMiniProps satisfies WechatMiniprogram.Component.PropertyOption,
 
   computed: {
     $classNames(data: TimelineMiniProps) {
@@ -65,7 +70,10 @@ UIComponent({
         color: data.color,
         lineStyle: data.lineStyle,
       });
-      const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
+      const custom = (data.classNames ?? {}) as Record<
+        string,
+        string | undefined
+      >;
 
       return {
         base: slots.base({ class: [custom.base, data.className] }),
@@ -76,7 +84,10 @@ UIComponent({
     $renderItems(data: TimelineMiniProps): TimelineRenderItem[] {
       const items = Array.isArray(data.items) ? data.items : [];
       const baseColor = (data.color ?? 'default') as TimelineColor;
-      const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
+      const custom = (data.classNames ?? {}) as Record<
+        string,
+        string | undefined
+      >;
 
       return items.map((rawItem, index) => {
         const item = normalizeItem(rawItem, index);
@@ -97,10 +108,11 @@ UIComponent({
           icon: String(item.icon ?? ''),
           classes: {
             item: slots.item({ class: custom.item }),
-            head: slots.head({ class: custom.head }),
+            indicatorWrap: slots.indicatorWrap({ class: custom.indicatorWrap }),
             node: slots.node({ class: custom.node }),
             icon: slots.icon({ class: custom.icon }),
-            line: slots.line({ class: custom.line }),
+            lineStart: slots.lineStart({ class: custom.lineStart }),
+            lineEnd: slots.lineEnd({ class: custom.lineEnd }),
             content: slots.content({ class: custom.content }),
             title: slots.title({ class: custom.title }),
             time: slots.time({ class: custom.time }),

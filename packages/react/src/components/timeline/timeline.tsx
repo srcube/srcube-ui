@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { timelineStyle } from '@srcube-ui/styles/components/timeline';
+import * as React from 'react';
 import type { TimelineReactProps } from './props';
 
 export const Timeline = React.forwardRef<HTMLDivElement, TimelineReactProps>(
@@ -48,7 +48,16 @@ export const Timeline = React.forwardRef<HTMLDivElement, TimelineReactProps>(
                 key={item.key ?? index}
                 className={slots.item({ class: classNames?.item })}
               >
-                <div className={slots.head({ class: classNames?.head })}>
+                <div
+                  className={slots.indicatorWrap({
+                    class: classNames?.indicatorWrap,
+                  })}
+                >
+                  <span
+                    className={slots.lineStart({
+                      class: classNames?.lineStart,
+                    })}
+                  />
                   <span className={slots.node({ class: classNames?.node })}>
                     {item.icon !== undefined && item.icon !== null ? (
                       <span className={slots.icon({ class: classNames?.icon })}>
@@ -56,7 +65,9 @@ export const Timeline = React.forwardRef<HTMLDivElement, TimelineReactProps>(
                       </span>
                     ) : null}
                   </span>
-                  <span className={slots.line({ class: classNames?.line })} />
+                  <span
+                    className={slots.lineEnd({ class: classNames?.lineEnd })}
+                  />
                 </div>
 
                 <div className={slots.content({ class: classNames?.content })}>
@@ -70,7 +81,9 @@ export const Timeline = React.forwardRef<HTMLDivElement, TimelineReactProps>(
                   ) : null}
                   {item.description ? (
                     <div
-                      className={slots.description({ class: classNames?.description })}
+                      className={slots.description({
+                        class: classNames?.description,
+                      })}
                     >
                       {item.description}
                     </div>

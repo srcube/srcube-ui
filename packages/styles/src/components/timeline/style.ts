@@ -1,8 +1,4 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export type TimelineColor =
   | 'default'
@@ -15,11 +11,13 @@ export const timelineStyle = tv({
   slots: {
     base: 'w-full',
     list: 'flex w-full flex-col',
-    item: 'relative flex gap-3 pb-5',
-    head: 'flex shrink-0 items-start justify-center',
+    item: 'flex items-start gap-3 pb-5',
+    indicatorWrap:
+      'relative z-[1] flex shrink-0 self-stretch flex-col items-center',
     node: 'relative z-[1] inline-flex items-center justify-center rounded-full border-2 text-white',
     icon: 'leading-none',
-    line: 'absolute top-0 bottom-0 w-px bg-slate-200',
+    lineStart: 'w-px flex-1 bg-slate-200',
+    lineEnd: 'w-px flex-1 bg-slate-200',
     content: 'min-w-0 flex-1 pt-0.5',
     title: 'text-sm font-medium text-slate-900',
     time: 'mt-0.5 text-xs text-slate-400',
@@ -28,28 +26,28 @@ export const timelineStyle = tv({
   variants: {
     size: {
       sm: {
-        head: 'w-5',
+        indicatorWrap: 'w-5 gap-1',
         node: 'h-4 w-4',
         icon: 'text-[10px]',
-        line: 'left-2.5',
+        content: 'pt-0',
         title: 'text-xs',
         time: 'text-[11px]',
         description: 'text-xs',
       },
       md: {
-        head: 'w-6',
+        indicatorWrap: 'w-6 gap-1.5',
         node: 'h-5 w-5',
         icon: 'text-xs',
-        line: 'left-3',
+        content: 'pt-0.5',
         title: 'text-sm',
         time: 'text-xs',
         description: 'text-sm',
       },
       lg: {
-        head: 'w-7',
+        indicatorWrap: 'w-7 gap-2',
         node: 'h-6 w-6',
         icon: 'text-sm',
-        line: 'left-3.5',
+        content: 'pt-1',
         title: 'text-base',
         time: 'text-sm',
         description: 'text-base',
@@ -79,10 +77,12 @@ export const timelineStyle = tv({
     },
     lineStyle: {
       solid: {
-        line: 'border-none',
+        lineStart: 'border-none',
+        lineEnd: 'border-none',
       },
       dashed: {
-        line: 'border-l border-dashed border-slate-300 bg-transparent',
+        lineStart: 'border-l border-dashed border-slate-300 bg-transparent',
+        lineEnd: 'border-l border-dashed border-slate-300 bg-transparent',
       },
     },
     isPending: {
@@ -93,13 +93,15 @@ export const timelineStyle = tv({
     },
     isLast: {
       true: {
-        line: 'hidden',
+        lineEnd: 'bg-transparent',
         item: 'pb-0',
       },
       false: {},
     },
     isFirst: {
-      true: {},
+      true: {
+        lineStart: 'bg-transparent',
+      },
       false: {},
     },
   },
@@ -143,21 +145,21 @@ export const timelineStyle = tv({
       isFirst: true,
       size: 'sm',
       class: {
-        line: 'top-2',
+        indicatorWrap: 'gap-0.5',
       },
     },
     {
       isFirst: true,
       size: 'md',
       class: {
-        line: 'top-2.5',
+        indicatorWrap: 'gap-1',
       },
     },
     {
       isFirst: true,
       size: 'lg',
       class: {
-        line: 'top-3',
+        indicatorWrap: 'gap-1.5',
       },
     },
   ],
