@@ -1,17 +1,8 @@
-import { Button } from '../button';
-import {
-  Popup,
-  PopupContent,
-  type PopupClassNames,
-} from '../popup';
-import * as React from 'react';
 import { tour } from '@srcube-ui/styles/components/tour';
-import type {
-  TourPlacement,
-  TourReactProps,
-  TourRef,
-  TourStep,
-} from './props';
+import * as React from 'react';
+import { Button } from '../button';
+import { Popup, type PopupClassNames, PopupContent } from '../popup';
+import type { TourPlacement, TourReactProps, TourRef, TourStep } from './props';
 
 type TargetRect = {
   left: number;
@@ -104,10 +95,10 @@ function normalizeSteps(rawSteps: unknown): TourStep[] {
 
 function normalizePlacement(value?: string | null): TourPlacement {
   if (
-    value === 'top'
-    || value === 'bottom'
-    || value === 'left'
-    || value === 'right'
+    value === 'top' ||
+    value === 'bottom' ||
+    value === 'left' ||
+    value === 'right'
   ) {
     return value;
   }
@@ -128,10 +119,10 @@ function resolveTargetRect(rawRect?: DOMRect | null): TargetRect | null {
   const bottom = Number(rawRect.bottom ?? top + height);
 
   if (
-    !Number.isFinite(width)
-    || !Number.isFinite(height)
-    || width <= 0
-    || height <= 0
+    !Number.isFinite(width) ||
+    !Number.isFinite(height) ||
+    width <= 0 ||
+    height <= 0
   ) {
     return null;
   }
@@ -204,8 +195,8 @@ function isTargetOutsideViewport(
   const threshold = 8;
   const topSafeArea = Math.max(0, Number(scrollOffset || 0));
   return (
-    targetRect.top < topSafeArea + threshold
-    || targetRect.bottom > viewport.height - threshold
+    targetRect.top < topSafeArea + threshold ||
+    targetRect.bottom > viewport.height - threshold
   );
 }
 
@@ -238,15 +229,15 @@ function resolvePopoverStyle(params: {
   }
 
   if (
-    resolvedPlacement === 'bottom'
-    && spaceBottom < DEFAULT_POPOVER_ESTIMATED_HEIGHT
-    && spaceTop > spaceBottom
+    resolvedPlacement === 'bottom' &&
+    spaceBottom < DEFAULT_POPOVER_ESTIMATED_HEIGHT &&
+    spaceTop > spaceBottom
   ) {
     resolvedPlacement = 'top';
   } else if (
-    resolvedPlacement === 'top'
-    && spaceTop < DEFAULT_POPOVER_ESTIMATED_HEIGHT
-    && spaceBottom > spaceTop
+    resolvedPlacement === 'top' &&
+    spaceTop < DEFAULT_POPOVER_ESTIMATED_HEIGHT &&
+    spaceBottom > spaceTop
   ) {
     resolvedPlacement = 'bottom';
   }
@@ -375,7 +366,16 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
   const refreshTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );
-  const scrollTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+  const autoScrollStateRef = React.useRef<{
+    key: string | null;
+    scrolling: boolean;
+  }>({
+    key: null,
+    scrolling: false,
+  });
   const baseRef = React.useRef<HTMLDivElement>(null);
 
   const resolvedOpen = isOpenControlled ? Boolean(isOpenProp) : innerOpen;
@@ -386,7 +386,8 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
     return clamp(candidate, 0, maxStepIndex);
   }, [currentStepProp, innerStep, isStepControlled, maxStepIndex]);
   const currentStep = steps[resolvedStepIndex] ?? null;
-  const isLastStep = steps.length === 0 || resolvedStepIndex >= steps.length - 1;
+  const isLastStep =
+    steps.length === 0 || resolvedStepIndex >= steps.length - 1;
   const canInteractWithTarget = currentStep?.canInteractWithTarget !== false;
   const resolvedSkipText = currentStep?.showSkip === false ? null : skipText;
   const resolvedPrevText = currentStep?.prevText ?? prevText;
@@ -405,6 +406,7 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
       clearTimeout(scrollTimerRef.current);
       scrollTimerRef.current = null;
     }
+    autoScrollStateRef.current.scrolling = false;
   }, []);
 
   const resetLayout = React.useCallback(() => {
@@ -539,7 +541,14 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
     }
 
     setStepIndex(resolvedStepIndex + 1, 'next');
-  }, [currentStep, isLastStep, onFinish, resolvedStepIndex, setOpen, setStepIndex]);
+  }, [
+    currentStep,
+    isLastStep,
+    onFinish,
+    resolvedStepIndex,
+    setOpen,
+    setStepIndex,
+  ]);
 
   const handleMaskClick = React.useCallback(() => {
     if (!canMaskClose) {
@@ -555,19 +564,40 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
 
   React.useEffect(() => {
     if (!resolvedOpen) {
+      autoScrollStateRef.current = {
+        key: null,
+        scrolling: false,
+      };
       return;
     }
 
-    const handleViewportChange = () => {
+    autoScrollStateRef.current = {
+      key: null,
+      scrolling: false,
+    };
+  }, [resolvedOpen, resolvedStepIndex, currentStep?.selector]);
+
+  React.useEffect(() => {
+    if (!resolvedOpen) {
+      return;
+    }
+
+    const handleViewportResize = () => {
+      requestRefresh();
+    };
+    const handleViewportScroll = () => {
+      if (autoScrollStateRef.current.scrolling) {
+        return;
+      }
       requestRefresh();
     };
 
-    window.addEventListener('resize', handleViewportChange);
-    window.addEventListener('scroll', handleViewportChange, { passive: true });
+    window.addEventListener('resize', handleViewportResize);
+    window.addEventListener('scroll', handleViewportScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('resize', handleViewportChange);
-      window.removeEventListener('scroll', handleViewportChange);
+      window.removeEventListener('resize', handleViewportResize);
+      window.removeEventListener('scroll', handleViewportScroll);
     };
   }, [requestRefresh, resolvedOpen]);
 
@@ -586,7 +616,7 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
 
     let cancelled = false;
 
-    const runMeasure = (retry: number, hasAutoScrolled: boolean, reason: string) => {
+    const runMeasure = (retry: number, reason: string) => {
       if (cancelled || !resolvedOpen) {
         return;
       }
@@ -603,6 +633,9 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
           ? resolveTargetRect(targetElement.getBoundingClientRect())
           : null;
       const viewport = resolveViewportRect();
+      const stepScrollKey = `${stepIndex}:${step.selector}`;
+      const hasStepAutoScrolled =
+        autoScrollStateRef.current.key === stepScrollKey;
 
       if (!targetRect) {
         const strategy = missingTargetStrategy ?? 'skip';
@@ -616,7 +649,7 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
 
         if (strategy === 'wait' && retry < WAIT_RETRY_MAX) {
           refreshTimerRef.current = window.setTimeout(() => {
-            runMeasure(retry + 1, false, `${reason}:wait-retry`);
+            runMeasure(retry + 1, `${reason}:wait-retry`);
           }, 120);
           return;
         }
@@ -636,9 +669,13 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
       }
 
       if (
-        autoScroll
-        && !hasAutoScrolled
-        && isTargetOutsideViewport(targetRect, viewport, Number(scrollOffset || 96))
+        autoScroll &&
+        !hasStepAutoScrolled &&
+        isTargetOutsideViewport(
+          targetRect,
+          viewport,
+          Number(scrollOffset || 96),
+        )
       ) {
         const nextScrollTop = Math.max(
           0,
@@ -646,14 +683,22 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
         );
         const duration = Math.max(0, Number(scrollDuration || 220));
 
+        autoScrollStateRef.current = {
+          key: stepScrollKey,
+          scrolling: true,
+        };
         window.scrollTo({
           top: nextScrollTop,
           behavior: duration > 0 ? 'smooth' : 'auto',
         });
 
-        scrollTimerRef.current = window.setTimeout(() => {
-          runMeasure(retry + 1, true, `${reason}:autoscroll`);
-        }, Math.max(80, duration + 40));
+        scrollTimerRef.current = window.setTimeout(
+          () => {
+            autoScrollStateRef.current.scrolling = false;
+            runMeasure(retry + 1, `${reason}:autoscroll`);
+          },
+          Math.max(80, duration + 40),
+        );
         return;
       }
 
@@ -713,7 +758,7 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
     };
 
     refreshTimerRef.current = window.setTimeout(() => {
-      runMeasure(0, false, `measure:${refreshToken}`);
+      runMeasure(0, `measure:${refreshToken}`);
     }, 0);
 
     return () => {
@@ -736,33 +781,29 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
     steps,
   ]);
 
-  React.useImperativeHandle(
-    ref,
-    () => {
-      return Object.assign(baseRef.current || {}, {
-        isOpen: resolvedOpen,
-        stepIndex: resolvedStepIndex,
-        start: handleStart,
-        open: handleOpen,
-        close: handleClose,
-        next: handleNext,
-        prev: handlePrev,
-        goTo: handleGoTo,
-        skip: handleSkip,
-      }) as TourRef;
-    },
-    [
-      handleClose,
-      handleGoTo,
-      handleNext,
-      handleOpen,
-      handlePrev,
-      handleSkip,
-      handleStart,
-      resolvedOpen,
-      resolvedStepIndex,
-    ],
-  );
+  React.useImperativeHandle(ref, () => {
+    return Object.assign(baseRef.current || {}, {
+      isOpen: resolvedOpen,
+      stepIndex: resolvedStepIndex,
+      start: handleStart,
+      open: handleOpen,
+      close: handleClose,
+      next: handleNext,
+      prev: handlePrev,
+      goTo: handleGoTo,
+      skip: handleSkip,
+    }) as TourRef;
+  }, [
+    handleClose,
+    handleGoTo,
+    handleNext,
+    handleOpen,
+    handlePrev,
+    handleSkip,
+    handleStart,
+    resolvedOpen,
+    resolvedStepIndex,
+  ]);
 
   const slots = React.useMemo(
     () =>
@@ -849,9 +890,12 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
             />
           ) : null}
 
-          {!canInteractWithTarget && hasLayoutStyle(layout.targetBlockerStyle) ? (
+          {!canInteractWithTarget &&
+          hasLayoutStyle(layout.targetBlockerStyle) ? (
             <div
-              className={slots.targetBlocker({ class: classNames?.targetBlocker })}
+              className={slots.targetBlocker({
+                class: classNames?.targetBlocker,
+              })}
               style={layout.targetBlockerStyle}
             />
           ) : null}
@@ -869,13 +913,17 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
                 ) : null}
                 {currentStep?.description ? (
                   <div
-                    className={slots.description({ class: classNames?.description })}
+                    className={slots.description({
+                      class: classNames?.description,
+                    })}
                   >
                     {currentStep.description}
                   </div>
                 ) : null}
                 {showProgress ? (
-                  <div className={slots.progress({ class: classNames?.progress })}>
+                  <div
+                    className={slots.progress({ class: classNames?.progress })}
+                  >
                     {`${resolvedStepIndex + 1} / ${steps.length}`}
                   </div>
                 ) : null}
@@ -887,7 +935,9 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
                     <Button
                       size="sm"
                       variant="text"
-                      className={slots.skipButton({ class: classNames?.skipButton })}
+                      className={slots.skipButton({
+                        class: classNames?.skipButton,
+                      })}
                       onTap={handleSkip}
                     >
                       {resolvedSkipText}
@@ -900,7 +950,9 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
                     <Button
                       size="sm"
                       variant="flat"
-                      className={slots.prevButton({ class: classNames?.prevButton })}
+                      className={slots.prevButton({
+                        class: classNames?.prevButton,
+                      })}
                       onTap={handlePrev}
                     >
                       {resolvedPrevText}
@@ -912,7 +964,9 @@ export const Tour = React.forwardRef<TourRef, TourReactProps>((props, ref) => {
                       size="sm"
                       color="primary"
                       variant="solid"
-                      className={slots.nextButton({ class: classNames?.nextButton })}
+                      className={slots.nextButton({
+                        class: classNames?.nextButton,
+                      })}
                       onTap={handleNext}
                     >
                       {resolvedNextText}

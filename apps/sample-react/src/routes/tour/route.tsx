@@ -1,5 +1,4 @@
-import { Button, ButtonGroup } from '@srcube-ui/react';
-import { Tour } from '@srcube-ui/react';
+import { Button, ButtonGroup, Tour } from '@srcube-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import type React from 'react';
 import { useMemo, useState } from 'react';
@@ -75,7 +74,10 @@ function TourDemo() {
     <main className="min-h-screen bg-slate-100 pb-24 text-slate-900">
       <PageHeader title="Tour" />
       <div className="px-4 pb-8">
-        <Section title="Controls" description="open tour / open from step / tone">
+        <Section
+          title="Controls"
+          description="open tour / open from step / tone"
+        >
           <div className="flex flex-wrap gap-2">
             <Button
               onTap={() => {
