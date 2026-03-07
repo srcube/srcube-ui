@@ -14,3 +14,8 @@ it('uses solid line style by default', () => {
 it('uses default color by default', () => {
   expect(timelineMiniProps.color.value).toBe('default');
 });
+
+it('supports icon class payload in template', () => {
+  expect(template).toContain('item.iconClass || item.iconText');
+  expect(template).toContain('{{item.iconClass}}');
+});

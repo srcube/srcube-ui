@@ -97,21 +97,9 @@ UIComponent({
         isAutoHeight: data.isAutoHeight,
       });
       const classNames = (data.classNames ?? {}) as Record<string, string>;
-      const isOutsideLeftLabel = data.labelPlacement === 'outside-left';
-      const shouldAlignLabelWithFirstLine =
-        data.labelPlacement === 'outside-left' ||
-        data.labelPlacement === 'inside';
 
       return {
         ...classNames,
-        base: mergeClassName(
-          classNames.base,
-          isOutsideLeftLabel ? 'items-start' : undefined,
-        ),
-        label: mergeClassName(
-          classNames.label,
-          shouldAlignLabelWithFirstLine ? 'pt-[0.625rem]' : undefined,
-        ),
         controlWrapper: mergeClassName(classNames.controlWrapper, 'py-2'),
         control: mergeClassName(
           classNames.control,

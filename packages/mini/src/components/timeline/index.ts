@@ -14,7 +14,8 @@ type TimelineRenderItem = {
   title: string;
   time: string;
   description: string;
-  icon: string;
+  iconClass: string;
+  iconText: string;
   classes: {
     item: string;
     indicatorWrap: string;
@@ -51,6 +52,23 @@ function normalizeItem(rawItem: unknown, index: number): TimelineMiniItem {
     icon: typeof item.icon === 'string' ? item.icon : '',
     color: item.color,
     isPending: Boolean(item.isPending),
+  };
+}
+
+function resolveIconPayload(icon: string) {
+  const value = String(icon ?? '').trim();
+  if (!value) {
+    return {
+      iconClass: '',
+      iconText: '',
+    };
+  }
+
+  const isIconClass = value.includes('icon-[') || value.includes('icon-');
+
+  return {
+    iconClass: isIconClass ? value : '',
+    iconText: isIconClass ? '' : value,
   };
 }
 
@@ -105,7 +123,7 @@ UIComponent({
           title: String(item.title ?? ''),
           time: String(item.time ?? ''),
           description: String(item.description ?? ''),
-          icon: String(item.icon ?? ''),
+          ...resolveIconPayload(String(item.icon ?? '')),
           classes: {
             item: slots.item({ class: custom.item }),
             indicatorWrap: slots.indicatorWrap({ class: custom.indicatorWrap }),

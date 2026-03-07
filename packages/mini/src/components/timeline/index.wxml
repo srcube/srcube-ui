@@ -5,8 +5,11 @@
         <view class="sr-timeline__indicator-wrap {{item.classes.indicatorWrap}}">
           <view class="sr-timeline__line-start {{item.classes.lineStart}}" />
           <view class="sr-timeline__node {{item.classes.node}}">
-            <view wx:if="{{item.icon}}" class="sr-timeline__icon {{item.classes.icon}}">
-              {{item.icon}}
+            <view
+              wx:if="{{item.iconClass || item.iconText}}"
+              class="sr-timeline__icon {{item.classes.icon}} {{item.iconClass}}"
+            >
+              {{item.iconText}}
             </view>
           </view>
           <view class="sr-timeline__line-end {{item.classes.lineEnd}}" />
