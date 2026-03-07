@@ -11,21 +11,30 @@ const productTimeline = [
     title: 'Kickoff',
     time: '09:00',
     description: 'Align scope with product and design',
-    icon: '✓',
+    icon: (
+      <span aria-hidden className="icon-[mingcute--check-line] text-[12px]" />
+    ),
     color: 'success' as const,
   },
   {
     title: 'Implementation',
     time: '10:20',
     description: 'Build core components',
-    icon: '⚙',
+    icon: (
+      <span
+        aria-hidden
+        className="icon-[mingcute--settings-3-line] text-[12px]"
+      />
+    ),
     color: 'primary' as const,
   },
   {
     title: 'Release',
     time: 'Pending',
     description: 'Waiting QA sign-off',
-    icon: '…',
+    icon: (
+      <span aria-hidden className="icon-[mingcute--more-1-line] text-[12px]" />
+    ),
     isPending: true,
   },
 ];
@@ -35,27 +44,41 @@ const customIconTimeline = [
     title: 'Default Icon',
     time: '09:00',
     description: 'Custom icon on default node',
-    icon: '•',
+    icon: (
+      <span aria-hidden className="icon-[mingcute--dot-line] text-[12px]" />
+    ),
   },
   {
     title: 'Primary Icon',
     time: '09:30',
     description: 'Custom icon on primary node',
-    icon: 'i',
+    icon: (
+      <span
+        aria-hidden
+        className="icon-[mingcute--information-line] text-[12px]"
+      />
+    ),
     color: 'primary' as const,
   },
   {
     title: 'Warning Icon',
     time: '10:00',
     description: 'Custom icon on warning node',
-    icon: '!',
+    icon: (
+      <span
+        aria-hidden
+        className="icon-[mingcute--warning-line] text-[12px]"
+      />
+    ),
     color: 'warning' as const,
   },
   {
     title: 'Danger Icon',
     time: '10:30',
     description: 'Custom icon on danger node',
-    icon: '×',
+    icon: (
+      <span aria-hidden className="icon-[mingcute--close-line] text-[12px]" />
+    ),
     color: 'danger' as const,
   },
 ];
