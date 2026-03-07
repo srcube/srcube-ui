@@ -12,6 +12,7 @@
       <view class="mt-1 text-xs text-slate-500">horizontal + panel (size=md radius=full)</view>
 
       <sr-tabs
+        class="mt-3"
         className="mt-3"
         items="{{basicTabs}}"
         value="{{basicValue}}"
@@ -91,6 +92,7 @@
       </view>
 
       <sr-tabs
+        class="mt-3 h-44"
         className="mt-3 h-44"
         placement="{{placementValue}}"
         items="{{verticalTabs}}"
@@ -194,6 +196,7 @@
       </view>
 
       <sr-tabs
+        class="mt-3"
         className="mt-3"
         items="{{colorTabs}}"
         value="{{colorValue}}"
@@ -214,6 +217,7 @@
       </view>
 
       <sr-tabs
+        class="mt-3"
         className="mt-3"
         items="{{customPanelTabs}}"
         value="{{customValue}}"
@@ -234,6 +238,7 @@
       <view class="mt-1 text-xs text-slate-500">virtualized tabs + edge tap auto shift</view>
 
       <sr-tabs
+        class="mt-3"
         className="mt-3"
         items="{{longTabs}}"
         value="{{longValue}}"
