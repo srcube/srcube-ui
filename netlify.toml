@@ -1,0 +1,6 @@
+[build]
+  command = "pnpm build:react"
+  publish = "apps/sample-react/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
