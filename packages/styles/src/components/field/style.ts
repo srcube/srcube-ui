@@ -187,6 +187,7 @@ export const fieldStyle = tv({
       isMultiline: true,
       class: {
         base: 'items-start',
+        label: 'pt-2',
       },
     },
     {
@@ -194,7 +195,7 @@ export const fieldStyle = tv({
       isMultiline: true,
       class: {
         controlWrapper: 'items-start gap-2',
-        label: 'self-start pt-0.5',
+        label: 'self-start pt-[0.625rem]',
       },
     },
     {

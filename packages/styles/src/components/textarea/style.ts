@@ -8,7 +8,7 @@ export const textareaStyle = tv({
     endMeta: 'flex min-h-[1.5em] items-end gap-1',
     count: 'shrink-0 text-xs leading-[1.5em] text-slate-500 tabular-nums',
     textarea:
-      'block flex-1 min-w-0 resize-none border-none bg-transparent text-inherit outline-none whitespace-pre-wrap break-words placeholder:text-slate-400',
+      'block flex-1 min-w-0 resize-none border-none bg-transparent p-0 text-inherit outline-none whitespace-pre-wrap break-words placeholder:text-slate-400',
   },
   variants: {
     size: {
