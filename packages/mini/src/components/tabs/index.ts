@@ -1,6 +1,6 @@
-import { UIComponent } from '../../shared/ui-component';
-import { Virtualizer } from '@tanstack/virtual-core';
 import { tabs, tabsTabState } from '@srcube-ui/styles/components/tabs/style';
+import { Virtualizer } from '@tanstack/virtual-core';
+import { UIComponent } from '../../shared/ui-component';
 import type { TabsMiniItem, TabsMiniProps, TabsMiniValue } from './props';
 import { tabsMiniProps } from './props';
 
@@ -12,7 +12,7 @@ type TabsColor =
   | 'success'
   | 'warning'
   | 'danger';
-type TabsVariant = 'default' | 'outline' | 'twotone' | 'underline';
+type TabsVariant = 'default' | 'outline' | 'twotone' | 'flat' | 'underline';
 type TabsSize = 'sm' | 'md' | 'lg';
 type TabsPlacement = 'top' | 'start' | 'end' | 'bottom';
 type TabsRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
@@ -111,7 +111,9 @@ function resolvePlacement({
   return resolveOrientation(orientation) === 'y' ? 'start' : 'top';
 }
 
-function resolveOrientationByPlacement(placement: TabsPlacement): TabsOrientation {
+function resolveOrientationByPlacement(
+  placement: TabsPlacement,
+): TabsOrientation {
   return placement === 'start' || placement === 'end' ? 'y' : 'x';
 }
 
@@ -130,7 +132,12 @@ function resolveColor(value?: string | null): TabsColor {
 }
 
 function resolveVariant(value?: string | null): TabsVariant {
-  if (value === 'outline' || value === 'twotone' || value === 'underline') {
+  if (
+    value === 'outline' ||
+    value === 'twotone' ||
+    value === 'flat' ||
+    value === 'underline'
+  ) {
     return value;
   }
 
@@ -252,7 +259,8 @@ function resolveMaskVisibilityOverrideClasses(params: {
   const maxOffset = Math.max(0, totalSize - viewportMainSize);
   const edgeEpsilon = Math.max(16, viewportMainSize * 0.08);
   const isNearStart = currentOffset <= edgeEpsilon;
-  const isNearEnd = maxOffset <= edgeEpsilon || currentOffset >= maxOffset - edgeEpsilon;
+  const isNearEnd =
+    maxOffset <= edgeEpsilon || currentOffset >= maxOffset - edgeEpsilon;
 
   if (orientation === 'x') {
     return {
@@ -321,7 +329,8 @@ UIComponent({
     styleIsolation: 'apply-shared',
   },
 
-  properties: tabsMiniProps satisfies WechatMiniprogram.Component.PropertyOption,
+  properties:
+    tabsMiniProps satisfies WechatMiniprogram.Component.PropertyOption,
 
   data: {
     _innerValue: null as TabsMiniValue | null,
@@ -409,7 +418,6 @@ UIComponent({
         clearTimeout(instance._tapSwitchTimer);
         instance._tapSwitchTimer = undefined;
       }
-
     },
   },
 
@@ -454,15 +462,23 @@ UIComponent({
         $scrollbox: ensureClassName(
           slots.$scrollbox({ class: classNames.$scrollbox }),
         ),
-        scrollbox: ensureClassName(slots.scrollbox({ class: classNames.scrollbox })),
+        scrollbox: ensureClassName(
+          slots.scrollbox({ class: classNames.scrollbox }),
+        ),
         scrollboxContent: ensureClassName(
           slots.scrollboxContent({
             class: classNames.scrollboxContent,
           }),
         ),
-        tabsList: ensureClassName(slots.tabsList({ class: classNames.tabsList })),
-        indicator: ensureClassName(slots.indicator({ class: classNames.indicator })),
-        tabLabel: ensureClassName(slots.tabLabel({ class: classNames.tabLabel })),
+        tabsList: ensureClassName(
+          slots.tabsList({ class: classNames.tabsList }),
+        ),
+        indicator: ensureClassName(
+          slots.indicator({ class: classNames.indicator }),
+        ),
+        tabLabel: ensureClassName(
+          slots.tabLabel({ class: classNames.tabLabel }),
+        ),
         panels: ensureClassName(slots.panels({ class: classNames.panels })),
       };
     },
@@ -490,12 +506,13 @@ UIComponent({
       const currentOffset = Math.max(0, Number(data.currentOffset) || 0);
       const totalSize = Math.max(0, Number(data.totalSize) || 0);
       const viewportMainSize = Math.max(0, Number(data.viewportMainSize) || 0);
-      const maskVisibilityOverrideClasses = resolveMaskVisibilityOverrideClasses({
-        orientation,
-        currentOffset,
-        totalSize,
-        viewportMainSize,
-      });
+      const maskVisibilityOverrideClasses =
+        resolveMaskVisibilityOverrideClasses({
+          orientation,
+          currentOffset,
+          totalSize,
+          viewportMainSize,
+        });
 
       return {
         content: ensureClassName(
@@ -512,7 +529,10 @@ UIComponent({
         ]
           .filter(Boolean)
           .join(' '),
-        maskLeft: [maskClassNames.maskLeft, maskVisibilityOverrideClasses.maskLeft]
+        maskLeft: [
+          maskClassNames.maskLeft,
+          maskVisibilityOverrideClasses.maskLeft,
+        ]
           .filter(Boolean)
           .join(' '),
         maskRight: [
@@ -533,7 +553,9 @@ UIComponent({
       };
 
       const liveOffset =
-        orientation === 'x' ? instance._liveScrollLeft : instance._liveScrollTop;
+        orientation === 'x'
+          ? instance._liveScrollLeft
+          : instance._liveScrollTop;
       return Math.max(0, Number(liveOffset ?? this.data.currentOffset) || 0);
     },
 
@@ -631,14 +653,12 @@ UIComponent({
     recomputeVirtualTabs() {
       const items = normalizeItems(this.data.items);
       if (items.length === 0) {
-        this.setData(
-          {
-            totalSize: 0,
-            tabsContentStyle: '',
-            renderTabs: [],
-            indicatorStyle: '',
-          } satisfies Partial<TabsMiniData>,
-        );
+        this.setData({
+          totalSize: 0,
+          tabsContentStyle: '',
+          renderTabs: [],
+          indicatorStyle: '',
+        } satisfies Partial<TabsMiniData>);
         return;
       }
 
@@ -667,7 +687,10 @@ UIComponent({
         0,
         Number(this.data.viewportCrossSize) || 0,
       );
-      const crossSize = Math.max(1, viewportCrossSize || resolveCrossSize(size));
+      const crossSize = Math.max(
+        1,
+        viewportCrossSize || resolveCrossSize(size),
+      );
 
       const slots = tabs({
         orientation,
@@ -696,7 +719,10 @@ UIComponent({
 
       const virtualItems = virtualizer.getVirtualItems();
       const hasVirtualItems = virtualItems.length > 0;
-      const fallbackCount = Math.min(items.length, Math.max(1, overscan * 2 + 1));
+      const fallbackCount = Math.min(
+        items.length,
+        Math.max(1, overscan * 2 + 1),
+      );
       const fallbackStartIndex = clamp(
         Math.floor(offset / Math.max(1, estimate)) - overscan,
         0,
@@ -829,7 +855,10 @@ UIComponent({
       return relativeCenter < viewportSize / 2 ? 'top' : 'bottom';
     },
 
-    ensureActiveVisible(preferSide: ScrollSide = null, behavior: ScrollBehavior = 'auto') {
+    ensureActiveVisible(
+      preferSide: ScrollSide = null,
+      behavior: ScrollBehavior = 'auto',
+    ) {
       const items = normalizeItems(this.data.items);
       const activeValue =
         this.data.value !== null && this.data.value !== undefined
@@ -881,7 +910,8 @@ UIComponent({
         preferSide === 'end' ||
         preferSide === 'top' ||
         preferSide === 'bottom';
-      const nearStart = shouldAlignByEdge && itemStart - visibleStart <= edgeShift;
+      const nearStart =
+        shouldAlignByEdge && itemStart - visibleStart <= edgeShift;
       const nearEnd = shouldAlignByEdge && visibleEnd - itemEnd <= edgeShift;
       const outStart = itemStart < visibleStart;
       const outEnd = itemEnd > visibleEnd;

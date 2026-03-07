@@ -1,5 +1,4 @@
-import { Button, ButtonGroup } from '@srcube-ui/react';
-import { TabPanel, Tabs } from '@srcube-ui/react';
+import { Button, ButtonGroup, TabPanel, Tabs } from '@srcube-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import type React from 'react';
 import { useMemo, useState } from 'react';
@@ -31,7 +30,7 @@ const tabsColorGroups = [
 ] as const;
 
 type TabsColor = (typeof tabsColorGroups)[number][number]['value'];
-type TabsVariant = 'default' | 'outline' | 'twotone' | 'underline';
+type TabsVariant = 'default' | 'outline' | 'twotone' | 'flat' | 'underline';
 type TabsPlacement = 'top' | 'start' | 'end' | 'bottom';
 
 function Section({
@@ -110,22 +109,13 @@ function TabsDemo() {
               setBasicValue(next as DemoTabValue);
             }}
           >
-            <TabPanel
-              value="tab-1"
-              className="rounded-2xl border border-slate-200 bg-white p-4"
-            >
+            <TabPanel value="tab-1" className="mt-2 rounded-2xl bg-white p-4">
               Panel for Tab 1
             </TabPanel>
-            <TabPanel
-              value="tab-2"
-              className="rounded-2xl border border-slate-200 bg-white p-4"
-            >
+            <TabPanel value="tab-2" className="mt-2 rounded-2xl bg-white p-4">
               Panel for Tab 2
             </TabPanel>
-            <TabPanel
-              value="tab-3"
-              className="rounded-2xl border border-slate-200 bg-white p-4"
-            >
+            <TabPanel value="tab-3" className="mt-2 rounded-2xl bg-white p-4">
               Panel for Tab 3
             </TabPanel>
           </Tabs>
@@ -189,26 +179,29 @@ function TabsDemo() {
           >
             <TabPanel
               value="tab-a"
-              className="h-full rounded-2xl border border-slate-200 bg-white p-4 text-sm"
+              className="mt-2 h-full rounded-2xl bg-white p-4 text-sm"
             >
               Panel for Tab A
             </TabPanel>
             <TabPanel
               value="tab-b"
-              className="h-full rounded-2xl border border-slate-200 bg-white p-4 text-sm"
+              className="mt-2 h-full rounded-2xl bg-white p-4 text-sm"
             >
               Panel for Tab B
             </TabPanel>
             <TabPanel
               value="tab-c"
-              className="h-full rounded-2xl border border-slate-200 bg-white p-4 text-sm"
+              className="mt-2 h-full rounded-2xl bg-white p-4 text-sm"
             >
               Panel for Tab C (disabled tab)
             </TabPanel>
           </Tabs>
         </Section>
 
-        <Section title="Variant / Color" description="default / outline / twotone / underline">
+        <Section
+          title="Variant / Color"
+          description="default / outline / twotone / flat / underline"
+        >
           <ButtonGroup size="sm" isBlock>
             <Button
               color={activeVariant === 'default' ? 'primary' : 'default'}
@@ -238,6 +231,15 @@ function TabsDemo() {
               twotone
             </Button>
             <Button
+              color={activeVariant === 'flat' ? 'primary' : 'default'}
+              variant={activeVariant === 'flat' ? 'solid' : 'flat'}
+              onTap={() => {
+                setActiveVariant('flat');
+              }}
+            >
+              flat
+            </Button>
+            <Button
               color={activeVariant === 'underline' ? 'primary' : 'default'}
               variant={activeVariant === 'underline' ? 'solid' : 'flat'}
               onTap={() => {
@@ -259,7 +261,9 @@ function TabsDemo() {
                   {group.map((item) => (
                     <Button
                       key={item.value}
-                      color={activeColor === item.value ? item.value : 'default'}
+                      color={
+                        activeColor === item.value ? item.value : 'default'
+                      }
                       variant={activeColor === item.value ? 'solid' : 'flat'}
                       onTap={() => {
                         setActiveColor(item.value);
@@ -284,7 +288,8 @@ function TabsDemo() {
             />
 
             <div className="mt-2 text-xs text-slate-500">
-              Variant: {activeVariant} / Color: {activeColor} / Selected: {colorValue}
+              Variant: {activeVariant} / Color: {activeColor} / Selected:{' '}
+              {colorValue}
             </div>
           </div>
         </Section>

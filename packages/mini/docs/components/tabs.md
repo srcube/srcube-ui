@@ -15,7 +15,7 @@
 | defaultValue | 非受控默认值 | `string \| number \| null` | 首个可用项 | 全平台 |
 | onValueChange / change | 值变化回调（Mini 为 `bind:change`，`e.detail.value`） | React: `(value) => void`；Mini: `CustomEvent` | - | 全平台 |
 | color | 主题色 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` | 全平台 |
-| variant | 样式变体 | `"default" \| "outline" \| "twotone" \| "underline"` | `"default"` | 全平台 |
+| variant | 样式变体 | `"default" \| "outline" \| "twotone" \| "flat" \| "underline"` | `"default"` | 全平台 |
 | placement | 标签头位置 | `"top" \| "start" \| "end" \| "bottom"` | `"top"` | 全平台 |
 | size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` | 全平台 |
 | radius | 圆角 | `"none" \| "sm" \| "md" \| "lg" \| "full"` | `"md"` | 全平台 |

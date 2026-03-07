@@ -14,7 +14,7 @@ const tabsColorGroups = [
 ] as const;
 
 type TabsColor = (typeof tabsColorGroups)[number][number]['value'];
-type TabsVariant = 'default' | 'outline' | 'twotone' | 'underline';
+type TabsVariant = 'default' | 'outline' | 'twotone' | 'flat' | 'underline';
 type TabsPlacement = 'top' | 'start' | 'end' | 'bottom';
 
 Page({

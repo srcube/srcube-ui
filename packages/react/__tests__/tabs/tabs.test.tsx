@@ -1,8 +1,6 @@
-import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, it, vi } from 'vitest';
-import { TabPanel } from '../../src/components/tabs';
-import { Tabs } from '../../src/components/tabs';
+import { TabPanel, Tabs } from '../../src/components/tabs';
 
 it('emits value change when selecting another tab', () => {
   const onValueChange = vi.fn();
@@ -86,25 +84,23 @@ it('scrolls tablist when selecting edge tab in long list', () => {
     configurable: true,
   });
 
-  const scrollTo = vi.fn(
-    (next: ScrollToOptions) => {
-      const left = Number(next.left ?? 0);
-      Object.defineProperty(scrollElement, 'scrollLeft', {
-        value: left,
-        writable: true,
-        configurable: true,
-      });
-    },
-  );
+  const scrollTo = vi.fn((next: ScrollToOptions) => {
+    const left = Number(next.left ?? 0);
+    Object.defineProperty(scrollElement, 'scrollLeft', {
+      value: left,
+      writable: true,
+      configurable: true,
+    });
+  });
   scrollElement.scrollTo = scrollTo;
 
   fireEvent.click(screen.getByRole('tab', { name: 'Tab 7' }));
 
   expect(onValueChange).toHaveBeenCalledWith('tab-7');
   expect(scrollTo).toHaveBeenCalled();
-  expect(scrollTo.mock.calls.some((call) => Number(call[0]?.left ?? 0) > 0)).toBe(
-    true,
-  );
+  expect(
+    scrollTo.mock.calls.some((call) => Number(call[0]?.left ?? 0) > 0),
+  ).toBe(true);
 });
 
 it('supports underline variant with placement=end', () => {
@@ -126,4 +122,23 @@ it('supports underline variant with placement=end', () => {
 
   const activeTab = screen.getByRole('tab', { name: 'Tab A' });
   expect(activeTab.className).toContain('text-primary');
+});
+
+it('supports flat variant with twotone-like fill and no border', () => {
+  render(
+    <Tabs
+      variant="flat"
+      color="primary"
+      value="a"
+      items={[
+        { value: 'a', label: 'Tab A' },
+        { value: 'b', label: 'Tab B' },
+      ]}
+    />,
+  );
+
+  const indicator = document.querySelector('[aria-hidden="true"]');
+  expect(indicator?.className).toContain('bg-primary/10');
+  expect(indicator?.className).toContain('border-0');
+  expect(indicator?.className.includes('border-primary')).toBe(false);
 });

@@ -3,6 +3,7 @@ import { beforeAll, expect, it, vi } from 'vitest';
 // @ts-expect-error -- raw wxml import for tests
 import template from '../../src/components/tabs/index.wxml?raw';
 import { tabsMiniProps } from '../../src/components/tabs/props';
+
 let definition: Record<string, unknown> | undefined;
 
 vi.doMock('miniprogram-computed', () => ({
@@ -56,6 +57,33 @@ it('renders scrollbox host in mini template', () => {
 it('uses default variant and placement in mini props', () => {
   expect(tabsMiniProps.variant.value).toBe('default');
   expect(tabsMiniProps.placement.value).toBe(null);
+});
+
+it('supports flat variant with twotone-like fill and no border', () => {
+  const computed = (
+    definition as {
+      computed?: {
+        $classNames?: (data: Record<string, unknown>) => {
+          indicator?: string;
+        };
+      };
+    }
+  )?.computed;
+  const classNames = computed?.$classNames?.({
+    orientation: 'x',
+    placement: null,
+    color: 'primary',
+    variant: 'flat',
+    size: 'md',
+    radius: 'md',
+    isDisabled: false,
+    className: '',
+    classNames: {},
+  });
+
+  expect(classNames?.indicator).toContain('bg-primary/10');
+  expect(classNames?.indicator).toContain('border-0');
+  expect(classNames?.indicator.includes('border-primary')).toBe(false);
 });
 
 it('updates uncontrolled value and emits change on tap', async () => {

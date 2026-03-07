@@ -1,8 +1,4 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 const TAB_COLORS = [
   {
@@ -58,7 +54,8 @@ const TAB_COLORS = [
 export const tabs = tv({
   slots: {
     base: 'flex w-full min-w-0',
-    tabsWrapper: 'relative inline-flex w-fit max-w-full overflow-hidden border-0',
+    tabsWrapper:
+      'relative inline-flex w-fit max-w-full overflow-hidden border-0',
     $scrollbox: '',
     scrollbox: 'h-full overflow-visible',
     scrollboxContent: '',
@@ -151,6 +148,9 @@ export const tabs = tv({
       },
       twotone: {
         indicator: 'border-2',
+      },
+      flat: {
+        indicator: 'border-0',
       },
       underline: {
         indicator: 'rounded-none border-0 bg-transparent',
@@ -273,6 +273,13 @@ export const tabs = tv({
       },
       {
         color: tone.color,
+        variant: 'flat',
+        class: {
+          indicator: tone.twotoneIndicatorBg,
+        },
+      },
+      {
+        color: tone.color,
         variant: 'underline',
         class: {
           indicator: tone.indicatorBorder,
@@ -281,6 +288,12 @@ export const tabs = tv({
     ]),
     {
       variant: 'twotone',
+      class: {
+        tabsWrapper: 'bg-transparent',
+      },
+    },
+    {
+      variant: 'flat',
       class: {
         tabsWrapper: 'bg-transparent',
       },
@@ -309,6 +322,7 @@ export const tabsTabState = tv({
       default: {},
       outline: {},
       twotone: {},
+      flat: {},
       underline: {},
     },
     isSelected: {
@@ -334,7 +348,7 @@ export const tabsTabState = tv({
       class: 'text-white',
     },
     ...TAB_COLORS.map((tone) => ({
-      variant: ['outline', 'twotone', 'underline'] as const,
+      variant: ['outline', 'twotone', 'flat', 'underline'] as const,
       color: tone.color,
       isSelected: true,
       class: tone.text,
