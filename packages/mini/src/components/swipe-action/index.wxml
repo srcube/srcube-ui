@@ -21,9 +21,9 @@
         wx:if="{{item.iconClassName}}"
         class="{{$classNames.actionIcon}} {{item.iconClassName}}"
       />
-      <text wx:if="{{item.label}}" class="{{$classNames.actionLabel}}">
+      <view wx:if="{{item.label}}" class="{{$classNames.actionLabel}}">
         {{item.label}}
-      </text>
+      </view>
     </sr-button>
   </view>
 
@@ -49,9 +49,9 @@
         wx:if="{{item.iconClassName}}"
         class="{{$classNames.actionIcon}} {{item.iconClassName}}"
       />
-      <text wx:if="{{item.label}}" class="{{$classNames.actionLabel}}">
+      <view wx:if="{{item.label}}" class="{{$classNames.actionLabel}}">
         {{item.label}}
-      </text>
+      </view>
     </sr-button>
   </view>
 

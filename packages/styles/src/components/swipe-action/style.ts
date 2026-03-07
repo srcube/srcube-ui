@@ -1,8 +1,4 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export const swipeAction = tv({
   slots: {
@@ -83,9 +79,9 @@ export const swipeActionActionTone = tv({
       danger: {},
     },
     size: {
-      sm: 'text-xs',
-      md: 'text-sm',
-      lg: 'text-base',
+      sm: 'text-[11px]',
+      md: 'text-xs',
+      lg: 'text-sm',
     },
     isDisabled: {
       true: 'pointer-events-none opacity-50',

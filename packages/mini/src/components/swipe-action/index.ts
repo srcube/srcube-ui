@@ -1,5 +1,8 @@
+import {
+  type SwipeActionVariants,
+  swipeAction,
+} from '@srcube-ui/styles/components/swipe-action/style';
 import { UIComponent } from '../../shared/ui-component';
-import { type SwipeActionVariants, swipeAction } from '@srcube-ui/styles/components/swipe-action/style';
 import type {
   SwipeActionMiniDirection,
   SwipeActionMiniItem,
