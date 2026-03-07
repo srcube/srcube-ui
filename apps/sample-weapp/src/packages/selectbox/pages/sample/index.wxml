@@ -142,6 +142,7 @@
       </view>
 
       <sr-selectbox
+        class="mt-3 h-80 rounded-2xl border border-slate-200"
         className="mt-3 h-80 rounded-2xl border border-slate-200"
         color="{{color}}"
         size="{{size}}"
@@ -163,6 +164,7 @@
       <view class="mt-1 text-xs text-slate-500">orientation=x + single</view>
 
       <sr-selectbox
+        class="mt-3 h-24 rounded-2xl border border-slate-200"
         className="mt-3 h-24 rounded-2xl border border-slate-200"
         orientation="x"
         color="{{color}}"
@@ -185,6 +187,7 @@
       <view class="mt-1 text-xs text-slate-500">locale=zh-CN</view>
 
       <sr-selectbox
+        class="mt-3 h-32 rounded-2xl border border-slate-200"
         className="mt-3 h-32 rounded-2xl border border-slate-200"
         size="{{size}}"
         selectIcon="{{selectIcon}}"
