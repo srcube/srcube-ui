@@ -1,4 +1,9 @@
-import { ImagePreview, Image as SrcubeImage } from '@srcube-ui/react';
+import {
+  Button,
+  ButtonGroup,
+  ImagePreview,
+  Image as SrcubeImage,
+} from '@srcube-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import PageHeader from '@/components/page-header';
@@ -6,6 +11,40 @@ import PageHeader from '@/components/page-header';
 export const Route = createFileRoute('/image')({
   component: ImageDemo,
 });
+
+const IMAGE_DEMO_URLS = {
+  basic: 'https://picsum.photos/id/1015/200/200',
+  video: 'https://picsum.photos/id/1002/800/450',
+  photo: 'https://picsum.photos/id/1011/1200/900',
+  previewThumb: 'https://picsum.photos/id/1015/600/600',
+  previewMain: 'https://picsum.photos/id/1015/1200/1200',
+  previewAlt: 'https://picsum.photos/id/1016/1200/1200',
+} as const;
+
+const ratioOptions = [
+  { label: 'Auto', value: 'auto' },
+  { label: 'Square', value: 'square' },
+  { label: 'Video', value: 'video' },
+  { label: 'Photo', value: 'photo' },
+] as const;
+
+const radiusOptions = [
+  { label: 'None', value: 'none' },
+  { label: 'SM', value: 'sm' },
+  { label: 'MD', value: 'md' },
+  { label: 'LG', value: 'lg' },
+] as const;
+
+const fitOptions = [
+  { label: 'Cover', value: 'cover' },
+  { label: 'Contain', value: 'contain' },
+  { label: 'Fill', value: 'fill' },
+  { label: 'None', value: 'none' },
+] as const;
+
+type ImageRatio = (typeof ratioOptions)[number]['value'];
+type ImageRadius = (typeof radiusOptions)[number]['value'];
+type ImageFit = (typeof fitOptions)[number]['value'];
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
@@ -15,6 +54,11 @@ function Card({ children }: { children: React.ReactNode }) {
 
 function ImageDemo() {
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [demoRatio, setDemoRatio] = useState<ImageRatio>('video');
+  const [demoRadius, setDemoRadius] = useState<ImageRadius>('lg');
+  const [demoFit, setDemoFit] = useState<ImageFit>('cover');
+  const ratioPreviewSrc =
+    demoRatio === 'video' ? IMAGE_DEMO_URLS.video : IMAGE_DEMO_URLS.photo;
 
   return (
     <main className="min-h-screen bg-slate-100 pb-safe-4 text-slate-900">
@@ -23,31 +67,78 @@ function ImageDemo() {
       <div className="space-y-6 p-4">
         <Card>
           <div className="text-sm font-semibold">Basic / State</div>
-          <div className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-3">
-            <SrcubeImage src="https://picsum.photos/200/200?random=11" />
+          <div className="mt-3 grid grid-cols-3 gap-2">
+            <SrcubeImage
+              src={IMAGE_DEMO_URLS.basic}
+              className="aspect-square w-full"
+            />
             <SrcubeImage
               src="https://invalid.srcube-ui.dev/fail.png"
               fallback="Load failed"
+              className="aspect-square w-full"
             />
-            <SrcubeImage fallback="No src" />
+            <SrcubeImage fallback="No src" className="aspect-square w-full" />
           </div>
         </Card>
 
         <Card>
           <div className="text-sm font-semibold">Ratio / Radius / Fit</div>
-          <div className="mt-3 space-y-3">
+          <div className="mt-1 text-xs text-slate-500">
+            use ButtonGroup to switch ratio, radius and fit
+          </div>
+          <div className="mt-3 space-y-2">
+            <ButtonGroup size="sm" isBlock>
+              {ratioOptions.map((option) => (
+                <Button
+                  key={option.value}
+                  color={demoRatio === option.value ? 'primary' : 'default'}
+                  variant={demoRatio === option.value ? 'solid' : 'flat'}
+                  onTap={() => {
+                    setDemoRatio(option.value);
+                  }}
+                >
+                  {option.label}
+                </Button>
+              ))}
+            </ButtonGroup>
+
+            <ButtonGroup size="sm" isBlock>
+              {radiusOptions.map((option) => (
+                <Button
+                  key={option.value}
+                  color={demoRadius === option.value ? 'primary' : 'default'}
+                  variant={demoRadius === option.value ? 'solid' : 'flat'}
+                  onTap={() => {
+                    setDemoRadius(option.value);
+                  }}
+                >
+                  {option.label}
+                </Button>
+              ))}
+            </ButtonGroup>
+
+            <ButtonGroup size="sm" isBlock>
+              {fitOptions.map((option) => (
+                <Button
+                  key={option.value}
+                  color={demoFit === option.value ? 'primary' : 'default'}
+                  variant={demoFit === option.value ? 'solid' : 'flat'}
+                  onTap={() => {
+                    setDemoFit(option.value);
+                  }}
+                >
+                  {option.label}
+                </Button>
+              ))}
+            </ButtonGroup>
+          </div>
+          <div className="mt-3">
             <SrcubeImage
               isBlock
-              ratio="video"
-              radius="lg"
-              src="https://picsum.photos/800/450?random=13"
-            />
-            <SrcubeImage
-              isBlock
-              ratio="photo"
-              fit="contain"
-              radius="sm"
-              src="https://picsum.photos/1200/900?random=14"
+              ratio={demoRatio}
+              radius={demoRadius}
+              fit={demoFit}
+              src={ratioPreviewSrc}
             />
           </div>
         </Card>
@@ -56,11 +147,13 @@ function ImageDemo() {
           <div className="text-sm font-semibold">Preview</div>
           <div className="mt-3 grid grid-cols-2 gap-3">
             <SrcubeImage
-              src="https://picsum.photos/600/600?random=15"
+              src={IMAGE_DEMO_URLS.previewThumb}
+              previewSrc={IMAGE_DEMO_URLS.previewMain}
               isPreviewable
+              className="aspect-square w-full"
               previewUrls={[
-                'https://picsum.photos/1200/1200?random=15',
-                'https://picsum.photos/1200/1200?random=16',
+                IMAGE_DEMO_URLS.previewMain,
+                IMAGE_DEMO_URLS.previewAlt,
               ]}
             />
             <button
@@ -77,7 +170,7 @@ function ImageDemo() {
       </div>
 
       <ImagePreview
-        src="https://picsum.photos/1000/800?random=17"
+        src={IMAGE_DEMO_URLS.previewMain}
         isOpen={previewOpen}
         onOpenChange={setPreviewOpen}
       />

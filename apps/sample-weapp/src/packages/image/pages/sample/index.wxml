@@ -11,32 +11,74 @@
       <view class="text-sm font-semibold">Basic / State</view>
       <view class="mt-3 grid grid-cols-3 gap-3">
         <view>
-          <sr-image src="{{coverUrl}}" />
+          <sr-image src="{{coverUrl}}" className="w-full aspect-square" />
         </view>
         <view>
-          <sr-image src="https://invalid.srcube-ui.dev/fail.png" fallback="Load failed" />
+          <sr-image
+            src="https://invalid.srcube-ui.dev/fail.png"
+            fallback="Load failed"
+            className="w-full aspect-square"
+          />
         </view>
         <view>
-          <sr-image fallback="No src" />
+          <sr-image fallback="No src" className="w-full aspect-square" />
         </view>
       </view>
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Ratio / Radius / Fit</view>
-      <view class="mt-3 space-y-3">
-        <view>
-          <sr-image is-block="{{true}}" ratio="video" radius="lg" src="{{videoUrl}}" />
-        </view>
-        <view>
-          <sr-image
-            is-block="{{true}}"
-            ratio="photo"
-            fit="contain"
-            radius="sm"
-            src="{{photoUrl}}"
-          />
-        </view>
+      <view class="mt-1 text-xs text-slate-500">
+        use ButtonGroup to switch ratio, radius and fit
+      </view>
+      <view class="mt-3 space-y-2">
+        <sr-button-group size="sm" isBlock>
+          <block wx:for="{{ratioOptions}}" wx:key="value" wx:for-item="option">
+            <sr-button
+              color="{{ratioMode === option.value ? 'primary' : 'default'}}"
+              variant="{{ratioMode === option.value ? 'solid' : 'flat'}}"
+              data-value="{{option.value}}"
+              bind:tap="handleRatioModeTap"
+            >
+              {{option.label}}
+            </sr-button>
+          </block>
+        </sr-button-group>
+
+        <sr-button-group size="sm" isBlock>
+          <block wx:for="{{radiusOptions}}" wx:key="value" wx:for-item="option">
+            <sr-button
+              color="{{radiusMode === option.value ? 'primary' : 'default'}}"
+              variant="{{radiusMode === option.value ? 'solid' : 'flat'}}"
+              data-value="{{option.value}}"
+              bind:tap="handleRadiusModeTap"
+            >
+              {{option.label}}
+            </sr-button>
+          </block>
+        </sr-button-group>
+
+        <sr-button-group size="sm" isBlock>
+          <block wx:for="{{fitOptions}}" wx:key="value" wx:for-item="option">
+            <sr-button
+              color="{{fitMode === option.value ? 'primary' : 'default'}}"
+              variant="{{fitMode === option.value ? 'solid' : 'flat'}}"
+              data-value="{{option.value}}"
+              bind:tap="handleFitModeTap"
+            >
+              {{option.label}}
+            </sr-button>
+          </block>
+        </sr-button-group>
+      </view>
+      <view class="mt-3">
+        <sr-image
+          is-block="{{true}}"
+          ratio="{{ratioMode}}"
+          radius="{{radiusMode}}"
+          fit="{{fitMode}}"
+          src="{{ratioPreviewUrl}}"
+        />
       </view>
     </view>
 
@@ -47,6 +89,7 @@
           <sr-image
             src="{{coverUrl}}"
             is-previewable="{{true}}"
+            className="w-full aspect-square"
             preview-urls="{{previewUrls}}"
           />
         </view>
