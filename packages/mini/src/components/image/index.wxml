@@ -12,7 +12,52 @@
     bindload="handleImageLoad"
     binderror="handleImageError"
   />
-  <text class="sr-image__placeholder {{$classNames.placeholder}}">
+  <view class="sr-image__placeholder {{$classNames.placeholder}}">
     {{$placeholderText}}
-  </text>
+  </view>
+</view>
+
+<view
+  wx:if="{{_previewVisible}}"
+  class="sr-image__preview"
+  catchtouchmove="noop"
+>
+  <view
+    class="sr-image__preview-mask {{$classNames.previewMask}}"
+    catchtap="handlePreviewClose"
+  />
+  <view class="sr-image__preview-body {{$classNames.previewBody}}" catchtap="noop">
+    <movable-area
+      class="sr-image__preview-area"
+      style="width: 100%; height: 100%;"
+    >
+      <movable-view
+        class="sr-image__preview-movable"
+        direction="all"
+        x="{{_previewX}}"
+        y="{{_previewY}}"
+        disabled="{{!_previewCanMove}}"
+        inertia="{{false}}"
+        scale="{{true}}"
+        scale-value="{{_previewScale}}"
+        scale-min="1"
+        scale-max="4"
+        bindscale="handlePreviewScaleChange"
+        bindtap="handlePreviewImageTap"
+      >
+        <image
+          class="sr-image__preview-image {{$classNames.previewImage}}"
+          src="{{$previewCurrent}}"
+          mode="aspectFit"
+        />
+      </movable-view>
+    </movable-area>
+
+    <view
+      class="sr-image__preview-close {{$classNames.previewClose}}"
+      catchtap="handlePreviewClose"
+    >
+      ×
+    </view>
+  </view>
 </view>

@@ -1,8 +1,4 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export const imageStyle = tv({
   slots: {
@@ -11,10 +7,11 @@ export const imageStyle = tv({
     placeholder:
       'pointer-events-none absolute inset-0 hidden items-center justify-center px-2 text-center text-xs text-slate-500',
     previewMask: 'fixed inset-0 z-[1000] bg-black/70',
-    previewBody: 'fixed inset-0 z-[1001] flex items-center justify-center p-4',
-    previewImage: 'max-h-full max-w-full object-contain',
+    previewBody:
+      'fixed inset-0 z-[1001] flex items-center justify-center px-4 pb-28 pt-6',
+    previewImage: 'max-h-full max-w-full object-contain select-none',
     previewClose:
-      'absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/45 text-sm text-white',
+      'absolute bottom-8 left-1/2 inline-flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-white/65 text-4xl leading-none text-black',
   },
   variants: {
     size: {

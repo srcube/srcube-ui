@@ -1,7 +1,4 @@
-import {
-  Image as SrcubeImage,
-  ImagePreview,
-} from '@srcube-ui/react';
+import { ImagePreview, Image as SrcubeImage } from '@srcube-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import PageHeader from '@/components/page-header';
@@ -11,7 +8,9 @@ export const Route = createFileRoute('/image')({
 });
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <section className="rounded-2xl bg-white p-4 shadow-sm">{children}</section>;
+  return (
+    <section className="rounded-2xl bg-white p-4 shadow-sm">{children}</section>
+  );
 }
 
 function ImageDemo() {
@@ -24,9 +23,12 @@ function ImageDemo() {
       <div className="space-y-6 p-4">
         <Card>
           <div className="text-sm font-semibold">Basic / State</div>
-          <div className="mt-3 grid grid-cols-3 gap-3">
+          <div className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-3">
             <SrcubeImage src="https://picsum.photos/200/200?random=11" />
-            <SrcubeImage src="https://invalid.srcube-ui.dev/fail.png" fallback="Load failed" />
+            <SrcubeImage
+              src="https://invalid.srcube-ui.dev/fail.png"
+              fallback="Load failed"
+            />
             <SrcubeImage fallback="No src" />
           </div>
         </Card>

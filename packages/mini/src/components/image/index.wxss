@@ -1,1 +1,18 @@
 /* Image styles come from shared tv classes. */
+
+.sr-image__preview-area {
+  position: relative;
+}
+
+.sr-image__preview-movable {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sr-image__preview-image {
+  width: 100%;
+  height: 100%;
+}
