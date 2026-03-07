@@ -1,16 +1,12 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export const textareaStyle = tv({
   slots: {
     control: '',
-    endContent: 'self-end h-[1.5em]',
-    clearButton: 'self-end h-[1.5em]',
-    endMeta: 'flex items-end gap-1',
-    count: 'shrink-0 text-xs leading-none text-slate-500 tabular-nums',
+    endContent: 'self-end min-h-[1.5em] items-end',
+    clearButton: 'self-end min-h-[1.5em]',
+    endMeta: 'flex min-h-[1.5em] items-end gap-1',
+    count: 'shrink-0 text-xs leading-[1.5em] text-slate-500 tabular-nums',
     textarea:
       'block flex-1 min-w-0 resize-none border-none bg-transparent text-inherit outline-none whitespace-pre-wrap break-words placeholder:text-slate-400',
   },

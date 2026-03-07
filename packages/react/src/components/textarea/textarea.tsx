@@ -1,7 +1,7 @@
-import { Field } from '../field';
 import type { FieldClassNames } from '@srcube-ui/styles/components/field';
-import * as React from 'react';
 import { textareaStyle } from '@srcube-ui/styles/components/textarea';
+import * as React from 'react';
+import { Field } from '../field';
 import type { TextareaReactProps } from './props';
 
 function mergeClassName(...parts: Array<string | undefined>) {
@@ -83,11 +83,17 @@ export const Textarea = React.forwardRef<
   });
 
   const isOutsideLeftLabel = labelPlacement === 'outside-left';
+  const shouldAlignLabelWithFirstLine =
+    labelPlacement === 'outside-left' || labelPlacement === 'inside';
   const fieldClassNames = {
     ...classNames,
     base: mergeClassName(
       classNames?.base,
       isOutsideLeftLabel ? 'items-start' : undefined,
+    ),
+    label: mergeClassName(
+      classNames?.label,
+      shouldAlignLabelWithFirstLine ? 'pt-[0.625rem]' : undefined,
     ),
     controlWrapper: mergeClassName(classNames?.controlWrapper, 'py-2'),
     control: mergeClassName(

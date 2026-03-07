@@ -47,7 +47,7 @@
 
   <view wx:if="{{$hasFieldEndContent}}" slot="end" class="{{$endMetaClassName}}">
     <slot wx:if="{{hasEndContent}}" name="end" />
-    <text wx:if="{{showCount}}" class="{{$countClassName}}">{{$countText}}</text>
+    <view wx:if="{{showCount}}" class="{{$countClassName}}">{{$countText}}</view>
   </view>
   <slot wx:if="{{hasClearContent}}" name="clear" slot="clear" />
 </sr-field>
