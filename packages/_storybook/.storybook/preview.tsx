@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react';
+import { MobilePreviewFrame } from '../src/lib/mobile-preview';
 import '../src/styles.css';
 
 const preview: Preview = {
@@ -17,13 +18,15 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => (
-      <div className="min-h-dvh w-full bg-slate-100 px-4 py-8 text-slate-900">
-        <div className="mx-auto w-full max-w-[430px] rounded-[28px] bg-slate-50 p-4 shadow-sm">
+    (Story, context) => {
+      const storyTitle = context.title?.split('/').at(-1) || context.name;
+
+      return (
+        <MobilePreviewFrame title={storyTitle}>
           <Story />
-        </div>
-      </div>
-    ),
+        </MobilePreviewFrame>
+      );
+    },
   ],
 };
 

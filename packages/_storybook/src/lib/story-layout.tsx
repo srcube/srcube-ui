@@ -1,5 +1,9 @@
 import type { ReactNode } from 'react';
 
+export function StoryPage({ children }: { children: ReactNode }) {
+  return <main className="min-h-full bg-transparent">{children}</main>;
+}
+
 export function StorySection({
   title,
   description,
