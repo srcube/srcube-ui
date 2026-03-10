@@ -25,6 +25,8 @@
     "build:react": "turbo run build --filter=...sample-react",
     "build:weapp": "turbo run build --filter=...sample-weapp",
     "build:pkg": "turbo run build --filter=\"./packages/**\"",
+    "dev:storybook": "pnpm -C packages/_storybook dev",
+    "build:storybook": "pnpm -C packages/_storybook build",
     "preview:react": "pnpm -C apps/sample-react preview",
     "deploy:react": "pnpm -C apps/sample-react deploy",
     "open:weapp": "pnpm -C apps/sample-weapp open",
