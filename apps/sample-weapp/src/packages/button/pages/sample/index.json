@@ -3,7 +3,8 @@
   "usingComponents": {
     "sr-navbar": "@srcube-ui/mini/navbar/index",
     "sr-button": "@srcube-ui/mini/button/index",
-    "sr-button-group": "@srcube-ui/mini/button/button-group/index"
+    "sr-button-group": "@srcube-ui/mini/button/button-group/index",
+    "sr-tabs": "@srcube-ui/mini/tabs/index"
   },
   "navigationStyle": "custom",
   "navigationBarTitleText": "Button",

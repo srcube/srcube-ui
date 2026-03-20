@@ -25,6 +25,7 @@ type ActionSheetMiniData = ActionSheetMiniProps & ActionSheetMiniState;
 type ActionSheetResolvedCancelButtonProps = {
   buttonId: string;
   color: ActionSheetActionColor | null;
+  tone: 'light' | 'dark' | null;
   variant: 'solid' | 'outline' | 'flat' | 'text' | null;
   size: NonNullable<ActionSheetMiniProps['size']> | null;
   radius: NonNullable<ActionSheetMiniProps['radius']> | null;
@@ -117,6 +118,16 @@ function normalizeButtonVariant(value: unknown) {
   }
 }
 
+function normalizeButtonTone(value: unknown) {
+  switch (value) {
+    case 'light':
+    case 'dark':
+      return value;
+    default:
+      return null;
+  }
+}
+
 function normalizeButtonRadius(value: unknown) {
   switch (value) {
     case 'none':
@@ -145,6 +156,7 @@ function toCancelButtonProps(
     return {
       buttonId: '',
       color: null,
+      tone: null,
       variant: null,
       size: null,
       radius: null,
@@ -164,18 +176,18 @@ function toCancelButtonProps(
   const candidate = raw as ActionSheetCancelButtonMiniProps;
 
   return {
-    buttonId:
-      typeof candidate.buttonId === 'string' ? candidate.buttonId : '',
+    buttonId: typeof candidate.buttonId === 'string' ? candidate.buttonId : '',
     color:
       candidate.color === undefined
         ? null
         : normalizeActionColor(candidate.color),
+    tone:
+      candidate.tone === undefined ? null : normalizeButtonTone(candidate.tone),
     variant:
       candidate.variant === undefined
         ? null
         : normalizeButtonVariant(candidate.variant),
-    size:
-      candidate.size === undefined ? null : normalizeSize(candidate.size),
+    size: candidate.size === undefined ? null : normalizeSize(candidate.size),
     radius:
       candidate.radius === undefined
         ? null
@@ -275,7 +287,10 @@ UIComponent({
         radius: resolvedRadius,
         isInset: Boolean(data.isInset),
       });
-      const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
+      const custom = (data.classNames ?? {}) as Record<
+        string,
+        string | undefined
+      >;
 
       return {
         base: slots.base({ class: custom.base }),
@@ -292,7 +307,9 @@ UIComponent({
         actionLast: slots.actionLast({ class: custom.actionLast }),
         actionContent: slots.actionContent({ class: custom.actionContent }),
         actionLabel: slots.actionLabel({ class: custom.actionLabel }),
-        actionDescription: slots.actionDescription({ class: custom.actionDescription }),
+        actionDescription: slots.actionDescription({
+          class: custom.actionDescription,
+        }),
         footer: slots.footer({ class: custom.footer }),
         cancelGroup: slots.cancelGroup({ class: custom.cancelGroup }),
         cancel: slots.cancel({ class: custom.cancel }),
@@ -307,7 +324,10 @@ UIComponent({
         radius: resolvedRadius,
         isInset: Boolean(data.isInset),
       });
-      const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
+      const custom = (data.classNames ?? {}) as Record<
+        string,
+        string | undefined
+      >;
 
       return {
         base: slots.base({ class: custom.base }),

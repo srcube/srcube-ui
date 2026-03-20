@@ -25,7 +25,7 @@ export interface ButtonReactProps extends ButtonVariants, ButtonNativeProps {
 
 type GroupSharedProps = Pick<
   ButtonVariants,
-  'color' | 'variant' | 'size' | 'radius' | 'isDisabled'
+  'color' | 'tone' | 'variant' | 'size' | 'radius' | 'isDisabled'
 >;
 
 type ButtonGroupNativeProps = Omit<

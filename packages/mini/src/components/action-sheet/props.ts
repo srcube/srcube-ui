@@ -21,6 +21,7 @@ export type ActionSheetMiniItem = {
 type ActionSheetCancelButtonMiniKeys =
   | 'buttonId'
   | 'color'
+  | 'tone'
   | 'variant'
   | 'size'
   | 'radius'

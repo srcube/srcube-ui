@@ -28,7 +28,9 @@ const actions = [
 ];
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <section className="rounded-2xl bg-white p-4 shadow-sm">{children}</section>;
+  return (
+    <section className="rounded-2xl bg-white p-4 shadow-sm">{children}</section>
+  );
 }
 
 function ActionSheetDemo() {
@@ -59,7 +61,12 @@ function ActionSheetDemo() {
 
         <Card>
           <div className="text-sm font-semibold">Custom Header</div>
-          <Button className="mt-3" variant="flat" isBlock onTap={() => setCustomOpen(true)}>
+          <Button
+            className="mt-3"
+            variant="flat"
+            isBlock
+            onTap={() => setCustomOpen(true)}
+          >
             Open Custom Header
           </Button>
           <div className="mt-2 text-xs text-slate-500">
@@ -69,11 +76,17 @@ function ActionSheetDemo() {
 
         <Card>
           <div className="text-sm font-semibold">Custom Footer</div>
-          <Button className="mt-3" variant="flat" isBlock onTap={() => setFooterOpen(true)}>
+          <Button
+            className="mt-3"
+            variant="flat"
+            isBlock
+            onTap={() => setFooterOpen(true)}
+          >
             Open Custom Footer
           </Button>
           <div className="mt-2 text-xs text-slate-500">
-            Use <code>hasFooter</code> + <code>footer</code> to replace default cancel button.
+            Use <code>hasFooter</code> + <code>footer</code> to replace default
+            cancel button.
           </div>
         </Card>
 
@@ -88,20 +101,36 @@ function ActionSheetDemo() {
             Open Custom Cancel Button
           </Button>
           <div className="mt-2 text-xs text-slate-500">
-            Customize cancel button color/variant/className with <code>cancelButtonProps</code>.
+            Customize cancel button color/variant/className with{' '}
+            <code>cancelButtonProps</code>.
           </div>
         </Card>
 
         <Card>
           <div className="text-sm font-semibold">Size</div>
           <div className="mt-3 flex gap-2">
-            <Button className="flex-1" size="sm" variant="flat" onTap={() => setSizeSmOpen(true)}>
+            <Button
+              className="flex-1"
+              size="sm"
+              variant="flat"
+              onTap={() => setSizeSmOpen(true)}
+            >
               Small
             </Button>
-            <Button className="flex-1" size="md" variant="flat" onTap={() => setSizeMdOpen(true)}>
+            <Button
+              className="flex-1"
+              size="md"
+              variant="flat"
+              onTap={() => setSizeMdOpen(true)}
+            >
               Medium
             </Button>
-            <Button className="flex-1" size="lg" variant="flat" onTap={() => setSizeLgOpen(true)}>
+            <Button
+              className="flex-1"
+              size="lg"
+              variant="flat"
+              onTap={() => setSizeLgOpen(true)}
+            >
               Large
             </Button>
           </div>
@@ -138,7 +167,7 @@ function ActionSheetDemo() {
         description="Use custom footer with your own layout"
         actions={actions}
         hasFooter
-        footer={(
+        footer={
           <ButtonGroup
             color="default"
             variant="flat"
@@ -165,7 +194,7 @@ function ActionSheetDemo() {
               Dismiss
             </Button>
           </ButtonGroup>
-        )}
+        }
         isInset
         onAction={(value) => {
           setResult(String(value));

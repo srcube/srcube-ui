@@ -53,7 +53,12 @@ function CardDemo() {
           <Card size="sm" radius="sm" header={<div>Small</div>}>
             <div>size=sm / radius=sm</div>
           </Card>
-          <Card size="md" radius="md" color="secondary" header={<div>Medium</div>}>
+          <Card
+            size="md"
+            radius="md"
+            color="secondary"
+            header={<div>Medium</div>}
+          >
             <div>size=md / radius=md</div>
           </Card>
           <Card size="lg" radius="lg" color="danger" header={<div>Large</div>}>

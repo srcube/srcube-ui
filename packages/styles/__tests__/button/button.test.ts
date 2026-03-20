@@ -19,6 +19,18 @@ it('builds primary solid button classes', () => {
   expect(base).toContain('rounded-xl');
 });
 
+it('builds default dark tone button classes', () => {
+  const slots = button({
+    color: 'default',
+    tone: 'dark',
+    variant: 'solid',
+  });
+
+  const base = slots.base();
+  expect(base).toContain('bg-slate-950');
+  expect(base).toContain('text-white');
+});
+
 it('marks disabled buttons as not interactive', () => {
   const slots = button({
     color: 'primary',

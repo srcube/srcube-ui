@@ -8,7 +8,7 @@ import type { ButtonGroupReactProps, ButtonReactProps } from './props';
 
 type ButtonGroupContextValue = Pick<
   ButtonVariants,
-  'color' | 'variant' | 'size' | 'radius' | 'isBlock' | 'isDisabled'
+  'color' | 'tone' | 'variant' | 'size' | 'radius' | 'isBlock' | 'isDisabled'
 > &
   Pick<ButtonGroupVariants, 'orientation'>;
 
@@ -25,7 +25,8 @@ export const ButtonGroup = React.forwardRef<
   ButtonGroupReactProps
 >((props, ref) => {
   const {
-    color = 'primary',
+    color = 'default',
+    tone = 'light',
     variant = 'solid',
     size = 'md',
     radius = 'md',
@@ -50,6 +51,7 @@ export const ButtonGroup = React.forwardRef<
   const context = React.useMemo(
     () => ({
       color,
+      tone,
       variant,
       size,
       radius,
@@ -57,7 +59,7 @@ export const ButtonGroup = React.forwardRef<
       isDisabled,
       orientation,
     }),
-    [color, variant, size, radius, isBlock, isDisabled, orientation],
+    [color, tone, variant, size, radius, isBlock, isDisabled, orientation],
   );
 
   const total = React.Children.count(children);

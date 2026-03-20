@@ -83,3 +83,44 @@ it('supports auto loading wait', async () => {
   expect(data._autoLoading).toBe(false);
   comp.detach();
 });
+
+it('uses default color with light tone by default and supports dark tone', () => {
+  const computed = definition?.computed as Record<
+    string,
+    (data: Record<string, unknown>) => unknown
+  >;
+
+  const baseData = {
+    color: null,
+    tone: null,
+    variant: null,
+    size: null,
+    radius: null,
+    isBlock: null,
+    isIcon: false,
+    isLoading: false,
+    isDisabled: false,
+    isInGroup: false,
+    groupPosition: 'none',
+    groupOrientation: 'x',
+    className: '',
+    classNames: {},
+    _autoLoading: false,
+    groupColor: null,
+    groupTone: null,
+    groupVariant: null,
+    groupSize: null,
+    groupRadius: null,
+    groupIsBlock: null,
+    groupIsDisabled: null,
+  };
+
+  const defaultClassNames = computed.$classNames(baseData) as { base: string };
+  const darkToneClassNames = computed.$classNames({
+    ...baseData,
+    tone: 'dark',
+  }) as { base: string };
+
+  expect(defaultClassNames.base).toContain('bg-slate-200');
+  expect(darkToneClassNames.base).toContain('bg-slate-950');
+});

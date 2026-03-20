@@ -33,6 +33,7 @@ export type ButtonMiniProps = ButtonVariants & {
 
 export const buttonMiniProps = {
   color: { type: null, value: null },
+  tone: { type: null, value: null },
   variant: { type: null, value: null },
   size: { type: null, value: null },
   radius: { type: null, value: null },

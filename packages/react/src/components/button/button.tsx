@@ -11,6 +11,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
 
     const {
       color,
+      tone,
       variant,
       size,
       radius,
@@ -27,7 +28,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
       ...rest
     } = props;
 
-    const resolvedColor = color ?? group?.color ?? 'primary';
+    const resolvedColor = color ?? group?.color ?? 'default';
+    const resolvedTone = tone ?? group?.tone ?? 'light';
     const resolvedVariant = variant ?? group?.variant ?? 'solid';
     const resolvedSize = size ?? group?.size ?? 'md';
     const resolvedRadius = radius ?? group?.radius ?? 'md';
@@ -45,6 +47,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
       () =>
         button({
           color: resolvedColor,
+          tone: resolvedTone,
           variant: resolvedVariant,
           size: resolvedSize,
           radius: resolvedRadius,
@@ -59,6 +62,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonReactProps>(
         }),
       [
         resolvedColor,
+        resolvedTone,
         resolvedVariant,
         resolvedSize,
         resolvedRadius,

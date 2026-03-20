@@ -1,7 +1,7 @@
+import { Button } from '@srcube-ui/react';
 import {
   type AddToastResult,
   addToast,
-  Button,
   clearToasts,
   closeToast,
   getToasts,
@@ -30,14 +30,22 @@ const tones: Array<{
     | 'success'
     | 'warning'
     | 'danger';
+  buttonTone?: 'light' | 'dark';
+  buttonVariant?: 'solid' | 'outline';
 }> = [
-  { tone: 'light', label: 'Light', buttonColor: 'default' },
-  { tone: 'dark', label: 'Dark', buttonColor: 'default' },
-  { tone: 'info', label: 'Info', buttonColor: 'primary' },
+  {
+    tone: 'light',
+    label: 'Light',
+    buttonColor: 'default',
+    buttonTone: 'light',
+    buttonVariant: 'outline',
+  },
+  { tone: 'dark', label: 'Dark', buttonColor: 'default', buttonTone: 'dark' },
+  { tone: 'primary', label: 'Primary', buttonColor: 'primary' },
   { tone: 'secondary', label: 'Secondary', buttonColor: 'secondary' },
   { tone: 'success', label: 'Success', buttonColor: 'success' },
   { tone: 'warning', label: 'Warning', buttonColor: 'warning' },
-  { tone: 'error', label: 'Error', buttonColor: 'danger' },
+  { tone: 'danger', label: 'Danger', buttonColor: 'danger' },
 ];
 
 function Card({ children }: { children: React.ReactNode }) {
@@ -136,7 +144,7 @@ function ToasterDemo() {
       title: 'Saving...',
       description: 'Please wait',
       shouldAutoDismiss: false,
-      tone: 'info',
+      tone: 'primary',
     });
     setHandleStatus(`saving:${handle.id.slice(-6)}`);
 
@@ -192,7 +200,8 @@ function ToasterDemo() {
               <Button
                 key={item.tone}
                 color={item.buttonColor}
-                variant={item.buttonColor === 'default' ? 'outline' : 'solid'}
+                tone={item.buttonTone}
+                variant={item.buttonVariant ?? 'solid'}
                 onTap={() => showTone(item.tone, item.label)}
               >
                 {item.label}
@@ -222,7 +231,7 @@ function ToasterDemo() {
                   id,
                   title: 'Custom ID',
                   description: id,
-                  tone: 'info',
+                  tone: 'primary',
                   showClose: true,
                 });
               }}
@@ -303,25 +312,25 @@ function ToasterDemo() {
               color="danger"
               variant="flat"
               onTap={() => {
-                toast.error({
-                  title: 'toast.error',
+                toast.danger({
+                  title: 'toast.danger',
                   description: 'helper API',
                 });
               }}
             >
-              toast.error
+              toast.danger
             </Button>
             <Button
               color="primary"
               variant="flat"
               onTap={() => {
-                toast.info({
-                  title: 'toast.info',
+                toast.primary({
+                  title: 'toast.primary',
                   description: 'helper API',
                 });
               }}
             >
-              toast.info
+              toast.primary
             </Button>
           </div>
 

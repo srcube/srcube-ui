@@ -20,6 +20,7 @@ UIComponent({
   data: {
     _autoLoading: false,
     groupColor: null,
+    groupTone: null,
     groupVariant: null,
     groupSize: null,
     groupRadius: null,
@@ -41,6 +42,7 @@ UIComponent({
     $classNames(data) {
       const {
         color,
+        tone,
         variant,
         size,
         radius,
@@ -55,6 +57,7 @@ UIComponent({
         classNames,
         _autoLoading,
         groupColor,
+        groupTone,
         groupVariant,
         groupSize,
         groupRadius,
@@ -62,7 +65,8 @@ UIComponent({
         groupIsDisabled,
       } = data;
 
-      const resolvedColor = color ?? groupColor ?? 'primary';
+      const resolvedColor = color ?? groupColor ?? 'default';
+      const resolvedTone = tone ?? groupTone ?? 'light';
       const resolvedVariant = variant ?? groupVariant ?? 'solid';
       const resolvedSize = size ?? groupSize ?? 'md';
       const resolvedRadius = radius ?? groupRadius ?? 'md';
@@ -74,6 +78,7 @@ UIComponent({
 
       const slots = button({
         color: resolvedColor,
+        tone: resolvedTone,
         variant: resolvedVariant,
         size: resolvedSize,
         radius: resolvedRadius,

@@ -80,6 +80,7 @@
           style="{{$cancelButtonProps.style || ''}}"
           buttonId="{{$cancelButtonProps.buttonId || ''}}"
           color="{{$cancelButtonProps.color}}"
+          tone="{{$cancelButtonProps.tone}}"
           variant="{{$cancelButtonProps.variant}}"
           size="{{$cancelButtonProps.size}}"
           radius="{{$cancelButtonProps.radius}}"

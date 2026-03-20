@@ -48,3 +48,15 @@ it('supports vertical group orientation', () => {
   expect(top.className).toContain('rounded-b-none');
   expect(bottom.className).toContain('rounded-t-none');
 });
+
+it('uses default color with light tone by default', () => {
+  render(<Button>Default</Button>);
+
+  expect(screen.getByRole('button').className).toContain('bg-slate-200');
+});
+
+it('supports dark tone for default color', () => {
+  render(<Button tone="dark">Dark</Button>);
+
+  expect(screen.getByRole('button').className).toContain('bg-slate-950');
+});

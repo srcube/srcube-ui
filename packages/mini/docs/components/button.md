@@ -34,7 +34,8 @@
 
 | Prop | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| color | 颜色主题 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"primary"` |
+| color | 颜色主题 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` |
+| tone | 明暗主题 | `"light" \| "dark"` | `"light"` |
 | variant | 视觉风格 | `"solid" \| "outline" \| "flat" \| "text"` | `"solid"` |
 | size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` |
 | radius | 圆角 | `"none" \| "sm" \| "md" \| "lg" \| "full"` | `"md"` |
@@ -67,13 +68,15 @@
 
 ## ButtonGroup
 
-- ButtonGroup 会向子按钮注入 `color/variant/size/radius/isBlock/isDisabled` 的默认值
+- ButtonGroup 会向子按钮注入 `color/tone/variant/size/radius/isBlock/isDisabled` 的默认值
 - 子按钮显式传值时会覆盖 Group 的默认值
 - `isBlock` 会让 Group 宽度占满，同时子按钮在组内等分宽度
 - `orientation` 支持 `"x" | "y"`，用于横向/纵向排列按钮组（默认 `"x"`）
 
 ## 特性
 
+- `color="default"` 为中性色按钮语义
+- `tone="dark"` 适用于暗色主题场景，语义色会整体加深一档
 - `onTap` 在 `isLoading="auto"` 时支持 `e.detail.wait(Promise)` 自动 loading
 - 原生 button 事件由内部隐形 button 承载，外层 view 只负责样式
 - 小程序组件本身就是一个节点，布局/原生样式需要显式加在组件本身（例如 `class="flex-1"`）

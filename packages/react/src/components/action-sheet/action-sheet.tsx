@@ -1,12 +1,12 @@
-import * as React from "react";
-import { Button, ButtonGroup } from "../button";
-import { composeTwRenderProps } from "../../shared/compose";
+import * as React from 'react';
+import { Button, ButtonGroup } from '../button';
+import { composeTwRenderProps } from '../../shared/compose';
 import {
   Popup,
   PopupContent,
   type PopupClassNames,
   type PopupRef,
-} from "../popup";
+} from '../popup';
 import {
   ACTION_SHEET_CANCEL_TEXT,
   DEFAULT_ACTION_SHEET_LOCALE,
@@ -20,18 +20,18 @@ import type {
   ActionSheetCancelButtonProps,
   ActionSheetItem,
   ActionSheetReactProps,
-} from "./props";
+} from './props';
 
-const DEFAULT_ACTION_COLOR: ActionSheetActionColor = "default";
+const DEFAULT_ACTION_COLOR: ActionSheetActionColor = 'default';
 
-function resolveRadiusBySize(size: NonNullable<ActionSheetReactProps["size"]>) {
+function resolveRadiusBySize(size: NonNullable<ActionSheetReactProps['size']>) {
   switch (size) {
-    case "sm":
-      return "sm";
-    case "lg":
-      return "lg";
+    case 'sm':
+      return 'sm';
+    case 'lg':
+      return 'lg';
     default:
-      return "md";
+      return 'md';
   }
 }
 
@@ -64,7 +64,7 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
     const isControlled = isOpen !== null && isOpen !== undefined;
     const [innerOpen, setInnerOpen] = React.useState(Boolean(defaultOpen));
     const open = isControlled ? Boolean(isOpen) : innerOpen;
-    const resolvedSize = size ?? "md";
+    const resolvedSize = size ?? 'md';
     const resolvedRadius = radius ?? resolveRadiusBySize(resolvedSize);
     const resolvedCancelText = cancelText ?? ACTION_SHEET_CANCEL_TEXT[locale];
     const hasCustomFooter = footer !== null && footer !== undefined;
@@ -135,7 +135,7 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
     const handleCancelTap = React.useCallback(
       (
         event: Parameters<
-          NonNullable<ActionSheetCancelButtonProps["onTap"]>
+          NonNullable<ActionSheetCancelButtonProps['onTap']>
         >[0],
       ) => {
         onCancelButtonTap?.(event);
@@ -224,7 +224,7 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
                             ? slots.actionLast({
                                 class: classNames?.actionLast,
                               })
-                            : "",
+                            : '',
                         ],
                       })}
                       onTap={() => {
@@ -298,4 +298,4 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
   },
 );
 
-ActionSheet.displayName = "Srcube.ActionSheet";
+ActionSheet.displayName = 'Srcube.ActionSheet';

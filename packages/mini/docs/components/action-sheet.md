@@ -19,7 +19,7 @@
 | hasFooter | 是否启用自定义 footer 区域（启用后不渲染默认取消按钮） | `boolean` | `false` |
 | footer | 自定义 footer 内容 | `ReactNode`（React）/ 具名 slot `footer`（Mini） | `-` |
 | cancelText | 取消按钮文案（优先级高于 locale） | `ReactNode / string` | `locale 对应文案` |
-| cancelButtonProps | 取消按钮 props 覆盖 | React: `Omit<ButtonReactProps, 'children'>`; Mini: `Partial<Pick<ButtonMiniProps, 'buttonId' \| 'color' \| 'variant' \| 'size' \| 'radius' \| 'isBlock' \| 'isDisabled' \| 'isLoading' \| 'className' \| 'style' \| 'hoverClass' \| 'hoverStopPropagation' \| 'hoverStartTime' \| 'hoverStayTime' \| 'ariaLabel'>>` | `{}` |
+| cancelButtonProps | 取消按钮 props 覆盖 | React: `Omit<ButtonReactProps, 'children'>`; Mini: `Partial<Pick<ButtonMiniProps, 'buttonId' \| 'color' \| 'tone' \| 'variant' \| 'size' \| 'radius' \| 'isBlock' \| 'isDisabled' \| 'isLoading' \| 'className' \| 'style' \| 'hoverClass' \| 'hoverStopPropagation' \| 'hoverStartTime' \| 'hoverStayTime' \| 'ariaLabel'>>` | `{}` |
 | locale | 取消文案语言 | `'en' \| 'zh-CN' \| 'zh-TW'` | `'en'` |
 | isClosable | 是否显示取消按钮 | `boolean` | `true` |
 | size | 操作项尺寸 | `'sm' \| 'md' \| 'lg'` | `'md'` |
