@@ -1,11 +1,11 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Switch as AriaSwitch,
   type SwitchRenderProps,
-} from 'react-aria-components';
-import { switchStyle } from '@srcube-ui/styles/components/switch';
-import { composeTwRenderProps } from '../../shared/compose';
-import type { SwitchReactProps } from './props';
+} from "react-aria-components";
+import { switchStyle } from "@srcube-ui/styles/components/switch";
+import { composeTwRenderProps } from "../../shared/compose";
+import type { SwitchReactProps } from "./props";
 
 export const Switch: React.ForwardRefExoticComponent<
   SwitchReactProps & React.RefAttributes<HTMLLabelElement>
@@ -18,6 +18,7 @@ export const Switch: React.ForwardRefExoticComponent<
     isDisabled,
     isReadOnly,
     color,
+    tone,
     size,
     className,
     classNames,
@@ -28,10 +29,11 @@ export const Switch: React.ForwardRefExoticComponent<
     ...rest
   } = props;
 
-  const resolvedColor = color ?? 'default';
-  const resolvedSize = size ?? 'md';
+  const resolvedColor = color ?? "default";
+  const resolvedTone = tone ?? "default";
+  const resolvedSize = size ?? "md";
 
-  const isAutoLoading = isLoading === 'auto';
+  const isAutoLoading = isLoading === "auto";
   const [autoLoading, setAutoLoading] = React.useState(false);
   const resolvedIsLoading = isAutoLoading ? autoLoading : Boolean(isLoading);
 
@@ -41,13 +43,14 @@ export const Switch: React.ForwardRefExoticComponent<
     (state: SwitchRenderProps) =>
       switchStyle({
         color: resolvedColor,
+        tone: resolvedTone,
         size: resolvedSize,
         isSelected: state.isSelected,
         isDisabled: state.isDisabled,
         isReadOnly: Boolean(isReadOnly),
         isLoading: resolvedIsLoading,
       }),
-    [resolvedColor, resolvedSize, isReadOnly, resolvedIsLoading],
+    [resolvedColor, resolvedTone, resolvedSize, isReadOnly, resolvedIsLoading]
   );
 
   const baseClassName = composeTwRenderProps(className, (state) => {
@@ -65,7 +68,7 @@ export const Switch: React.ForwardRefExoticComponent<
             setAutoLoading(true);
             result
               .catch((error) => {
-                console.error('Switch async error:', error);
+                console.error("Switch async error:", error);
               })
               .finally(() => {
                 setAutoLoading(false);
@@ -78,7 +81,7 @@ export const Switch: React.ForwardRefExoticComponent<
 
       onValueChange?.(next);
     },
-    [interactionDisabled, isReadOnly, onTap, isAutoLoading, onValueChange],
+    [interactionDisabled, isReadOnly, onTap, isAutoLoading, onValueChange]
   );
 
   const renderThumb = (
@@ -87,7 +90,7 @@ export const Switch: React.ForwardRefExoticComponent<
       thumb: string;
       _iThumb: string;
       _iLoading: string;
-    },
+    }
   ) => {
     if (resolvedIsLoading) {
       return (
@@ -101,7 +104,7 @@ export const Switch: React.ForwardRefExoticComponent<
       return <span className={classes.thumb} />;
     }
 
-    if (typeof icon === 'function') {
+    if (typeof icon === "function") {
       return (
         <span className={classes.thumb}>
           {icon({
@@ -141,7 +144,7 @@ export const Switch: React.ForwardRefExoticComponent<
         };
 
         const contentNode =
-          typeof children === 'function' ? children(state) : children;
+          typeof children === "function" ? children(state) : children;
 
         return (
           <>
@@ -156,4 +159,4 @@ export const Switch: React.ForwardRefExoticComponent<
   );
 });
 
-Switch.displayName = 'Srcube.Switch';
+Switch.displayName = "Srcube.Switch";

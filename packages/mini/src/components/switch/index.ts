@@ -1,11 +1,11 @@
-import { switchStyle } from '@srcube-ui/styles/components/switch/style';
-import { UIComponent } from '../../shared/ui-component';
-import { switchMiniProps } from './props';
+import { switchStyle } from "@srcube-ui/styles/components/switch/style";
+import { UIComponent } from "../../shared/ui-component";
+import { switchMiniProps } from "./props";
 
 UIComponent({
   options: {
     multipleSlots: true,
-    styleIsolation: 'apply-shared',
+    styleIsolation: "apply-shared",
   },
 
   properties:
@@ -30,26 +30,28 @@ UIComponent({
       return data._innerSelected;
     },
     $isLoading(data) {
-      return data.isLoading === 'auto' ? data._autoLoading : data.isLoading;
+      return data.isLoading === "auto" ? data._autoLoading : data.isLoading;
     },
     $isDisabled(data) {
       const loading =
-        data.isLoading === 'auto' ? data._autoLoading : data.isLoading;
+        data.isLoading === "auto" ? data._autoLoading : data.isLoading;
       return (data.isDisabled ?? false) || loading;
     },
     $classNames(data) {
       const selected = data.isSelected ?? data._innerSelected;
       const loading =
-        data.isLoading === 'auto' ? data._autoLoading : data.isLoading;
+        data.isLoading === "auto" ? data._autoLoading : data.isLoading;
       const disabled = (data.isDisabled ?? false) || loading;
       const readOnly = data.isReadOnly ?? false;
-      const resolvedSize = data.size ?? 'md';
-      const resolvedColor = data.color ?? 'default';
-      const className = data.className ?? '';
+      const resolvedSize = data.size ?? "md";
+      const resolvedColor = data.color ?? "default";
+      const resolvedTone = data.tone ?? "default";
+      const className = data.className ?? "";
       const custom = (data.classNames ?? {}) as Record<string, string>;
 
       const slots = switchStyle({
         color: resolvedColor,
+        tone: resolvedTone,
         size: resolvedSize,
         isSelected: selected,
         isDisabled: disabled,
@@ -72,7 +74,7 @@ UIComponent({
   methods: {
     async handleTap(e: WechatMiniprogram.TouchEvent) {
       const loading =
-        this.data.isLoading === 'auto'
+        this.data.isLoading === "auto"
           ? this.data._autoLoading
           : this.data.isLoading;
       const disabled = (this.data.isDisabled ?? false) || loading;
@@ -80,34 +82,34 @@ UIComponent({
 
       if (disabled || readOnly) return;
 
-      if (this.data.isLoading === 'auto') {
+      if (this.data.isLoading === "auto") {
         let promiseToWait: Promise<unknown> | undefined;
 
         const detail = {
           ...e.detail,
           source: e,
           wait: (
-            promiseOrFactory: Promise<unknown> | (() => Promise<unknown>),
+            promiseOrFactory: Promise<unknown> | (() => Promise<unknown>)
           ) => {
             const resolvedPromise =
-              typeof promiseOrFactory === 'function'
+              typeof promiseOrFactory === "function"
                 ? promiseOrFactory()
                 : promiseOrFactory;
 
-            if (resolvedPromise && typeof resolvedPromise.then === 'function') {
+            if (resolvedPromise && typeof resolvedPromise.then === "function") {
               promiseToWait = resolvedPromise;
             }
           },
         };
 
-        this.triggerEvent('tap', detail);
+        this.triggerEvent("tap", detail);
 
         if (promiseToWait) {
           this.setData({ _autoLoading: true });
           try {
             await promiseToWait;
           } catch (error) {
-            console.error('Switch async error:', error);
+            console.error("Switch async error:", error);
             this.setData({ _autoLoading: false });
             return;
           } finally {
@@ -119,7 +121,7 @@ UIComponent({
         return;
       }
 
-      this.triggerEvent('tap', e);
+      this.triggerEvent("tap", e);
       this._toggle();
     },
 
@@ -131,7 +133,7 @@ UIComponent({
         this.setData({ _innerSelected: nextSelected });
       }
 
-      this.triggerEvent('change', {
+      this.triggerEvent("change", {
         value: this.data.value,
         isSelected: nextSelected,
       });
@@ -139,6 +141,6 @@ UIComponent({
   },
 });
 
-export { switchStyle } from '@srcube-ui/styles/components/switch/style';
-export type { SwitchMiniProps } from './props';
-export { switchMiniProps } from './props';
+export { switchStyle } from "@srcube-ui/styles/components/switch/style";
+export type { SwitchMiniProps } from "./props";
+export { switchMiniProps } from "./props";

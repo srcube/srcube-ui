@@ -1,14 +1,14 @@
 import type {
   CheckboxClasses,
   CheckboxVariants,
-} from '@srcube-ui/styles/components/checkbox/style';
+} from "@srcube-ui/styles/components/checkbox/style";
 
 export type CheckboxMiniProps = CheckboxVariants & {
   value?: string;
   defaultSelected?: boolean;
   isSelected?: boolean;
   isIndeterminate?: boolean;
-  isLoading?: boolean | 'auto';
+  isLoading?: boolean | "auto";
   isDisabled?: boolean;
   isReadOnly?: boolean;
   isLineThrough?: boolean;
@@ -18,8 +18,9 @@ export type CheckboxMiniProps = CheckboxVariants & {
 };
 
 export const checkboxMiniProps = {
-  value: { type: String, value: '' },
+  value: { type: String, value: "" },
   color: { type: null, value: null },
+  tone: { type: null, value: null },
   size: { type: null, value: null },
   radius: { type: null, value: null },
   isSelected: { type: null, value: null },
@@ -29,7 +30,7 @@ export const checkboxMiniProps = {
   isDisabled: { type: null, value: null },
   isReadOnly: { type: null, value: null },
   isLineThrough: { type: null, value: null },
-  className: { type: String, value: '' },
+  className: { type: String, value: "" },
   classNames: { type: Object, value: {} },
-  style: { type: String, value: '' },
+  style: { type: String, value: "" },
 } as const;

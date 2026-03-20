@@ -27,42 +27,44 @@
 
 ### Checkbox
 
-| Prop | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| value | 当前值 | `string` | `""` |
-| color | 颜色主题 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` |
-| size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` |
-| radius | 圆角 | `"none" \| "sm" \| "md" \| "lg" \| "full"` | `"md"` |
-| isSelected | 选中态（独立使用时） | `boolean` | `false` |
-| defaultSelected | 默认选中（独立使用时） | `boolean` | `false` |
-| isIndeterminate | 半选态 | `boolean` | `false` |
-| isLoading | 加载态（`"auto"` 支持自动 loading） | `boolean \| "auto"` | `false` |
-| isDisabled | 禁用态 | `boolean` | `false` |
-| isReadOnly | 只读态 | `boolean` | `false` |
-| isLineThrough | 选中划线 | `boolean` | `false` |
-| onTap | 点击事件 | `(event) => void \| Promise<void>` | - |
-| onValueChange | 选中变化（独立使用时） | `(isSelected: boolean) => void` | - |
-| classNames | slots 样式映射 | `CheckboxClasses` | - |
-| className | 根节点 class | `string` | - |
-| style | 内联样式 | `string` | - |
+| Prop            | 说明                                | 类型                                                                          | 默认值      |
+| --------------- | ----------------------------------- | ----------------------------------------------------------------------------- | ----------- |
+| value           | 当前值                              | `string`                                                                      | `""`        |
+| color           | 颜色主题                            | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` |
+| tone            | 明暗主题                            | `"default" \| "dark"`                                                         | `"default"` |
+| size            | 尺寸                                | `"sm" \| "md" \| "lg"`                                                        | `"md"`      |
+| radius          | 圆角                                | `"none" \| "sm" \| "md" \| "lg" \| "full"`                                    | `"md"`      |
+| isSelected      | 选中态（独立使用时）                | `boolean`                                                                     | `false`     |
+| defaultSelected | 默认选中（独立使用时）              | `boolean`                                                                     | `false`     |
+| isIndeterminate | 半选态                              | `boolean`                                                                     | `false`     |
+| isLoading       | 加载态（`"auto"` 支持自动 loading） | `boolean \| "auto"`                                                           | `false`     |
+| isDisabled      | 禁用态                              | `boolean`                                                                     | `false`     |
+| isReadOnly      | 只读态                              | `boolean`                                                                     | `false`     |
+| isLineThrough   | 选中划线                            | `boolean`                                                                     | `false`     |
+| onTap           | 点击事件                            | `(event) => void \| Promise<void>`                                            | -           |
+| onValueChange   | 选中变化（独立使用时）              | `(isSelected: boolean) => void`                                               | -           |
+| classNames      | slots 样式映射                      | `CheckboxClasses`                                                             | -           |
+| className       | 根节点 class                        | `string`                                                                      | -           |
+| style           | 内联样式                            | `string`                                                                      | -           |
 
 ### CheckboxGroup
 
-| Prop | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| value | 受控值 | `string[] \| null` | - |
-| defaultValue | 默认值 | `string[] \| null` | - |
-| onValueChange | 选中值变化 | `(value: string[]) => void` | - |
-| orientation | 排列方向 | `"x" \| "y"` | `"y"` |
-| isBlock | 宽度占满父级 | `boolean` | `false` |
-| color | 默认颜色 | `Checkbox['color']` | - |
-| size | 默认尺寸 | `Checkbox['size']` | - |
-| radius | 默认圆角 | `Checkbox['radius']` | - |
-| isDisabled | 禁用态 | `boolean` | `false` |
-| isReadOnly | 只读态 | `boolean` | `false` |
-| isLineThrough | 选中划线 | `boolean` | `false` |
-| className | 根节点 class | `string` | - |
-| style | 内联样式 | `string` | - |
+| Prop          | 说明         | 类型                        | 默认值  |
+| ------------- | ------------ | --------------------------- | ------- |
+| value         | 受控值       | `string[] \| null`          | -       |
+| defaultValue  | 默认值       | `string[] \| null`          | -       |
+| onValueChange | 选中值变化   | `(value: string[]) => void` | -       |
+| orientation   | 排列方向     | `"x" \| "y"`                | `"y"`   |
+| isBlock       | 宽度占满父级 | `boolean`                   | `false` |
+| color         | 默认颜色     | `Checkbox['color']`         | -       |
+| tone          | 默认明暗主题 | `Checkbox['tone']`          | -       |
+| size          | 默认尺寸     | `Checkbox['size']`          | -       |
+| radius        | 默认圆角     | `Checkbox['radius']`        | -       |
+| isDisabled    | 禁用态       | `boolean`                   | `false` |
+| isReadOnly    | 只读态       | `boolean`                   | `false` |
+| isLineThrough | 选中划线     | `boolean`                   | `false` |
+| className     | 根节点 class | `string`                    | -       |
+| style         | 内联样式     | `string`                    | -       |
 
 ## 特性
 

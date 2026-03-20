@@ -1,9 +1,9 @@
-import * as simulate from 'miniprogram-simulate';
-import { beforeAll, expect, it, vi } from 'vitest';
+import * as simulate from "miniprogram-simulate";
+import { beforeAll, expect, it, vi } from "vitest";
 // @ts-expect-error -- raw wxml import for tests
-import groupTemplate from '../../src/components/checkbox/checkbox-group/index.wxml?raw';
+import groupTemplate from "../../src/components/checkbox/checkbox-group/index.wxml?raw";
 // @ts-expect-error -- raw wxml import for tests
-import template from '../../src/components/checkbox/index.wxml?raw';
+import template from "../../src/components/checkbox/index.wxml?raw";
 
 const definitions: Array<Record<string, unknown>> = [];
 
@@ -17,7 +17,7 @@ type MiniGroupInstance = {
   onChildToggle: (value: string, nextSelected: boolean) => void;
 };
 
-vi.doMock('miniprogram-computed', () => ({
+vi.doMock("miniprogram-computed", () => ({
   ComponentWithComputed: (def: Record<string, unknown>) => {
     definitions.push(def);
     return def;
@@ -25,13 +25,13 @@ vi.doMock('miniprogram-computed', () => ({
 }));
 
 beforeAll(async () => {
-  await import('../../src/components/checkbox/index');
-  await import('../../src/components/checkbox/checkbox-group/index');
+  await import("../../src/components/checkbox/index");
+  await import("../../src/components/checkbox/checkbox-group/index");
 });
 
 function getDefinition(
   predicate: (def: Record<string, unknown>) => boolean,
-  name: string,
+  name: string
 ) {
   const def = definitions.find(predicate);
   if (!def) {
@@ -45,8 +45,8 @@ function renderCheckbox(props: Record<string, unknown> = {}) {
     const relations = candidate.relations as
       | Record<string, unknown>
       | undefined;
-    return Boolean(relations && './checkbox-group/index' in relations);
-  }, 'Checkbox');
+    return Boolean(relations && "./checkbox-group/index" in relations);
+  }, "Checkbox");
 
   const { relations: _relations, ...rest } = def;
   void _relations;
@@ -66,8 +66,8 @@ function renderGroup(props: Record<string, unknown> = {}) {
     const relations = candidate.relations as
       | Record<string, unknown>
       | undefined;
-    return Boolean(relations && '../index' in relations);
-  }, 'CheckboxGroup');
+    return Boolean(relations && "../index" in relations);
+  }, "CheckboxGroup");
 
   const { relations: _relations, ...rest } = def;
   void _relations;
@@ -82,7 +82,7 @@ function renderGroup(props: Record<string, unknown> = {}) {
   return comp;
 }
 
-it('skips tap when disabled', async () => {
+it("skips tap when disabled", async () => {
   const comp = renderCheckbox({ isDisabled: true });
   const triggerSpy = vi.fn();
 
@@ -95,8 +95,8 @@ it('skips tap when disabled', async () => {
   comp.detach();
 });
 
-it('supports auto loading wait', async () => {
-  const comp = renderCheckbox({ isLoading: 'auto' });
+it("supports auto loading wait", async () => {
+  const comp = renderCheckbox({ isLoading: "auto" });
 
   let resolvePromise: (() => void) | undefined;
   const waitPromise = new Promise<void>((resolve) => {
@@ -104,7 +104,7 @@ it('supports auto loading wait', async () => {
   });
 
   const triggerSpy = vi.fn((name, detail) => {
-    if (name === 'tap') {
+    if (name === "tap") {
       detail.wait(waitPromise);
     }
   });
@@ -127,8 +127,8 @@ it('supports auto loading wait', async () => {
   comp.detach();
 });
 
-it('toggles when uncontrolled', async () => {
-  const comp = renderCheckbox({ value: 'a' });
+it("toggles when uncontrolled", async () => {
+  const comp = renderCheckbox({ value: "a" });
   const triggerSpy = vi.fn();
 
   const instance = comp.instance as unknown as MiniInstance;
@@ -138,30 +138,73 @@ it('toggles when uncontrolled', async () => {
 
   expect(comp.data._innerSelected).toBe(true);
   expect(triggerSpy).toHaveBeenCalledWith(
-    'change',
+    "change",
     expect.objectContaining({
-      value: 'a',
+      value: "a",
       isSelected: true,
-    }),
+    })
   );
 
   comp.detach();
 });
 
-it('group collects selected values', () => {
-  const comp = renderGroup({ defaultValue: ['a'] });
+it("supports dark tone styles", () => {
+  const def = getDefinition((candidate) => {
+    const relations = candidate.relations as
+      | Record<string, unknown>
+      | undefined;
+    return Boolean(relations && "./checkbox-group/index" in relations);
+  }, "Checkbox");
+
+  const computed = def.computed as Record<
+    string,
+    (data: Record<string, unknown>) => Record<string, string>
+  >;
+
+  const classNames = computed.$classNames({
+    tone: "dark",
+    color: "default",
+    size: null,
+    radius: null,
+    isSelected: true,
+    _innerSelected: false,
+    isIndeterminate: false,
+    isLoading: false,
+    _autoLoading: false,
+    isDisabled: false,
+    isReadOnly: false,
+    isLineThrough: false,
+    groupValue: null,
+    groupColor: null,
+    groupTone: null,
+    groupSize: null,
+    groupRadius: null,
+    groupIsDisabled: null,
+    groupIsReadOnly: null,
+    groupIsLineThrough: null,
+    className: "",
+    classNames: {},
+    value: "",
+  });
+
+  expect(classNames.checkbox).toContain("before:border-zinc-600");
+  expect(classNames.content).toContain("text-zinc-50");
+});
+
+it("group collects selected values", () => {
+  const comp = renderGroup({ defaultValue: ["a"] });
   const triggerSpy = vi.fn();
 
   const instance = comp.instance as unknown as MiniGroupInstance;
   instance.triggerEvent = triggerSpy;
 
-  instance.onChildToggle('b', true);
+  instance.onChildToggle("b", true);
 
-  expect(comp.data._innerValue).toEqual(['a', 'b']);
+  expect(comp.data._innerValue).toEqual(["a", "b"]);
   expect(triggerSpy).toHaveBeenCalledWith(
-    'change',
+    "change",
     expect.objectContaining({
-      value: ['a', 'b'],
-    }),
+      value: ["a", "b"],
+    })
   );
 });

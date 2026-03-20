@@ -1,7 +1,7 @@
-import * as simulate from 'miniprogram-simulate';
-import { beforeAll, expect, it, vi } from 'vitest';
+import * as simulate from "miniprogram-simulate";
+import { beforeAll, expect, it, vi } from "vitest";
 // @ts-expect-error -- raw wxml import for tests
-import template from '../../src/components/radio/index.wxml?raw';
+import template from "../../src/components/radio/index.wxml?raw";
 
 let definition: Record<string, unknown> | undefined;
 
@@ -10,7 +10,7 @@ type MiniInstance = {
   handleTap: (e: WechatMiniprogram.TouchEvent) => Promise<void> | void;
 };
 
-vi.doMock('miniprogram-computed', () => ({
+vi.doMock("miniprogram-computed", () => ({
   ComponentWithComputed: (def: Record<string, unknown>) => {
     definition = def;
     return def;
@@ -18,12 +18,12 @@ vi.doMock('miniprogram-computed', () => ({
 }));
 
 beforeAll(async () => {
-  await import('../../src/components/radio/index');
+  await import("../../src/components/radio/index");
 });
 
 function renderRadio(props: Record<string, unknown> = {}) {
   if (!definition) {
-    throw new Error('Radio mini definition not captured');
+    throw new Error("Radio mini definition not captured");
   }
 
   const { relations: _relations, ...rest } = definition;
@@ -39,7 +39,7 @@ function renderRadio(props: Record<string, unknown> = {}) {
   return comp;
 }
 
-it('skips tap when disabled', async () => {
+it("skips tap when disabled", async () => {
   const comp = renderRadio({ isDisabled: true });
   const triggerSpy = vi.fn();
 
@@ -52,8 +52,8 @@ it('skips tap when disabled', async () => {
   comp.detach();
 });
 
-it('supports auto loading wait', async () => {
-  const comp = renderRadio({ isLoading: 'auto' });
+it("supports auto loading wait", async () => {
+  const comp = renderRadio({ isLoading: "auto" });
 
   let resolvePromise: (() => void) | undefined;
   const waitPromise = new Promise<void>((resolve) => {
@@ -61,7 +61,7 @@ it('supports auto loading wait', async () => {
   });
 
   const triggerSpy = vi.fn((name, detail) => {
-    if (name === 'tap') {
+    if (name === "tap") {
       detail.wait(waitPromise);
     }
   });
@@ -84,8 +84,8 @@ it('supports auto loading wait', async () => {
   comp.detach();
 });
 
-it('selects when uncontrolled', async () => {
-  const comp = renderRadio({ value: 'a' });
+it("selects when uncontrolled", async () => {
+  const comp = renderRadio({ value: "a" });
   const triggerSpy = vi.fn();
 
   const instance = comp.instance as unknown as MiniInstance;
@@ -95,12 +95,47 @@ it('selects when uncontrolled', async () => {
 
   expect(comp.data._innerSelected).toBe(true);
   expect(triggerSpy).toHaveBeenCalledWith(
-    'change',
+    "change",
     expect.objectContaining({
-      value: 'a',
+      value: "a",
       isSelected: true,
-    }),
+    })
   );
 
   comp.detach();
+});
+
+it("supports dark tone styles", () => {
+  if (!definition) {
+    throw new Error("Radio mini definition not captured");
+  }
+
+  const computed = definition.computed as Record<
+    string,
+    (data: Record<string, unknown>) => Record<string, string>
+  >;
+
+  const classNames = computed.$classNames({
+    tone: "dark",
+    color: "primary",
+    size: null,
+    isSelected: true,
+    _innerSelected: false,
+    isLoading: false,
+    _autoLoading: false,
+    isDisabled: false,
+    isReadOnly: false,
+    groupValue: null,
+    groupColor: null,
+    groupTone: null,
+    groupSize: null,
+    groupIsDisabled: null,
+    groupIsReadOnly: null,
+    className: "",
+    classNames: {},
+    value: "",
+  });
+
+  expect(classNames.radio).toContain("before:border-primary-600");
+  expect(classNames.iconWrapper).toContain("text-primary-600");
 });

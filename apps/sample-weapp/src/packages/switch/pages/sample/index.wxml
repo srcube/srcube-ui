@@ -1,19 +1,45 @@
-<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
+<view class="{{pageClassName}}">
   <sr-navbar
-    className="sticky top-0 z-20 border-b border-slate-200"
+    className="{{navbarClassName}}"
     title="Switch"
+    tone="{{tone}}"
     withBack="{{true}}"
     hasSafeTop="{{true}}"
   />
 
   <view class="p-4 space-y-6">
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Colors</view>
-      <view class="mt-1 text-xs text-slate-500">color + controlled</view>
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Tone</view>
+      <view class="mt-3 flex gap-2">
+        <sr-button
+          size="sm"
+          color="{{tone === 'default' ? 'primary' : 'default'}}"
+          variant="{{tone === 'default' ? 'solid' : 'flat'}}"
+          data-tone="default"
+          bind:tap="handleToneTap"
+        >
+          default
+        </sr-button>
+        <sr-button
+          size="sm"
+          tone="dark"
+          variant="{{tone === 'dark' ? 'solid' : 'flat'}}"
+          data-tone="dark"
+          bind:tap="handleToneTap"
+        >
+          dark
+        </sr-button>
+      </view>
+    </view>
+
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Colors</view>
+      <view class="{{descriptionClassName}}">color + controlled</view>
       <view class="mt-3 flex flex-col gap-3">
         <sr-switch
           wx:for="{{colors}}"
           wx:key="value"
+          tone="{{tone}}"
           data-value="{{item.value}}"
           color="{{item.value}}"
           isSelected="{{item.value === colorValue}}"
@@ -24,13 +50,14 @@
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Sizes</view>
-      <view class="mt-1 text-xs text-slate-500">size + controlled</view>
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Sizes</view>
+      <view class="{{descriptionClassName}}">size + controlled</view>
       <view class="mt-3 flex flex-col gap-3">
         <sr-switch
           wx:for="{{sizes}}"
           wx:key="value"
+          tone="{{tone}}"
           data-value="{{item.value}}"
           size="{{item.value}}"
           isSelected="{{item.value === sizeValue}}"
@@ -41,31 +68,31 @@
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Custom Icon</view>
-      <view class="mt-1 text-xs text-slate-500">Iconify className</view>
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Custom Icon</view>
+      <view class="{{descriptionClassName}}">slot icon</view>
       <view class="mt-3 flex flex-col gap-3">
-        <sr-switch defaultSelected hasIcon>
+        <sr-switch tone="{{tone}}" defaultSelected hasIcon>
           <view slot="icon" class="icon-[ion--checkmark] text-primary text-sm" />
           Check
         </sr-switch>
-        <sr-switch defaultSelected hasIcon>
+        <sr-switch tone="{{tone}}" defaultSelected hasIcon>
           <view slot="icon" class="icon-[ion--flash] text-warning text-sm" />
           Flash
         </sr-switch>
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">States</view>
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">States</view>
       <view class="mt-3 flex flex-col gap-3">
-        <sr-switch isSelected="{{isEnabled}}" bind:change="handleEnabledChange">
+        <sr-switch tone="{{tone}}" isSelected="{{isEnabled}}" bind:change="handleEnabledChange">
           Controlled
         </sr-switch>
-        <sr-switch isDisabled>Disabled</sr-switch>
-        <sr-switch isReadOnly defaultSelected>ReadOnly</sr-switch>
-        <sr-switch isLoading>Loading</sr-switch>
-        <sr-switch isLoading="auto" bind:tap="handleAutoLoading">
+        <sr-switch tone="{{tone}}" isDisabled>Disabled</sr-switch>
+        <sr-switch tone="{{tone}}" isReadOnly defaultSelected>ReadOnly</sr-switch>
+        <sr-switch tone="{{tone}}" isLoading>Loading</sr-switch>
+        <sr-switch tone="{{tone}}" isLoading="auto" bind:tap="handleAutoLoading">
           Auto Loading
         </sr-switch>
       </view>

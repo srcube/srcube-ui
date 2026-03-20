@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Checkbox as AriaCheckbox,
   type CheckboxRenderProps,
-} from 'react-aria-components';
-import { checkbox } from '@srcube-ui/styles/components/checkbox';
-import { composeTwRenderProps } from '../../shared/compose';
-import { useCheckboxGroupContext } from './checkbox-group';
-import type { CheckboxReactProps } from './props';
+} from "react-aria-components";
+import { checkbox } from "@srcube-ui/styles/components/checkbox";
+import { composeTwRenderProps } from "../../shared/compose";
+import { useCheckboxGroupContext } from "./checkbox-group";
+import type { CheckboxReactProps } from "./props";
 
 export const Checkbox: React.ForwardRefExoticComponent<
   React.PropsWithoutRef<CheckboxReactProps> &
@@ -24,6 +24,7 @@ export const Checkbox: React.ForwardRefExoticComponent<
     isReadOnly,
     isLineThrough,
     color,
+    tone,
     size,
     radius,
     className,
@@ -35,15 +36,16 @@ export const Checkbox: React.ForwardRefExoticComponent<
     ...rest
   } = props;
 
-  const resolvedValue = value ?? '';
-  const resolvedColor = color ?? group?.color ?? 'default';
-  const resolvedSize = size ?? group?.size ?? 'md';
-  const resolvedRadius = radius ?? group?.radius ?? 'md';
+  const resolvedValue = value ?? "";
+  const resolvedColor = color ?? group?.color ?? "default";
+  const resolvedTone = tone ?? group?.tone ?? "default";
+  const resolvedSize = size ?? group?.size ?? "md";
+  const resolvedRadius = radius ?? group?.radius ?? "md";
   const resolvedIsDisabled = isDisabled ?? group?.isDisabled ?? false;
   const resolvedIsReadOnly = isReadOnly ?? group?.isReadOnly ?? false;
   const resolvedIsLineThrough = isLineThrough ?? group?.isLineThrough ?? false;
 
-  const isAutoLoading = isLoading === 'auto';
+  const isAutoLoading = isLoading === "auto";
   const [autoLoading, setAutoLoading] = React.useState(false);
   const resolvedIsLoading = isAutoLoading ? autoLoading : Boolean(isLoading);
 
@@ -53,6 +55,7 @@ export const Checkbox: React.ForwardRefExoticComponent<
     (state: CheckboxRenderProps) =>
       checkbox({
         color: resolvedColor,
+        tone: resolvedTone,
         size: resolvedSize,
         radius: resolvedRadius,
         isSelected: state.isSelected,
@@ -64,12 +67,13 @@ export const Checkbox: React.ForwardRefExoticComponent<
       }),
     [
       resolvedColor,
+      resolvedTone,
       resolvedSize,
       resolvedRadius,
       resolvedIsReadOnly,
       resolvedIsLoading,
       resolvedIsLineThrough,
-    ],
+    ]
   );
 
   const baseClassName = composeTwRenderProps(className, (state) => {
@@ -78,7 +82,7 @@ export const Checkbox: React.ForwardRefExoticComponent<
   });
 
   const handlePress = React.useCallback(
-    async (event: Parameters<NonNullable<CheckboxReactProps['onTap']>>[0]) => {
+    async (event: Parameters<NonNullable<CheckboxReactProps["onTap"]>>[0]) => {
       if (interactionDisabled || resolvedIsReadOnly) return;
       if (!onTap) return;
 
@@ -89,9 +93,11 @@ export const Checkbox: React.ForwardRefExoticComponent<
           setAutoLoading(true);
           try {
             await result;
-            await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+            await new Promise((resolve) =>
+              requestAnimationFrame(() => resolve(undefined))
+            );
           } catch (error) {
-            console.error('Checkbox async error:', error);
+            console.error("Checkbox async error:", error);
           } finally {
             setAutoLoading(false);
           }
@@ -102,7 +108,7 @@ export const Checkbox: React.ForwardRefExoticComponent<
 
       onTap(event);
     },
-    [interactionDisabled, resolvedIsReadOnly, onTap, isAutoLoading],
+    [interactionDisabled, resolvedIsReadOnly, onTap, isAutoLoading]
   );
 
   const handleChange = React.useCallback(
@@ -110,7 +116,7 @@ export const Checkbox: React.ForwardRefExoticComponent<
       if (group) return;
       onValueChange?.(next);
     },
-    [group, onValueChange],
+    [group, onValueChange]
   );
 
   const renderIcon = (
@@ -120,13 +126,13 @@ export const Checkbox: React.ForwardRefExoticComponent<
       iconWrapper: string;
       iDefault: string;
       iIndeterminate: string;
-    },
+    }
   ) => {
     if (resolvedIsLoading) {
       return <span className={classes.spinner} />;
     }
 
-    if (typeof icon === 'function') {
+    if (typeof icon === "function") {
       return icon({
         isIndeterminate: state.isIndeterminate,
         isLoading: resolvedIsLoading,
@@ -176,7 +182,7 @@ export const Checkbox: React.ForwardRefExoticComponent<
         };
 
         const contentNode =
-          typeof children === 'function' ? children(state) : children;
+          typeof children === "function" ? children(state) : children;
 
         return (
           <>
@@ -193,4 +199,4 @@ export const Checkbox: React.ForwardRefExoticComponent<
   );
 });
 
-Checkbox.displayName = 'Srcube.Checkbox';
+Checkbox.displayName = "Srcube.Checkbox";

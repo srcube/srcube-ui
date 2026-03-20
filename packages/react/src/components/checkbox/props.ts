@@ -1,14 +1,14 @@
-import type * as React from 'react';
+import type * as React from "react";
 import type {
   CheckboxGroupProps as AriaCheckboxGroupProps,
   CheckboxProps as AriaCheckboxProps,
   CheckboxRenderProps,
-} from 'react-aria-components';
+} from "react-aria-components";
 import type {
   CheckboxClasses,
   CheckboxGroupVariants,
   CheckboxVariants,
-} from '@srcube-ui/styles/components/checkbox';
+} from "@srcube-ui/styles/components/checkbox";
 
 export type CheckboxIconRenderProps = {
   isIndeterminate: boolean;
@@ -18,36 +18,42 @@ export type CheckboxIconRenderProps = {
 };
 
 type CheckboxPressEvent = Parameters<
-  NonNullable<AriaCheckboxProps['onPress']>
+  NonNullable<AriaCheckboxProps["onPress"]>
 >[0];
 
 type CheckboxNativeProps = Omit<
   AriaCheckboxProps,
-  | 'children'
-  | 'className'
-  | 'value'
-  | 'isDisabled'
-  | 'isReadOnly'
-  | 'onPress'
-  | 'onChange'
-  | 'isSelected'
-  | 'defaultSelected'
-  | 'isIndeterminate'
+  | "children"
+  | "className"
+  | "value"
+  | "isDisabled"
+  | "isReadOnly"
+  | "onPress"
+  | "onChange"
+  | "isSelected"
+  | "defaultSelected"
+  | "isIndeterminate"
 >;
 
 type CheckboxGroupSharedProps = Pick<
   CheckboxVariants,
-  'color' | 'size' | 'radius' | 'isDisabled' | 'isReadOnly' | 'isLineThrough'
+  | "color"
+  | "tone"
+  | "size"
+  | "radius"
+  | "isDisabled"
+  | "isReadOnly"
+  | "isLineThrough"
 >;
 
 type CheckboxGroupNativeProps = Omit<
   AriaCheckboxGroupProps,
-  | 'children'
-  | 'className'
-  | 'value'
-  | 'defaultValue'
-  | 'onChange'
-  | 'orientation'
+  | "children"
+  | "className"
+  | "value"
+  | "defaultValue"
+  | "onChange"
+  | "orientation"
 >;
 
 export type CheckboxReactProps = CheckboxVariants &
@@ -59,11 +65,11 @@ export type CheckboxReactProps = CheckboxVariants &
     defaultSelected?: boolean;
     isSelected?: boolean;
     isIndeterminate?: boolean;
-    isLoading?: boolean | 'auto';
+    isLoading?: boolean | "auto";
     isDisabled?: boolean;
     isReadOnly?: boolean;
     isLineThrough?: boolean;
-    className?: AriaCheckboxProps['className'];
+    className?: AriaCheckboxProps["className"];
     classNames?: CheckboxClasses;
     icon?:
       | React.ReactNode
@@ -78,6 +84,6 @@ export type CheckboxGroupReactProps = CheckboxGroupVariants &
     value?: string[] | null;
     defaultValue?: string[] | null;
     onValueChange?: (value: string[]) => void;
-    className?: AriaCheckboxGroupProps['className'];
+    className?: AriaCheckboxGroupProps["className"];
     children?: React.ReactNode;
   };

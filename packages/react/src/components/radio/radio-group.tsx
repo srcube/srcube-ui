@@ -1,18 +1,19 @@
-import * as React from 'react';
-import { RadioGroup as AriaRadioGroup } from 'react-aria-components';
-import { radioGroup } from '@srcube-ui/styles/components/radio';
-import { composeTwRenderProps } from '../../shared/compose';
-import type { RadioGroupReactProps } from './props';
+import * as React from "react";
+import { RadioGroup as AriaRadioGroup } from "react-aria-components";
+import { radioGroup } from "@srcube-ui/styles/components/radio";
+import { composeTwRenderProps } from "../../shared/compose";
+import type { RadioGroupReactProps } from "./props";
 
 type RadioGroupContextValue = {
-  color?: NonNullable<RadioGroupReactProps['color']>;
-  size?: NonNullable<RadioGroupReactProps['size']>;
+  color?: NonNullable<RadioGroupReactProps["color"]>;
+  tone?: NonNullable<RadioGroupReactProps["tone"]>;
+  size?: NonNullable<RadioGroupReactProps["size"]>;
   isDisabled?: boolean;
   isReadOnly?: boolean;
 };
 
 const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(
-  null,
+  null
 );
 
 export function useRadioGroupContext() {
@@ -26,9 +27,10 @@ export const RadioGroup: React.ForwardRefExoticComponent<
     value,
     defaultValue,
     onValueChange,
-    orientation = 'y',
+    orientation = "y",
     isBlock = false,
     color,
+    tone,
     size,
     isDisabled = false,
     isReadOnly = false,
@@ -37,28 +39,29 @@ export const RadioGroup: React.ForwardRefExoticComponent<
     ...rest
   } = props;
 
-  const resolvedOrientation = orientation === 'x' ? 'horizontal' : 'vertical';
+  const resolvedOrientation = orientation === "x" ? "horizontal" : "vertical";
 
   const baseClassName = composeTwRenderProps(
     className,
-    radioGroup({ orientation, isBlock }),
+    radioGroup({ orientation, isBlock })
   );
 
   const contextValue = React.useMemo<RadioGroupContextValue>(
     () => ({
       color,
+      tone,
       size,
       isDisabled,
       isReadOnly,
     }),
-    [color, size, isDisabled, isReadOnly],
+    [color, tone, size, isDisabled, isReadOnly]
   );
 
   const handleChange = React.useCallback(
     (next: string) => {
       onValueChange?.(next);
     },
-    [onValueChange],
+    [onValueChange]
   );
 
   return (
@@ -80,4 +83,4 @@ export const RadioGroup: React.ForwardRefExoticComponent<
   );
 });
 
-RadioGroup.displayName = 'Srcube.RadioGroup';
+RadioGroup.displayName = "Srcube.RadioGroup";

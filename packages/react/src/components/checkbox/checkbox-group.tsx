@@ -1,13 +1,14 @@
-import * as React from 'react';
-import { CheckboxGroup as AriaCheckboxGroup } from 'react-aria-components';
-import { checkboxGroup } from '@srcube-ui/styles/components/checkbox';
-import { composeTwRenderProps } from '../../shared/compose';
-import type { CheckboxGroupReactProps } from './props';
+import * as React from "react";
+import { CheckboxGroup as AriaCheckboxGroup } from "react-aria-components";
+import { checkboxGroup } from "@srcube-ui/styles/components/checkbox";
+import { composeTwRenderProps } from "../../shared/compose";
+import type { CheckboxGroupReactProps } from "./props";
 
 type CheckboxGroupContextValue = {
-  color?: NonNullable<CheckboxGroupReactProps['color']>;
-  size?: NonNullable<CheckboxGroupReactProps['size']>;
-  radius?: NonNullable<CheckboxGroupReactProps['radius']>;
+  color?: NonNullable<CheckboxGroupReactProps["color"]>;
+  tone?: NonNullable<CheckboxGroupReactProps["tone"]>;
+  size?: NonNullable<CheckboxGroupReactProps["size"]>;
+  radius?: NonNullable<CheckboxGroupReactProps["radius"]>;
   isDisabled?: boolean;
   isReadOnly?: boolean;
   isLineThrough?: boolean;
@@ -28,9 +29,10 @@ export const CheckboxGroup: React.ForwardRefExoticComponent<
     value,
     defaultValue,
     onValueChange,
-    orientation = 'y',
+    orientation = "y",
     isBlock = false,
     color,
+    tone,
     size,
     radius,
     isDisabled = false,
@@ -43,26 +45,27 @@ export const CheckboxGroup: React.ForwardRefExoticComponent<
 
   const baseClassName = composeTwRenderProps(
     className,
-    checkboxGroup({ orientation, isBlock }),
+    checkboxGroup({ orientation, isBlock })
   );
 
   const contextValue = React.useMemo<CheckboxGroupContextValue>(
     () => ({
       color,
+      tone,
       size,
       radius,
       isDisabled,
       isReadOnly,
       isLineThrough,
     }),
-    [color, size, radius, isDisabled, isReadOnly, isLineThrough],
+    [color, tone, size, radius, isDisabled, isReadOnly, isLineThrough]
   );
 
   const handleChange = React.useCallback(
     (next: string[]) => {
       onValueChange?.(next);
     },
-    [onValueChange],
+    [onValueChange]
   );
 
   return (
@@ -83,4 +86,4 @@ export const CheckboxGroup: React.ForwardRefExoticComponent<
   );
 });
 
-CheckboxGroup.displayName = 'Srcube.CheckboxGroup';
+CheckboxGroup.displayName = "Srcube.CheckboxGroup";

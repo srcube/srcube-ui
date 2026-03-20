@@ -21,22 +21,23 @@
 
 ## API
 
-| Prop | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| value | 当前值（随 change 事件透传） | `string` | `""` |
-| color | 颜色主题 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` |
-| size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` |
-| isSelected | 受控选中态 | `boolean` | - |
-| defaultSelected | 非受控默认选中 | `boolean` | `false` |
-| isLoading | 加载态（`"auto"` 支持自动 loading） | `boolean \| "auto"` | `false` |
-| isDisabled | 禁用态 | `boolean` | `false` |
-| isReadOnly | 只读态 | `boolean` | `false` |
-| hasIcon | 是否使用 icon slot | `boolean` | `false` |
-| onTap | 点击事件 | `bind:tap` + `e.detail.wait(Promise)` | - |
-| onValueChange | 选中变化 | `(isSelected: boolean) => void` | - |
-| classNames | slots 样式映射 | `SwitchClassNames` | - |
-| className | 根节点 class | `string` | - |
-| style | 内联样式 | `string` | - |
+| Prop            | 说明                                | 类型                                                                          | 默认值      |
+| --------------- | ----------------------------------- | ----------------------------------------------------------------------------- | ----------- |
+| value           | 当前值（随 change 事件透传）        | `string`                                                                      | `""`        |
+| color           | 颜色主题                            | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` |
+| tone            | 明暗主题                            | `"default" \| "dark"`                                                         | `"default"` |
+| size            | 尺寸                                | `"sm" \| "md" \| "lg"`                                                        | `"md"`      |
+| isSelected      | 受控选中态                          | `boolean`                                                                     | -           |
+| defaultSelected | 非受控默认选中                      | `boolean`                                                                     | `false`     |
+| isLoading       | 加载态（`"auto"` 支持自动 loading） | `boolean \| "auto"`                                                           | `false`     |
+| isDisabled      | 禁用态                              | `boolean`                                                                     | `false`     |
+| isReadOnly      | 只读态                              | `boolean`                                                                     | `false`     |
+| hasIcon         | 是否使用 icon slot                  | `boolean`                                                                     | `false`     |
+| onTap           | 点击事件                            | `bind:tap` + `e.detail.wait(Promise)`                                         | -           |
+| onValueChange   | 选中变化                            | `(isSelected: boolean) => void`                                               | -           |
+| classNames      | slots 样式映射                      | `SwitchClassNames`                                                            | -           |
+| className       | 根节点 class                        | `string`                                                                      | -           |
+| style           | 内联样式                            | `string`                                                                      | -           |
 
 ## 特性
 

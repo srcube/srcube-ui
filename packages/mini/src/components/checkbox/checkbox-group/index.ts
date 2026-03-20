@@ -1,16 +1,16 @@
-import { checkboxGroup } from '@srcube-ui/styles/components/checkbox/style';
-import { UIComponent } from '../../../shared/ui-component';
+import { checkboxGroup } from "@srcube-ui/styles/components/checkbox/style";
+import { UIComponent } from "../../../shared/ui-component";
 
 UIComponent({
   options: {
     multipleSlots: true,
-    styleIsolation: 'shared',
+    styleIsolation: "shared",
     virtualHost: true,
   },
 
   relations: {
-    '../index': {
-      type: 'descendant',
+    "../index": {
+      type: "descendant",
       linked() {
         this._updateChildren();
       },
@@ -26,16 +26,17 @@ UIComponent({
   properties: {
     value: { type: null, value: null },
     defaultValue: { type: Array, value: [] },
-    orientation: { type: String, value: 'y' },
+    orientation: { type: String, value: "y" },
     isBlock: { type: Boolean, value: false },
     color: { type: null, value: null },
+    tone: { type: null, value: null },
     size: { type: null, value: null },
     radius: { type: null, value: null },
     isDisabled: { type: null, value: null },
     isReadOnly: { type: null, value: null },
     isLineThrough: { type: null, value: null },
-    className: { type: String, value: '' },
-    style: { type: String, value: '' },
+    className: { type: String, value: "" },
+    style: { type: String, value: "" },
   } satisfies WechatMiniprogram.Component.PropertyOption,
 
   data: {
@@ -55,13 +56,13 @@ UIComponent({
       return checkboxGroup({
         orientation: data.orientation,
         isBlock: data.isBlock,
-        className: data.className ?? '',
+        className: data.className ?? "",
       });
     },
   },
 
   observers: {
-    'value,_innerValue,color,size,radius,isDisabled,isReadOnly,isLineThrough':
+    "value,_innerValue,color,tone,size,radius,isDisabled,isReadOnly,isLineThrough":
       function () {
         this._updateChildren();
       },
@@ -75,7 +76,7 @@ UIComponent({
     },
 
     _updateChildren() {
-      const children = this.getRelationNodes('../index');
+      const children = this.getRelationNodes("../index");
       if (!children || children.length === 0) return;
 
       const currentValue = this._getCurrentValue();
@@ -84,6 +85,7 @@ UIComponent({
         child.setData({
           groupValue: currentValue,
           groupColor: this.data.color,
+          groupTone: this.data.tone,
           groupSize: this.data.size,
           groupRadius: this.data.radius,
           groupIsDisabled: this.data.isDisabled,
@@ -106,7 +108,7 @@ UIComponent({
         this.setData({ _innerValue: nextValue });
       }
 
-      this.triggerEvent('change', { value: nextValue });
+      this.triggerEvent("change", { value: nextValue });
     },
   },
 });

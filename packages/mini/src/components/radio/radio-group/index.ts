@@ -1,16 +1,16 @@
-import { radioGroup } from '@srcube-ui/styles/components/radio/style';
-import { UIComponent } from '../../../shared/ui-component';
+import { radioGroup } from "@srcube-ui/styles/components/radio/style";
+import { UIComponent } from "../../../shared/ui-component";
 
 UIComponent({
   options: {
     multipleSlots: true,
-    styleIsolation: 'shared',
+    styleIsolation: "shared",
     virtualHost: true,
   },
 
   relations: {
-    '../index': {
-      type: 'descendant',
+    "../index": {
+      type: "descendant",
       linked() {
         this._updateChildren();
       },
@@ -25,19 +25,20 @@ UIComponent({
 
   properties: {
     value: { type: null, value: null },
-    defaultValue: { type: String, value: '' },
-    orientation: { type: String, value: 'y' },
+    defaultValue: { type: String, value: "" },
+    orientation: { type: String, value: "y" },
     isBlock: { type: Boolean, value: false },
     color: { type: null, value: null },
+    tone: { type: null, value: null },
     size: { type: null, value: null },
     isDisabled: { type: null, value: null },
     isReadOnly: { type: null, value: null },
-    className: { type: String, value: '' },
-    style: { type: String, value: '' },
+    className: { type: String, value: "" },
+    style: { type: String, value: "" },
   } satisfies WechatMiniprogram.Component.PropertyOption,
 
   data: {
-    _innerValue: '' as string,
+    _innerValue: "" as string,
   },
 
   lifetimes: {
@@ -53,13 +54,13 @@ UIComponent({
       return radioGroup({
         orientation: data.orientation,
         isBlock: data.isBlock,
-        className: data.className ?? '',
+        className: data.className ?? "",
       });
     },
   },
 
   observers: {
-    'value,_innerValue,color,size,isDisabled,isReadOnly': function () {
+    "value,_innerValue,color,tone,size,isDisabled,isReadOnly": function () {
       this._updateChildren();
     },
   },
@@ -70,7 +71,7 @@ UIComponent({
     },
 
     _updateChildren() {
-      const children = this.getRelationNodes('../index');
+      const children = this.getRelationNodes("../index");
       if (!children || children.length === 0) return;
 
       const currentValue = this._getCurrentValue();
@@ -79,6 +80,7 @@ UIComponent({
         child.setData({
           groupValue: currentValue,
           groupColor: this.data.color,
+          groupTone: this.data.tone,
           groupSize: this.data.size,
           groupIsDisabled: this.data.isDisabled,
           groupIsReadOnly: this.data.isReadOnly,
@@ -91,7 +93,7 @@ UIComponent({
         this.setData({ _innerValue: value });
       }
 
-      this.triggerEvent('change', { value });
+      this.triggerEvent("change", { value });
     },
   },
 });

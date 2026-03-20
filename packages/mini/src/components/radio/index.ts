@@ -1,16 +1,16 @@
-import { radio } from '@srcube-ui/styles/components/radio/style';
-import { UIComponent } from '../../shared/ui-component';
-import { radioMiniProps } from './props';
+import { radio } from "@srcube-ui/styles/components/radio/style";
+import { UIComponent } from "../../shared/ui-component";
+import { radioMiniProps } from "./props";
 
 UIComponent({
   options: {
     multipleSlots: true,
-    styleIsolation: 'apply-shared',
+    styleIsolation: "apply-shared",
   },
 
   relations: {
-    './radio-group/index': {
-      type: 'ancestor',
+    "./radio-group/index": {
+      type: "ancestor",
     },
   },
 
@@ -22,6 +22,7 @@ UIComponent({
     _innerSelected: false,
     groupValue: null,
     groupColor: null,
+    groupTone: null,
     groupSize: null,
     groupIsDisabled: null,
     groupIsReadOnly: null,
@@ -44,11 +45,11 @@ UIComponent({
       return data._innerSelected;
     },
     $isLoading(data) {
-      return data.isLoading === 'auto' ? data._autoLoading : data.isLoading;
+      return data.isLoading === "auto" ? data._autoLoading : data.isLoading;
     },
     $isDisabled(data) {
       const loading =
-        data.isLoading === 'auto' ? data._autoLoading : data.isLoading;
+        data.isLoading === "auto" ? data._autoLoading : data.isLoading;
       return (data.isDisabled ?? data.groupIsDisabled ?? false) || loading;
     },
     $classNames(data) {
@@ -56,19 +57,21 @@ UIComponent({
         data.groupValue !== null && data.groupValue !== undefined;
       const selected = isInGroup
         ? data.groupValue === data.value
-        : (data.isSelected ?? data._innerSelected);
+        : data.isSelected ?? data._innerSelected;
       const loading =
-        data.isLoading === 'auto' ? data._autoLoading : data.isLoading;
+        data.isLoading === "auto" ? data._autoLoading : data.isLoading;
       const disabled =
         (data.isDisabled ?? data.groupIsDisabled ?? false) || loading;
       const readOnly = data.isReadOnly ?? data.groupIsReadOnly ?? false;
-      const resolvedSize = data.size ?? data.groupSize ?? 'md';
-      const resolvedColor = data.color ?? data.groupColor ?? 'default';
-      const className = data.className ?? '';
+      const resolvedSize = data.size ?? data.groupSize ?? "md";
+      const resolvedColor = data.color ?? data.groupColor ?? "default";
+      const resolvedTone = data.tone ?? data.groupTone ?? "default";
+      const className = data.className ?? "";
       const custom = (data.classNames ?? {}) as Record<string, string>;
 
       const slots = radio({
         color: resolvedColor,
+        tone: resolvedTone,
         size: resolvedSize,
         isSelected: selected,
         isDisabled: disabled,
@@ -91,7 +94,7 @@ UIComponent({
   methods: {
     async handleTap(e: WechatMiniprogram.TouchEvent) {
       const loading =
-        this.data.isLoading === 'auto'
+        this.data.isLoading === "auto"
           ? this.data._autoLoading
           : this.data.isLoading;
       const disabled =
@@ -101,34 +104,34 @@ UIComponent({
 
       if (disabled || readOnly) return;
 
-      if (this.data.isLoading === 'auto') {
+      if (this.data.isLoading === "auto") {
         let promiseToWait: Promise<unknown> | undefined;
 
         const detail = {
           ...e.detail,
           source: e,
           wait: (
-            promiseOrFactory: Promise<unknown> | (() => Promise<unknown>),
+            promiseOrFactory: Promise<unknown> | (() => Promise<unknown>)
           ) => {
             const resolvedPromise =
-              typeof promiseOrFactory === 'function'
+              typeof promiseOrFactory === "function"
                 ? promiseOrFactory()
                 : promiseOrFactory;
 
-            if (resolvedPromise && typeof resolvedPromise.then === 'function') {
+            if (resolvedPromise && typeof resolvedPromise.then === "function") {
               promiseToWait = resolvedPromise;
             }
           },
         };
 
-        this.triggerEvent('tap', detail);
+        this.triggerEvent("tap", detail);
 
         if (promiseToWait) {
           this.setData({ _autoLoading: true });
           try {
             await promiseToWait;
           } catch (error) {
-            console.error('Radio async error:', error);
+            console.error("Radio async error:", error);
             this.setData({ _autoLoading: false });
             return;
           } finally {
@@ -140,7 +143,7 @@ UIComponent({
         return;
       }
 
-      this.triggerEvent('tap', e);
+      this.triggerEvent("tap", e);
       this._select();
     },
 
@@ -149,10 +152,10 @@ UIComponent({
         this.data.groupValue !== null && this.data.groupValue !== undefined;
       const currentSelected = isInGroup
         ? this.data.groupValue === this.data.value
-        : (this.data.isSelected ?? this.data._innerSelected);
+        : this.data.isSelected ?? this.data._innerSelected;
 
       if (isInGroup) {
-        const [group] = this.getRelationNodes('./radio-group/index') as Array<{
+        const [group] = this.getRelationNodes("./radio-group/index") as Array<{
           onChildSelect?: (value: string) => void;
         }>;
         group?.onChildSelect?.(this.data.value);
@@ -165,7 +168,7 @@ UIComponent({
         this.setData({ _innerSelected: true });
       }
 
-      this.triggerEvent('change', {
+      this.triggerEvent("change", {
         value: this.data.value,
         isSelected: true,
       });
@@ -173,6 +176,6 @@ UIComponent({
   },
 });
 
-export { radio } from '@srcube-ui/styles/components/radio/style';
-export type { RadioMiniProps } from './props';
-export { radioMiniProps } from './props';
+export { radio } from "@srcube-ui/styles/components/radio/style";
+export type { RadioMiniProps } from "./props";
+export { radioMiniProps } from "./props";

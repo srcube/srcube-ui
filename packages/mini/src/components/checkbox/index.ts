@@ -1,16 +1,16 @@
-import { checkbox } from '@srcube-ui/styles/components/checkbox/style';
-import { UIComponent } from '../../shared/ui-component';
-import { checkboxMiniProps } from './props';
+import { checkbox } from "@srcube-ui/styles/components/checkbox/style";
+import { UIComponent } from "../../shared/ui-component";
+import { checkboxMiniProps } from "./props";
 
 UIComponent({
   options: {
     multipleSlots: true,
-    styleIsolation: 'apply-shared',
+    styleIsolation: "apply-shared",
   },
 
   relations: {
-    './checkbox-group/index': {
-      type: 'ancestor',
+    "./checkbox-group/index": {
+      type: "ancestor",
     },
   },
 
@@ -22,6 +22,7 @@ UIComponent({
     _innerSelected: false,
     groupValue: null,
     groupColor: null,
+    groupTone: null,
     groupSize: null,
     groupRadius: null,
     groupIsDisabled: null,
@@ -46,33 +47,35 @@ UIComponent({
       return data._innerSelected;
     },
     $isLoading(data) {
-      return data.isLoading === 'auto' ? data._autoLoading : data.isLoading;
+      return data.isLoading === "auto" ? data._autoLoading : data.isLoading;
     },
     $isDisabled(data) {
       const loading =
-        data.isLoading === 'auto' ? data._autoLoading : data.isLoading;
+        data.isLoading === "auto" ? data._autoLoading : data.isLoading;
       return (data.isDisabled ?? data.groupIsDisabled ?? false) || loading;
     },
     $classNames(data) {
       const isInGroup = Array.isArray(data.groupValue);
       const selected = isInGroup
         ? data.groupValue.includes(data.value)
-        : (data.isSelected ?? data._innerSelected);
+        : data.isSelected ?? data._innerSelected;
       const loading =
-        data.isLoading === 'auto' ? data._autoLoading : data.isLoading;
+        data.isLoading === "auto" ? data._autoLoading : data.isLoading;
       const disabled =
         (data.isDisabled ?? data.groupIsDisabled ?? false) || loading;
       const readOnly = data.isReadOnly ?? data.groupIsReadOnly ?? false;
-      const resolvedSize = data.size ?? data.groupSize ?? 'md';
-      const resolvedRadius = data.radius ?? data.groupRadius ?? 'md';
-      const resolvedColor = data.color ?? data.groupColor ?? 'default';
+      const resolvedSize = data.size ?? data.groupSize ?? "md";
+      const resolvedRadius = data.radius ?? data.groupRadius ?? "md";
+      const resolvedColor = data.color ?? data.groupColor ?? "default";
+      const resolvedTone = data.tone ?? data.groupTone ?? "default";
       const resolvedLineThrough =
         data.isLineThrough ?? data.groupIsLineThrough ?? false;
-      const className = data.className ?? '';
+      const className = data.className ?? "";
       const custom = (data.classNames ?? {}) as Record<string, string>;
 
       const slots = checkbox({
         color: resolvedColor,
+        tone: resolvedTone,
         size: resolvedSize,
         radius: resolvedRadius,
         isSelected: selected,
@@ -99,7 +102,7 @@ UIComponent({
   methods: {
     async handleTap(e: WechatMiniprogram.TouchEvent) {
       const loading =
-        this.data.isLoading === 'auto'
+        this.data.isLoading === "auto"
           ? this.data._autoLoading
           : this.data.isLoading;
       const disabled =
@@ -109,34 +112,34 @@ UIComponent({
 
       if (disabled || readOnly) return;
 
-      if (this.data.isLoading === 'auto') {
+      if (this.data.isLoading === "auto") {
         let promiseToWait: Promise<unknown> | undefined;
 
         const detail = {
           ...e.detail,
           source: e,
           wait: (
-            promiseOrFactory: Promise<unknown> | (() => Promise<unknown>),
+            promiseOrFactory: Promise<unknown> | (() => Promise<unknown>)
           ) => {
             const resolvedPromise =
-              typeof promiseOrFactory === 'function'
+              typeof promiseOrFactory === "function"
                 ? promiseOrFactory()
                 : promiseOrFactory;
 
-            if (resolvedPromise && typeof resolvedPromise.then === 'function') {
+            if (resolvedPromise && typeof resolvedPromise.then === "function") {
               promiseToWait = resolvedPromise;
             }
           },
         };
 
-        this.triggerEvent('tap', detail);
+        this.triggerEvent("tap", detail);
 
         if (promiseToWait) {
           this.setData({ _autoLoading: true });
           try {
             await promiseToWait;
           } catch (error) {
-            console.error('Checkbox async error:', error);
+            console.error("Checkbox async error:", error);
             this.setData({ _autoLoading: false });
             return;
           } finally {
@@ -148,7 +151,7 @@ UIComponent({
         return;
       }
 
-      this.triggerEvent('tap', e);
+      this.triggerEvent("tap", e);
       this._toggle();
     },
 
@@ -156,12 +159,12 @@ UIComponent({
       const isInGroup = Array.isArray(this.data.groupValue);
       const currentSelected = isInGroup
         ? this.data.groupValue.includes(this.data.value)
-        : (this.data.isSelected ?? this.data._innerSelected);
+        : this.data.isSelected ?? this.data._innerSelected;
       const nextSelected = !currentSelected;
 
       if (isInGroup) {
         const [group] = this.getRelationNodes(
-          './checkbox-group/index',
+          "./checkbox-group/index"
         ) as Array<{
           onChildToggle?: (value: string, nextSelected: boolean) => void;
         }>;
@@ -173,7 +176,7 @@ UIComponent({
         this.setData({ _innerSelected: nextSelected });
       }
 
-      this.triggerEvent('change', {
+      this.triggerEvent("change", {
         value: this.data.value,
         isSelected: nextSelected,
       });
@@ -181,6 +184,6 @@ UIComponent({
   },
 });
 
-export { checkbox } from '@srcube-ui/styles/components/checkbox/style';
-export type { CheckboxMiniProps } from './props';
-export { checkboxMiniProps } from './props';
+export { checkbox } from "@srcube-ui/styles/components/checkbox/style";
+export type { CheckboxMiniProps } from "./props";
+export { checkboxMiniProps } from "./props";
