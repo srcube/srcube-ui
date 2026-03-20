@@ -1,6 +1,7 @@
 export { addToast, clearToasts, closeToast, getToasts, showToast, subscribeToasts, toast } from './registry';
 export type {
   AddToastResult,
+  ToastColor,
   ToastLifecycleState,
   ToastItem,
   ToastOptions,

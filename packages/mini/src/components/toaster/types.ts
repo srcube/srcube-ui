@@ -1,13 +1,12 @@
-export type ToastTone =
-  | 'light'
-  | 'dark'
+export type ToastColor =
+  | 'default'
   | 'primary'
   | 'secondary'
   | 'success'
   | 'warning'
-  | 'danger'
-  | 'error'
-  | 'info';
+  | 'danger';
+
+export type ToastTone = 'default' | 'dark';
 
 export type ToastState = 'enter' | 'leave';
 export type ToastLifecycleState =
@@ -21,6 +20,7 @@ export type ToastOptions = {
   id?: string;
   title?: string;
   description?: string;
+  color?: ToastColor;
   tone?: ToastTone;
   icon?: string;
   duration?: number;
@@ -33,6 +33,7 @@ export type ToastItem = {
   id: string;
   title: string;
   description: string;
+  color: ToastColor;
   tone: ToastTone;
   icon: string;
   duration: number;

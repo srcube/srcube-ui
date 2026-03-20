@@ -64,6 +64,7 @@ UIComponent({
 
       return list.map((item, index) => {
         const slots = toastStyle({
+          color: item.color,
           tone: item.tone,
           state: item.state,
         });
@@ -95,6 +96,7 @@ UIComponent({
       }
 
       const slots = toastStyle({
+        color: topToast.color,
         tone: topToast.tone,
         state: topToast.state,
       });
@@ -157,6 +159,7 @@ export {
 export { toasterStyle, toastStyle } from '@srcube-ui/styles/components/toaster/style';
 export type {
   AddToastResult,
+  ToastColor,
   ToastLifecycleState,
   ToastItem,
   ToastOptions,

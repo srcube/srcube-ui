@@ -29,53 +29,22 @@ export const toastStyle = tv({
     _iClose: 'icon-close size-4',
   },
   variants: {
+    color: {
+      default: {},
+      primary: {},
+      secondary: {},
+      success: {},
+      warning: {},
+      danger: {},
+    },
     tone: {
-      light: {
+      default: {
         toast: 'bg-slate-100/92 text-slate-900',
         description: 'text-slate-700',
       },
       dark: {
         toast: 'bg-slate-950/88 text-white',
         description: 'text-white/80',
-      },
-      primary: {
-        toast: 'bg-primary-50/92 text-primary',
-        title: 'text-primary',
-        description: 'text-primary/80',
-      },
-      secondary: {
-        toast: 'bg-secondary-50/92 text-secondary',
-        title: 'text-secondary',
-        description: 'text-secondary/80',
-      },
-      success: {
-        toast: 'bg-success-50/92 text-success',
-        title: 'text-success',
-        description: 'text-success/80',
-        _iIcon: 'icon-toast-success size-[1em]',
-      },
-      warning: {
-        toast: 'bg-warning-50/92 text-warning',
-        title: 'text-warning',
-        description: 'text-warning/80',
-        _iIcon: 'icon-toast-warning size-[1em]',
-      },
-      danger: {
-        toast: 'bg-danger-50/92 text-danger',
-        title: 'text-danger',
-        description: 'text-danger/80',
-        _iIcon: 'icon-toast-danger size-[1em]',
-      },
-      error: {
-        toast: 'bg-danger-50/92 text-danger',
-        title: 'text-danger',
-        description: 'text-danger/80',
-        _iIcon: 'icon-toast-danger size-[1em]',
-      },
-      info: {
-        toast: 'bg-primary-50/92 text-primary',
-        title: 'text-primary',
-        description: 'text-primary/80',
       },
     },
     state: {
@@ -84,6 +53,102 @@ export const toastStyle = tv({
     },
   },
   compoundVariants: [
+    {
+      color: 'primary',
+      tone: 'default',
+      class: {
+        toast: 'bg-primary-50/92 text-primary',
+        title: 'text-primary',
+        description: 'text-primary/80',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        toast: 'bg-primary-600/92 text-white',
+        title: 'text-white',
+        description: 'text-white/80',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'default',
+      class: {
+        toast: 'bg-secondary-50/92 text-secondary',
+        title: 'text-secondary',
+        description: 'text-secondary/80',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        toast: 'bg-secondary-600/92 text-white',
+        title: 'text-white',
+        description: 'text-white/80',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'default',
+      class: {
+        toast: 'bg-success-50/92 text-success',
+        title: 'text-success',
+        description: 'text-success/80',
+        _iIcon: 'icon-toast-success size-[1em]',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      class: {
+        toast: 'bg-success-600/92 text-white',
+        title: 'text-white',
+        description: 'text-white/80',
+        _iIcon: 'icon-toast-success size-[1em]',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'default',
+      class: {
+        toast: 'bg-warning-50/92 text-warning',
+        title: 'text-warning',
+        description: 'text-warning/80',
+        _iIcon: 'icon-toast-warning size-[1em]',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        toast: 'bg-warning-600/92 text-white',
+        title: 'text-white',
+        description: 'text-white/80',
+        _iIcon: 'icon-toast-warning size-[1em]',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'default',
+      class: {
+        toast: 'bg-danger-50/92 text-danger',
+        title: 'text-danger',
+        description: 'text-danger/80',
+        _iIcon: 'icon-toast-danger size-[1em]',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        toast: 'bg-danger-600/92 text-white',
+        title: 'text-white',
+        description: 'text-white/80',
+        _iIcon: 'icon-toast-danger size-[1em]',
+      },
+    },
     {
       state: 'enter',
       class: {
@@ -98,7 +163,8 @@ export const toastStyle = tv({
     },
   ],
   defaultVariants: {
-    tone: 'dark',
+    color: 'default',
+    tone: 'default',
     state: 'enter',
   },
 });

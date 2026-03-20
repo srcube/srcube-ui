@@ -229,7 +229,8 @@ it('$renderToasts returns items with classes object', () => {
         id: 'test-1',
         title: 'Test',
         description: '',
-        tone: 'dark',
+        color: 'default',
+        tone: 'default',
         icon: '',
         duration: 1800,
         shouldAutoDismiss: true,
@@ -257,10 +258,10 @@ it('$renderToasts returns items with classes object', () => {
 it('$renderToasts keeps only latest 3 layers', () => {
   const computed = (definition as any)?.computed;
   const toasts = [
-    { id: '1', title: 'A', description: '', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: true, showClose: false, state: 'enter', createdAt: 1 },
-    { id: '2', title: 'B', description: '', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: true, showClose: false, state: 'enter', createdAt: 2 },
-    { id: '3', title: 'C', description: '', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: true, showClose: false, state: 'enter', createdAt: 3 },
-    { id: '4', title: 'D', description: '', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: true, showClose: false, state: 'enter', createdAt: 4 },
+    { id: '1', title: 'A', description: '', color: 'default', tone: 'default', icon: '', duration: 1800, shouldAutoDismiss: true, showClose: false, state: 'enter', createdAt: 1 },
+    { id: '2', title: 'B', description: '', color: 'default', tone: 'default', icon: '', duration: 1800, shouldAutoDismiss: true, showClose: false, state: 'enter', createdAt: 2 },
+    { id: '3', title: 'C', description: '', color: 'default', tone: 'default', icon: '', duration: 1800, shouldAutoDismiss: true, showClose: false, state: 'enter', createdAt: 3 },
+    { id: '4', title: 'D', description: '', color: 'default', tone: 'default', icon: '', duration: 1800, shouldAutoDismiss: true, showClose: false, state: 'enter', createdAt: 4 },
   ];
 
   const result = computed?.$renderToasts({
@@ -283,9 +284,9 @@ it('$renderToasts keeps only latest 3 layers', () => {
 it('$renderToasts exposes showClose for only the top-most closable toast', () => {
   const computed = (definition as any)?.computed;
   const toasts = [
-    { id: '1', title: 'A', description: '', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: false, showClose: true, state: 'enter', createdAt: 1 },
-    { id: '2', title: 'B', description: '', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: false, showClose: true, state: 'enter', createdAt: 2 },
-    { id: '3', title: 'C', description: '', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: false, showClose: true, state: 'enter', createdAt: 3 },
+    { id: '1', title: 'A', description: '', color: 'default', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: false, showClose: true, state: 'enter', createdAt: 1 },
+    { id: '2', title: 'B', description: '', color: 'default', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: false, showClose: true, state: 'enter', createdAt: 2 },
+    { id: '3', title: 'C', description: '', color: 'default', tone: 'dark', icon: '', duration: 1800, shouldAutoDismiss: false, showClose: true, state: 'enter', createdAt: 3 },
   ];
 
   const result = computed?.$renderToasts({
@@ -308,6 +309,7 @@ it('$activeClose returns null when latest toast does not show close button', () 
         id: 'top-1',
         title: 'Top',
         description: '',
+        color: 'default',
         tone: 'dark',
         icon: '',
         duration: 1800,
@@ -331,6 +333,7 @@ it('$activeClose returns close button config for latest toast', () => {
         id: 'top-1',
         title: 'Top',
         description: '',
+        color: 'default',
         tone: 'dark',
         icon: '',
         duration: 1800,

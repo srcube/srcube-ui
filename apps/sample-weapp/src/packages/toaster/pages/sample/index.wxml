@@ -29,13 +29,13 @@
       <view class="text-sm font-semibold">ToastOptions</view>
 
       <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button data-tone="light" data-label="Light" variant="outline" bind:tap="handleToneTap">Light</sr-button>
-        <sr-button data-tone="dark" data-label="Dark" variant="outline" bind:tap="handleToneTap">Dark</sr-button>
-        <sr-button data-tone="info" data-label="Info" color="primary" bind:tap="handleToneTap">Info</sr-button>
-        <sr-button data-tone="secondary" data-label="Secondary" color="secondary" bind:tap="handleToneTap">Secondary</sr-button>
-        <sr-button data-tone="success" data-label="Success" color="success" bind:tap="handleToneTap">Success</sr-button>
-        <sr-button data-tone="warning" data-label="Warning" color="warning" bind:tap="handleToneTap">Warning</sr-button>
-        <sr-button data-tone="error" data-label="Error" color="danger" bind:tap="handleToneTap">Error</sr-button>
+        <sr-button data-color="default" data-tone="default" data-label="Default" variant="outline" bind:tap="handleToneTap">Default</sr-button>
+        <sr-button data-color="default" data-tone="dark" data-label="Dark" variant="outline" tone="dark" bind:tap="handleToneTap">Dark</sr-button>
+        <sr-button data-color="primary" data-label="Primary" color="primary" bind:tap="handleToneTap">Primary</sr-button>
+        <sr-button data-color="secondary" data-label="Secondary" color="secondary" bind:tap="handleToneTap">Secondary</sr-button>
+        <sr-button data-color="success" data-label="Success" color="success" bind:tap="handleToneTap">Success</sr-button>
+        <sr-button data-color="warning" data-label="Warning" color="warning" bind:tap="handleToneTap">Warning</sr-button>
+        <sr-button data-color="danger" data-label="Danger" color="danger" bind:tap="handleToneTap">Danger</sr-button>
       </view>
 
       <view class="mt-3 flex flex-wrap gap-2">
@@ -54,8 +54,8 @@
         <sr-button variant="flat" bind:tap="showByAlias">showToast</sr-button>
         <sr-button color="success" variant="flat" bind:tap="showBySuccess">toast.success</sr-button>
         <sr-button color="warning" variant="flat" bind:tap="showByWarning">toast.warning</sr-button>
-        <sr-button color="danger" variant="flat" bind:tap="showByError">toast.error</sr-button>
-        <sr-button color="primary" variant="flat" bind:tap="showByInfo">toast.info</sr-button>
+        <sr-button color="danger" variant="flat" bind:tap="showByDanger">toast.danger</sr-button>
+        <sr-button color="primary" variant="flat" bind:tap="showByPrimary">toast.primary</sr-button>
       </view>
 
       <view class="mt-3 flex flex-wrap gap-2">

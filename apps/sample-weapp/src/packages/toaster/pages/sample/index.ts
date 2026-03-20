@@ -1,13 +1,14 @@
 import {
-  type AddToastResult,
   addToast,
   clearToasts,
   closeToast,
   getToasts,
   showToast,
   subscribeToasts,
-  type ToastTone,
   toast,
+  type AddToastResult,
+  type ToastColor,
+  type ToastTone,
 } from '@srcube-ui/mini/toaster/index';
 
 type PageExtras = {
@@ -74,18 +75,21 @@ Page({
     event: WechatMiniprogram.TouchEvent & {
       currentTarget: {
         dataset: {
+          color?: ToastColor;
           tone?: ToastTone;
           label?: string;
         };
       };
     },
   ) {
-    const tone = event.currentTarget?.dataset?.tone ?? 'dark';
-    const label = event.currentTarget?.dataset?.label ?? tone;
+    const color = event.currentTarget?.dataset?.color ?? 'default';
+    const tone = event.currentTarget?.dataset?.tone ?? 'default';
+    const label = event.currentTarget?.dataset?.label ?? color;
 
     addToast({
       title: String(label),
-      description: `${String(label)} tone toast`,
+      description: `${String(label)} toast`,
+      color,
       tone,
     });
   },
@@ -93,9 +97,9 @@ Page({
   showIconToast() {
     addToast({
       title: 'Custom Icon',
-      description: 'icon + secondary tone',
+      description: 'icon + secondary color',
       icon: '★',
-      tone: 'secondary',
+      color: 'secondary',
     });
   },
 
@@ -105,7 +109,7 @@ Page({
       id,
       title: 'Custom ID',
       description: id,
-      tone: 'info',
+      color: 'primary',
       showClose: true,
     });
   },
@@ -162,16 +166,16 @@ Page({
     });
   },
 
-  showByError() {
-    toast.error({
-      title: 'toast.error',
+  showByDanger() {
+    toast.danger({
+      title: 'toast.danger',
       description: 'helper API',
     });
   },
 
-  showByInfo() {
-    toast.info({
-      title: 'toast.info',
+  showByPrimary() {
+    toast.primary({
+      title: 'toast.primary',
       description: 'helper API',
     });
   },
@@ -188,7 +192,7 @@ Page({
       description: 'Use close() or wait closed Promise',
       shouldAutoDismiss: false,
       showClose: true,
-      tone: 'secondary',
+      color: 'secondary',
     });
 
     page._manualHandle = handle;
@@ -239,7 +243,7 @@ Page({
         snapshot.length === 0
           ? '-'
           : snapshot
-              .map((item) => `${item.id.slice(-6)}:${item.tone}:${item.state}`)
+              .map((item) => `${item.id.slice(-6)}:${item.color}:${item.tone}:${item.state}`)
               .join(' | '),
     });
   },
@@ -262,7 +266,7 @@ Page({
       title: 'Saving...',
       description: 'Please wait',
       shouldAutoDismiss: false,
-      tone: 'info',
+      color: 'primary',
     });
 
     this.setData({

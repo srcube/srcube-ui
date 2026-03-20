@@ -55,6 +55,7 @@ export const Toaster = React.forwardRef<HTMLDivElement, ToasterReactProps>(
     const renderedToasts = React.useMemo(() => {
       return visibleToasts.map((item, index) => {
         const toastSlots = toastStyle({
+          color: item.color,
           tone: item.tone,
           state: item.state,
         });

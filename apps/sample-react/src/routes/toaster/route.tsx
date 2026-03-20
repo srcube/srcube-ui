@@ -9,6 +9,7 @@ import {
   subscribeToasts,
   Toaster,
   type ToasterClassNames,
+  type ToastColor,
   type ToastTone,
   toast,
 } from '@srcube-ui/react';
@@ -21,7 +22,8 @@ export const Route = createFileRoute('/toaster')({
 });
 
 const tones: Array<{
-  tone: ToastTone;
+  color: ToastColor;
+  tone?: ToastTone;
   label: string;
   buttonColor:
     | 'default'
@@ -34,18 +36,25 @@ const tones: Array<{
   buttonVariant?: 'solid' | 'outline';
 }> = [
   {
-    tone: 'light',
-    label: 'Light',
+    color: 'default',
+    tone: 'default',
+    label: 'Default',
     buttonColor: 'default',
     buttonTone: 'light',
     buttonVariant: 'outline',
   },
-  { tone: 'dark', label: 'Dark', buttonColor: 'default', buttonTone: 'dark' },
-  { tone: 'primary', label: 'Primary', buttonColor: 'primary' },
-  { tone: 'secondary', label: 'Secondary', buttonColor: 'secondary' },
-  { tone: 'success', label: 'Success', buttonColor: 'success' },
-  { tone: 'warning', label: 'Warning', buttonColor: 'warning' },
-  { tone: 'danger', label: 'Danger', buttonColor: 'danger' },
+  {
+    color: 'default',
+    tone: 'dark',
+    label: 'Dark',
+    buttonColor: 'default',
+    buttonTone: 'dark',
+  },
+  { color: 'primary', label: 'Primary', buttonColor: 'primary' },
+  { color: 'secondary', label: 'Secondary', buttonColor: 'secondary' },
+  { color: 'success', label: 'Success', buttonColor: 'success' },
+  { color: 'warning', label: 'Warning', buttonColor: 'warning' },
+  { color: 'danger', label: 'Danger', buttonColor: 'danger' },
 ];
 
 function Card({ children }: { children: React.ReactNode }) {
@@ -61,7 +70,7 @@ function formatSnapshot() {
   }
 
   return snapshot
-    .map((item) => `${item.id.slice(-6)}:${item.tone}:${item.state}`)
+    .map((item) => `${item.id.slice(-6)}:${item.color}:${item.tone}:${item.state}`)
     .join(' | ');
 }
 
@@ -94,13 +103,17 @@ function ToasterDemo() {
     [],
   );
 
-  const showTone = React.useCallback((tone: ToastTone, label: string) => {
+  const showTone = React.useCallback(
+    (color: ToastColor, tone: ToastTone | undefined, label: string) => {
     addToast({
       title: label,
-      description: `${label} tone toast`,
+      description: `${label} toast`,
+      color,
       tone,
     });
-  }, []);
+    },
+    [],
+  );
 
   const showOnCloseToast = React.useCallback(() => {
     addToast({
@@ -120,7 +133,7 @@ function ToasterDemo() {
       description: 'Use close() or wait closed Promise',
       shouldAutoDismiss: false,
       showClose: true,
-      tone: 'secondary',
+      color: 'secondary',
     });
 
     manualHandleRef.current = handle;
@@ -144,7 +157,7 @@ function ToasterDemo() {
       title: 'Saving...',
       description: 'Please wait',
       shouldAutoDismiss: false,
-      tone: 'primary',
+      color: 'primary',
     });
     setHandleStatus(`saving:${handle.id.slice(-6)}`);
 
@@ -198,11 +211,11 @@ function ToasterDemo() {
           <div className="mt-3 flex flex-wrap gap-2">
             {tones.map((item) => (
               <Button
-                key={item.tone}
+                key={`${item.color}-${item.tone ?? 'default'}`}
                 color={item.buttonColor}
                 tone={item.buttonTone}
                 variant={item.buttonVariant ?? 'solid'}
-                onTap={() => showTone(item.tone, item.label)}
+                onTap={() => showTone(item.color, item.tone, item.label)}
               >
                 {item.label}
               </Button>
@@ -215,9 +228,9 @@ function ToasterDemo() {
               onTap={() => {
                 addToast({
                   title: 'Custom Icon',
-                  description: 'icon + secondary tone',
+                  description: 'icon + secondary color',
                   icon: '★',
-                  tone: 'secondary',
+                  color: 'secondary',
                 });
               }}
             >
@@ -231,7 +244,7 @@ function ToasterDemo() {
                   id,
                   title: 'Custom ID',
                   description: id,
-                  tone: 'primary',
+                  color: 'primary',
                   showClose: true,
                 });
               }}

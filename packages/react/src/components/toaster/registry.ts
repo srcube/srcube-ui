@@ -34,7 +34,8 @@ function normalizeOptions(options: ToastOptions): ToastItem {
     id: options.id ?? createId(),
     title: options.title?.trim() ?? '',
     description: options.description?.trim() ?? '',
-    tone: options.tone ?? 'dark',
+    color: options.color ?? 'default',
+    tone: options.tone ?? 'default',
     icon: options.icon ?? '',
     duration,
     shouldAutoDismiss: options.shouldAutoDismiss !== false,
@@ -282,16 +283,16 @@ export function clearToasts() {
 }
 
 export const toast = Object.assign(addToast, {
-  success: (options: Omit<ToastOptions, 'tone'>) =>
-    addToast({ ...options, tone: 'success' }),
-  warning: (options: Omit<ToastOptions, 'tone'>) =>
-    addToast({ ...options, tone: 'warning' }),
-  danger: (options: Omit<ToastOptions, 'tone'>) =>
-    addToast({ ...options, tone: 'danger' }),
-  error: (options: Omit<ToastOptions, 'tone'>) =>
-    addToast({ ...options, tone: 'error' }),
-  primary: (options: Omit<ToastOptions, 'tone'>) =>
-    addToast({ ...options, tone: 'primary' }),
-  info: (options: Omit<ToastOptions, 'tone'>) =>
-    addToast({ ...options, tone: 'info' }),
+  success: (options: Omit<ToastOptions, 'color'>) =>
+    addToast({ ...options, color: 'success' }),
+  warning: (options: Omit<ToastOptions, 'color'>) =>
+    addToast({ ...options, color: 'warning' }),
+  danger: (options: Omit<ToastOptions, 'color'>) =>
+    addToast({ ...options, color: 'danger' }),
+  error: (options: Omit<ToastOptions, 'color'>) =>
+    addToast({ ...options, color: 'danger' }),
+  primary: (options: Omit<ToastOptions, 'color'>) =>
+    addToast({ ...options, color: 'primary' }),
+  info: (options: Omit<ToastOptions, 'color'>) =>
+    addToast({ ...options, color: 'primary' }),
 });
