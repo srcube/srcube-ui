@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { Scrollbox } from '../scrollbox';
-import { useVirtualizer } from '@tanstack/react-virtual';
-import { tabs, tabsTabState } from '@srcube-ui/styles/components/tabs';
-import { TabsContext } from './context';
-import type { TabsItem, TabsReactProps, TabsValue } from './props';
+import * as React from "react";
+import { Scrollbox } from "../scrollbox";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import { tabs, tabsTabState } from "@srcube-ui/styles/components/tabs";
+import { TabsContext } from "./context";
+import type { TabsItem, TabsReactProps, TabsValue } from "./props";
 
-type ScrollSide = 'start' | 'end' | 'top' | 'bottom' | null;
+type ScrollSide = "start" | "end" | "top" | "bottom" | null;
 
 type FallbackVirtualItem = {
   key: string;
@@ -71,8 +71,8 @@ function resolveEstimateSize({
   size,
   estimateSize,
 }: {
-  orientation: 'x' | 'y';
-  size: NonNullable<TabsReactProps['size']>;
+  orientation: "x" | "y";
+  size: NonNullable<TabsReactProps["size"]>;
   estimateSize?: number;
 }) {
   const preferred = Math.max(0, Number(estimateSize) || 0);
@@ -80,14 +80,14 @@ function resolveEstimateSize({
     return preferred;
   }
 
-  if (orientation === 'x') {
+  if (orientation === "x") {
     return HORIZONTAL_ESTIMATE_BY_SIZE[size];
   }
 
   return VERTICAL_ESTIMATE_BY_SIZE[size];
 }
 
-function resolveCrossSize(size: NonNullable<TabsReactProps['size']>) {
+function resolveCrossSize(size: NonNullable<TabsReactProps["size"]>) {
   return CROSS_SIZE_BY_SIZE[size];
 }
 
@@ -95,8 +95,8 @@ function resolveEdgeShift({
   orientation,
   size,
 }: {
-  orientation: 'x' | 'y';
-  size: NonNullable<TabsReactProps['size']>;
+  orientation: "x" | "y";
+  size: NonNullable<TabsReactProps["size"]>;
 }) {
   return EDGE_SHIFT_BY_SIZE[orientation][size];
 }
@@ -105,42 +105,44 @@ function resolveMaskBleedClassNames({
   orientation,
   size,
 }: {
-  orientation: 'x' | 'y';
-  size: NonNullable<TabsReactProps['size']>;
+  orientation: "x" | "y";
+  size: NonNullable<TabsReactProps["size"]>;
 }) {
-  const isSm = size === 'sm';
+  const isSm = size === "sm";
 
-  if (orientation === 'x') {
+  if (orientation === "x") {
     return {
-      maskLeft: isSm ? '-left-0.5' : '-left-1',
-      maskRight: isSm ? '-right-0.5' : '-right-1',
+      maskLeft: isSm ? "-left-0.5" : "-left-1",
+      maskRight: isSm ? "-right-0.5" : "-right-1",
     };
   }
 
   return {
-    maskTop: isSm ? '-top-0.5' : '-top-1',
-    maskBottom: isSm ? '-bottom-0.5' : '-bottom-1',
+    maskTop: isSm ? "-top-0.5" : "-top-1",
+    maskBottom: isSm ? "-bottom-0.5" : "-bottom-1",
   };
 }
 
 function resolvePlacement(
-  placement?: 'top' | 'start' | 'end' | 'bottom',
-  orientation?: 'x' | 'y',
+  placement?: "top" | "start" | "end" | "bottom",
+  orientation?: "x" | "y"
 ) {
   if (
-    placement === 'top' ||
-    placement === 'start' ||
-    placement === 'end' ||
-    placement === 'bottom'
+    placement === "top" ||
+    placement === "start" ||
+    placement === "end" ||
+    placement === "bottom"
   ) {
     return placement;
   }
 
-  return orientation === 'y' ? 'start' : 'top';
+  return orientation === "y" ? "start" : "top";
 }
 
-function resolveOrientationByPlacement(placement: 'top' | 'start' | 'end' | 'bottom') {
-  return placement === 'start' || placement === 'end' ? 'y' : 'x';
+function resolveOrientationByPlacement(
+  placement: "top" | "start" | "end" | "bottom"
+) {
+  return placement === "start" || placement === "end" ? "y" : "x";
 }
 
 export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
@@ -152,10 +154,11 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
       onValueChange,
       orientation,
       placement,
-      size = 'md',
-      variant = 'default',
-      radius = 'md',
-      color = 'default',
+      size = "md",
+      variant = "default",
+      radius = "md",
+      color = "default",
+      tone = "default",
       isDisabled = false,
       estimateSize,
       overscan = 5,
@@ -168,7 +171,8 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
     } = props;
 
     const resolvedPlacement = resolvePlacement(placement, orientation);
-    const resolvedOrientation = resolveOrientationByPlacement(resolvedPlacement);
+    const resolvedOrientation =
+      resolveOrientationByPlacement(resolvedPlacement);
     const resolvedSize = size;
     const resolvedEstimateSize = React.useMemo(
       () =>
@@ -177,11 +181,11 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
           size: resolvedSize,
           estimateSize,
         }),
-      [estimateSize, resolvedOrientation, resolvedSize],
+      [estimateSize, resolvedOrientation, resolvedSize]
     );
     const resolvedCrossSize = React.useMemo(
       () => resolveCrossSize(resolvedSize),
-      [resolvedSize],
+      [resolvedSize]
     );
     const resolvedOverscan = Math.max(1, Number(overscan) || 5);
 
@@ -212,10 +216,10 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
       }
     }, [innerValue, isControlled, items]);
 
-    const activeValue = isControlled ? (value ?? null) : innerValue;
+    const activeValue = isControlled ? value ?? null : innerValue;
     const activeItem = React.useMemo(
       () => findItemByValue(items, activeValue),
-      [activeValue, items],
+      [activeValue, items]
     );
     const activeIndex = React.useMemo(() => {
       if (!activeItem) {
@@ -233,6 +237,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
           variant,
           radius,
           color,
+          tone,
           isDisabled,
         }),
       [
@@ -242,8 +247,9 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         radius,
         resolvedOrientation,
         resolvedSize,
+        tone,
         variant,
-      ],
+      ]
     );
 
     const scrollElementRef = React.useRef<HTMLDivElement>(null);
@@ -251,17 +257,17 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
       (node: HTMLDivElement | null) => {
         scrollElementRef.current = node;
       },
-      [],
+      []
     );
 
     const virtualizer = useVirtualizer({
       count: items.length,
       getScrollElement: () => scrollElementRef.current,
       estimateSize: () => resolvedEstimateSize,
-      horizontal: resolvedOrientation === 'x',
+      horizontal: resolvedOrientation === "x",
       overscan: resolvedOverscan,
       initialRect:
-        resolvedOrientation === 'x'
+        resolvedOrientation === "x"
           ? { width: 320, height: resolvedCrossSize }
           : { width: 200, height: 320 },
       getItemKey: (index) => {
@@ -281,7 +287,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
 
       const fallbackCount = Math.min(
         items.length,
-        Math.max(1, resolvedOverscan * 2 + 1),
+        Math.max(1, resolvedOverscan * 2 + 1)
       );
 
       return Array.from({ length: fallbackCount }, (_, index) => ({
@@ -292,47 +298,51 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
       }));
     }, [hasVirtualItems, items.length, resolvedEstimateSize, resolvedOverscan]);
 
-    const renderVirtualItems = hasVirtualItems ? virtualItems : fallbackVirtualItems;
+    const renderVirtualItems = hasVirtualItems
+      ? virtualItems
+      : fallbackVirtualItems;
 
     const tabsListStyle = React.useMemo<React.CSSProperties>(
       () =>
-        resolvedOrientation === 'x'
+        resolvedOrientation === "x"
           ? {
-              position: 'relative',
+              position: "relative",
               width: totalSize,
               height: resolvedCrossSize,
             }
           : {
-              position: 'relative',
-              width: '100%',
+              position: "relative",
+              width: "100%",
               height: totalSize,
             },
-      [resolvedCrossSize, resolvedOrientation, totalSize],
+      [resolvedCrossSize, resolvedOrientation, totalSize]
     );
 
-    const indicatorStyle = React.useMemo<React.CSSProperties | undefined>(() => {
+    const indicatorStyle = React.useMemo<
+      React.CSSProperties | undefined
+    >(() => {
       if (activeIndex < 0) {
         return undefined;
       }
 
       const start = activeIndex * resolvedEstimateSize;
       const transform =
-        resolvedOrientation === 'y'
+        resolvedOrientation === "y"
           ? `translate3d(0, ${start}px, 0)`
           : `translate3d(${start}px, 0, 0)`;
 
-      return resolvedOrientation === 'y'
+      return resolvedOrientation === "y"
         ? {
-            width: '100%',
+            width: "100%",
             height: resolvedEstimateSize,
             transform,
-            transformOrigin: 'center center',
+            transformOrigin: "center center",
           }
         : {
             width: resolvedEstimateSize,
-            height: '100%',
+            height: "100%",
             transform,
-            transformOrigin: 'center center',
+            transformOrigin: "center center",
           };
     }, [activeIndex, resolvedEstimateSize, resolvedOrientation]);
 
@@ -340,7 +350,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
       (
         tabIndex: number,
         preferSide: ScrollSide = null,
-        behavior: ScrollBehavior = 'smooth',
+        behavior: ScrollBehavior = "smooth"
       ) => {
         if (tabIndex < 0) {
           return;
@@ -352,7 +362,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         }
 
         const viewportSize =
-          resolvedOrientation === 'x' ? node.clientWidth : node.clientHeight;
+          resolvedOrientation === "x" ? node.clientWidth : node.clientHeight;
         if (viewportSize <= 0) {
           return;
         }
@@ -365,15 +375,16 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         const itemStart = tabIndex * resolvedEstimateSize;
         const itemEnd = itemStart + resolvedEstimateSize;
         const currentOffset =
-          resolvedOrientation === 'x' ? node.scrollLeft : node.scrollTop;
+          resolvedOrientation === "x" ? node.scrollLeft : node.scrollTop;
         const visibleStart = currentOffset;
         const visibleEnd = currentOffset + viewportSize;
         const shouldAlignByEdge =
-          preferSide === 'start' ||
-          preferSide === 'end' ||
-          preferSide === 'top' ||
-          preferSide === 'bottom';
-        const nearStart = shouldAlignByEdge && itemStart - visibleStart <= edgeShift;
+          preferSide === "start" ||
+          preferSide === "end" ||
+          preferSide === "top" ||
+          preferSide === "bottom";
+        const nearStart =
+          shouldAlignByEdge && itemStart - visibleStart <= edgeShift;
         const nearEnd = shouldAlignByEdge && visibleEnd - itemEnd <= edgeShift;
         const outStart = itemStart < visibleStart;
         const outEnd = itemEnd > visibleEnd;
@@ -386,14 +397,14 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         const candidateMax = clamp(
           Math.max(0, itemEnd - viewportSize) + edgeShift,
           0,
-          maxOffset,
+          maxOffset
         );
 
         let target = currentOffset;
 
-        if (preferSide === 'start' || preferSide === 'top') {
+        if (preferSide === "start" || preferSide === "top") {
           target = candidateMin;
-        } else if (preferSide === 'end' || preferSide === 'bottom') {
+        } else if (preferSide === "end" || preferSide === "bottom") {
           target = candidateMax;
         } else if (outStart) {
           target = candidateMin;
@@ -409,13 +420,13 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
           return;
         }
 
-        if (resolvedOrientation === 'x') {
+        if (resolvedOrientation === "x") {
           node.scrollTo({ left: target, behavior });
         } else {
           node.scrollTo({ top: target, behavior });
         }
       },
-      [resolvedEstimateSize, resolvedOrientation, resolvedSize, totalSize],
+      [resolvedEstimateSize, resolvedOrientation, resolvedSize, totalSize]
     );
 
     const resolveTapSideForIndex = React.useCallback(
@@ -426,7 +437,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         }
 
         const viewportSize =
-          resolvedOrientation === 'x' ? node.clientWidth : node.clientHeight;
+          resolvedOrientation === "x" ? node.clientWidth : node.clientHeight;
         if (viewportSize <= 0) {
           return null;
         }
@@ -434,16 +445,16 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         const itemStart = tabIndex * resolvedEstimateSize;
         const itemCenter = itemStart + resolvedEstimateSize / 2;
         const currentOffset =
-          resolvedOrientation === 'x' ? node.scrollLeft : node.scrollTop;
+          resolvedOrientation === "x" ? node.scrollLeft : node.scrollTop;
         const relativeCenter = itemCenter - currentOffset;
 
-        if (resolvedOrientation === 'x') {
-          return relativeCenter < viewportSize / 2 ? 'start' : 'end';
+        if (resolvedOrientation === "x") {
+          return relativeCenter < viewportSize / 2 ? "start" : "end";
         }
 
-        return relativeCenter < viewportSize / 2 ? 'top' : 'bottom';
+        return relativeCenter < viewportSize / 2 ? "top" : "bottom";
       },
-      [resolvedEstimateSize, resolvedOrientation],
+      [resolvedEstimateSize, resolvedOrientation]
     );
 
     React.useEffect(() => {
@@ -451,13 +462,13 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         return;
       }
 
-      if (typeof window === 'undefined') {
-        ensureTabVisible(activeIndex, null, 'auto');
+      if (typeof window === "undefined") {
+        ensureTabVisible(activeIndex, null, "auto");
         return;
       }
 
       const frame = window.requestAnimationFrame(() => {
-        ensureTabVisible(activeIndex, null, 'auto');
+        ensureTabVisible(activeIndex, null, "auto");
       });
 
       return () => {
@@ -482,7 +493,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         }
 
         onValueChange?.(item.value);
-        ensureTabVisible(index, preferSide, 'smooth');
+        ensureTabVisible(index, preferSide, "smooth");
       },
       [
         activeValue,
@@ -491,12 +502,12 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         isDisabled,
         onValueChange,
         resolveTapSideForIndex,
-      ],
+      ]
     );
 
     const panelClassName = React.useMemo(
       () => slots.panel({ class: classNames?.panel }),
-      [classNames?.panel, slots],
+      [classNames?.panel, slots]
     );
 
     const contextValue = React.useMemo(
@@ -504,10 +515,10 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         activeValue,
         panelClassName,
       }),
-      [activeValue, panelClassName],
+      [activeValue, panelClassName]
     );
 
-    const styleObj = typeof style === 'string' ? undefined : style;
+    const styleObj = typeof style === "string" ? undefined : style;
     const scrollboxContentClassName = slots.scrollboxContent({
       class: classNames?.scrollboxContent,
     });
@@ -517,14 +528,14 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
           orientation: resolvedOrientation,
           size: resolvedSize,
         }),
-      [resolvedOrientation, resolvedSize],
+      [resolvedOrientation, resolvedSize]
     );
     const scrollboxClassNames = React.useMemo(
       () => ({
         content: scrollboxContentClassName,
         ...scrollboxMaskClassNames,
       }),
-      [scrollboxContentClassName, scrollboxMaskClassNames],
+      [scrollboxContentClassName, scrollboxMaskClassNames]
     );
 
     return (
@@ -535,7 +546,9 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
           style={styleObj}
           {...rest}
         >
-          <div className={slots.tabsWrapper({ class: classNames?.tabsWrapper })}>
+          <div
+            className={slots.tabsWrapper({ class: classNames?.tabsWrapper })}
+          >
             <Scrollbox
               orientation={resolvedOrientation}
               hideMasks={hideMasks}
@@ -546,14 +559,18 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
             >
               <div
                 role="tablist"
-                aria-orientation={resolvedOrientation === 'y' ? 'vertical' : 'horizontal'}
+                aria-orientation={
+                  resolvedOrientation === "y" ? "vertical" : "horizontal"
+                }
                 className={slots.tabsList({ class: classNames?.tabsList })}
                 style={tabsListStyle}
               >
                 {indicatorStyle ? (
                   <span
                     aria-hidden
-                    className={slots.indicator({ class: classNames?.indicator })}
+                    className={slots.indicator({
+                      class: classNames?.indicator,
+                    })}
                     style={indicatorStyle}
                   />
                 ) : null}
@@ -568,24 +585,25 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
                   const isSelected = activeValue === item.value;
                   const stateClassName = tabsTabState({
                     color,
+                    tone,
                     variant,
                     isSelected,
                     isDisabled: itemDisabled,
                   });
 
                   const tabStyle: React.CSSProperties =
-                    resolvedOrientation === 'x'
+                    resolvedOrientation === "x"
                       ? {
                           top: 0,
                           left: 0,
                           width: virtualItem.size,
-                          height: '100%',
+                          height: "100%",
                           transform: `translate3d(${virtualItem.start}px,0,0)`,
                         }
                       : {
                           top: 0,
                           left: 0,
-                          width: '100%',
+                          width: "100%",
                           height: virtualItem.size,
                           transform: `translate3d(0,${virtualItem.start}px,0)`,
                         };
@@ -605,7 +623,11 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
                         handleSelect(item, virtualItem.index);
                       }}
                     >
-                      <span className={slots.tabLabel({ class: classNames?.tabLabel })}>
+                      <span
+                        className={slots.tabLabel({
+                          class: classNames?.tabLabel,
+                        })}
+                      >
                         {item.label}
                       </span>
                     </button>
@@ -623,7 +645,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsReactProps>(
         </div>
       </TabsContext.Provider>
     );
-  },
+  }
 );
 
-Tabs.displayName = 'Srcube.Tabs';
+Tabs.displayName = "Srcube.Tabs";

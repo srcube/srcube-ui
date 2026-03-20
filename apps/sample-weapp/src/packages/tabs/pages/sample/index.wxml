@@ -1,21 +1,47 @@
-<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
+<view class="{{pageClassName}}">
   <sr-navbar
-    className="sticky top-0 z-20 border-b border-slate-200"
+    className="{{navbarClassName}}"
     title="Tabs"
+    tone="{{tone}}"
     withBack="{{true}}"
     hasSafeTop="{{true}}"
   />
 
   <view class="p-4 space-y-6">
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Basic</view>
-      <view class="mt-1 text-xs text-slate-500">horizontal + panel (size=md radius=full)</view>
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Tone</view>
+      <view class="mt-3 flex gap-2">
+        <sr-button
+          size="sm"
+          tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+          color="{{tone === 'default' ? 'primary' : 'default'}}"
+          variant="{{tone === 'default' ? 'solid' : 'flat'}}"
+          data-tone="default"
+          bind:tap="handleToneTap"
+        >
+          default
+        </sr-button>
+        <sr-button
+          size="sm"
+          tone="dark"
+          variant="{{tone === 'dark' ? 'solid' : 'flat'}}"
+          data-tone="dark"
+          bind:tap="handleToneTap"
+        >
+          dark
+        </sr-button>
+      </view>
+    </view>
+
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Basic</view>
+      <view class="{{descriptionClassName}}">horizontal + panel (size=md radius=full)</view>
 
       <sr-tabs
-        class="mt-3"
         className="mt-3"
         items="{{basicTabs}}"
         value="{{basicValue}}"
+        tone="{{tone}}"
         size="md"
         radius="full"
         bind:change="handleBasicChange"
@@ -23,30 +49,30 @@
         <sr-tab-panel
           value="tab-1"
           activeValue="{{basicValue}}"
-          className="mt-2 rounded-2xl bg-white p-4"
+          className="{{panelClassName}}"
         >
           Panel for Tab 1
         </sr-tab-panel>
         <sr-tab-panel
           value="tab-2"
           activeValue="{{basicValue}}"
-          className="mt-2 rounded-2xl bg-white p-4"
+          className="{{panelClassName}}"
         >
           Panel for Tab 2
         </sr-tab-panel>
         <sr-tab-panel
           value="tab-3"
           activeValue="{{basicValue}}"
-          className="mt-2 rounded-2xl bg-white p-4"
+          className="{{panelClassName}}"
         >
           Panel for Tab 3
         </sr-tab-panel>
       </sr-tabs>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Vertical</view>
-      <view class="mt-1 text-xs text-slate-500">
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Vertical</view>
+      <view class="{{descriptionClassName}}">
         placement=top/start/end/bottom + variant=underline
       </view>
 
@@ -54,6 +80,7 @@
         <sr-button-group size="sm" isBlock>
           <sr-button
             class="flex-1"
+            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
             color="{{placementValue === 'top' ? 'primary' : 'default'}}"
             variant="{{placementValue === 'top' ? 'solid' : 'flat'}}"
             data-placement="top"
@@ -63,6 +90,7 @@
           </sr-button>
           <sr-button
             class="flex-1"
+            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
             color="{{placementValue === 'start' ? 'primary' : 'default'}}"
             variant="{{placementValue === 'start' ? 'solid' : 'flat'}}"
             data-placement="start"
@@ -72,6 +100,7 @@
           </sr-button>
           <sr-button
             class="flex-1"
+            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
             color="{{placementValue === 'end' ? 'primary' : 'default'}}"
             variant="{{placementValue === 'end' ? 'solid' : 'flat'}}"
             data-placement="end"
@@ -81,6 +110,7 @@
           </sr-button>
           <sr-button
             class="flex-1"
+            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
             color="{{placementValue === 'bottom' ? 'primary' : 'default'}}"
             variant="{{placementValue === 'bottom' ? 'solid' : 'flat'}}"
             data-placement="bottom"
@@ -92,11 +122,11 @@
       </view>
 
       <sr-tabs
-        class="mt-3 h-44"
         className="mt-3 h-44"
         placement="{{placementValue}}"
         items="{{verticalTabs}}"
         value="{{verticalValue}}"
+        tone="{{tone}}"
         variant="underline"
         color="primary"
         size="sm"
@@ -106,35 +136,36 @@
         <sr-tab-panel
           value="tab-a"
           activeValue="{{verticalValue}}"
-          className="mt-2 h-full rounded-2xl bg-white p-4 text-sm"
+          className="{{verticalPanelClassName}}"
         >
           Panel for Tab A
         </sr-tab-panel>
         <sr-tab-panel
           value="tab-b"
           activeValue="{{verticalValue}}"
-          className="mt-2 h-full rounded-2xl bg-white p-4 text-sm"
+          className="{{verticalPanelClassName}}"
         >
           Panel for Tab B
         </sr-tab-panel>
         <sr-tab-panel
           value="tab-c"
           activeValue="{{verticalValue}}"
-          className="mt-2 h-full rounded-2xl bg-white p-4 text-sm"
+          className="{{verticalPanelClassName}}"
         >
           Panel for Tab C (disabled tab)
         </sr-tab-panel>
       </sr-tabs>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Variant / Color</view>
-      <view class="mt-1 text-xs text-slate-500">default / outline / twotone / flat / underline</view>
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Variant / Color</view>
+      <view class="{{descriptionClassName}}">default / outline / twotone / underline</view>
 
       <view class="mt-3">
         <sr-button-group size="sm" isBlock>
           <sr-button
             class="flex-1"
+            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
             color="{{activeVariant === 'default' ? 'primary' : 'default'}}"
             variant="{{activeVariant === 'default' ? 'solid' : 'flat'}}"
             data-variant="default"
@@ -144,6 +175,7 @@
           </sr-button>
           <sr-button
             class="flex-1"
+            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
             color="{{activeVariant === 'outline' ? 'primary' : 'default'}}"
             variant="{{activeVariant === 'outline' ? 'solid' : 'flat'}}"
             data-variant="outline"
@@ -153,6 +185,7 @@
           </sr-button>
           <sr-button
             class="flex-1"
+            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
             color="{{activeVariant === 'twotone' ? 'primary' : 'default'}}"
             variant="{{activeVariant === 'twotone' ? 'solid' : 'flat'}}"
             data-variant="twotone"
@@ -162,15 +195,7 @@
           </sr-button>
           <sr-button
             class="flex-1"
-            color="{{activeVariant === 'flat' ? 'primary' : 'default'}}"
-            variant="{{activeVariant === 'flat' ? 'solid' : 'flat'}}"
-            data-variant="flat"
-            bind:tap="handleVariantTap"
-          >
-            flat
-          </sr-button>
-          <sr-button
-            class="flex-1"
+            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
             color="{{activeVariant === 'underline' ? 'primary' : 'default'}}"
             variant="{{activeVariant === 'underline' ? 'solid' : 'flat'}}"
             data-variant="underline"
@@ -192,6 +217,7 @@
             <block wx:for="{{group}}" wx:for-item="option" wx:key="value">
               <sr-button
                 class="flex-1"
+                tone="{{tone === 'dark' ? 'dark' : 'light'}}"
                 color="{{activeColor === option.value ? option.value : 'default'}}"
                 variant="{{activeColor === option.value ? 'solid' : 'flat'}}"
                 data-color="{{option.value}}"
@@ -205,60 +231,58 @@
       </view>
 
       <sr-tabs
-        class="mt-3"
         className="mt-3"
         items="{{colorTabs}}"
         value="{{colorValue}}"
+        tone="{{tone}}"
         color="{{activeColor}}"
         variant="{{activeVariant}}"
         bind:change="handleColorChange"
       />
 
-      <view class="mt-2 text-xs text-slate-500">
+      <view class="{{metaTextClassName}}">
         Variant: {{activeVariant}} / Color: {{activeColor}} / Selected: {{colorValue}}
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Tabs Only</view>
-      <view class="mt-1 text-xs text-slate-500">
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Tabs Only</view>
+      <view class="{{descriptionClassName}}">
         external custom panel (e.g. swiper / business container)
       </view>
 
       <sr-tabs
-        class="mt-3"
         className="mt-3"
         items="{{customPanelTabs}}"
         value="{{customValue}}"
+        tone="{{tone}}"
         size="md"
         radius="md"
         bind:change="handleCustomChange"
       />
 
-      <view class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+      <view class="{{externalPanelClassName}}">
         <view wx:if="{{customValue === 'tab-1'}}">External Panel: Tab 1</view>
         <view wx:elif="{{customValue === 'tab-2'}}">External Panel: Tab 2</view>
         <view wx:else>External Panel: Tab 3</view>
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Long List</view>
-      <view class="mt-1 text-xs text-slate-500">virtualized tabs + edge tap auto shift</view>
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Long List</view>
+      <view class="{{descriptionClassName}}">virtualized tabs + edge tap auto shift</view>
 
       <sr-tabs
-        class="mt-3"
         className="mt-3"
         items="{{longTabs}}"
         value="{{longValue}}"
+        tone="{{tone}}"
         radius="full"
         estimateSize="{{88}}"
         bind:change="handleLongChange"
       />
 
-      <view class="mt-2 text-xs text-slate-500">
-        Selected: {{longValue}}
-      </view>
+      <view class="{{metaTextClassName}}">Selected: {{longValue}}</view>
     </view>
   </view>
 </view>

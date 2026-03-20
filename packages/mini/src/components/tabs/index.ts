@@ -1,23 +1,24 @@
-import { tabs, tabsTabState } from '@srcube-ui/styles/components/tabs/style';
-import { Virtualizer } from '@tanstack/virtual-core';
-import { UIComponent } from '../../shared/ui-component';
-import type { TabsMiniItem, TabsMiniProps, TabsMiniValue } from './props';
-import { tabsMiniProps } from './props';
+import { UIComponent } from "../../shared/ui-component";
+import { Virtualizer } from "@tanstack/virtual-core";
+import { tabs, tabsTabState } from "@srcube-ui/styles/components/tabs/style";
+import type { TabsMiniItem, TabsMiniProps, TabsMiniValue } from "./props";
+import { tabsMiniProps } from "./props";
 
-type TabsOrientation = 'x' | 'y';
+type TabsOrientation = "x" | "y";
 type TabsColor =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'danger';
-type TabsVariant = 'default' | 'outline' | 'twotone' | 'flat' | 'underline';
-type TabsSize = 'sm' | 'md' | 'lg';
-type TabsPlacement = 'top' | 'start' | 'end' | 'bottom';
-type TabsRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
-type ScrollSide = 'start' | 'end' | 'top' | 'bottom' | null;
-type ScrollBehavior = 'auto' | 'smooth';
+  | "default"
+  | "primary"
+  | "secondary"
+  | "success"
+  | "warning"
+  | "danger";
+type TabsTone = "default" | "dark";
+type TabsVariant = "default" | "outline" | "twotone" | "underline";
+type TabsSize = "sm" | "md" | "lg";
+type TabsPlacement = "top" | "start" | "end" | "bottom";
+type TabsRadius = "none" | "sm" | "md" | "lg" | "full";
+type ScrollSide = "start" | "end" | "top" | "bottom" | null;
+type ScrollBehavior = "auto" | "smooth";
 
 type RenderTab = {
   token: string;
@@ -89,7 +90,7 @@ const EDGE_SHIFT_BY_SIZE = {
 } as const;
 
 function resolveOrientation(value?: string | null): TabsOrientation {
-  return value === 'y' ? 'y' : 'x';
+  return value === "y" ? "y" : "x";
 }
 
 function resolvePlacement({
@@ -100,67 +101,66 @@ function resolvePlacement({
   orientation?: string | null;
 }): TabsPlacement {
   if (
-    placement === 'top' ||
-    placement === 'start' ||
-    placement === 'end' ||
-    placement === 'bottom'
+    placement === "top" ||
+    placement === "start" ||
+    placement === "end" ||
+    placement === "bottom"
   ) {
     return placement;
   }
 
-  return resolveOrientation(orientation) === 'y' ? 'start' : 'top';
+  return resolveOrientation(orientation) === "y" ? "start" : "top";
 }
 
 function resolveOrientationByPlacement(
-  placement: TabsPlacement,
+  placement: TabsPlacement
 ): TabsOrientation {
-  return placement === 'start' || placement === 'end' ? 'y' : 'x';
+  return placement === "start" || placement === "end" ? "y" : "x";
 }
 
 function resolveColor(value?: string | null): TabsColor {
   if (
-    value === 'primary' ||
-    value === 'secondary' ||
-    value === 'success' ||
-    value === 'warning' ||
-    value === 'danger'
+    value === "primary" ||
+    value === "secondary" ||
+    value === "success" ||
+    value === "warning" ||
+    value === "danger"
   ) {
     return value;
   }
 
-  return 'default';
+  return "default";
+}
+
+function resolveTone(value?: string | null): TabsTone {
+  return value === "dark" ? "dark" : "default";
 }
 
 function resolveVariant(value?: string | null): TabsVariant {
-  if (
-    value === 'outline' ||
-    value === 'twotone' ||
-    value === 'flat' ||
-    value === 'underline'
-  ) {
+  if (value === "outline" || value === "twotone" || value === "underline") {
     return value;
   }
 
-  return 'default';
+  return "default";
 }
 
 function resolveSize(value?: string | null): TabsSize {
-  if (value === 'sm' || value === 'lg') {
+  if (value === "sm" || value === "lg") {
     return value;
   }
-  return 'md';
+  return "md";
 }
 
 function resolveRadius(value?: string | null): TabsRadius {
   if (
-    value === 'none' ||
-    value === 'sm' ||
-    value === 'lg' ||
-    value === 'full'
+    value === "none" ||
+    value === "sm" ||
+    value === "lg" ||
+    value === "full"
   ) {
     return value;
   }
-  return 'md';
+  return "md";
 }
 
 function toValueToken(value: TabsMiniValue): string {
@@ -172,7 +172,7 @@ function normalizeItems(items: unknown): TabsMiniItem[] {
 }
 
 function ensureClassName(value: unknown) {
-  return typeof value === 'string' ? value : '';
+  return typeof value === "string" ? value : "";
 }
 
 function resolveFallbackValue(items: TabsMiniItem[]): TabsMiniValue | null {
@@ -206,7 +206,7 @@ function resolveEstimateSize({
     return preferred;
   }
 
-  if (orientation === 'x') {
+  if (orientation === "x") {
     return HORIZONTAL_ESTIMATE_BY_SIZE[size];
   }
 
@@ -234,18 +234,18 @@ function resolveMaskBleedClassNames({
   orientation: TabsOrientation;
   size: TabsSize;
 }) {
-  const isSm = size === 'sm';
+  const isSm = size === "sm";
 
-  if (orientation === 'x') {
+  if (orientation === "x") {
     return {
-      maskLeft: isSm ? '-left-0.5' : '-left-1',
-      maskRight: isSm ? '-right-0.5' : '-right-1',
+      maskLeft: isSm ? "-left-0.5" : "-left-1",
+      maskRight: isSm ? "-right-0.5" : "-right-1",
     };
   }
 
   return {
-    maskTop: isSm ? '-top-0.5' : '-top-1',
-    maskBottom: isSm ? '-bottom-0.5' : '-bottom-1',
+    maskTop: isSm ? "-top-0.5" : "-top-1",
+    maskBottom: isSm ? "-bottom-0.5" : "-bottom-1",
   };
 }
 
@@ -262,16 +262,16 @@ function resolveMaskVisibilityOverrideClasses(params: {
   const isNearEnd =
     maxOffset <= edgeEpsilon || currentOffset >= maxOffset - edgeEpsilon;
 
-  if (orientation === 'x') {
+  if (orientation === "x") {
     return {
-      maskLeft: isNearStart ? '!opacity-0' : '',
-      maskRight: isNearEnd ? '!opacity-0' : '',
+      maskLeft: isNearStart ? "!opacity-0" : "",
+      maskRight: isNearEnd ? "!opacity-0" : "",
     };
   }
 
   return {
-    maskTop: isNearStart ? '!opacity-0' : '',
-    maskBottom: isNearEnd ? '!opacity-0' : '',
+    maskTop: isNearStart ? "!opacity-0" : "",
+    maskBottom: isNearEnd ? "!opacity-0" : "",
   };
 }
 
@@ -326,7 +326,7 @@ function createVirtualizer(params: {
 UIComponent({
   options: {
     multipleSlots: true,
-    styleIsolation: 'apply-shared',
+    styleIsolation: "apply-shared",
   },
 
   properties:
@@ -340,9 +340,9 @@ UIComponent({
     viewportCrossSize: 0,
     currentOffset: 0,
     totalSize: 0,
-    tabsContentStyle: '',
+    tabsContentStyle: "",
     renderTabs: [] as RenderTab[],
-    indicatorStyle: '',
+    indicatorStyle: "",
     _scrollTop: 0,
     _scrollLeft: 0,
     _scrollWithAnimation: false,
@@ -379,6 +379,9 @@ UIComponent({
     color() {
       this.recomputeVirtualTabs();
     },
+    tone() {
+      this.recomputeVirtualTabs();
+    },
     isDisabled() {
       this.recomputeVirtualTabs();
     },
@@ -403,7 +406,7 @@ UIComponent({
 
       instance._lastActiveToken =
         activeValue === null || activeValue === undefined
-          ? ''
+          ? ""
           : toValueToken(activeValue);
     },
     ready() {
@@ -446,6 +449,7 @@ UIComponent({
         orientation,
         placement,
         color: resolveColor(data.color),
+        tone: resolveTone(data.tone),
         variant: resolveVariant(data.variant),
         size: resolveSize(data.size),
         radius: resolveRadius(data.radius),
@@ -457,27 +461,27 @@ UIComponent({
       return {
         base: ensureClassName(slots.base({ class: classNames.base })),
         tabsWrapper: ensureClassName(
-          slots.tabsWrapper({ class: classNames.tabsWrapper }),
+          slots.tabsWrapper({ class: classNames.tabsWrapper })
         ),
         $scrollbox: ensureClassName(
-          slots.$scrollbox({ class: classNames.$scrollbox }),
+          slots.$scrollbox({ class: classNames.$scrollbox })
         ),
         scrollbox: ensureClassName(
-          slots.scrollbox({ class: classNames.scrollbox }),
+          slots.scrollbox({ class: classNames.scrollbox })
         ),
         scrollboxContent: ensureClassName(
           slots.scrollboxContent({
             class: classNames.scrollboxContent,
-          }),
+          })
         ),
         tabsList: ensureClassName(
-          slots.tabsList({ class: classNames.tabsList }),
+          slots.tabsList({ class: classNames.tabsList })
         ),
         indicator: ensureClassName(
-          slots.indicator({ class: classNames.indicator }),
+          slots.indicator({ class: classNames.indicator })
         ),
         tabLabel: ensureClassName(
-          slots.tabLabel({ class: classNames.tabLabel }),
+          slots.tabLabel({ class: classNames.tabLabel })
         ),
         panels: ensureClassName(slots.panels({ class: classNames.panels })),
       };
@@ -493,6 +497,7 @@ UIComponent({
         orientation,
         placement,
         color: resolveColor(data.color),
+        tone: resolveTone(data.tone),
         variant: resolveVariant(data.variant),
         size,
         radius: resolveRadius(data.radius),
@@ -518,29 +523,29 @@ UIComponent({
         content: ensureClassName(
           slots.scrollboxContent({
             class: classNames.scrollboxContent,
-          }),
+          })
         ),
         maskTop: [maskClassNames.maskTop, maskVisibilityOverrideClasses.maskTop]
           .filter(Boolean)
-          .join(' '),
+          .join(" "),
         maskBottom: [
           maskClassNames.maskBottom,
           maskVisibilityOverrideClasses.maskBottom,
         ]
           .filter(Boolean)
-          .join(' '),
+          .join(" "),
         maskLeft: [
           maskClassNames.maskLeft,
           maskVisibilityOverrideClasses.maskLeft,
         ]
           .filter(Boolean)
-          .join(' '),
+          .join(" "),
         maskRight: [
           maskClassNames.maskRight,
           maskVisibilityOverrideClasses.maskRight,
         ]
           .filter(Boolean)
-          .join(' '),
+          .join(" "),
       };
     },
   },
@@ -553,7 +558,7 @@ UIComponent({
       };
 
       const liveOffset =
-        orientation === 'x'
+        orientation === "x"
           ? instance._liveScrollLeft
           : instance._liveScrollTop;
       return Math.max(0, Number(liveOffset ?? this.data.currentOffset) || 0);
@@ -599,10 +604,10 @@ UIComponent({
           : this.data._innerValue;
       const nextToken =
         activeValue === null || activeValue === undefined
-          ? ''
+          ? ""
           : toValueToken(activeValue);
 
-      const prevToken = instance._lastActiveToken ?? '';
+      const prevToken = instance._lastActiveToken ?? "";
       if (prevToken && nextToken && prevToken !== nextToken) {
         this.triggerTapSwitch();
       }
@@ -612,10 +617,10 @@ UIComponent({
 
     remeasureAndRecompute() {
       const query = this.createSelectorQuery();
-      query.select('.sr-tabs__scroll-host').boundingClientRect();
+      query.select(".sr-tabs__scroll-host").boundingClientRect();
       query.exec(
         (
-          rects: Array<WechatMiniprogram.BoundingClientRectCallbackResult | null>,
+          rects: Array<WechatMiniprogram.BoundingClientRectCallbackResult | null>
         ) => {
           const scrollRect = rects[0];
           if (!scrollRect) {
@@ -628,13 +633,13 @@ UIComponent({
           });
           const orientation = resolveOrientationByPlacement(placement);
           const nextViewportMainSize =
-            orientation === 'x'
-              ? (scrollRect.width ?? 0)
-              : (scrollRect.height ?? 0);
+            orientation === "x"
+              ? scrollRect.width ?? 0
+              : scrollRect.height ?? 0;
           const nextViewportCrossSize =
-            orientation === 'x'
-              ? (scrollRect.height ?? 0)
-              : (scrollRect.width ?? 0);
+            orientation === "x"
+              ? scrollRect.height ?? 0
+              : scrollRect.width ?? 0;
 
           this.setData(
             {
@@ -643,10 +648,10 @@ UIComponent({
             },
             () => {
               this.recomputeVirtualTabs();
-              this.ensureActiveVisible(null, 'auto');
-            },
+              this.ensureActiveVisible(null, "auto");
+            }
           );
-        },
+        }
       );
     },
 
@@ -655,9 +660,9 @@ UIComponent({
       if (items.length === 0) {
         this.setData({
           totalSize: 0,
-          tabsContentStyle: '',
+          tabsContentStyle: "",
           renderTabs: [],
-          indicatorStyle: '',
+          indicatorStyle: "",
         } satisfies Partial<TabsMiniData>);
         return;
       }
@@ -669,9 +674,10 @@ UIComponent({
       const orientation = resolveOrientationByPlacement(placement);
       const size = resolveSize(this.data.size);
       const color = resolveColor(this.data.color);
+      const tone = resolveTone(this.data.tone);
       const variant = resolveVariant(this.data.variant);
       const radius = resolveRadius(this.data.radius);
-      const isHorizontal = orientation === 'x';
+      const isHorizontal = orientation === "x";
       const estimate = resolveEstimateSize({
         orientation,
         size,
@@ -681,21 +687,22 @@ UIComponent({
       const offset = Math.max(0, Number(this.data.currentOffset) || 0);
       const viewportMainSize = Math.max(
         0,
-        Number(this.data.viewportMainSize) || 0,
+        Number(this.data.viewportMainSize) || 0
       );
       const viewportCrossSize = Math.max(
         0,
-        Number(this.data.viewportCrossSize) || 0,
+        Number(this.data.viewportCrossSize) || 0
       );
       const crossSize = Math.max(
         1,
-        viewportCrossSize || resolveCrossSize(size),
+        viewportCrossSize || resolveCrossSize(size)
       );
 
       const slots = tabs({
         orientation,
         placement,
         color,
+        tone,
         variant,
         size,
         radius,
@@ -721,12 +728,12 @@ UIComponent({
       const hasVirtualItems = virtualItems.length > 0;
       const fallbackCount = Math.min(
         items.length,
-        Math.max(1, overscan * 2 + 1),
+        Math.max(1, overscan * 2 + 1)
       );
       const fallbackStartIndex = clamp(
         Math.floor(offset / Math.max(1, estimate)) - overscan,
         0,
-        Math.max(0, items.length - fallbackCount),
+        Math.max(0, items.length - fallbackCount)
       );
       const fallbackItems = hasVirtualItems
         ? []
@@ -749,6 +756,7 @@ UIComponent({
           const itemDisabled = Boolean(this.data.isDisabled || item.isDisabled);
           const stateClassName = tabsTabState({
             color,
+            tone,
             variant,
             isSelected: activeValue === item.value,
             isDisabled: itemDisabled,
@@ -761,7 +769,7 @@ UIComponent({
           return {
             token: toValueToken(item.value),
             value: item.value,
-            label: String(item.label ?? ''),
+            label: String(item.label ?? ""),
             index: virtualItem.index,
             isDisabled: itemDisabled,
             tabClassName: slots.tab({
@@ -785,7 +793,7 @@ UIComponent({
         } satisfies Partial<TabsMiniData>,
         () => {
           this.updateIndicatorStyle();
-        },
+        }
       );
     },
 
@@ -798,8 +806,8 @@ UIComponent({
       const activeIndex = items.findIndex((item) => item.value === activeValue);
 
       if (activeIndex < 0) {
-        if (this.data.indicatorStyle !== '') {
-          this.setData({ indicatorStyle: '' });
+        if (this.data.indicatorStyle !== "") {
+          this.setData({ indicatorStyle: "" });
         }
         return;
       }
@@ -817,7 +825,7 @@ UIComponent({
       });
       const start = activeIndex * estimate;
       const indicatorStyle =
-        orientation === 'y'
+        orientation === "y"
           ? `width:100%;height:${estimate}px;transform:translate3d(0,${start}px,0);`
           : `width:${estimate}px;height:100%;transform:translate3d(${start}px,0,0);`;
 
@@ -848,16 +856,16 @@ UIComponent({
       const relativeCenter =
         itemCenter - this.resolveCurrentOffset(orientation);
 
-      if (orientation === 'x') {
-        return relativeCenter < viewportSize / 2 ? 'start' : 'end';
+      if (orientation === "x") {
+        return relativeCenter < viewportSize / 2 ? "start" : "end";
       }
 
-      return relativeCenter < viewportSize / 2 ? 'top' : 'bottom';
+      return relativeCenter < viewportSize / 2 ? "top" : "bottom";
     },
 
     ensureActiveVisible(
       preferSide: ScrollSide = null,
-      behavior: ScrollBehavior = 'auto',
+      behavior: ScrollBehavior = "auto"
     ) {
       const items = normalizeItems(this.data.items);
       const activeValue =
@@ -875,7 +883,7 @@ UIComponent({
     ensureTabVisible(
       tabIndex: number,
       preferSide: ScrollSide = null,
-      behavior: ScrollBehavior = 'smooth',
+      behavior: ScrollBehavior = "smooth"
     ) {
       if (tabIndex < 0) {
         return;
@@ -906,10 +914,10 @@ UIComponent({
       const visibleStart = this.resolveCurrentOffset(orientation);
       const visibleEnd = visibleStart + viewportSize;
       const shouldAlignByEdge =
-        preferSide === 'start' ||
-        preferSide === 'end' ||
-        preferSide === 'top' ||
-        preferSide === 'bottom';
+        preferSide === "start" ||
+        preferSide === "end" ||
+        preferSide === "top" ||
+        preferSide === "bottom";
       const nearStart =
         shouldAlignByEdge && itemStart - visibleStart <= edgeShift;
       const nearEnd = shouldAlignByEdge && visibleEnd - itemEnd <= edgeShift;
@@ -924,13 +932,13 @@ UIComponent({
       const candidateMax = clamp(
         Math.max(0, itemEnd - viewportSize) + edgeShift,
         0,
-        maxOffset,
+        maxOffset
       );
 
       let target = visibleStart;
-      if (preferSide === 'start' || preferSide === 'top') {
+      if (preferSide === "start" || preferSide === "top") {
         target = candidateMin;
-      } else if (preferSide === 'end' || preferSide === 'bottom') {
+      } else if (preferSide === "end" || preferSide === "bottom") {
         target = candidateMax;
       } else if (outStart) {
         target = candidateMin;
@@ -957,7 +965,7 @@ UIComponent({
       const orientation = resolveOrientationByPlacement(placement);
       const maxOffset = Math.max(
         0,
-        Number(this.data.totalSize) - Number(this.data.viewportMainSize),
+        Number(this.data.totalSize) - Number(this.data.viewportMainSize)
       );
       const nextOffset = clamp(target, 0, maxOffset);
       const currentOffset = this.resolveCurrentOffset(orientation);
@@ -966,7 +974,7 @@ UIComponent({
         _liveScrollLeft?: number;
       };
 
-      if (orientation === 'x') {
+      if (orientation === "x") {
         instance._liveScrollLeft = nextOffset;
       } else {
         instance._liveScrollTop = nextOffset;
@@ -976,8 +984,8 @@ UIComponent({
         return;
       }
 
-      const axisKey = orientation === 'x' ? '_scrollLeft' : '_scrollTop';
-      const withAnimation = behavior === 'smooth';
+      const axisKey = orientation === "x" ? "_scrollLeft" : "_scrollTop";
+      const withAnimation = behavior === "smooth";
 
       this.setData({
         [axisKey]: nextOffset,
@@ -1014,7 +1022,7 @@ UIComponent({
         },
         () => {
           this.updateIndicatorStyle();
-        },
+        }
       );
 
       instance._tapSwitchTimer = setTimeout(() => {
@@ -1024,7 +1032,7 @@ UIComponent({
           },
           () => {
             this.updateIndicatorStyle();
-          },
+          }
         );
         instance._tapSwitchTimer = undefined;
       }, TAP_SWITCH_DURATION);
@@ -1038,7 +1046,7 @@ UIComponent({
       const orientation = resolveOrientationByPlacement(placement);
       const detail = resolveScrollDetail(e.detail);
       const nextOffset =
-        orientation === 'x' ? detail.scrollLeft : detail.scrollTop;
+        orientation === "x" ? detail.scrollLeft : detail.scrollTop;
       const instance = this as typeof this & {
         _liveScrollTop?: number;
         _liveScrollLeft?: number;
@@ -1095,7 +1103,7 @@ UIComponent({
           ? this.data.value
           : this.data._innerValue;
       if (activeValue === item.value) {
-        this.ensureTabVisible(index, this.resolveTapSide(index), 'smooth');
+        this.ensureTabVisible(index, this.resolveTapSide(index), "smooth");
         return;
       }
 
@@ -1109,21 +1117,21 @@ UIComponent({
           },
           () => {
             this.recomputeVirtualTabs();
-            this.ensureTabVisible(index, preferSide, 'smooth');
-          },
+            this.ensureTabVisible(index, preferSide, "smooth");
+          }
         );
       } else {
-        this.ensureTabVisible(index, preferSide, 'smooth');
+        this.ensureTabVisible(index, preferSide, "smooth");
         this.updateIndicatorStyle();
       }
 
-      this.triggerEvent('change', {
+      this.triggerEvent("change", {
         value: item.value,
       });
     },
   },
 });
 
-export { tabs } from '@srcube-ui/styles/components/tabs/style';
-export type { TabsMiniProps } from './props';
-export { tabsMiniProps } from './props';
+export { tabs } from "@srcube-ui/styles/components/tabs/style";
+export type { TabsMiniProps } from "./props";
+export { tabsMiniProps } from "./props";

@@ -1,4 +1,7 @@
-import type { TabsClassNames, TabsVariants } from '@srcube-ui/styles/components/tabs/style';
+import type {
+  TabsClassNames,
+  TabsVariants,
+} from "@srcube-ui/styles/components/tabs/style";
 
 export type TabsMiniValue = string | number;
 
@@ -24,15 +27,19 @@ export type TabsMiniProps = TabsVariants & {
 export const tabsMiniProps = {
   orientation: {
     type: null,
-    value: 'x',
+    value: "x",
   },
   color: {
     type: null,
-    value: 'default',
+    value: "default",
+  },
+  tone: {
+    type: null,
+    value: "default",
   },
   variant: {
     type: null,
-    value: 'default',
+    value: "default",
   },
   placement: {
     type: null,
@@ -40,11 +47,11 @@ export const tabsMiniProps = {
   },
   size: {
     type: null,
-    value: 'md',
+    value: "md",
   },
   radius: {
     type: null,
-    value: 'md',
+    value: "md",
   },
   items: {
     type: Array,
@@ -76,11 +83,11 @@ export const tabsMiniProps = {
   },
   className: {
     type: String,
-    value: '',
+    value: "",
   },
   classNames: { type: Object, value: {} },
   style: {
     type: String,
-    value: '',
+    value: "",
   },
 } as const;
