@@ -16,3 +16,7 @@ it('uses md as default radius', () => {
 it('uses default as default color', () => {
   expect(cardMiniProps.color.value).toBe('default');
 });
+
+it('uses default as default tone', () => {
+  expect(cardMiniProps.tone.value).toBe('default');
+});

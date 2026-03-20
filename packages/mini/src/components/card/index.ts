@@ -16,6 +16,7 @@ UIComponent({
     $classNames(data: CardMiniData) {
       const slots = card({
         color: data.color,
+        tone: data.tone,
         size: data.size,
         radius: data.radius,
       });

@@ -34,3 +34,7 @@ it('uses false as default isClosable value', () => {
 it('uses false as default isAutoPlay value', () => {
   expect(noticeBarMiniProps.isAutoPlay.value).toBe(false);
 });
+
+it('uses default as default tone value', () => {
+  expect(noticeBarMiniProps.tone.value).toBe('default');
+});

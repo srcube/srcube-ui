@@ -27,6 +27,7 @@ const marqueeDurationOptions = [
 function NoticeBarDemo() {
   const [switchInterval, setSwitchInterval] = React.useState(2600);
   const [marqueeDuration, setMarqueeDuration] = React.useState(5200);
+  const [tone, setTone] = React.useState<'default' | 'dark'>('default');
   const noticeItems = [
     '系统维护中，部分功能可能受影响。',
     '预计 02:30 恢复服务。',
@@ -39,8 +40,30 @@ function NoticeBarDemo() {
 
       <div className="space-y-6 p-4">
         <Card>
+          <div className="text-sm font-semibold">Tone</div>
+          <div className="mt-3 flex gap-2">
+            <Button
+              size="sm"
+              color={tone === 'default' ? 'primary' : 'default'}
+              variant={tone === 'default' ? 'solid' : 'flat'}
+              onTap={() => setTone('default')}
+            >
+              default
+            </Button>
+            <Button
+              size="sm"
+              tone="dark"
+              variant={tone === 'dark' ? 'solid' : 'flat'}
+              onTap={() => setTone('dark')}
+            >
+              dark
+            </Button>
+          </div>
+        </Card>
+
+        <Card>
           <div className="text-sm font-semibold">Basic</div>
-          <NoticeBar className="mt-3" icon="!" text="系统维护中，部分功能可能受影响。" />
+          <NoticeBar className="mt-3" icon="!" text="系统维护中，部分功能可能受影响。" tone={tone} />
         </Card>
 
         <Card>
@@ -50,11 +73,13 @@ function NoticeBarDemo() {
               icon="!"
               items={noticeItems}
               isAutoPlay
+              tone={tone}
               switchInterval={switchInterval}
               marqueeDuration={marqueeDuration}
             />
             <NoticeBar
               color="info"
+              tone={tone}
               text="这是一条超长文案示例，用于展示从右向左移动的文字轮播动画。"
               isMarquee
               marqueeDuration={marqueeDuration}
@@ -97,20 +122,20 @@ function NoticeBarDemo() {
         <Card>
           <div className="text-sm font-semibold">Colors</div>
           <div className="mt-3 space-y-2">
-            <NoticeBar color="default" text="默认提示" />
-            <NoticeBar color="info" text="信息提示" />
-            <NoticeBar color="success" text="成功提示" />
-            <NoticeBar color="warning" text="警告提示" />
-            <NoticeBar color="danger" text="危险提示" />
+            <NoticeBar color="default" tone={tone} text="默认提示" />
+            <NoticeBar color="info" tone={tone} text="信息提示" />
+            <NoticeBar color="success" tone={tone} text="成功提示" />
+            <NoticeBar color="warning" tone={tone} text="警告提示" />
+            <NoticeBar color="danger" tone={tone} text="危险提示" />
           </div>
         </Card>
 
         <Card>
           <div className="text-sm font-semibold">Sizes / Closable</div>
           <div className="mt-3 space-y-2">
-            <NoticeBar size="sm" text="Small" isClosable />
-            <NoticeBar size="md" text="Medium" action={<span>查看</span>} isClosable />
-            <NoticeBar size="lg" text="Large" isClosable />
+            <NoticeBar size="sm" tone={tone} text="Small" isClosable />
+            <NoticeBar size="md" tone={tone} text="Medium" action={<span>查看</span>} isClosable />
+            <NoticeBar size="lg" tone={tone} text="Large" isClosable />
           </div>
         </Card>
       </div>

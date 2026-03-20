@@ -16,6 +16,7 @@ export type NoticeBarMiniProps = NoticeBarVariants & {
   marqueeDuration?: number;
   isVisible?: boolean;
   defaultVisible?: boolean;
+  tone?: 'default' | 'dark';
   className?: string;
   classNames?: Partial<NoticeBarMiniClassNames>;
   style?: string;
@@ -35,6 +36,7 @@ export const noticeBarMiniProps = {
   isVisible: { type: Boolean, value: true },
   defaultVisible: { type: Boolean, value: true },
   color: { type: null, value: 'default' },
+  tone: { type: null, value: 'default' },
   size: { type: null, value: 'md' },
   className: { type: String, value: '' },
   classNames: { type: Object, value: {} },

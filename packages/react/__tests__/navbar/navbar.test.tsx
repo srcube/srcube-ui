@@ -51,3 +51,10 @@ it('keeps centered title class when using default back', () => {
   expect(container.innerHTML).toContain('left-1/2');
   expect(container.innerHTML).toContain('-translate-x-1/2');
 });
+
+it('supports dark tone', () => {
+  const { container } = render(<Navbar title="Dark" tone="dark" />);
+
+  expect(container.innerHTML).toContain('bg-zinc-950');
+  expect(container.innerHTML).toContain('text-white');
+});

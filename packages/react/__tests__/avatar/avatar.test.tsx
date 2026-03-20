@@ -100,3 +100,9 @@ it('keeps radius classes on root and skeleton placeholder', () => {
   const placeholder = container.querySelector('div[aria-hidden]');
   expect(placeholder?.className ?? '').toContain('rounded-2xl');
 });
+
+it('supports dark tone fallback', () => {
+  const { container } = render(<Avatar name="Dark" tone="dark" />);
+
+  expect(container.innerHTML).toContain('#52525b');
+});

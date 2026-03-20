@@ -10,6 +10,7 @@ export type CardMiniProps = CardVariants & {
 
 export const cardMiniProps = {
   color: { type: null, value: 'default' },
+  tone: { type: null, value: 'default' },
   size: { type: null, value: 'md' },
   radius: { type: null, value: 'md' },
   hasHeader: { type: Boolean, value: false },

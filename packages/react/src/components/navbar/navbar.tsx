@@ -9,6 +9,7 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarReactProps>(
       withBack = false,
       startContent,
       endContent,
+      tone,
       size,
       isBordered,
       hasSafeTop,
@@ -23,12 +24,13 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarReactProps>(
     const slots = React.useMemo(
       () =>
         navbar({
+          tone,
           size,
           isBordered,
           hasSafeTop,
           titleAlign,
         }),
-      [hasSafeTop, isBordered, size, titleAlign],
+      [hasSafeTop, isBordered, size, titleAlign, tone],
     );
 
     const handleBackClick = React.useCallback(

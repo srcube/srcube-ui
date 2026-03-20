@@ -12,6 +12,7 @@
 | Prop | 说明 | 类型 | 默认值 | 平台 |
 | --- | --- | --- | --- | --- |
 | color | 颜色主题 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` | 全平台 |
+| tone | 明暗主题 | `"default" \| "dark"` | `"default"` | 全平台 |
 | size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` | 全平台 |
 | radius | 圆角 | `"none" \| "sm" \| "md" \| "lg" \| "full"` | `"md"` | 全平台 |
 | header | 头部内容 | `ReactNode` | - | React |

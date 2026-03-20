@@ -16,6 +16,7 @@ function NavbarDemo() {
   const [titleAlign, setTitleAlign] = useState<'start' | 'center' | 'end'>(
     'center',
   );
+  const [tone, setTone] = useState<'default' | 'dark'>('default');
 
   return (
     <main className="min-h-screen bg-slate-100 pb-16 text-slate-900">
@@ -23,8 +24,40 @@ function NavbarDemo() {
 
       <div className="space-y-6 p-4">
         <Card>
+          <div className="text-sm font-semibold">Tone</div>
+          <div className="mt-3 flex gap-2">
+            <Button
+              size="sm"
+              color={tone === 'default' ? 'primary' : 'default'}
+              variant={tone === 'default' ? 'solid' : 'flat'}
+              onTap={() => {
+                setTone('default');
+              }}
+            >
+              default
+            </Button>
+            <Button
+              size="sm"
+              tone="dark"
+              color={tone === 'dark' ? 'default' : 'default'}
+              variant={tone === 'dark' ? 'solid' : 'flat'}
+              onTap={() => {
+                setTone('dark');
+              }}
+            >
+              dark
+            </Button>
+          </div>
+        </Card>
+
+        <Card>
           <div className="text-sm font-semibold">Basic</div>
-          <Navbar className="mt-3" title="订单详情" titleAlign={titleAlign} />
+          <Navbar
+            className="mt-3"
+            title="订单详情"
+            titleAlign={titleAlign}
+            tone={tone}
+          />
         </Card>
 
         <Card>
@@ -70,6 +103,7 @@ function NavbarDemo() {
             title="消息"
             withBack
             titleAlign={titleAlign}
+            tone={tone}
             onBack={(event) => {
               console.log('Navbar onBack', event.type);
             }}
@@ -88,9 +122,9 @@ function NavbarDemo() {
         <Card>
           <div className="text-sm font-semibold">Sizes</div>
           <div className="mt-3 space-y-2">
-            <Navbar size="sm" title="Small" titleAlign={titleAlign} />
-            <Navbar size="md" title="Medium" titleAlign={titleAlign} />
-            <Navbar size="lg" title="Large" titleAlign={titleAlign} />
+            <Navbar size="sm" title="Small" titleAlign={titleAlign} tone={tone} />
+            <Navbar size="md" title="Medium" titleAlign={titleAlign} tone={tone} />
+            <Navbar size="lg" title="Large" titleAlign={titleAlign} tone={tone} />
           </div>
         </Card>
       </div>

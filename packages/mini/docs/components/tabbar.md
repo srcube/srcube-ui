@@ -13,6 +13,7 @@
 | defaultValue | 默认值（非受控） | `string \| number \| null` | 首个可用项 | 全平台 |
 | size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` | 全平台 |
 | color | 主题色 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` | 全平台 |
+| tone | 明暗主题 | `"default" \| "dark"` | `"default"` | 全平台 |
 | isBordered | 是否显示上边框 | `boolean` | `true` | 全平台 |
 | onValueChange / bind:change | 选中项变化 | React: `(value) => void`；Mini: `event.detail.value` | - | 全平台 |
 | className | 根节点类名 | `string` | - | 全平台 |

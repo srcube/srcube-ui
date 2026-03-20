@@ -72,6 +72,7 @@ export const Tabbar = React.forwardRef<HTMLDivElement, TabbarReactProps>(
       defaultValue,
       size,
       color,
+      tone,
       isBordered,
       className,
       classNames,
@@ -100,10 +101,11 @@ export const Tabbar = React.forwardRef<HTMLDivElement, TabbarReactProps>(
     const slots = React.useMemo(
       () =>
         tabbar({
+          tone,
           size,
           isBordered,
         }),
-      [isBordered, size],
+      [isBordered, size, tone],
     );
 
     const handlePress = React.useCallback(
@@ -134,6 +136,7 @@ export const Tabbar = React.forwardRef<HTMLDivElement, TabbarReactProps>(
               isActive,
               isDisabled: Boolean(item.isDisabled),
               color: resolvedColor,
+              tone,
             });
             const badge = resolveBadge(item.badge);
 

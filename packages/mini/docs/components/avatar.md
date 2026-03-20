@@ -21,6 +21,7 @@
 | size | 尺寸 | `'sm' | 'md' | 'lg' | 'xl'` | `'md'` |
 | radius | 圆角 | `'none' | 'sm' | 'md' | 'lg' | 'full'` | `'full'` |
 | color | 兜底背景色 | `'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'` | `'default'` |
+| tone | 明暗主题 | `'default' | 'dark'` | `'default'` |
 | isBordered | 是否显示描边 | `boolean` | `false` |
 | className | 根节点类名 | `string` | `''` |
 | classNames | 槽位类名覆盖 | `Partial<AvatarClassNames>` | `{}` |

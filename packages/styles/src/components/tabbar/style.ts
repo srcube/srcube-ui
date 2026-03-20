@@ -6,7 +6,7 @@ import {
 
 export const tabbar = tv({
   slots: {
-    base: 'w-full bg-white',
+    base: 'w-full',
     list: 'flex w-full items-stretch',
     item: 'flex min-w-0 flex-1 items-center justify-center px-2 transition-colors',
     main: 'relative inline-flex min-w-0 flex-col items-center justify-center gap-1',
@@ -18,6 +18,10 @@ export const tabbar = tv({
       'inline-flex min-h-4 min-w-4 items-center justify-center rounded-full bg-danger px-1 text-[10px] font-medium leading-none text-white',
   },
   variants: {
+    tone: {
+      default: {},
+      dark: {},
+    },
     size: {
       sm: {
         item: 'h-12',
@@ -46,12 +50,41 @@ export const tabbar = tv({
     },
     isBordered: {
       true: {
-        base: 'border-t border-slate-200',
+        base: 'border-t',
       },
       false: {},
     },
   },
+  compoundVariants: [
+    {
+      tone: 'default',
+      class: {
+        base: 'bg-white',
+      },
+    },
+    {
+      tone: 'dark',
+      class: {
+        base: 'bg-zinc-950',
+      },
+    },
+    {
+      tone: 'default',
+      isBordered: true,
+      class: {
+        base: 'border-slate-200',
+      },
+    },
+    {
+      tone: 'dark',
+      isBordered: true,
+      class: {
+        base: 'border-zinc-800',
+      },
+    },
+  ],
   defaultVariants: {
+    tone: 'default',
     size: 'md',
     isBordered: true,
   },
@@ -76,47 +109,100 @@ export const tabbarItemState = tv({
       warning: '',
       danger: '',
     },
+    tone: {
+      default: '',
+      dark: '',
+    },
   },
   compoundVariants: [
     {
       isActive: true,
       color: 'default',
+      tone: 'default',
       class: 'text-slate-900',
     },
     {
       isActive: false,
+      tone: 'default',
       class: 'text-slate-500',
     },
     {
       isActive: true,
+      color: 'default',
+      tone: 'dark',
+      class: 'text-white',
+    },
+    {
+      isActive: false,
+      tone: 'dark',
+      class: 'text-zinc-400',
+    },
+    {
+      isActive: true,
       color: 'primary',
+      tone: 'default',
       class: 'text-primary',
     },
     {
       isActive: true,
       color: 'secondary',
+      tone: 'default',
       class: 'text-secondary',
     },
     {
       isActive: true,
       color: 'success',
+      tone: 'default',
       class: 'text-success',
     },
     {
       isActive: true,
       color: 'warning',
+      tone: 'default',
       class: 'text-warning',
     },
     {
       isActive: true,
       color: 'danger',
+      tone: 'default',
       class: 'text-danger',
+    },
+    {
+      isActive: true,
+      color: 'primary',
+      tone: 'dark',
+      class: 'text-primary-300',
+    },
+    {
+      isActive: true,
+      color: 'secondary',
+      tone: 'dark',
+      class: 'text-secondary-300',
+    },
+    {
+      isActive: true,
+      color: 'success',
+      tone: 'dark',
+      class: 'text-success-300',
+    },
+    {
+      isActive: true,
+      color: 'warning',
+      tone: 'dark',
+      class: 'text-warning-300',
+    },
+    {
+      isActive: true,
+      color: 'danger',
+      tone: 'dark',
+      class: 'text-danger-300',
     },
   ],
   defaultVariants: {
     isActive: false,
     isDisabled: false,
     color: 'default',
+    tone: 'default',
   },
 });
 

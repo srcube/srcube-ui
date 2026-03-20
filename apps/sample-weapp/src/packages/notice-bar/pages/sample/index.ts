@@ -1,5 +1,6 @@
 Page({
   data: {
+    tone: 'default' as 'default' | 'dark',
     visible: true,
     noticeItems: [
       '系统维护中，部分功能可能受影响。',
@@ -27,6 +28,25 @@ Page({
   ) {
     this.setData({
       visible: Boolean(event.detail?.isVisible),
+    });
+  },
+
+  handleToneTap(
+    event: WechatMiniprogram.TouchEvent & {
+      currentTarget: {
+        dataset: {
+          tone?: 'default' | 'dark';
+        };
+      };
+    },
+  ) {
+    const tone = event.currentTarget?.dataset?.tone;
+    if (!tone) {
+      return;
+    }
+
+    this.setData({
+      tone,
     });
   },
 

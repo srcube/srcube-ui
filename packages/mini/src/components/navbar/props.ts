@@ -10,6 +10,7 @@ export type NavbarMiniProps = NavbarVariants & {
 
 export const navbarMiniProps = {
   title: { type: String, value: '' },
+  tone: { type: null, value: 'default' },
   size: { type: null, value: 'md' },
   isBordered: { type: Boolean, value: true },
   hasSafeTop: { type: Boolean, value: false },

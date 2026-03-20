@@ -54,6 +54,10 @@ it('uses auto as default fallback theme', () => {
   expect(avatarMiniProps.fallbackTheme.value).toBe('auto');
 });
 
+it('uses default as default tone', () => {
+  expect(avatarMiniProps.tone.value).toBe('default');
+});
+
 it('maps sr-skeleton to sibling mini component', () => {
   const json = JSON.parse(
     readFileSync('packages/mini/src/components/avatar/index.json', 'utf8'),

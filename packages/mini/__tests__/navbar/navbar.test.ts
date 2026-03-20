@@ -44,6 +44,10 @@ it('uses center as default titleAlign value', () => {
   expect(navbarMiniProps.titleAlign.value).toBe('center');
 });
 
+it('uses default as default tone value', () => {
+  expect(navbarMiniProps.tone.value).toBe('default');
+});
+
 it('uses false as default withBack value', () => {
   expect(navbarMiniProps.withBack.value).toBe(false);
 });

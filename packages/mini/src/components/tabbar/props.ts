@@ -15,12 +15,14 @@ export type TabbarMiniProps = TabbarVariants & {
   value?: TabbarMiniValue | null;
   defaultValue?: TabbarMiniValue | null;
   color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+  tone?: 'default' | 'dark';
   className?: string;
   classNames?: Partial<TabbarMiniClassNames>;
   style?: string;
 };
 
 export const tabbarMiniProps = {
+  tone: { type: null, value: 'default' },
   size: { type: null, value: 'md' },
   isBordered: { type: Boolean, value: true },
   items: { type: Array, value: [] },

@@ -2,7 +2,8 @@
   "$schema": "https://vite.icebreaker.top/page.json",
   "usingComponents": {
     "sr-navbar": "@srcube-ui/mini/navbar/index",
-    "sr-avatar": "@srcube-ui/mini/avatar/index"
+    "sr-avatar": "@srcube-ui/mini/avatar/index",
+    "sr-button": "@srcube-ui/mini/button/index"
   },
   "navigationStyle": "custom",
   "navigationBarTitleText": "Avatar",

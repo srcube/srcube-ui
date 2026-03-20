@@ -156,6 +156,7 @@ UIComponent({
   computed: {
     $classNames(data: TabbarMiniData) {
       const slots = tabbar({
+        tone: data.tone,
         size: data.size,
         isBordered: Boolean(data.isBordered),
       });
@@ -196,6 +197,7 @@ UIComponent({
             isActive: activeValue === item.value,
             isDisabled: Boolean(item.isDisabled),
             color,
+            tone: data.tone,
           }),
         };
       });

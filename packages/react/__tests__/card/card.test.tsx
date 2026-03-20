@@ -41,3 +41,10 @@ it('applies color classes without variant', () => {
   expect(container.innerHTML).toContain('bg-primary/10');
   expect(container.innerHTML).toContain('text-primary');
 });
+
+it('supports dark tone', () => {
+  const { container } = render(<Card tone="dark">Content</Card>);
+
+  expect(container.innerHTML).toContain('bg-zinc-900');
+  expect(container.innerHTML).toContain('text-white');
+});

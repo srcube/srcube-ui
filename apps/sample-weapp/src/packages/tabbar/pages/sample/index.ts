@@ -1,5 +1,6 @@
 Page({
   data: {
+    tone: 'default' as 'default' | 'dark',
     value: 'home',
     items: [
       { value: 'home', label: '首页', icon: '⌂', badge: true },
@@ -33,6 +34,25 @@ Page({
 
     this.setData({
       value: nextValue,
+    });
+  },
+
+  handleToneTap(
+    event: WechatMiniprogram.TouchEvent & {
+      currentTarget: {
+        dataset: {
+          tone?: 'default' | 'dark';
+        };
+      };
+    },
+  ) {
+    const tone = event.currentTarget?.dataset?.tone;
+    if (!tone) {
+      return;
+    }
+
+    this.setData({
+      tone,
     });
   },
 });

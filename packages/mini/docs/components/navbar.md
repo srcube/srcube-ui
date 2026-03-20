@@ -11,6 +11,7 @@
 | title | 标题 | React: `ReactNode`；Mini: `string` | - | 全平台 |
 | titleAlign | 标题对齐 | `"start" \| "center" \| "end"`（兼容 `"left" \| "right"`） | `"center"` | 全平台 |
 | withBack | 是否启用默认返回按钮（start fallback） | `boolean` | `false` | 全平台 |
+| tone | 明暗主题 | `"default" \| "dark"` | `"default"` | 全平台 |
 | size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` | 全平台 |
 | isBordered | 是否显示底边框 | `boolean` | `true` | 全平台 |
 | hasSafeTop | 是否增加顶部安全区内边距 | `boolean` | `false` | 全平台 |

@@ -70,6 +70,7 @@ UIComponent({
         size: data.size,
         radius: data.radius,
         color: data.color,
+        tone: data.tone,
         isBordered: Boolean(data.isBordered),
       });
       const custom = (data.classNames ?? {}) as Record<

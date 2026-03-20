@@ -40,6 +40,7 @@ export function Demo() {
 | isVisible | 受控显示状态 | `boolean` | `true` |
 | defaultVisible | 非受控初始显示状态 | `boolean` | `true` |
 | color | 色彩 | `'default' \| 'info' \| 'success' \| 'warning' \| 'danger'` | `'default'` |
+| tone | 明暗主题 | `'default' \| 'dark'` | `'default'` |
 | size | 尺寸 | `'sm' \| 'md' \| 'lg'` | `'md'` |
 | className | 根节点类名 | `string` | `''` |
 | classNames | 槽位类名覆盖 | `Partial<NoticeBarClassNames>` | `{}` |

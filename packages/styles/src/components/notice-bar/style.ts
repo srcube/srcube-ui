@@ -21,21 +21,15 @@ export const noticeBar = tv({
   },
   variants: {
     color: {
-      default: {
-        base: 'border-slate-200 bg-slate-50 text-slate-700',
-      },
-      info: {
-        base: 'border-primary/30 bg-primary/10 text-primary',
-      },
-      success: {
-        base: 'border-success/30 bg-success/10 text-success',
-      },
-      warning: {
-        base: 'border-warning/30 bg-warning/10 text-warning',
-      },
-      danger: {
-        base: 'border-danger/30 bg-danger/10 text-danger',
-      },
+      default: {},
+      info: {},
+      success: {},
+      warning: {},
+      danger: {},
+    },
+    tone: {
+      default: {},
+      dark: {},
     },
     size: {
       sm: {
@@ -61,8 +55,81 @@ export const noticeBar = tv({
       },
     },
   },
+  compoundVariants: [
+    {
+      color: 'default',
+      tone: 'default',
+      class: {
+        base: 'border-slate-200 bg-slate-50 text-slate-700',
+      },
+    },
+    {
+      color: 'default',
+      tone: 'dark',
+      class: {
+        base: 'border-zinc-700 bg-zinc-900 text-zinc-100',
+      },
+    },
+    {
+      color: 'info',
+      tone: 'default',
+      class: {
+        base: 'border-primary/30 bg-primary/10 text-primary',
+      },
+    },
+    {
+      color: 'info',
+      tone: 'dark',
+      class: {
+        base: 'border-primary-800 bg-primary-950 text-primary-100',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'default',
+      class: {
+        base: 'border-success/30 bg-success/10 text-success',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      class: {
+        base: 'border-success-800 bg-success-950 text-success-100',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'default',
+      class: {
+        base: 'border-warning/30 bg-warning/10 text-warning',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        base: 'border-warning-800 bg-warning-950 text-warning-100',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'default',
+      class: {
+        base: 'border-danger/30 bg-danger/10 text-danger',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        base: 'border-danger-800 bg-danger-950 text-danger-100',
+      },
+    },
+  ],
   defaultVariants: {
     color: 'default',
+    tone: 'default',
     size: 'md',
   },
 });

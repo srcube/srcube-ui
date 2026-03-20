@@ -124,6 +124,7 @@ UIComponent({
     $classNames(data: NoticeBarMiniData) {
       const slots = noticeBar({
         color: data.color,
+        tone: data.tone,
         size: data.size,
       });
       const custom = (data.classNames ?? {}) as Record<string, string | undefined>;

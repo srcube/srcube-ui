@@ -47,24 +47,16 @@ export const avatar = tv({
       },
     },
     color: {
-      default: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,#cbd5e1,#64748b)]',
-      },
-      primary: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-primary),color-mix(in_srgb,var(--color-primary)_70%,black))]',
-      },
-      secondary: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-secondary),color-mix(in_srgb,var(--color-secondary)_70%,black))]',
-      },
-      success: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-success),color-mix(in_srgb,var(--color-success)_70%,black))]',
-      },
-      warning: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-warning),color-mix(in_srgb,var(--color-warning)_70%,black))] text-black',
-      },
-      danger: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-danger),color-mix(in_srgb,var(--color-danger)_70%,black))]',
-      },
+      default: {},
+      primary: {},
+      secondary: {},
+      success: {},
+      warning: {},
+      danger: {},
+    },
+    tone: {
+      default: {},
+      dark: {},
     },
     isBordered: {
       true: {
@@ -73,10 +65,97 @@ export const avatar = tv({
       false: {},
     },
   },
+  compoundVariants: [
+    {
+      color: 'default',
+      tone: 'default',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,#cbd5e1,#64748b)]',
+      },
+    },
+    {
+      color: 'default',
+      tone: 'dark',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,#52525b,#09090b)]',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'default',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-primary),color-mix(in_srgb,var(--color-primary)_70%,black))]',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-primary-600),color-mix(in_srgb,var(--color-primary-600)_68%,black))]',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'default',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-secondary),color-mix(in_srgb,var(--color-secondary)_70%,black))]',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-secondary-600),color-mix(in_srgb,var(--color-secondary-600)_68%,black))]',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'default',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-success),color-mix(in_srgb,var(--color-success)_70%,black))]',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-success-600),color-mix(in_srgb,var(--color-success-600)_68%,black))]',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'default',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-warning),color-mix(in_srgb,var(--color-warning)_70%,black))] text-black',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-warning-600),color-mix(in_srgb,var(--color-warning-600)_68%,black))] text-white',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'default',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-danger),color-mix(in_srgb,var(--color-danger)_70%,black))]',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-danger-600),color-mix(in_srgb,var(--color-danger-600)_68%,black))]',
+      },
+    },
+  ],
   defaultVariants: {
     size: 'md',
     radius: 'full',
     color: 'default',
+    tone: 'default',
     isBordered: false,
   },
 });

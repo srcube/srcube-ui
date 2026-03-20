@@ -44,6 +44,7 @@ export const NoticeBar = React.forwardRef<HTMLDivElement, NoticeBarReactProps>(
       isVisible,
       defaultVisible = true,
       color,
+      tone,
       size,
       className,
       classNames,
@@ -100,9 +101,10 @@ export const NoticeBar = React.forwardRef<HTMLDivElement, NoticeBarReactProps>(
       () =>
         noticeBar({
           color,
+          tone,
           size,
         }),
-      [color, size],
+      [color, size, tone],
     );
 
     const setVisible = React.useCallback(

@@ -13,24 +13,16 @@ export const card = tv({
   },
   variants: {
     color: {
-      default: {
-        base: 'bg-white text-slate-900',
-      },
-      primary: {
-        base: 'bg-primary/10 text-primary',
-      },
-      secondary: {
-        base: 'bg-secondary/10 text-secondary',
-      },
-      success: {
-        base: 'bg-success/10 text-success',
-      },
-      warning: {
-        base: 'bg-warning/10 text-warning',
-      },
-      danger: {
-        base: 'bg-danger/10 text-danger',
-      },
+      default: {},
+      primary: {},
+      secondary: {},
+      success: {},
+      warning: {},
+      danger: {},
+    },
+    tone: {
+      default: {},
+      dark: {},
     },
     size: {
       sm: {
@@ -67,8 +59,95 @@ export const card = tv({
       },
     },
   },
+  compoundVariants: [
+    {
+      color: 'default',
+      tone: 'default',
+      class: {
+        base: 'bg-white text-slate-900',
+      },
+    },
+    {
+      color: 'default',
+      tone: 'dark',
+      class: {
+        base: 'bg-zinc-900 text-white',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'default',
+      class: {
+        base: 'bg-primary/10 text-primary',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        base: 'bg-primary-950 text-primary-100',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'default',
+      class: {
+        base: 'bg-secondary/10 text-secondary',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        base: 'bg-secondary-950 text-secondary-100',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'default',
+      class: {
+        base: 'bg-success/10 text-success',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      class: {
+        base: 'bg-success-950 text-success-100',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'default',
+      class: {
+        base: 'bg-warning/10 text-warning',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        base: 'bg-warning-950 text-warning-100',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'default',
+      class: {
+        base: 'bg-danger/10 text-danger',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        base: 'bg-danger-950 text-danger-100',
+      },
+    },
+  ],
   defaultVariants: {
     color: 'default',
+    tone: 'default',
     size: 'md',
     radius: 'md',
   },

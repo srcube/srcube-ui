@@ -27,6 +27,7 @@ export const avatarMiniProps = {
   size: { type: null, value: 'md' },
   radius: { type: null, value: 'full' },
   color: { type: null, value: 'default' },
+  tone: { type: null, value: 'default' },
   isBordered: { type: Boolean, value: false },
   className: { type: String, value: '' },
   classNames: { type: Object, value: {} },

@@ -1,6 +1,7 @@
 import { Button } from '@srcube-ui/react';
 import { Card } from '@srcube-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
+import { useState } from 'react';
 import PageHeader from '@/components/page-header';
 
 export const Route = createFileRoute('/card')({
@@ -8,12 +9,37 @@ export const Route = createFileRoute('/card')({
 });
 
 function CardDemo() {
+  const [tone, setTone] = useState<'default' | 'dark'>('default');
+
   return (
     <main className="min-h-screen bg-slate-100 pb-safe-4 text-slate-900">
       <PageHeader title="Card" />
 
       <div className="space-y-6 p-4">
+        <div className="rounded-2xl bg-white p-4 shadow-sm">
+          <div className="text-sm font-semibold">Tone</div>
+          <div className="mt-3 flex gap-2">
+            <Button
+              size="sm"
+              color={tone === 'default' ? 'primary' : 'default'}
+              variant={tone === 'default' ? 'solid' : 'flat'}
+              onTap={() => setTone('default')}
+            >
+              default
+            </Button>
+            <Button
+              size="sm"
+              tone="dark"
+              variant={tone === 'dark' ? 'solid' : 'flat'}
+              onTap={() => setTone('dark')}
+            >
+              dark
+            </Button>
+          </div>
+        </div>
+
         <Card
+          tone={tone}
           header={<div>订单信息</div>}
           body={
             <div className="space-y-2 text-sm">
@@ -35,33 +61,34 @@ function CardDemo() {
         />
 
         <div className="grid grid-cols-1 gap-3">
-          <Card header={<div>Color: default</div>}>
+          <Card tone={tone} header={<div>Color: default</div>}>
             <div>默认样式</div>
           </Card>
-          <Card color="primary" header={<div>Color: primary</div>}>
+          <Card color="primary" tone={tone} header={<div>Color: primary</div>}>
             <div>主色样式</div>
           </Card>
-          <Card color="success" header={<div>Color: success</div>}>
+          <Card color="success" tone={tone} header={<div>Color: success</div>}>
             <div>成功色样式</div>
           </Card>
-          <Card color="warning" header={<div>Color: warning</div>}>
+          <Card color="warning" tone={tone} header={<div>Color: warning</div>}>
             <div>警告色样式</div>
           </Card>
         </div>
 
         <div className="grid grid-cols-1 gap-3">
-          <Card size="sm" radius="sm" header={<div>Small</div>}>
+          <Card size="sm" radius="sm" tone={tone} header={<div>Small</div>}>
             <div>size=sm / radius=sm</div>
           </Card>
           <Card
             size="md"
             radius="md"
             color="secondary"
+            tone={tone}
             header={<div>Medium</div>}
           >
             <div>size=md / radius=md</div>
           </Card>
-          <Card size="lg" radius="lg" color="danger" header={<div>Large</div>}>
+          <Card size="lg" radius="lg" color="danger" tone={tone} header={<div>Large</div>}>
             <div>size=lg / radius=lg</div>
           </Card>
         </div>

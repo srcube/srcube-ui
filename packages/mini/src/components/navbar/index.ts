@@ -15,6 +15,7 @@ UIComponent({
   computed: {
     $classNames(data: NavbarMiniProps) {
       const slots = navbar({
+        tone: data.tone,
         size: data.size,
         isBordered: Boolean(data.isBordered),
         hasSafeTop: Boolean(data.hasSafeTop),

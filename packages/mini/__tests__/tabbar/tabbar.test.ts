@@ -14,3 +14,7 @@ it('contains list render and tap binding', () => {
 it('uses true as default isBordered value', () => {
   expect(tabbarMiniProps.isBordered.value).toBe(true);
 });
+
+it('uses default as default tone value', () => {
+  expect(tabbarMiniProps.tone.value).toBe('default');
+});

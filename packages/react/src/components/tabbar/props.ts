@@ -22,6 +22,7 @@ export type TabbarReactProps = TabbarVariants &
     value?: TabbarValue | null;
     defaultValue?: TabbarValue | null;
     color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+    tone?: 'default' | 'dark';
     className?: string;
     classNames?: Partial<TabbarClassNames>;
     style?: React.CSSProperties;

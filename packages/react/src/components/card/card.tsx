@@ -9,6 +9,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardReactProps>(
       body,
       footer,
       color,
+      tone,
       size,
       radius,
       className,
@@ -22,10 +23,11 @@ export const Card = React.forwardRef<HTMLDivElement, CardReactProps>(
       () =>
         card({
           color,
+          tone,
           size,
           radius,
         }),
-      [color, radius, size],
+      [color, radius, size, tone],
     );
 
     const hasHeader = header !== undefined && header !== null;

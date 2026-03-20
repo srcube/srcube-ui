@@ -6,16 +6,28 @@ import {
 
 export const navbar = tv({
   slots: {
-    base: 'w-full bg-white',
+    base: 'w-full',
     inner: 'relative flex w-full items-center gap-3 p-2',
     start: 'flex min-w-0 shrink-0 items-center justify-start',
-    title: 'min-w-0 truncate font-semibold text-slate-900',
+    title: 'min-w-0 truncate font-semibold',
     end: 'flex min-w-0 shrink-0 items-center justify-end',
     placeholder: 'inline-flex h-10 w-10 shrink-0',
-    back: 'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-700 transition-colors duration-150 active:bg-slate-100',
+    back: 'inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors duration-150',
     _iBack: 'icon-chevron-left text-2xl leading-none',
   },
   variants: {
+    tone: {
+      default: {
+        base: 'bg-white text-slate-900',
+        title: 'text-slate-900',
+        back: 'text-slate-700 active:bg-slate-100',
+      },
+      dark: {
+        base: 'bg-zinc-950 text-white',
+        title: 'text-white',
+        back: 'text-zinc-200 active:bg-zinc-800',
+      },
+    },
     size: {
       sm: {
         inner: 'h-11',
@@ -32,7 +44,7 @@ export const navbar = tv({
     },
     isBordered: {
       true: {
-        base: 'border-b border-slate-200',
+        base: 'border-b',
       },
       false: {},
     },
@@ -63,11 +75,28 @@ export const navbar = tv({
     },
   },
   defaultVariants: {
+    tone: 'default',
     size: 'md',
     isBordered: true,
     hasSafeTop: false,
     titleAlign: 'center',
   },
+  compoundVariants: [
+    {
+      tone: 'default',
+      isBordered: true,
+      class: {
+        base: 'border-slate-200',
+      },
+    },
+    {
+      tone: 'dark',
+      isBordered: true,
+      class: {
+        base: 'border-zinc-800',
+      },
+    },
+  ],
 });
 
 export type NavbarVariants = VariantProps<typeof navbar>;

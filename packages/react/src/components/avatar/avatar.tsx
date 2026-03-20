@@ -34,6 +34,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarReactProps>(
       size,
       radius,
       color,
+      tone,
       isBordered,
       className,
       classNames,
@@ -57,9 +58,10 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarReactProps>(
           size,
           radius,
           color,
+          tone,
           isBordered,
         }),
-      [color, isBordered, radius, size],
+      [color, isBordered, radius, size, tone],
     );
 
     const initials = getInitials(name);

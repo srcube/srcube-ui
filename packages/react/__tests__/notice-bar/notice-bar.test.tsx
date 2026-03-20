@@ -52,3 +52,10 @@ it('switches notice texts automatically', () => {
 
   vi.useRealTimers();
 });
+
+it('supports dark tone', () => {
+  const { container } = render(<NoticeBar text="Dark Notice" tone="dark" />);
+
+  expect(container.innerHTML).toContain('bg-zinc-900');
+  expect(container.innerHTML).toContain('text-zinc-100');
+});

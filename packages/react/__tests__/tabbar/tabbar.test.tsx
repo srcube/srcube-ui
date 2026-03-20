@@ -52,3 +52,17 @@ it('renders dot and text badges', () => {
   expect(container.querySelector('.test-badge-dot')).toBeTruthy();
   expect(container.querySelector('.test-badge-content')?.textContent).toBe('99+');
 });
+
+it('supports dark tone', () => {
+  const { container } = render(
+    <Tabbar
+      tone="dark"
+      items={[
+        { value: 'home', label: 'Home' },
+        { value: 'msg', label: 'Message' },
+      ]}
+    />,
+  );
+
+  expect(container.innerHTML).toContain('bg-zinc-950');
+});

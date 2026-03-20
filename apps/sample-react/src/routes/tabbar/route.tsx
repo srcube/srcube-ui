@@ -1,4 +1,4 @@
-import { Tabbar } from '@srcube-ui/react';
+import { Button, Tabbar } from '@srcube-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import PageHeader from '@/components/page-header';
@@ -13,6 +13,7 @@ function Card({ children }: { children: React.ReactNode }) {
 
 function TabbarDemo() {
   const [value, setValue] = useState<'home' | 'msg' | 'me'>('home');
+  const [tone, setTone] = useState<'default' | 'dark'>('default');
 
   return (
     <main className="min-h-screen bg-slate-100 pb-20 text-slate-900">
@@ -20,9 +21,32 @@ function TabbarDemo() {
 
       <div className="space-y-6 p-4">
         <Card>
+          <div className="text-sm font-semibold">Tone</div>
+          <div className="mt-3 flex gap-2">
+            <Button
+              size="sm"
+              color={tone === 'default' ? 'primary' : 'default'}
+              variant={tone === 'default' ? 'solid' : 'flat'}
+              onTap={() => setTone('default')}
+            >
+              default
+            </Button>
+            <Button
+              size="sm"
+              tone="dark"
+              variant={tone === 'dark' ? 'solid' : 'flat'}
+              onTap={() => setTone('dark')}
+            >
+              dark
+            </Button>
+          </div>
+        </Card>
+
+        <Card>
           <div className="text-sm font-semibold">Basic</div>
           <Tabbar
             className="mt-3"
+            tone={tone}
             items={[
               {
                 value: 'home',
@@ -58,6 +82,7 @@ function TabbarDemo() {
           <div className="mt-3 space-y-2">
             <Tabbar
               color="primary"
+              tone={tone}
               items={[
                 { value: 'a', label: 'A', icon: <span className="icon-[mdi--alpha-a] text-base" aria-hidden /> },
                 { value: 'b', label: 'B', icon: <span className="icon-[mdi--alpha-b] text-base" aria-hidden /> },
@@ -65,6 +90,7 @@ function TabbarDemo() {
             />
             <Tabbar
               color="success"
+              tone={tone}
               size="sm"
               items={[
                 { value: 'a', label: 'A', icon: <span className="icon-[mdi--alpha-a] text-sm" aria-hidden /> },
