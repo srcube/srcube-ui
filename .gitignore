@@ -13,6 +13,7 @@ lib
 .out
 .svelte-kit
 .storybook-static
+packages/_storybook/storybook-static/
 .vite
 .vite-deps
 .cache
