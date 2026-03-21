@@ -1,6 +1,9 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 Page({
   data: {
-    tone: 'default' as 'default' | 'dark',
+    tone: 'default' as SampleTone,
     visible: true,
     noticeItems: [
       '系统维护中，部分功能可能受影响。',
@@ -21,6 +24,22 @@ Page({
     ],
   },
 
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({
+      tone,
+    });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
+  },
+
   handleVisibleChange(
     event: WechatMiniprogram.CustomEvent<{
       isVisible?: boolean;
@@ -28,25 +47,6 @@ Page({
   ) {
     this.setData({
       visible: Boolean(event.detail?.isVisible),
-    });
-  },
-
-  handleToneTap(
-    event: WechatMiniprogram.TouchEvent & {
-      currentTarget: {
-        dataset: {
-          tone?: 'default' | 'dark';
-        };
-      };
-    },
-  ) {
-    const tone = event.currentTarget?.dataset?.tone;
-    if (!tone) {
-      return;
-    }
-
-    this.setData({
-      tone,
     });
   },
 

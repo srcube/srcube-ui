@@ -1,5 +1,6 @@
-import { Button, ButtonGroup } from '@srcube-ui/react';
 import {
+  Button,
+  ButtonGroup,
   Picker,
   PickerDatetime,
   PickerDatetimeRange,
@@ -14,7 +15,19 @@ export const Route = createFileRoute('/picker')({
 });
 
 type PickerSize = 'sm' | 'md' | 'lg';
+type PickerColor =
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger';
 type PickerDatetimeMode = 'datetime' | 'date' | 'time';
+
+const pickerColorGroups: PickerColor[][] = [
+  ['default', 'primary', 'secondary'],
+  ['success', 'warning', 'danger'],
+];
 
 function Section({
   title,
@@ -38,28 +51,26 @@ function Section({
 
 function PickerDemo() {
   const [pickerSize, setPickerSize] = useState<PickerSize>('md');
-  const [singleValue, setSingleValue] = useState<Array<string | number | null>>([
-    'cq',
-  ]);
-  const [cascadeValue, setCascadeValue] = useState<Array<string | number | null>>([
-    'fruit',
-    'citrus',
-    'orange',
-  ]);
-  const [selectValue, setSelectValue] = useState<Array<string | number>>([
-    'design',
-    'develop',
-  ]);
-  const [datetimeMode, setDatetimeMode] = useState<PickerDatetimeMode>('datetime');
-  const [datetimeValue, setDatetimeValue] = useState<string | null>(
-    '2026-02-13 09:30:00',
+  const [pickerColor, setPickerColor] = useState<PickerColor>('primary');
+  const [singleValue, setSingleValue] = useState<Array<string | number | null>>(
+    [],
   );
+  const [clearableValue, setClearableValue] = useState<
+    Array<string | number | null>
+  >([]);
+  const [cascadeValue, setCascadeValue] = useState<
+    Array<string | number | null>
+  >([]);
+  const [selectValue, setSelectValue] = useState<Array<string | number>>([]);
+  const [datetimeMode, setDatetimeMode] =
+    useState<PickerDatetimeMode>('datetime');
+  const [datetimeValue, setDatetimeValue] = useState<string | null>(null);
   const [datetimeRangeValue, setDatetimeRangeValue] = useState<{
     start: string | null;
     end: string | null;
   }>({
-    start: '2026-02-13 09:30:00',
-    end: '2026-02-18 18:30:00',
+    start: null,
+    end: null,
   });
 
   const singleItems = useMemo(
@@ -218,6 +229,30 @@ function PickerDemo() {
           </ButtonGroup>
         </Section>
 
+        <Section
+          title="Color"
+          description="同步到 Field / Pickbox / Selectbox / Confirm"
+        >
+          <div className="space-y-2">
+            {pickerColorGroups.map((group) => (
+              <ButtonGroup key={group.join('-')} size="sm" isBlock>
+                {group.map((color) => (
+                  <Button
+                    key={color}
+                    color={pickerColor === color ? color : 'default'}
+                    variant={pickerColor === color ? 'solid' : 'flat'}
+                    onTap={() => {
+                      setPickerColor(color);
+                    }}
+                  >
+                    {color}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            ))}
+          </div>
+        </Section>
+
         <Section title="Datetime Mode" description="datetime / date / time">
           <ButtonGroup size="sm" isBlock>
             <Button
@@ -257,13 +292,33 @@ function PickerDemo() {
           <Picker
             label="城市"
             size={pickerSize}
-            color="primary"
+            color={pickerColor}
             items={singleItems}
-            value={singleValue}
             onValueChange={setSingleValue}
           />
           <div className="mt-2 text-xs text-slate-500">
             Value: {singleValue[0] ?? 'none'}
+          </div>
+        </Section>
+
+        <Section
+          title="Clearable"
+          description="基础 Picker 支持 isClearable，选中后可一键清空"
+        >
+          <Picker
+            label="可清空城市"
+            size={pickerSize}
+            color={pickerColor}
+            items={singleItems}
+            value={clearableValue}
+            isClearable
+            onValueChange={setClearableValue}
+            onClear={() => {
+              setClearableValue([]);
+            }}
+          />
+          <div className="mt-2 text-xs text-slate-500">
+            Value: {clearableValue[0] ?? 'none'}
           </div>
         </Section>
 
@@ -273,14 +328,14 @@ function PickerDemo() {
         >
           <Picker
             label="商品偏好"
-            color="secondary"
+            color={pickerColor}
             size={pickerSize}
             options={cascadeOptions}
             value={cascadeValue}
             onValueChange={setCascadeValue}
           />
           <div className="mt-2 text-xs text-slate-500">
-            Value: {cascadeValue.filter((item) => item != null).join(' / ')}
+            Value: {cascadeValue.filter((item) => item != null).join(' / ') || 'none'}
           </div>
         </Section>
 
@@ -290,7 +345,7 @@ function PickerDemo() {
         >
           <PickerSelect
             label="里程碑"
-            color="primary"
+            color={pickerColor}
             size={pickerSize}
             items={selectItems}
             value={selectValue}
@@ -298,7 +353,7 @@ function PickerDemo() {
             onValueChange={setSelectValue}
           />
           <div className="mt-2 text-xs text-slate-500">
-            Value: {selectValue.join(' / ')}
+            Value: {selectValue.join(' / ') || 'none'}
           </div>
         </Section>
 
@@ -308,7 +363,7 @@ function PickerDemo() {
         >
           <PickerDatetime
             label="日期时间"
-            color="success"
+            color={pickerColor}
             size={pickerSize}
             mode={datetimeMode}
             format={datetimeFormat}
@@ -326,7 +381,7 @@ function PickerDemo() {
         >
           <PickerDatetimeRange
             label="日期时间区间"
-            color="primary"
+            color={pickerColor}
             size={pickerSize}
             mode={datetimeMode}
             format={datetimeFormat}
@@ -334,7 +389,57 @@ function PickerDemo() {
             onValueChange={setDatetimeRangeValue}
           />
           <div className="mt-2 text-xs text-slate-500">
-            Value: {`${datetimeRangeValue.start || '--'} ~ ${datetimeRangeValue.end || '--'}`}
+            Value:{' '}
+            {`${datetimeRangeValue.start || '--'} ~ ${datetimeRangeValue.end || '--'}`}
+          </div>
+        </Section>
+
+        <Section
+          title="Default Value"
+          description="单独展示 defaultValue；其它示例均从空值开始"
+        >
+          <div className="space-y-4">
+            <Picker
+              label="默认城市"
+              color={pickerColor}
+              size={pickerSize}
+              items={singleItems}
+              defaultValue={['cd']}
+            />
+            <Picker
+              label="默认商品偏好"
+              color={pickerColor}
+              size={pickerSize}
+              options={cascadeOptions}
+              defaultValue={['fruit', 'citrus', 'orange']}
+            />
+            <PickerSelect
+              label="默认里程碑"
+              color={pickerColor}
+              size={pickerSize}
+              items={selectItems}
+              selectionMode="multiple"
+              defaultValue={['design', 'develop']}
+            />
+            <PickerDatetime
+              label="默认日期时间"
+              color={pickerColor}
+              size={pickerSize}
+              mode={datetimeMode}
+              format={datetimeFormat}
+              defaultValue="2026-02-13 09:30:00"
+            />
+            <PickerDatetimeRange
+              label="默认日期时间区间"
+              color={pickerColor}
+              size={pickerSize}
+              mode={datetimeMode}
+              format={datetimeFormat}
+              defaultValue={{
+                start: '2026-02-13 09:30:00',
+                end: '2026-02-18 18:30:00',
+              }}
+            />
           </div>
         </Section>
       </div>

@@ -29,6 +29,14 @@ function resolveSize(value: unknown): SwipeActionSize {
   return 'md';
 }
 
+function resolveTone(value: SwipeActionReactProps['tone']) {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
+function resolveButtonTone(value: SwipeActionReactProps['tone']) {
+  return resolveTone(value) === 'dark' ? 'dark' : 'light';
+}
+
 function resolveDefaultActionWidth(size: SwipeActionSize) {
   if (size === 'sm') {
     return 56;
@@ -162,6 +170,7 @@ export const SwipeAction = React.forwardRef<
     openDirection: openDirectionProp,
     defaultOpenDirection = 'none',
     color,
+    tone,
     size,
     isDisabled = false,
     className,
@@ -184,6 +193,7 @@ export const SwipeAction = React.forwardRef<
   );
 
   const resolvedSize = React.useMemo(() => resolveSize(size), [size]);
+  const resolvedTone = React.useMemo(() => resolveTone(tone), [tone]);
 
   const actionWidth = React.useMemo(
     () => resolveActionWidth(actionWidthProp, resolvedSize),
@@ -411,10 +421,11 @@ export const SwipeAction = React.forwardRef<
     () =>
       swipeAction({
         color,
+        tone: resolvedTone,
         size: resolvedSize,
         isDisabled,
       }),
-    [color, isDisabled, resolvedSize],
+    [color, isDisabled, resolvedSize, resolvedTone],
   );
 
   const classes = React.useMemo(
@@ -474,6 +485,7 @@ export const SwipeAction = React.forwardRef<
               className={`${classes.action} ${classes.actionButton} ${item.className ?? ''}`}
               style={{ width: actionWidth }}
               color={item.color ?? color}
+              tone={resolveButtonTone(resolvedTone)}
               size={resolvedSize}
               radius="none"
               variant="solid"

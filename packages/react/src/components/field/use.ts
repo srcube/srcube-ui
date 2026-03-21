@@ -1,6 +1,6 @@
+import { fieldStyle } from '@srcube-ui/styles/components/field';
 import * as React from 'react';
 import { useCallback, useEffect, useId, useMemo, useState } from 'react';
-import { fieldStyle } from '@srcube-ui/styles/components/field';
 import type { FieldLabelPlacement, FieldReactProps } from './props';
 
 function resolveLabelPlacement(
@@ -48,6 +48,7 @@ export function useField(props: UseFieldProps) {
     isLoading,
     isMultiline,
     color,
+    tone,
     variant,
     size,
     radius,
@@ -114,6 +115,7 @@ export function useField(props: UseFieldProps) {
     () =>
       fieldStyle({
         color,
+        tone,
         variant,
         size,
         radius,
@@ -127,6 +129,7 @@ export function useField(props: UseFieldProps) {
       }),
     [
       color,
+      tone,
       variant,
       size,
       radius,
@@ -153,6 +156,7 @@ export function useField(props: UseFieldProps) {
       requiredMark: slots.requiredMark({ class: classNames?.requiredMark }),
       control: slots.control({ class: classNames?.control }),
       input: slots.input({ class: classNames?.input }),
+      placeholder: slots.placeholder({ class: classNames?.placeholder }),
       helperWrapper: slots.helperWrapper({ class: classNames?.helperWrapper }),
       description: slots.description({ class: classNames?.description }),
       errorMessage: slots.errorMessage({ class: classNames?.errorMessage }),
@@ -203,12 +207,27 @@ export function useField(props: UseFieldProps) {
   }, [classes.base, handleRootClick, isDisabled, isInvalid, rest]);
 
   const fallbackControl = useMemo(() => {
+    if (!hasValue && placeholder != null) {
+      return React.createElement(
+        'div',
+        { id: controlId, className: classes.placeholder },
+        placeholder,
+      );
+    }
+
     return React.createElement(
       'div',
       { id: controlId, className: classes.input },
-      resolvedValue || placeholder || null,
+      resolvedValue || null,
     );
-  }, [classes.input, controlId, placeholder, resolvedValue]);
+  }, [
+    classes.input,
+    classes.placeholder,
+    controlId,
+    hasValue,
+    placeholder,
+    resolvedValue,
+  ]);
 
   const controlContent = useMemo(() => {
     if (typeof children === 'function') {

@@ -3,7 +3,8 @@
   "usingComponents": {
     "sr-navbar": "@srcube-ui/mini/navbar/index",
     "sr-drawer": "@srcube-ui/mini/drawer/index",
-    "sr-button": "@srcube-ui/mini/button/index"
+    "sr-button": "@srcube-ui/mini/button/index",
+    "sr-action-sheet": "@srcube-ui/mini/action-sheet/index"
   },
   "navigationStyle": "custom",
   "navigationBarTitleText": "Drawer",

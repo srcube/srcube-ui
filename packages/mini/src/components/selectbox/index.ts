@@ -78,6 +78,10 @@ function resolveColor(value?: string | null) {
   return 'default';
 }
 
+function resolveTone(value?: string | null) {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
 function resolveDefaultMetricBySize(size: SelectboxMiniProps['size']) {
   if (size === 'sm') {
     return 36;
@@ -224,9 +228,11 @@ UIComponent({
       const orientation = resolveOrientation(data.orientation);
       const size = resolveSize(data.size);
       const color = resolveColor(data.color);
+      const tone = resolveTone(data.tone);
       const customClassNames = (data.classNames ?? {}) as Record<string, string | undefined>;
       const slots = selectbox({
         color,
+        tone,
         orientation,
         size,
       });
@@ -235,6 +241,7 @@ UIComponent({
         ...item,
         className: selectboxItemState({
           color,
+          tone,
           orientation,
           size,
           isSelected: selectedSet.has(item.id),
@@ -261,6 +268,7 @@ UIComponent({
       const size = resolveSize(data.size);
       const slots = selectbox({
         color: resolveColor(data.color),
+        tone: resolveTone(data.tone),
         orientation: resolveOrientation(data.orientation),
         size,
       });

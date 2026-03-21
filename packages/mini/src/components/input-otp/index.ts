@@ -90,6 +90,7 @@ UIComponent({
     $classNames(data) {
       const slots = inputOtpStyle({
         color: data.color ?? undefined,
+        tone: data.tone ?? undefined,
         variant: data.variant ?? undefined,
         size: data.size ?? undefined,
         radius: data.radius ?? undefined,

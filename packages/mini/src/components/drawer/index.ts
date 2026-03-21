@@ -46,6 +46,7 @@ UIComponent({
     },
     $classNames(data: DrawerMiniData) {
       const slots = drawer({
+        tone: data.tone,
         isOpen: resolveOpen(data),
         placement: data.placement,
         backdrop: data.backdrop,
@@ -64,6 +65,7 @@ UIComponent({
     },
     $modalClassNames(data: DrawerMiniData) {
       const slots = drawer({
+        tone: data.tone,
         isOpen: resolveOpen(data),
         placement: data.placement,
         backdrop: data.backdrop,

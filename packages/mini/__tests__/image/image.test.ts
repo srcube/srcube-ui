@@ -14,3 +14,7 @@ it('keeps preview disabled by default', () => {
 it('uses md as default radius', () => {
   expect(imageMiniProps.radius.value).toBe('md');
 });
+
+it('uses default as default tone', () => {
+  expect(imageMiniProps.tone.value).toBe('default');
+});

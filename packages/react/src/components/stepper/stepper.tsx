@@ -94,6 +94,10 @@ function mergeClassName(...parts: Array<string | undefined>) {
   return parts.filter(Boolean).join(' ');
 }
 
+function resolveButtonTone(tone: StepperReactProps['tone']) {
+  return tone === 'dark' ? 'dark' : 'light';
+}
+
 export const Stepper = React.forwardRef<HTMLDivElement, StepperReactProps>(
   (props, ref) => {
     const {
@@ -109,6 +113,7 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperReactProps>(
       step,
       precision,
       color,
+      tone,
       variant,
       size,
       radius,
@@ -206,6 +211,7 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperReactProps>(
 
     const slots = stepperStyle({
       color,
+      tone,
       variant,
       size,
       radius,
@@ -270,6 +276,7 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperReactProps>(
     const startContent = (
       <Button
         color={color}
+        tone={resolveButtonTone(tone)}
         variant="text"
         size={size}
         radius="none"
@@ -285,6 +292,7 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperReactProps>(
     const endContent = (
       <Button
         color={color}
+        tone={resolveButtonTone(tone)}
         variant="text"
         size={size}
         radius="none"
@@ -314,6 +322,7 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperReactProps>(
         isRequired={isRequired}
         isLoading={isLoading}
         color={color}
+        tone={tone}
         variant={variant}
         size={size}
         radius={radius}

@@ -1,0 +1,8 @@
+<view
+  class="min-h-screen pb-safe {{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} {{pageClassName}}"
+>
+  <app-navbar title="{{title}}" tone="{{tone}}" withBack="{{withBack}}" />
+  <view class="{{contentClassName}}">
+    <slot />
+  </view>
+</view>

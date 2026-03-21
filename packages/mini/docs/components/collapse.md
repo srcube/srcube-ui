@@ -14,6 +14,7 @@
 | content | 内容（Mini 推荐传该字段；React 可用 children） | `ReactNode / string` | `undefined / ''` |
 | value | 受控展开状态 | `boolean` | `undefined` |
 | defaultValue | 非受控初始展开状态 | `boolean` | `false` |
+| tone | 主题明暗风格 | `'default' | 'dark'` | `'default'` |
 | variant | 视觉风格 | `'default' | 'flat' | 'outline'` | `'default'` |
 | size | 尺寸 | `'sm' | 'md' | 'lg'` | `'md'` |
 | radius | 圆角 | `'none' | 'sm' | 'md' | 'lg'` | `'md'` |

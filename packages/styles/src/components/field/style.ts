@@ -1,8 +1,4 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export const fieldStyle = tv({
   slots: {
@@ -14,6 +10,7 @@ export const fieldStyle = tv({
     requiredMark: 'ml-0.5 text-danger',
     control: 'flex w-full min-w-0 items-center',
     input: 'flex min-w-0 flex-1 items-center truncate',
+    placeholder: 'flex min-w-0 flex-1 items-center truncate opacity-45',
     helperWrapper: 'mt-1 w-full',
     description: 'w-full text-slate-500',
     errorMessage: 'w-full text-danger',
@@ -58,6 +55,14 @@ export const fieldStyle = tv({
         controlWrapper: 'bg-danger/10 text-danger',
       },
     },
+    tone: {
+      default: {},
+      dark: {
+        label: 'text-zinc-50',
+        description: 'text-zinc-400',
+        clearButton: 'text-zinc-400',
+      },
+    },
     size: {
       sm: {
         base: 'gap-1.5',
@@ -66,6 +71,7 @@ export const fieldStyle = tv({
         label: 'text-sm',
         requiredMark: 'text-xs',
         input: 'text-sm',
+        placeholder: 'text-sm',
         helperWrapper: 'text-xs',
         startContent: 'text-sm',
         endContent: 'text-sm',
@@ -78,6 +84,7 @@ export const fieldStyle = tv({
         label: 'text-base',
         requiredMark: 'text-sm',
         input: 'text-base',
+        placeholder: 'text-base',
         helperWrapper: 'text-sm',
         startContent: 'text-base',
         endContent: 'text-base',
@@ -90,6 +97,7 @@ export const fieldStyle = tv({
         label: 'text-lg',
         requiredMark: 'text-base',
         input: 'text-lg',
+        placeholder: 'text-lg',
         helperWrapper: 'text-base',
         startContent: 'text-lg',
         endContent: 'text-lg',
@@ -162,6 +170,8 @@ export const fieldStyle = tv({
         control: 'h-auto min-h-0 items-start',
         input:
           'items-start py-0.5 overflow-visible whitespace-normal text-clip',
+        placeholder:
+          'items-start py-0.5 overflow-visible whitespace-normal text-clip',
         startContent: 'self-start h-[1.5em]',
         endContent: 'self-start h-[1.5em]',
         clearButton: 'self-start h-[1.5em]',
@@ -199,6 +209,48 @@ export const fieldStyle = tv({
       },
     },
     {
+      tone: 'dark',
+      color: 'default',
+      class: {
+        controlWrapper: 'bg-zinc-950 text-zinc-100',
+      },
+    },
+    {
+      tone: 'dark',
+      color: 'primary',
+      class: {
+        controlWrapper: 'bg-primary-950 text-primary-100',
+      },
+    },
+    {
+      tone: 'dark',
+      color: 'secondary',
+      class: {
+        controlWrapper: 'bg-secondary-950 text-secondary-100',
+      },
+    },
+    {
+      tone: 'dark',
+      color: 'success',
+      class: {
+        controlWrapper: 'bg-success-950 text-success-100',
+      },
+    },
+    {
+      tone: 'dark',
+      color: 'warning',
+      class: {
+        controlWrapper: 'bg-warning-950 text-warning-100',
+      },
+    },
+    {
+      tone: 'dark',
+      color: 'danger',
+      class: {
+        controlWrapper: 'bg-danger-950 text-danger-100',
+      },
+    },
+    {
       variant: ['outline', 'underline'],
       color: [
         'default',
@@ -215,6 +267,7 @@ export const fieldStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'default',
+      tone: 'default',
       class: {
         controlWrapper: 'border-slate-300',
       },
@@ -222,6 +275,7 @@ export const fieldStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'primary',
+      tone: 'default',
       class: {
         controlWrapper: 'border-primary',
       },
@@ -229,6 +283,7 @@ export const fieldStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'secondary',
+      tone: 'default',
       class: {
         controlWrapper: 'border-secondary',
       },
@@ -236,6 +291,7 @@ export const fieldStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'success',
+      tone: 'default',
       class: {
         controlWrapper: 'border-success',
       },
@@ -243,6 +299,7 @@ export const fieldStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'warning',
+      tone: 'default',
       class: {
         controlWrapper: 'border-warning',
       },
@@ -250,13 +307,63 @@ export const fieldStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'danger',
+      tone: 'default',
       class: {
         controlWrapper: 'border-danger',
       },
     },
     {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'default',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'border-zinc-800',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'border-primary-900',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'border-secondary-900',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'success',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'border-success-900',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'border-warning-900',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'border-danger-900',
+      },
+    },
+    {
       isDisabled: true,
       color: 'default',
+      tone: 'default',
       class: {
         controlWrapper: 'text-slate-900/40',
       },
@@ -264,6 +371,7 @@ export const fieldStyle = tv({
     {
       isDisabled: true,
       color: 'primary',
+      tone: 'default',
       class: {
         controlWrapper: 'text-primary/40',
       },
@@ -271,6 +379,7 @@ export const fieldStyle = tv({
     {
       isDisabled: true,
       color: 'secondary',
+      tone: 'default',
       class: {
         controlWrapper: 'text-secondary/40',
       },
@@ -278,6 +387,7 @@ export const fieldStyle = tv({
     {
       isDisabled: true,
       color: 'success',
+      tone: 'default',
       class: {
         controlWrapper: 'text-success/40',
       },
@@ -285,6 +395,7 @@ export const fieldStyle = tv({
     {
       isDisabled: true,
       color: 'warning',
+      tone: 'default',
       class: {
         controlWrapper: 'text-warning/40',
       },
@@ -292,8 +403,57 @@ export const fieldStyle = tv({
     {
       isDisabled: true,
       color: 'danger',
+      tone: 'default',
       class: {
         controlWrapper: 'text-danger/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'default',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'text-zinc-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'text-primary-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'text-secondary-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'success',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'text-success-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'text-warning-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        controlWrapper: 'text-danger-100/40',
       },
     },
     {
@@ -306,6 +466,7 @@ export const fieldStyle = tv({
   ],
   defaultVariants: {
     color: 'default',
+    tone: 'default',
     variant: 'default',
     size: 'md',
     radius: 'md',

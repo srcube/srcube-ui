@@ -1,10 +1,28 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 Page({
   data: {
+    tone: 'default' as SampleTone,
     basicOpen: false,
     backdropOpen: false,
     backdropValue: 'opaque',
     lockedOpen: false,
     noBackdropOpen: false,
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
   openBasic() {
     this.setData({ basicOpen: true });

@@ -70,6 +70,10 @@ it('uses size-based default action width when actionWidth is missing', () => {
   large.detach();
 });
 
+it('uses tone-aware button forwarding in template', () => {
+  expect(template).toContain('tone="{{$resolvedButtonTone}}"');
+});
+
 it('triggers action and close events when action tapped', async () => {
   const comp = renderSwipeAction({
     openDirection: 'right',

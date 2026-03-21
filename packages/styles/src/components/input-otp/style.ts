@@ -52,6 +52,10 @@ export const inputOtpStyle = tv({
         cursor: 'bg-danger',
       },
     },
+    tone: {
+      default: {},
+      dark: {},
+    },
     size: {
       xs: {
         box: 'h-6 w-6 text-xs',
@@ -121,6 +125,7 @@ export const inputOtpStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'default',
+      tone: 'default',
       class: {
         box: 'border-slate-300',
       },
@@ -128,6 +133,7 @@ export const inputOtpStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'primary',
+      tone: 'default',
       class: {
         box: 'border-primary',
       },
@@ -135,6 +141,7 @@ export const inputOtpStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'secondary',
+      tone: 'default',
       class: {
         box: 'border-secondary',
       },
@@ -142,6 +149,7 @@ export const inputOtpStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'success',
+      tone: 'default',
       class: {
         box: 'border-success',
       },
@@ -149,6 +157,7 @@ export const inputOtpStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'warning',
+      tone: 'default',
       class: {
         box: 'border-warning',
       },
@@ -156,13 +165,111 @@ export const inputOtpStyle = tv({
     {
       variant: ['outline', 'twotone', 'underline'],
       color: 'danger',
+      tone: 'default',
       class: {
         box: 'border-danger',
       },
     },
     {
+      color: 'default',
+      tone: 'dark',
+      class: {
+        box: 'bg-zinc-950 text-zinc-100',
+        cursor: 'bg-zinc-200',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        box: 'bg-primary-950 text-primary-100',
+        cursor: 'bg-primary-300',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        box: 'bg-secondary-950 text-secondary-100',
+        cursor: 'bg-secondary-300',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      class: {
+        box: 'bg-success-950 text-success-100',
+        cursor: 'bg-success-300',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        box: 'bg-warning-950 text-warning-100',
+        cursor: 'bg-warning-300',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        box: 'bg-danger-950 text-danger-100',
+        cursor: 'bg-danger-300',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'default',
+      tone: 'dark',
+      class: {
+        box: 'border-zinc-800',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        box: 'border-primary-900',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        box: 'border-secondary-900',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'success',
+      tone: 'dark',
+      class: {
+        box: 'border-success-900',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        box: 'border-warning-900',
+      },
+    },
+    {
+      variant: ['outline', 'twotone', 'underline'],
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        box: 'border-danger-900',
+      },
+    },
+    {
       isDisabled: true,
       color: 'default',
+      tone: 'default',
       class: {
         box: 'text-slate-500',
       },
@@ -170,6 +277,7 @@ export const inputOtpStyle = tv({
     {
       isDisabled: true,
       color: 'primary',
+      tone: 'default',
       class: {
         box: 'text-primary/60',
       },
@@ -177,6 +285,7 @@ export const inputOtpStyle = tv({
     {
       isDisabled: true,
       color: 'secondary',
+      tone: 'default',
       class: {
         box: 'text-secondary/60',
       },
@@ -184,6 +293,7 @@ export const inputOtpStyle = tv({
     {
       isDisabled: true,
       color: 'success',
+      tone: 'default',
       class: {
         box: 'text-success/60',
       },
@@ -191,6 +301,7 @@ export const inputOtpStyle = tv({
     {
       isDisabled: true,
       color: 'warning',
+      tone: 'default',
       class: {
         box: 'text-warning/60',
       },
@@ -198,13 +309,63 @@ export const inputOtpStyle = tv({
     {
       isDisabled: true,
       color: 'danger',
+      tone: 'default',
       class: {
         box: 'text-danger/60',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'default',
+      tone: 'dark',
+      class: {
+        box: 'text-zinc-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        box: 'text-primary-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        box: 'text-secondary-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'success',
+      tone: 'dark',
+      class: {
+        box: 'text-success-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        box: 'text-warning-100/40',
+      },
+    },
+    {
+      isDisabled: true,
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        box: 'text-danger-100/40',
       },
     },
   ],
   defaultVariants: {
     color: 'default',
+    tone: 'default',
     variant: 'default',
     size: 'md',
     radius: 'lg',

@@ -1,6 +1,7 @@
 {
   "$schema": "https://vite.icebreaker.top/page.json",
   "usingComponents": {
+    "app-page": "../../../../components/app-page/index",
     "sr-navbar": "@srcube-ui/mini/navbar/index",
     "sr-button": "@srcube-ui/mini/button/index"
   },

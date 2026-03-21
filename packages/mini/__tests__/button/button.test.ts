@@ -122,5 +122,5 @@ it('uses default color with light tone by default and supports dark tone', () =>
   }) as { base: string };
 
   expect(defaultClassNames.base).toContain('bg-slate-200');
-  expect(darkToneClassNames.base).toContain('bg-slate-950');
+  expect(darkToneClassNames.base).toContain('bg-zinc-950');
 });

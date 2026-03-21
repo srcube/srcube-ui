@@ -5,6 +5,7 @@ export type DrawerMiniProps = {
   defaultOpen?: boolean;
   isDismissable?: boolean;
   hasBackdrop?: boolean;
+  tone?: 'default' | 'dark';
   backdrop?: 'transparent' | 'opaque' | 'blur';
   placement?: DrawerPlacement;
   title?: string;
@@ -18,6 +19,7 @@ export const drawerMiniProps = {
   defaultOpen: { type: Boolean, value: false },
   isDismissable: { type: Boolean, value: true },
   hasBackdrop: { type: Boolean, value: true },
+  tone: { type: null, value: 'default' },
   backdrop: { type: null, value: 'opaque' },
   placement: { type: null, value: 'bottom' },
   title: { type: String, value: '' },

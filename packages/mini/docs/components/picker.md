@@ -13,7 +13,8 @@
 | label | Field 标签 | React: `ReactNode`；Mini: `string` | - | 全平台 |
 | labelPlacement | 标签位置 | `"outside" \| "outside-left" \| "inside"` | `"outside"` | 全平台 |
 | value | 受控值（始终数组） | `Array<string \| number \| null>` | - | 全平台 |
-| defaultValue | 非受控初始值（始终数组） | `Array<string \| number \| null>` | 首个可选项 | 全平台 |
+| defaultValue | 非受控初始值（始终数组） | `Array<string \| number \| null>` | - | 全平台 |
+| isClearable | 是否显示清空按钮（已有提交值时显示） | `boolean` | `false` | 全平台 |
 | items | 一列列表（不传 `columns` 时生效） | `PickerItem[]` | `[]` | 全平台 |
 | columns | 固定多列列表（兼容模式） | `PickerColumn[]` | `[]` | 全平台 |
 | options | 级联多列选项（`Cascader` 效果，优先级高于 `columns/items`） | `PickerOption[]` | `[]` | 全平台 |
@@ -27,6 +28,7 @@
 | isOpen | 受控开关 | `boolean` | - | 全平台 |
 | defaultOpen | 默认开关 | `boolean` | `false` | 全平台 |
 | onOpenChange / bind:openchange | 开关变化 | React: `(isOpen) => void`；Mini: `event.detail.isOpen` | - | 全平台 |
+| onClear / bind:clear | 点击清空按钮 | React: `() => void`；Mini: `event.detail.value` | - | 全平台 |
 | onCancel / bind:cancel | 取消（dismiss）回调 | React: `() => void`；Mini: `event` | - | 全平台 |
 | onValueChange / bind:valuechange | 确认后提交值 | React: `(value: Array<...>) => void`；Mini: `event.detail.value` | - | 全平台 |
 | onDraftValueChange / bind:draftvaluechange | 面板内临时值变化 | React: `(value: Array<...>, detail) => void`；Mini: `event.detail` | - | 全平台 |
@@ -51,7 +53,7 @@
 | selectionMode | 选择模式 | `"single" \| "multiple"` | `"multiple"` | 全平台 |
 | onValueChange / bind:valuechange | Confirm 提交值 | React: `(value) => void`；Mini: `event.detail.value` | - | 全平台 |
 | onDraftValueChange / bind:draftvaluechange | 面板草稿值变化 | React: `(value, detail) => void`；Mini: `event.detail` | - | 全平台 |
-| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/options/value/defaultValue/onValueChange/onDraftValueChange`） | - | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/options/isClearable/value/defaultValue/onClear/onValueChange/onDraftValueChange`） | - | - | 全平台 |
 
 ### PickerDatetime
 
@@ -67,7 +69,7 @@
 | timeTabText | 时间面板 Tab 文案 | React: `ReactNode`；Mini: `string` | `"时间"` | 全平台 |
 | onValueChange / bind:valuechange | 确认值变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
 | onDraftValueChange / bind:draftvaluechange | 草稿值变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
-| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/value/defaultValue/onValueChange/onDraftValueChange`） | - | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/isClearable/value/defaultValue/onClear/onValueChange/onDraftValueChange`） | - | - | 全平台 |
 
 ### PickerDatetimeRange
 
@@ -86,12 +88,13 @@
 | valueSeparator | Field 展示分隔符 | `string` | `" ~ "` | 全平台 |
 | onValueChange / bind:valuechange | 确认区间变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
 | onDraftValueChange / bind:draftvaluechange | 草稿区间变化 | React: `(value, detail) => void`；Mini: `event.detail.value` | - | 全平台 |
-| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/value/defaultValue/onValueChange/onDraftValueChange`） | - | - | 全平台 |
+| 其它 Picker 公共字段 | 继承 `Picker`（除 `items/columns/isClearable/value/defaultValue/onClear/onValueChange/onDraftValueChange`） | - | - | 全平台 |
 
 ## 行为说明
 
 - 面板结构固定为：`Field` 触发 + `Drawer(bottom)` 承载 + `Pickbox` 选择 + `Confirm` 提交。
 - `Picker` 本身不是多选组件；多选请使用 `PickerSelect`。
+- 未传 `value/defaultValue` 时，`Field` 保持 placeholder；打开面板后 `Pickbox` 内部会默认定位到首个可选项，只有确认后才提交到 `Field`。
 - `dismiss`（点击遮罩 / 手势关闭）不会提交草稿值，会回滚到上次确认值。
 - `Confirm` 为 `flat + block`，并同步 `Field` 的 `color/size`。
 - `size` 会同步影响 Drawer 标题字号，以及面板内部 `Pickbox / Selectbox` 与 Footer 按钮。

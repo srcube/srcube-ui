@@ -88,6 +88,14 @@ function resolveSize(value?: string | null) {
   return 'md';
 }
 
+function resolveTone(value?: string | null) {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
+function resolveButtonTone(value?: string | null) {
+  return resolveTone(value) === 'dark' ? 'dark' : 'light';
+}
+
 function normalizeItems(rawItems: unknown): PickerSelectMiniItem[] {
   if (!Array.isArray(rawItems)) {
     return [];
@@ -281,6 +289,12 @@ UIComponent({
     $resolvedColor(data: PickerSelectMiniData) {
       return resolveColor(data.color);
     },
+    $resolvedTone(data: PickerSelectMiniData) {
+      return resolveTone(data.tone);
+    },
+    $buttonTone(data: PickerSelectMiniData) {
+      return resolveButtonTone(data.tone);
+    },
     $resolvedSize(data: PickerSelectMiniData) {
       return resolveSize(data.size);
     },
@@ -309,6 +323,7 @@ UIComponent({
     $classNames(data: PickerSelectMiniData) {
       const slots = picker({
         type: resolveType(data.type),
+        tone: resolveTone(data.tone),
         size: resolveSize(data.size),
       });
       const classNames = (data.classNames ?? {}) as Record<string, string | undefined>;
@@ -341,25 +356,42 @@ UIComponent({
     $drawerClassNames(data: PickerSelectMiniData) {
       const slots = picker({
         type: resolveType(data.type),
+        tone: resolveTone(data.tone),
         size: resolveSize(data.size),
       });
       const classNames = (data.classNames ?? {}) as Record<string, string | undefined>;
 
       return {
         body: ensureClassName(
-          slots.drawerBody({
-            class: [classNames.drawerBody, 'overflow-hidden'],
-          }),
+          slots.drawerBody({ class: classNames.drawerBody }),
         ),
         footer: ensureClassName(
           slots.drawerFooter({ class: classNames.drawerFooter }),
         ),
       };
     },
-    $selectboxListboxClassNames() {
+    $selectboxListboxClassNames(data: PickerSelectMiniData) {
+      const slots = picker({
+        type: resolveType(data.type),
+        tone: resolveTone(data.tone),
+        size: resolveSize(data.size),
+      });
+      const classNames = (data.classNames ?? {}) as Record<
+        string,
+        string | undefined
+      >;
+
       return {
-        scrollbox: 'h-[50vh]',
-        scrollboxContent: 'pb-6 pb-safe-4',
+        scrollbox: ensureClassName(
+          slots.selectboxListbox({
+            class: classNames.selectboxListbox,
+          }),
+        ),
+        scrollboxContent: ensureClassName(
+          slots.selectboxListboxContent({
+            class: classNames.selectboxListboxContent,
+          }),
+        ),
       };
     },
   },

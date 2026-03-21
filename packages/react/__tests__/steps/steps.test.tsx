@@ -99,3 +99,21 @@ it('supports orientation y', () => {
   const list = screen.getByText('Vertical A').closest('ol');
   expect(list?.className).toContain('flex-col');
 });
+
+it('supports dark tone color mapping', () => {
+  const { container } = render(
+    <Steps
+      current={0}
+      tone="dark"
+      color="warning"
+      variant="outline"
+      items={[
+        { title: 'Warn A' },
+        { title: 'Warn B' },
+      ]}
+    />,
+  );
+
+  const indicator = container.querySelector('.border-warning-600');
+  expect(indicator?.className).toContain('text-warning-100');
+});

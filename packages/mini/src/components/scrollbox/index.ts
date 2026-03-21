@@ -158,6 +158,7 @@ UIComponent({
       const orientation = resolveScrollboxOrientation(data.orientation);
       const slots = scrollbox({
         orientation,
+        tone: data.tone,
         hideMasks: data.hideMasks,
         showMaskTop: data.showMaskTop,
         showMaskBottom: data.showMaskBottom,

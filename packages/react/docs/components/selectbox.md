@@ -40,6 +40,7 @@ export default function Demo() {
 | selectionMode | 选择模式 | `'single' \| 'multiple'` | `'multiple'` | 全平台 |
 | orientation | 布局方向 | `'y' \| 'x'` | `'y'` | 全平台 |
 | color | 主题色（同步选中背景/文字） | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | `'default'` | 全平台 |
+| tone | 主题明暗 | `'default' \| 'dark'` | `'default'` | 全平台 |
 | size | 尺寸（同步 list 行高/文字/选中块半径） | `'sm' \| 'md' \| 'lg'` | `'md'` | 全平台 |
 | selectIcon | 选中项右侧显示 `icon-check`，颜色跟随选中文字 | `boolean` | `false` | 全平台 |
 | estimateSize | 虚拟列表预估项高；不传时按 `size` 兜底（`sm=36`、`md=44`、`lg=52`） | React: `number \| (index) => number`；Mini: `number \| null` | `size 对应值` | 全平台 |

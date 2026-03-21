@@ -225,6 +225,7 @@ UIComponent({
       const size = resolveSize(data.size);
       const slots = listbox({
         orientation,
+        tone: data.tone,
         size,
         hasDivider: data.hasDivider,
       });
@@ -252,6 +253,7 @@ UIComponent({
       const size = resolveSize(data.size);
       const slots = listbox({
         orientation,
+        tone: data.tone,
         size,
         hasDivider: data.hasDivider,
       });
@@ -399,6 +401,7 @@ UIComponent({
 
           const stateClassName = listboxItemState({
             orientation,
+            tone: this.data.tone,
             isDisabled: !!item.isDisabled,
           });
 

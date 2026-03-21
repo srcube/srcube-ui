@@ -1,3 +1,6 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 type StepSize = 'sm' | 'md' | 'lg';
 type StepColor =
   | 'default'
@@ -23,6 +26,7 @@ const stepColorGroups = [
 
 Page({
   data: {
+    tone: 'default' as SampleTone,
     globalSize: 'md' as StepSize,
     globalColor: 'primary' as StepColor,
     globalVariant: 'solid' as StepVariant,
@@ -59,6 +63,20 @@ Page({
       { title: 'Build' },
       { title: 'Release' },
     ],
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleGlobalSizeTap(

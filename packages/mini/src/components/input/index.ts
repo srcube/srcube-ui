@@ -83,6 +83,7 @@ UIComponent({
 
     $fieldClassNames(data) {
       const slots = inputStyle({
+        tone: data.tone ?? undefined,
         size: data.size ?? undefined,
         isDisabled: data.isDisabled,
       });
@@ -96,6 +97,7 @@ UIComponent({
 
     $inputClassName(data) {
       const slots = inputStyle({
+        tone: data.tone ?? undefined,
         size: data.size ?? undefined,
         isDisabled: data.isDisabled,
       });

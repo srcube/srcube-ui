@@ -1,1 +1,4 @@
-{}
+{
+  "app-navbar": "/components/app-navbar/index",
+  "app-page": "/components/app-page/index"
+}

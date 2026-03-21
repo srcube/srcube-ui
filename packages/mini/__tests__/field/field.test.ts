@@ -122,3 +122,22 @@ it('disables fallback control when hasControl is true', () => {
 
   expect(showFallback).toBe(false);
 });
+
+it('uses placeholder class when current value is empty', () => {
+  const computed = definition?.computed as Record<
+    string,
+    (data: Record<string, unknown>) => unknown
+  >;
+
+  const fallbackClassName = computed.$fallbackControlClassName({
+    value: '',
+    _innerValue: '',
+    $classNames: {
+      input: 'field-input',
+      placeholder: 'field-placeholder opacity-45',
+    },
+  });
+
+  expect(fallbackClassName).toContain('field-placeholder');
+  expect(fallbackClassName).toContain('opacity-45');
+});

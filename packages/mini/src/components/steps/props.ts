@@ -46,6 +46,10 @@ export const stepsMiniProps = {
     type: null,
     value: 'primary',
   },
+  tone: {
+    type: null,
+    value: 'default',
+  },
   variant: {
     type: null,
     value: 'solid',

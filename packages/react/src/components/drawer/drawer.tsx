@@ -19,6 +19,7 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>((props, ref) => {
     isOpen: isOpenProp,
     defaultOpen = false,
     placement = 'bottom',
+    tone = 'default',
     title,
     children,
     className,
@@ -36,11 +37,12 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>((props, ref) => {
   const slots = useMemo(
     () =>
       drawerStyles({
+        tone,
         isOpen,
         placement,
         backdrop: backdrop ?? undefined,
       }),
-    [isOpen, placement, backdrop],
+    [tone, isOpen, placement, backdrop],
   );
 
   const mergedClassNames = useMemo<Partial<PopupClassNames>>(
@@ -86,6 +88,7 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>((props, ref) => {
         isOpen={isOpen}
         motion="none"
         backdrop={backdrop}
+        tone={tone}
         onOpenChange={handleOpenChange}
         onClose={onClose}
         classNames={mergedClassNames}

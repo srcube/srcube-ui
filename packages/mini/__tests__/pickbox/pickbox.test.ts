@@ -169,6 +169,28 @@ it('keeps selected text style during auto align animation', async () => {
   comp.detach();
 });
 
+it('uses dark tone classes when tone is dark', async () => {
+  const comp = renderPickbox({
+    tone: 'dark',
+    columns: [
+      {
+        id: 'month',
+        items: [{ id: 1, label: '1 月' }],
+      },
+    ],
+  });
+
+  await tick();
+
+  const data = comp.data as {
+    $classNames: {
+      base: string;
+    };
+  };
+  expect(data.$classNames.base).toContain('bg-zinc-950');
+  comp.detach();
+});
+
 it('cancels pending auto align on touchstart for short swipe', async () => {
   const comp = renderPickbox({
     columns: [

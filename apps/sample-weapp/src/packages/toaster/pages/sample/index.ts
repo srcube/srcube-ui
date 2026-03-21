@@ -10,14 +10,18 @@ import {
   type ToastColor,
   type ToastTone,
 } from '@srcube-ui/mini/toaster/index';
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
 
 type PageExtras = {
-  _unsubscribe?: () => void;
+  _unsubscribeTone?: () => void;
+  _unsubscribeToasts?: () => void;
   _manualHandle?: AddToastResult | null;
 };
 
 Page({
   data: {
+    tone: 'default' as SampleTone,
     useCustomClassNames: false,
     useCustomStyle: false,
     toastCount: 0,
@@ -36,6 +40,12 @@ Page({
     customStyle: 'padding-left: 16rpx; padding-right: 16rpx;',
   },
 
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
   onLoad() {
     const page = this as unknown as WechatMiniprogram.Page.Instance<
       WechatMiniprogram.IAnyObject,
@@ -43,7 +53,9 @@ Page({
     > &
       PageExtras;
 
-    page._unsubscribe = subscribeToasts((items) => {
+    attachSampleTone(this);
+
+    page._unsubscribeToasts = subscribeToasts((items) => {
       this.setData({
         toastCount: items.length,
         latestToastId: items.length > 0 ? items[items.length - 1].id : '-',
@@ -58,8 +70,9 @@ Page({
     > &
       PageExtras;
 
-    page._unsubscribe?.();
-    page._unsubscribe = undefined;
+    detachSampleTone(this);
+    page._unsubscribeToasts?.();
+    page._unsubscribeToasts = undefined;
     page._manualHandle = null;
   },
 

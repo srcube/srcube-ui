@@ -1,71 +1,63 @@
-<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
-  <sr-navbar
-    className="sticky top-0 z-20 border-b border-slate-200"
-    title="Collapse"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
-
-  <view class="p-4 space-y-6">
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Controlled</view>
-      <view class="mt-3">
-        <sr-collapse
-          title="配送信息"
-          content="重庆渝中区，预计今天送达"
-          value="{{expanded}}"
-          bind:change="handleChange"
-        />
-      </view>
-      <view class="mt-2 text-xs text-slate-500">Expanded: {{expanded}}</view>
+<app-page title="Collapse" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Controlled</view>
+    <view class="mt-3">
+      <sr-collapse
+        title="配送信息"
+        content="重庆渝中区，预计今天送达"
+        tone="{{tone}}"
+        value="{{expanded}}"
+        bind:change="handleChange"
+      />
     </view>
+    <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Expanded: {{expanded}}</view>
+  </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Variants</view>
-      <view class="mt-3 space-y-2">
-        <view>
-          <sr-collapse title="Default" content="无边框无背景" variant="default" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="Flat" content="柔和背景风格" variant="flat" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="Outline" content="边框风格" variant="outline" defaultValue="{{true}}" />
-        </view>
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Variants</view>
+    <view class="mt-3 space-y-2">
+      <view>
+        <sr-collapse title="Default" content="无边框无背景" tone="{{tone}}" variant="default" defaultValue="{{true}}" />
       </view>
-    </view>
-
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Sizes / States</view>
-      <view class="mt-3 space-y-2">
-        <view>
-          <sr-collapse title="Small" content="size=sm" size="sm" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="Medium" content="size=md" size="md" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="Large" content="size=lg" size="lg" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="Radius None" content="radius=none" variant="flat" radius="none" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="Radius Sm" content="radius=sm" variant="flat" radius="sm" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="Radius Md" content="radius=md" variant="flat" radius="md" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="Radius Lg" content="radius=lg" variant="flat" radius="lg" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="No Indicator" content="隐藏右侧图标" hasIndicator="{{false}}" defaultValue="{{true}}" />
-        </view>
-        <view>
-          <sr-collapse title="Disabled" content="禁用状态" isDisabled="{{true}}" defaultValue="{{true}}" />
-        </view>
+      <view>
+        <sr-collapse title="Flat" content="柔和背景风格" tone="{{tone}}" variant="flat" defaultValue="{{true}}" />
+      </view>
+      <view>
+        <sr-collapse title="Outline" content="边框风格" tone="{{tone}}" variant="outline" defaultValue="{{true}}" />
       </view>
     </view>
   </view>
-</view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Sizes / States</view>
+    <view class="mt-3 space-y-2">
+      <view>
+        <sr-collapse title="Small" content="size=sm" tone="{{tone}}" size="sm" defaultValue="{{true}}" />
+      </view>
+      <view>
+        <sr-collapse title="Medium" content="size=md" tone="{{tone}}" size="md" defaultValue="{{true}}" />
+      </view>
+      <view>
+        <sr-collapse title="Large" content="size=lg" tone="{{tone}}" size="lg" defaultValue="{{true}}" />
+      </view>
+      <view>
+        <sr-collapse title="Radius None" content="radius=none" tone="{{tone}}" variant="flat" radius="none" defaultValue="{{true}}" />
+      </view>
+      <view>
+        <sr-collapse title="Radius Sm" content="radius=sm" tone="{{tone}}" variant="flat" radius="sm" defaultValue="{{true}}" />
+      </view>
+      <view>
+        <sr-collapse title="Radius Md" content="radius=md" tone="{{tone}}" variant="flat" radius="md" defaultValue="{{true}}" />
+      </view>
+      <view>
+        <sr-collapse title="Radius Lg" content="radius=lg" tone="{{tone}}" variant="flat" radius="lg" defaultValue="{{true}}" />
+      </view>
+      <view>
+        <sr-collapse title="No Indicator" content="隐藏右侧图标" tone="{{tone}}" hasIndicator="{{false}}" defaultValue="{{true}}" />
+      </view>
+      <view>
+        <sr-collapse title="Disabled" content="禁用状态" tone="{{tone}}" isDisabled="{{true}}" defaultValue="{{true}}" />
+      </view>
+    </view>
+  </view>
+</app-page>

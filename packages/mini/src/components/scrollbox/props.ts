@@ -31,6 +31,7 @@ export type ScrollboxMiniProps = ScrollboxVariants & {
 
 export const scrollboxMiniProps = {
   orientation: { type: null, value: 'y' },
+  tone: { type: null, value: 'default' },
   hideMasks: { type: Boolean, value: false },
 
   className: { type: String, value: '' },

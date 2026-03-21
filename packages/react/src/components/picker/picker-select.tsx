@@ -68,6 +68,18 @@ function resolvePickerSize(
   return 'md';
 }
 
+function resolvePickerTone(
+  value: PickerReactProps['tone'],
+): NonNullable<PickerReactProps['tone']> {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
+function resolveButtonTone(
+  value: PickerReactProps['tone'],
+): 'light' | 'dark' {
+  return resolvePickerTone(value) === 'dark' ? 'dark' : 'light';
+}
+
 function resolveValueByItems(
   items: PickerSelectItem[],
   value: PickerSelectValue | undefined | null,
@@ -137,6 +149,7 @@ export const PickerSelect = React.forwardRef<HTMLDivElement, PickerSelectReactPr
       description,
       errorMessage,
       color,
+      tone,
       variant,
       size,
       radius,
@@ -173,6 +186,7 @@ export const PickerSelect = React.forwardRef<HTMLDivElement, PickerSelectReactPr
 
     const resolvedSize = resolvePickerSize(size);
     const resolvedColor = resolvePickerColor(color);
+    const resolvedTone = resolvePickerTone(tone);
     const resolvedItems = React.useMemo(
       () => items.map((item) => ({ ...item })),
       [items],
@@ -249,26 +263,33 @@ export const PickerSelect = React.forwardRef<HTMLDivElement, PickerSelectReactPr
       () =>
         picker({
           type,
+          tone: resolvedTone,
           size: resolvedSize,
         }),
-      [resolvedSize, type],
+      [resolvedSize, resolvedTone, type],
     );
 
     const drawerClassNames = React.useMemo(
       () => ({
-        body: slots.drawerBody({
-          class: [classNames?.drawerBody, 'overflow-hidden'],
-        }),
+        body: slots.drawerBody({ class: classNames?.drawerBody }),
         footer: slots.drawerFooter({ class: classNames?.drawerFooter }),
       }),
       [classNames?.drawerBody, classNames?.drawerFooter, slots],
     );
     const selectboxListboxClassNames = React.useMemo(
       () => ({
-        scrollbox: 'h-[50vh]',
-        scrollboxContent: 'pb-6 pb-safe-4',
+        scrollbox: slots.selectboxListbox({
+          class: classNames?.selectboxListbox,
+        }),
+        scrollboxContent: slots.selectboxListboxContent({
+          class: classNames?.selectboxListboxContent,
+        }),
       }),
-      [],
+      [
+        classNames?.selectboxListbox,
+        classNames?.selectboxListboxContent,
+        slots,
+      ],
     );
 
     const styleObject = typeof style === 'string' ? undefined : style;
@@ -368,6 +389,7 @@ export const PickerSelect = React.forwardRef<HTMLDivElement, PickerSelectReactPr
           isInvalid={isInvalid}
           isRequired={isRequired}
           isLoading={isLoading}
+          tone={resolvedTone}
           className={slots.field({ class: classNames?.field })}
           onTap={handleFieldTap}
         />
@@ -379,6 +401,7 @@ export const PickerSelect = React.forwardRef<HTMLDivElement, PickerSelectReactPr
           isDismissable={isDismissable}
           hasBackdrop={hasBackdrop}
           backdrop={backdrop}
+          tone={resolvedTone}
           onOpenChange={handleDrawerOpenChange}
           className={slots.drawer({ class: classNames?.drawer })}
           classNames={drawerClassNames}
@@ -393,6 +416,7 @@ export const PickerSelect = React.forwardRef<HTMLDivElement, PickerSelectReactPr
               <Selectbox
                 className={slots.pickbox({ class: classNames?.pickbox })}
                 color={resolvedColor}
+                tone={resolvedTone}
                 size={resolvedSize}
                 selectionMode={selectionMode}
                 selectIcon
@@ -412,6 +436,7 @@ export const PickerSelect = React.forwardRef<HTMLDivElement, PickerSelectReactPr
                   class: classNames?.confirmButton,
                 })}
                 color={resolvedColor}
+                tone={resolveButtonTone(resolvedTone)}
                 size={resolvedSize}
                 variant="flat"
                 isBlock

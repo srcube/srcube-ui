@@ -1,5 +1,9 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 Page({
   data: {
+    tone: 'default' as SampleTone,
     controlledOpen: false,
     controlledValue: 'edit',
     menuItems: [
@@ -17,6 +21,20 @@ Page({
       { value: 'high', label: '高优先级' },
       { value: 'urgent', label: '紧急', isDisabled: true },
     ],
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleOpenChange(

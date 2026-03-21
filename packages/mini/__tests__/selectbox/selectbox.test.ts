@@ -66,3 +66,34 @@ it('adds check icon class for selected item when selectIcon is enabled', () => {
   const alpha = result.find((item) => item.id === 'a');
   expect(alpha?.endIconClassName ?? '').toContain('icon-check');
 });
+
+it('uses dark tone selected classes', () => {
+  const computed = (
+    definition as {
+      computed?: Record<string, (data: Record<string, unknown>) => unknown>;
+    }
+  ).computed?.$resolvedItems;
+
+  expect(computed).toBeTypeOf('function');
+
+  if (!computed) {
+    return;
+  }
+
+  const result = computed({
+    items: [{ id: 'a', label: 'Alpha' }],
+    value: ['a'],
+    _innerValue: [],
+    orientation: 'y',
+    size: 'md',
+    color: 'default',
+    tone: 'dark',
+    classNames: {},
+    selectIcon: false,
+  }) as Array<{
+    id: string | number;
+    className?: string;
+  }>;
+
+  expect(result[0]?.className ?? '').toContain('bg-zinc-800');
+});

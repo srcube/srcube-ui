@@ -15,6 +15,7 @@ UIComponent({
   computed: {
     $classNames(data: SkeletonMiniProps) {
       const slots = skeletonStyle({
+        tone: data.tone,
         radius: data.radius ?? undefined,
         isLoaded: Boolean(data.isLoaded),
       });

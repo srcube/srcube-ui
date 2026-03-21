@@ -11,6 +11,12 @@ export const inputStyle = tv({
       'block w-full min-w-0 appearance-none border-none bg-transparent text-inherit outline-none placeholder:text-slate-400',
   },
   variants: {
+    tone: {
+      default: {},
+      dark: {
+        input: 'placeholder:text-zinc-500',
+      },
+    },
     size: {
       sm: {
         input: 'leading-5',
@@ -30,6 +36,7 @@ export const inputStyle = tv({
     },
   },
   defaultVariants: {
+    tone: 'default',
     size: 'md',
     isDisabled: false,
   },

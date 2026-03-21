@@ -1,97 +1,64 @@
-<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
-  <sr-navbar
-    className="sticky top-0 z-20 border-b border-slate-200"
-    title="Card"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
-
-  <view class="p-4 space-y-6">
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Tone</view>
-      <view class="mt-3 flex gap-2">
-        <sr-button
-          size="sm"
-          color="{{tone === 'default' ? 'primary' : 'default'}}"
-          variant="{{tone === 'default' ? 'solid' : 'flat'}}"
-          data-tone="default"
-          bind:tap="handleToneTap"
-        >
-          default
-        </sr-button>
-        <sr-button
-          size="sm"
-          tone="dark"
-          variant="{{tone === 'dark' ? 'solid' : 'flat'}}"
-          data-tone="dark"
-          bind:tap="handleToneTap"
-        >
-          dark
-        </sr-button>
+<app-page title="Card" tone="{{tone}}" withBack="{{true}}">
+  <view>
+    <sr-card hasHeader="{{true}}" hasFooter="{{true}}" tone="{{tone}}">
+      <view slot="header">订单信息</view>
+      <view slot="body" class="space-y-2 text-sm">
+        <view>订单号：A20260218001</view>
+        <view>收货人：Srcube</view>
+        <view>金额：¥ 168.00</view>
       </view>
-    </view>
+      <view slot="footer" class="flex gap-2">
+        <sr-button size="sm" variant="flat" color="default" tone="{{tone === 'dark' ? 'dark' : 'light'}}">取消</sr-button>
+        <sr-button size="sm" color="primary" tone="{{tone === 'dark' ? 'dark' : 'light'}}">确认</sr-button>
+      </view>
+    </sr-card>
+  </view>
 
+  <view class="space-y-3">
     <view>
-      <sr-card hasHeader="{{true}}" hasFooter="{{true}}" tone="{{tone}}">
-        <view slot="header">订单信息</view>
-        <view slot="body" class="space-y-2 text-sm">
-          <view>订单号：A20260218001</view>
-          <view>收货人：Srcube</view>
-          <view>金额：¥ 168.00</view>
-        </view>
-        <view slot="footer" class="flex gap-2">
-          <sr-button size="sm" variant="flat" color="default">取消</sr-button>
-          <sr-button size="sm" color="primary">确认</sr-button>
-        </view>
+      <sr-card hasHeader="{{true}}" tone="{{tone}}">
+        <view slot="header">Color: default</view>
+        <view slot="body">默认样式</view>
       </sr-card>
     </view>
-
-    <view class="space-y-3">
-      <view>
-        <sr-card hasHeader="{{true}}" tone="{{tone}}">
-          <view slot="header">Color: default</view>
-          <view slot="body">默认样式</view>
-        </sr-card>
-      </view>
-      <view>
-        <sr-card color="primary" tone="{{tone}}" hasHeader="{{true}}">
-          <view slot="header">Color: primary</view>
-          <view slot="body">主色样式</view>
-        </sr-card>
-      </view>
-      <view>
-        <sr-card color="success" tone="{{tone}}" hasHeader="{{true}}">
-          <view slot="header">Color: success</view>
-          <view slot="body">成功色样式</view>
-        </sr-card>
-      </view>
-      <view>
-        <sr-card color="warning" tone="{{tone}}" hasHeader="{{true}}">
-          <view slot="header">Color: warning</view>
-          <view slot="body">警告色样式</view>
-        </sr-card>
-      </view>
+    <view>
+      <sr-card color="primary" tone="{{tone}}" hasHeader="{{true}}">
+        <view slot="header">Color: primary</view>
+        <view slot="body">主色样式</view>
+      </sr-card>
     </view>
-
-    <view class="space-y-3">
-      <view>
-        <sr-card size="sm" radius="sm" tone="{{tone}}" hasHeader="{{true}}">
-          <view slot="header">Small</view>
-          <view slot="body">size=sm / radius=sm</view>
-        </sr-card>
-      </view>
-      <view>
-        <sr-card size="md" radius="md" color="secondary" tone="{{tone}}" hasHeader="{{true}}">
-          <view slot="header">Medium</view>
-          <view slot="body">size=md / radius=md</view>
-        </sr-card>
-      </view>
-      <view>
-        <sr-card size="lg" radius="lg" color="danger" tone="{{tone}}" hasHeader="{{true}}">
-          <view slot="header">Large</view>
-          <view slot="body">size=lg / radius=lg</view>
-        </sr-card>
-      </view>
+    <view>
+      <sr-card color="success" tone="{{tone}}" hasHeader="{{true}}">
+        <view slot="header">Color: success</view>
+        <view slot="body">成功色样式</view>
+      </sr-card>
+    </view>
+    <view>
+      <sr-card color="warning" tone="{{tone}}" hasHeader="{{true}}">
+        <view slot="header">Color: warning</view>
+        <view slot="body">警告色样式</view>
+      </sr-card>
     </view>
   </view>
-</view>
+
+  <view class="space-y-3">
+    <view>
+      <sr-card size="sm" radius="sm" tone="{{tone}}" hasHeader="{{true}}">
+        <view slot="header">Small</view>
+        <view slot="body">size=sm / radius=sm</view>
+      </sr-card>
+    </view>
+    <view>
+      <sr-card size="md" radius="md" color="secondary" tone="{{tone}}" hasHeader="{{true}}">
+        <view slot="header">Medium</view>
+        <view slot="body">size=md / radius=md</view>
+      </sr-card>
+    </view>
+    <view>
+      <sr-card size="lg" radius="lg" color="danger" tone="{{tone}}" hasHeader="{{true}}">
+        <view slot="header">Large</view>
+        <view slot="body">size=lg / radius=lg</view>
+      </sr-card>
+    </view>
+  </view>
+</app-page>

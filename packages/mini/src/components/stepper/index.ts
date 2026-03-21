@@ -116,6 +116,10 @@ function resolveVariant(value?: string | null) {
   return 'default';
 }
 
+function resolveTone(value?: string | null) {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
 function resolveSize(value?: string | null) {
   if (value === 'sm' || value === 'lg') {
     return value;
@@ -199,10 +203,14 @@ UIComponent({
     $resolvedVariant(data: StepperMiniData) {
       return resolveVariant(data.variant ?? undefined);
     },
+    $buttonTone(data: StepperMiniData) {
+      return resolveTone(data.tone ?? undefined) === 'dark' ? 'dark' : 'light';
+    },
     $baseClassName(data: StepperMiniData) {
       const slots = stepperStyle({
         variant: resolveVariant(data.variant ?? undefined),
         color: resolveColor(data.color ?? undefined),
+        tone: resolveTone(data.tone ?? undefined),
         size: resolveSize(data.size ?? undefined),
         radius: resolveRadius(data.radius ?? undefined),
         isDisabled: Boolean(data.isDisabled),
@@ -263,6 +271,7 @@ UIComponent({
       const slots = stepperStyle({
         variant: resolveVariant(data.variant ?? undefined),
         color: resolveColor(data.color ?? undefined),
+        tone: resolveTone(data.tone ?? undefined),
         size: resolveSize(data.size ?? undefined),
         radius: resolveRadius(data.radius ?? undefined),
         isDisabled: Boolean(data.isDisabled),
@@ -274,6 +283,7 @@ UIComponent({
       const slots = stepperStyle({
         variant: resolveVariant(data.variant ?? undefined),
         color: resolveColor(data.color ?? undefined),
+        tone: resolveTone(data.tone ?? undefined),
         size: resolveSize(data.size ?? undefined),
         radius: resolveRadius(data.radius ?? undefined),
         isDisabled: Boolean(data.isDisabled),
@@ -285,6 +295,7 @@ UIComponent({
       const slots = stepperStyle({
         variant: resolveVariant(data.variant ?? undefined),
         color: resolveColor(data.color ?? undefined),
+        tone: resolveTone(data.tone ?? undefined),
         size: resolveSize(data.size ?? undefined),
         radius: resolveRadius(data.radius ?? undefined),
         isDisabled: Boolean(data.isDisabled),
@@ -296,6 +307,7 @@ UIComponent({
       const slots = stepperStyle({
         variant: resolveVariant(data.variant ?? undefined),
         color: resolveColor(data.color ?? undefined),
+        tone: resolveTone(data.tone ?? undefined),
         size: resolveSize(data.size ?? undefined),
         radius: resolveRadius(data.radius ?? undefined),
         isDisabled: Boolean(data.isDisabled),

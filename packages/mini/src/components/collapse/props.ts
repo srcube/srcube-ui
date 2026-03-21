@@ -13,6 +13,7 @@ export type CollapseMiniProps = CollapseVariants & {
 };
 
 export const collapseMiniProps = {
+  tone: { type: null, value: 'default' },
   variant: { type: null, value: 'default' },
   size: { type: null, value: 'md' },
   radius: { type: null, value: 'md' },

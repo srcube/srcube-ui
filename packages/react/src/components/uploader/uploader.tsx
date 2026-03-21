@@ -74,6 +74,7 @@ export const Uploader = React.forwardRef<HTMLDivElement, UploaderReactProps>(
       helperText,
       size,
       color,
+      tone,
       radius,
       isDisabled = false,
       className,
@@ -119,10 +120,11 @@ export const Uploader = React.forwardRef<HTMLDivElement, UploaderReactProps>(
         uploaderStyle({
           size,
           color,
+          tone,
           radius,
           isDisabled,
         }),
-      [color, isDisabled, radius, size],
+      [color, isDisabled, radius, size, tone],
     );
 
     React.useEffect(() => {

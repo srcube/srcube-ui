@@ -1,21 +1,29 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 Page({
   data: {
-    tone: 'light' as 'light' | 'dark',
-    toneItems: [
-      { value: 'light', label: 'Light' },
-      { value: 'dark', label: 'Dark' },
-    ],
+    tone: 'default' as SampleTone,
+    buttonTone: 'light' as 'light' | 'dark',
   },
-  handleToneChange(e: WechatMiniprogram.CustomEvent<{ value?: string }>) {
-    const value = e.detail?.value;
-    if (value !== 'light' && value !== 'dark') {
-      return;
-    }
 
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
     this.setData({
-      tone: value,
+      tone,
+      buttonTone: tone === 'dark' ? 'dark' : 'light',
     });
   },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
+  },
+
   handleAutoLoading(e: WechatMiniprogram.TouchEvent) {
     const wait = e?.detail?.wait;
     if (typeof wait !== 'function') return;

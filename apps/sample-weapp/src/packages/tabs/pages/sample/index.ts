@@ -1,3 +1,6 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 type DemoTabValue = string;
 
 const tabsColorGroups = [
@@ -16,13 +19,9 @@ const tabsColorGroups = [
 type TabsColor = (typeof tabsColorGroups)[number][number]["value"];
 type TabsVariant = "default" | "outline" | "twotone" | "underline";
 type TabsPlacement = "top" | "start" | "end" | "bottom";
-type TabsTone = "default" | "dark";
-
 Page({
   data: {
-    tone: "default" as TabsTone,
-    pageClassName: "min-h-screen bg-slate-100 text-slate-900 pb-safe",
-    navbarClassName: "sticky top-0 z-20 border-b border-slate-200",
+    tone: "default" as SampleTone,
     surfaceClassName: "rounded-2xl bg-white p-4 shadow-sm",
     titleClassName: "text-sm font-semibold text-slate-900",
     descriptionClassName: "mt-1 text-xs text-slate-500",
@@ -72,17 +71,11 @@ Page({
     })),
   },
 
-  setToneClasses(tone: TabsTone) {
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
     this.setData({
       tone,
-      pageClassName:
-        tone === "dark"
-          ? "min-h-screen bg-zinc-950 text-zinc-50 pb-safe"
-          : "min-h-screen bg-slate-100 text-slate-900 pb-safe",
-      navbarClassName:
-        tone === "dark"
-          ? "sticky top-0 z-20 border-b border-zinc-800"
-          : "sticky top-0 z-20 border-b border-slate-200",
       surfaceClassName:
         tone === "dark"
           ? "rounded-2xl bg-zinc-900 p-4 shadow-sm shadow-black/20"
@@ -114,21 +107,12 @@ Page({
     });
   },
 
-  handleToneTap(
-    e: WechatMiniprogram.TouchEvent & {
-      currentTarget: {
-        dataset: {
-          tone?: TabsTone;
-        };
-      };
-    }
-  ) {
-    const tone = e.currentTarget?.dataset?.tone;
-    if (!tone) {
-      return;
-    }
+  onLoad() {
+    attachSampleTone(this);
+  },
 
-    this.setToneClasses(tone);
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleBasicChange(e: WechatMiniprogram.CustomEvent<{ value?: string }>) {

@@ -51,6 +51,7 @@ export const Textarea = React.forwardRef<
     isRequired,
     isLoading,
     color,
+    tone,
     variant,
     size,
     radius,
@@ -77,6 +78,7 @@ export const Textarea = React.forwardRef<
   );
 
   const slots = textareaStyle({
+    tone,
     size,
     isDisabled: Boolean(isDisabled),
     isAutoHeight,
@@ -186,6 +188,7 @@ export const Textarea = React.forwardRef<
       isLoading={isLoading}
       isMultiline
       color={color}
+      tone={tone}
       variant={variant}
       size={size}
       radius={radius}

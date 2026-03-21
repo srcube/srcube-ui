@@ -110,6 +110,20 @@ export const calendarStyle = tv({
       warning: {},
       danger: {},
     },
+    tone: {
+      default: {},
+      dark: {
+        base: 'bg-zinc-950',
+        title: 'text-zinc-50',
+        pickerIcon: 'text-zinc-400',
+        weekCell: 'text-zinc-500',
+        monthHeader:
+          'bg-zinc-950/95 supports-[backdrop-filter]:bg-zinc-950/80',
+        helper: 'text-zinc-400',
+        pickerBackdrop: 'bg-zinc-950/75',
+        pickerOverlay: 'bg-zinc-950',
+      },
+    },
     dayStatus: {
       normal: {
         dayButton: 'hover:bg-slate-100 active:bg-slate-200',
@@ -222,6 +236,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'default',
+      tone: 'default',
       dayStatus: 'selected',
       class: {
         dayButton: 'bg-slate-900',
@@ -229,6 +244,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'primary',
+      tone: 'default',
       dayStatus: 'selected',
       class: {
         dayButton: 'bg-primary',
@@ -236,6 +252,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'secondary',
+      tone: 'default',
       dayStatus: 'selected',
       class: {
         dayButton: 'bg-secondary',
@@ -243,6 +260,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'success',
+      tone: 'default',
       dayStatus: 'selected',
       class: {
         dayButton: 'bg-success',
@@ -250,6 +268,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'warning',
+      tone: 'default',
       dayStatus: 'selected',
       class: {
         dayButton: 'bg-warning',
@@ -258,6 +277,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'danger',
+      tone: 'default',
       dayStatus: 'selected',
       class: {
         dayButton: 'bg-danger',
@@ -265,6 +285,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'default',
+      tone: 'default',
       dayStatus: 'inRange',
       class: {
         dayButton: 'bg-slate-200/80',
@@ -273,6 +294,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'secondary',
+      tone: 'default',
       dayStatus: 'inRange',
       class: {
         dayButton: 'bg-secondary/15',
@@ -281,6 +303,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'success',
+      tone: 'default',
       dayStatus: 'inRange',
       class: {
         dayButton: 'bg-success/15',
@@ -289,6 +312,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'warning',
+      tone: 'default',
       dayStatus: 'inRange',
       class: {
         dayButton: 'bg-warning/20',
@@ -297,6 +321,7 @@ export const calendarStyle = tv({
     },
     {
       color: 'danger',
+      tone: 'default',
       dayStatus: 'inRange',
       class: {
         dayButton: 'bg-danger/15',
@@ -305,38 +330,211 @@ export const calendarStyle = tv({
     },
     {
       color: 'default',
+      tone: 'default',
       class: {
         monthHeader: 'text-slate-700',
       },
     },
     {
       color: 'primary',
+      tone: 'default',
       class: {
         monthHeader: 'text-primary',
       },
     },
     {
       color: 'secondary',
+      tone: 'default',
       class: {
         monthHeader: 'text-secondary',
       },
     },
     {
       color: 'success',
+      tone: 'default',
       class: {
         monthHeader: 'text-success',
       },
     },
     {
       color: 'warning',
+      tone: 'default',
       class: {
         monthHeader: 'text-warning',
       },
     },
     {
       color: 'danger',
+      tone: 'default',
       class: {
         monthHeader: 'text-danger',
+      },
+    },
+    {
+      tone: 'dark',
+      dayStatus: 'normal',
+      class: {
+        dayButton: 'hover:bg-zinc-900 active:bg-zinc-800',
+        dayText: 'text-zinc-100',
+      },
+    },
+    {
+      tone: 'dark',
+      dayStatus: 'today',
+      class: {
+        dayButton: 'border-zinc-700',
+      },
+    },
+    {
+      tone: 'dark',
+      dayStatus: 'disabled',
+      class: {
+        dayText: 'text-zinc-700',
+      },
+    },
+    {
+      color: 'default',
+      tone: 'dark',
+      dayStatus: 'selected',
+      class: {
+        dayButton: 'bg-zinc-700',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      dayStatus: 'selected',
+      class: {
+        dayButton: 'bg-primary-700',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      dayStatus: 'selected',
+      class: {
+        dayButton: 'bg-secondary-700',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      dayStatus: 'selected',
+      class: {
+        dayButton: 'bg-success-700',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      dayStatus: 'selected',
+      class: {
+        dayButton: 'bg-warning-700',
+        dayText: 'text-white',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      dayStatus: 'selected',
+      class: {
+        dayButton: 'bg-danger-700',
+      },
+    },
+    {
+      color: 'default',
+      tone: 'dark',
+      dayStatus: 'inRange',
+      class: {
+        dayButton: 'bg-zinc-900',
+        dayText: 'text-zinc-100',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      dayStatus: 'inRange',
+      class: {
+        dayButton: 'bg-primary-950',
+        dayText: 'text-primary-100',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      dayStatus: 'inRange',
+      class: {
+        dayButton: 'bg-secondary-950',
+        dayText: 'text-secondary-100',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      dayStatus: 'inRange',
+      class: {
+        dayButton: 'bg-success-950',
+        dayText: 'text-success-100',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      dayStatus: 'inRange',
+      class: {
+        dayButton: 'bg-warning-950',
+        dayText: 'text-warning-100',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      dayStatus: 'inRange',
+      class: {
+        dayButton: 'bg-danger-950',
+        dayText: 'text-danger-100',
+      },
+    },
+    {
+      color: 'default',
+      tone: 'dark',
+      class: {
+        monthHeader: 'text-zinc-300',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        monthHeader: 'text-primary-100',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        monthHeader: 'text-secondary-100',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      class: {
+        monthHeader: 'text-success-100',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        monthHeader: 'text-warning-100',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        monthHeader: 'text-danger-100',
       },
     },
     {
@@ -358,6 +556,7 @@ export const calendarStyle = tv({
     size: 'md',
     radius: 'md',
     color: 'primary',
+    tone: 'default',
     dayStatus: 'normal',
     isPickerOpen: false,
     isRangeStart: false,

@@ -27,6 +27,7 @@ export default function Demo() {
 | Prop | 说明 | 类型 | 默认值 | 平台 |
 | --- | --- | --- | --- | --- |
 | isLoaded | 是否显示真实内容（`false` 时显示骨架占位） | `boolean` | `false` | 全平台 |
+| tone | 主题明暗风格 | `"default" \| "dark"` | `"default"` | 全平台 |
 | radius | 占位层圆角 | `"none" \| "sm" \| "md" \| "lg" \| "full"` | `"md"` | 全平台 |
 | className | 根节点 class | `string` | - | 全平台 |
 | classNames | slots 样式映射（`base/content/placeholder`） | `SkeletonClassNames` | - | 全平台 |

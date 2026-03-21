@@ -30,3 +30,7 @@ it('accepts className prop in mini render data', () => {
 it('uses false as default isLoaded value', () => {
   expect(skeletonMiniProps.isLoaded.value).toBe(false);
 });
+
+it('uses default as default tone', () => {
+  expect(skeletonMiniProps.tone.value).toBe('default');
+});

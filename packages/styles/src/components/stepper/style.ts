@@ -30,6 +30,12 @@ export const stepperStyle = tv({
       warning: {},
       danger: {},
     },
+    tone: {
+      default: {},
+      dark: {
+        input: 'placeholder:text-zinc-500',
+      },
+    },
     size: {
       sm: {
         decrementButton: 'w-7 text-sm',
@@ -74,6 +80,7 @@ export const stepperStyle = tv({
   defaultVariants: {
     variant: 'default',
     color: 'default',
+    tone: 'default',
     size: 'md',
     radius: 'md',
     isDisabled: false,

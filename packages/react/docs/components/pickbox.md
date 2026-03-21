@@ -63,6 +63,7 @@ export default function Demo() {
 | estimateSize | 单项预估高度 | `number` | 随 `size`：`sm=36`、`md=44`、`lg=52` | 全平台 |
 | overscan | 虚拟缓冲项数量 | `number` | `5` | 全平台 |
 | color | 指示器色板 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` | 全平台 |
+| tone | 主题明暗 | `"default" \| "dark"` | `"default"` | 全平台 |
 | indicatorHeight | 指示器高度 | `number` | 跟随 `estimateSize` | 全平台 |
 | scrollEndDelay | 滚动结束判定延迟（ms） | `number` | `120` | 全平台 |
 | classNames | slots 样式映射 | React: `PickboxReactClassNames`；Mini: `PickboxMiniClassNames` | - | 全平台 |

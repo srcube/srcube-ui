@@ -15,6 +15,13 @@ export const textareaStyle = tv({
       'block flex-1 min-w-0 resize-none border-none bg-transparent text-inherit outline-none whitespace-pre-wrap break-words placeholder:text-slate-400',
   },
   variants: {
+    tone: {
+      default: {},
+      dark: {
+        count: 'text-zinc-500',
+        textarea: 'placeholder:text-zinc-500',
+      },
+    },
     size: {
       sm: {
         textarea: 'leading-5',
@@ -41,6 +48,7 @@ export const textareaStyle = tv({
     },
   },
   defaultVariants: {
+    tone: 'default',
     size: 'md',
     isAutoHeight: false,
     isDisabled: false,

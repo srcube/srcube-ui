@@ -1,3 +1,6 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 const leftActions = [
   {
     key: 'pin',
@@ -25,6 +28,7 @@ type SwipeDirection = 'none' | 'left' | 'right';
 
 Page({
   data: {
+    tone: 'default' as SampleTone,
     leftActions,
     rightActions,
     customLeftActions: [
@@ -44,6 +48,20 @@ Page({
     ],
     controlledDirection: 'none' as SwipeDirection,
     lastAction: 'none',
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleAction(

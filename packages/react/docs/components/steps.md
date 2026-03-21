@@ -34,6 +34,7 @@ export function Demo() {
 | orientation | 布局方向 | `'x' | 'y'` | `'x'` |
 | size | 尺寸 | `'sm' | 'md' | 'lg'` | `'md'` |
 | color | 主题色 | `'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'` | `'primary'` |
+| tone | 主题明暗风格 | `'default' | 'dark'` | `'default'` |
 | variant | 样式变体（与 Button 对齐，含 `twotone`） | `'solid' | 'outline' | 'flat' | 'text' | 'twotone'` | `'solid'` |
 | isDot | 是否使用点状步骤 | `boolean` | `false` |
 | className | 根节点类名 | `string` | `''` |

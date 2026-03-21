@@ -60,6 +60,10 @@ function resolveDefaultMetricBySize(size: PickboxReactProps['size']) {
   return 44;
 }
 
+function resolveTone(value: PickboxReactProps['tone']) {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
 function resolveMetricValue(
   value: number | undefined,
   fallback: number,
@@ -74,6 +78,7 @@ function resolveMetricValue(
 type ColumnViewProps = {
   slots: ReturnType<typeof pickbox>;
   color: NonNullable<PickboxReactProps['color']>;
+  tone: NonNullable<PickboxReactProps['tone']>;
   size: NonNullable<PickboxReactProps['size']>;
   column: PickboxColumn;
   columnIndex: number;
@@ -91,6 +96,7 @@ type ColumnViewProps = {
 function ColumnView({
   slots,
   color,
+  tone,
   size,
   column,
   columnIndex,
@@ -354,6 +360,7 @@ function ColumnView({
             const isDisabled = Boolean(item.isDisabled);
             const stateClassName = pickboxItemState({
               color,
+              tone,
               size,
               isSelected,
               isDisabled,
@@ -393,6 +400,7 @@ export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref
     columns,
     size = 'md',
     color = 'default',
+    tone = 'default',
     value,
     defaultValue,
     onValueChange,
@@ -488,8 +496,9 @@ export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref
       pickbox({
         size,
         color,
+        tone,
       }),
-    [color, size],
+    [color, size, tone],
   );
   const maskTopStyle = useMemo(
     () => ({
@@ -531,9 +540,10 @@ export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref
         {columns.map((column, columnIndex) => (
           <ColumnView
             key={column.id ?? columnIndex}
-            slots={slots}
-            color={color}
-            size={size}
+              slots={slots}
+              color={color}
+              tone={resolveTone(tone)}
+              size={size}
             column={column}
             columnIndex={columnIndex}
             selectedId={mergedValue[columnIndex] ?? null}

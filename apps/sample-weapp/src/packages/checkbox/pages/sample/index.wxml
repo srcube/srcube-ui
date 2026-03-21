@@ -1,161 +1,127 @@
-<view class="{{pageClassName}}">
-  <sr-navbar
-    className="{{navbarClassName}}"
-    title="Checkbox"
-    tone="{{tone}}"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
-
-  <view class="p-4 space-y-6">
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Tone</view>
-      <view class="mt-3 flex gap-2">
-        <sr-button
-          size="sm"
-          color="{{tone === 'default' ? 'primary' : 'default'}}"
-          variant="{{tone === 'default' ? 'solid' : 'flat'}}"
-          data-tone="default"
-          bind:tap="handleToneTap"
-        >
-          default
-        </sr-button>
-        <sr-button
-          size="sm"
-          tone="dark"
-          variant="{{tone === 'dark' ? 'solid' : 'flat'}}"
-          data-tone="dark"
-          bind:tap="handleToneTap"
-        >
-          dark
-        </sr-button>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Colors</view>
-      <view class="{{descriptionClassName}}">color + group</view>
-      <view class="mt-3">
-        <sr-checkbox-group
-          value="{{colorValue}}"
-          tone="{{tone}}"
-          bind:change="handleColorChange"
-          orientation="y"
-          isBlock
-        >
-          <sr-checkbox
-            wx:for="{{colors}}"
-            wx:key="value"
-            value="{{item.value}}"
-            color="{{item.value}}"
-          >
-            {{item.label}}
-          </sr-checkbox>
-        </sr-checkbox-group>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Sizes</view>
-      <view class="{{descriptionClassName}}">size + group</view>
-      <view class="mt-3">
-        <sr-checkbox-group
-          value="{{sizeValue}}"
-          tone="{{tone}}"
-          bind:change="handleSizeChange"
-          orientation="y"
-          isBlock
-        >
-          <sr-checkbox
-            wx:for="{{sizes}}"
-            wx:key="value"
-            value="{{item.value}}"
-            size="{{item.value}}"
-          >
-            {{item.label}}
-          </sr-checkbox>
-        </sr-checkbox-group>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Radius</view>
-      <view class="{{descriptionClassName}}">radius + group</view>
-      <view class="mt-3">
-        <sr-checkbox-group
-          value="{{radiusValue}}"
-          tone="{{tone}}"
-          bind:change="handleRadiusChange"
-          orientation="y"
-          isBlock
-        >
-          <sr-checkbox
-            wx:for="{{radii}}"
-            wx:key="value"
-            value="{{item.value}}"
-            radius="{{item.value}}"
-          >
-            {{item.label}}
-          </sr-checkbox>
-        </sr-checkbox-group>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Custom Icon</view>
-      <view class="{{descriptionClassName}}">classNames iDefault / iIndeterminate</view>
-      <view class="mt-3 flex flex-wrap gap-4">
+<app-page title="Checkbox" tone="{{tone}}" withBack="{{true}}">
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Colors</view>
+    <view class="{{descriptionClassName}}">color + group</view>
+    <view class="mt-3">
+      <sr-checkbox-group
+        value="{{colorValue}}"
+        tone="{{tone}}"
+        bind:change="handleColorChange"
+        orientation="y"
+        isBlock
+      >
         <sr-checkbox
-          tone="{{tone}}"
-          defaultSelected
-          classNames="{{customCheckClassNames}}"
+          wx:for="{{colors}}"
+          wx:key="value"
+          value="{{item.value}}"
+          color="{{item.value}}"
         >
-          Check
+          {{item.label}}
         </sr-checkbox>
-        <sr-checkbox
-          tone="{{tone}}"
-          isIndeterminate
-          classNames="{{customIndeterminateClassNames}}"
-        >
-          Indeterminate
-        </sr-checkbox>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">States</view>
-      <view class="mt-3 flex flex-wrap gap-4">
-        <sr-checkbox tone="{{tone}}" defaultSelected>Normal</sr-checkbox>
-        <sr-checkbox tone="{{tone}}" isDisabled>Disabled</sr-checkbox>
-        <sr-checkbox tone="{{tone}}" isLoading>Loading</sr-checkbox>
-        <sr-checkbox tone="{{tone}}" isLoading="auto" bind:tap="handleAutoLoading">
-          Auto Loading
-        </sr-checkbox>
-        <sr-checkbox tone="{{tone}}" isIndeterminate>Mixed</sr-checkbox>
-        <sr-checkbox tone="{{tone}}" defaultSelected isLineThrough>Line Through</sr-checkbox>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Group</view>
-      <view class="{{descriptionClassName}}">orientation + isBlock</view>
-      <view class="mt-3 space-y-4">
-        <sr-checkbox-group
-          value="{{groupValue}}"
-          tone="{{tone}}"
-          bind:change="handleGroupChange"
-          orientation="y"
-          isBlock
-        >
-          <sr-checkbox value="left">Left</sr-checkbox>
-          <sr-checkbox value="middle">Middle</sr-checkbox>
-          <sr-checkbox value="right">Right</sr-checkbox>
-        </sr-checkbox-group>
-        <sr-checkbox-group defaultValue="{{groupDefault}}" orientation="x" tone="{{tone}}">
-          <sr-checkbox value="a">Option A</sr-checkbox>
-          <sr-checkbox value="b">Option B</sr-checkbox>
-        </sr-checkbox-group>
-      </view>
+      </sr-checkbox-group>
     </view>
   </view>
-</view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Sizes</view>
+    <view class="{{descriptionClassName}}">size + group</view>
+    <view class="mt-3">
+      <sr-checkbox-group
+        value="{{sizeValue}}"
+        tone="{{tone}}"
+        bind:change="handleSizeChange"
+        orientation="y"
+        isBlock
+      >
+        <sr-checkbox
+          wx:for="{{sizes}}"
+          wx:key="value"
+          value="{{item.value}}"
+          size="{{item.value}}"
+        >
+          {{item.label}}
+        </sr-checkbox>
+      </sr-checkbox-group>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Radius</view>
+    <view class="{{descriptionClassName}}">radius + group</view>
+    <view class="mt-3">
+      <sr-checkbox-group
+        value="{{radiusValue}}"
+        tone="{{tone}}"
+        bind:change="handleRadiusChange"
+        orientation="y"
+        isBlock
+      >
+        <sr-checkbox
+          wx:for="{{radii}}"
+          wx:key="value"
+          value="{{item.value}}"
+          radius="{{item.value}}"
+        >
+          {{item.label}}
+        </sr-checkbox>
+      </sr-checkbox-group>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Custom Icon</view>
+    <view class="{{descriptionClassName}}">classNames iDefault / iIndeterminate</view>
+    <view class="mt-3 flex flex-wrap gap-4">
+      <sr-checkbox
+        tone="{{tone}}"
+        defaultSelected
+        classNames="{{customCheckClassNames}}"
+      >
+        Check
+      </sr-checkbox>
+      <sr-checkbox
+        tone="{{tone}}"
+        isIndeterminate
+        classNames="{{customIndeterminateClassNames}}"
+      >
+        Indeterminate
+      </sr-checkbox>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">States</view>
+    <view class="mt-3 flex flex-wrap gap-4">
+      <sr-checkbox tone="{{tone}}" defaultSelected>Normal</sr-checkbox>
+      <sr-checkbox tone="{{tone}}" isDisabled>Disabled</sr-checkbox>
+      <sr-checkbox tone="{{tone}}" isLoading>Loading</sr-checkbox>
+      <sr-checkbox tone="{{tone}}" isLoading="auto" bind:tap="handleAutoLoading">
+        Auto Loading
+      </sr-checkbox>
+      <sr-checkbox tone="{{tone}}" isIndeterminate>Mixed</sr-checkbox>
+      <sr-checkbox tone="{{tone}}" defaultSelected isLineThrough>Line Through</sr-checkbox>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Group</view>
+    <view class="{{descriptionClassName}}">orientation + isBlock</view>
+    <view class="mt-3 space-y-4">
+      <sr-checkbox-group
+        value="{{groupValue}}"
+        tone="{{tone}}"
+        bind:change="handleGroupChange"
+        orientation="y"
+        isBlock
+      >
+        <sr-checkbox value="left">Left</sr-checkbox>
+        <sr-checkbox value="middle">Middle</sr-checkbox>
+        <sr-checkbox value="right">Right</sr-checkbox>
+      </sr-checkbox-group>
+      <sr-checkbox-group defaultValue="{{groupDefault}}" orientation="x" tone="{{tone}}">
+        <sr-checkbox value="a">Option A</sr-checkbox>
+        <sr-checkbox value="b">Option B</sr-checkbox>
+      </sr-checkbox-group>
+    </view>
+  </view>
+</app-page>

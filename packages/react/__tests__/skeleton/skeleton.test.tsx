@@ -65,3 +65,17 @@ it('applies radius classes to placeholder', () => {
 
   expect(placeholder.className).toContain('rounded-full');
 });
+
+it('supports dark tone placeholder gradient', () => {
+  const { container } = render(
+    <Skeleton tone="dark" classNames={{ placeholder: 'test-placeholder' }}>
+      <div className="h-8 w-8" />
+    </Skeleton>,
+  );
+
+  const placeholder = container.querySelector(
+    '.test-placeholder',
+  ) as HTMLElement;
+
+  expect(placeholder.className).toContain('from-zinc-900');
+});

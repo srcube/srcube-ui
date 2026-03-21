@@ -341,7 +341,7 @@ export const button = tv({
       color: 'default',
       tone: 'dark',
       variant: 'solid',
-      class: { base: 'bg-slate-950 text-white active:bg-slate-800' },
+      class: { base: 'bg-zinc-950 text-white active:bg-zinc-900' },
     },
     {
       color: 'default',
@@ -353,13 +353,13 @@ export const button = tv({
       color: 'default',
       tone: 'dark',
       variant: ['outline', 'flat', 'text'],
-      class: { base: 'text-white active:text-slate-200' },
+      class: { base: 'text-white active:text-zinc-200' },
     },
     {
       color: 'default',
       tone: 'dark',
       variant: 'outline',
-      class: { base: 'border-slate-700' },
+      class: { base: 'border-zinc-600' },
     },
     {
       color: 'default',
@@ -371,7 +371,7 @@ export const button = tv({
       color: 'default',
       tone: 'dark',
       variant: 'flat',
-      class: { base: 'bg-slate-800 active:bg-slate-700' },
+      class: { base: 'bg-zinc-700 active:bg-zinc-600' },
     },
     ...semanticToneVariants,
     {

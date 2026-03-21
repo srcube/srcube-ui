@@ -42,6 +42,10 @@ export const imageMiniProps = {
     type: Array,
     value: [],
   },
+  tone: {
+    type: null,
+    value: 'default',
+  },
   size: {
     type: null,
     value: 'md',

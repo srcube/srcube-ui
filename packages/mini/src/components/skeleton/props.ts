@@ -13,6 +13,10 @@ export const skeletonMiniProps = {
     type: String,
     value: '',
   },
+  tone: {
+    type: null,
+    value: 'default',
+  },
   isLoaded: {
     type: Boolean,
     value: false,

@@ -47,6 +47,7 @@ export function usePopup(props: UsePopupProps) {
     hasBackdrop = true,
     motion,
     backdrop,
+    tone,
     children,
     className,
     classNames,
@@ -99,8 +100,9 @@ export function usePopup(props: UsePopupProps) {
         isOpen: isMotionOpen,
         motion: motion ?? undefined,
         backdrop: backdrop ?? undefined,
+        tone: tone ?? undefined,
       }),
-    [isMotionOpen, motion, backdrop],
+    [isMotionOpen, motion, backdrop, tone],
   );
 
   useImperativeHandle(ref, () => {

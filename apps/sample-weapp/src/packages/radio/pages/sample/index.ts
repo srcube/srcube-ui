@@ -1,8 +1,9 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 Page({
   data: {
-    tone: "default" as "default" | "dark",
-    pageClassName: "min-h-screen bg-slate-100 text-slate-900 pb-safe",
-    navbarClassName: "sticky top-0 z-20 border-b border-slate-200",
+    tone: "default" as SampleTone,
     surfaceClassName: "rounded-2xl bg-white p-4 shadow-sm",
     titleClassName: "text-sm font-semibold text-slate-900",
     descriptionClassName: "mt-1 text-xs text-slate-500",
@@ -24,17 +25,11 @@ Page({
     ],
   },
 
-  setToneClasses(tone: "default" | "dark") {
+  _unsubscribeTone: null as null | (() => void),
+
+  setToneClasses(tone: SampleTone) {
     this.setData({
       tone,
-      pageClassName:
-        tone === "dark"
-          ? "min-h-screen bg-zinc-950 text-zinc-50 pb-safe"
-          : "min-h-screen bg-slate-100 text-slate-900 pb-safe",
-      navbarClassName:
-        tone === "dark"
-          ? "sticky top-0 z-20 border-b border-zinc-800"
-          : "sticky top-0 z-20 border-b border-slate-200",
       surfaceClassName:
         tone === "dark"
           ? "rounded-2xl bg-zinc-900 p-4 shadow-sm shadow-black/20"
@@ -50,18 +45,16 @@ Page({
     });
   },
 
-  handleToneTap(
-    e: WechatMiniprogram.TouchEvent & {
-      currentTarget: {
-        dataset: {
-          tone?: "default" | "dark";
-        };
-      };
-    }
-  ) {
-    const tone = e.currentTarget?.dataset?.tone;
-    if (!tone) return;
+  applyTone(tone: SampleTone) {
     this.setToneClasses(tone);
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleColorChange(e: WechatMiniprogram.CustomEvent) {

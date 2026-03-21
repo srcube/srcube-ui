@@ -22,6 +22,10 @@ it('uses primary as default color', () => {
   expect(stepsMiniProps.color.value).toBe('primary');
 });
 
+it('uses default as default tone', () => {
+  expect(stepsMiniProps.tone.value).toBe('default');
+});
+
 it('uses solid as default variant', () => {
   expect(stepsMiniProps.variant.value).toBe('solid');
 });

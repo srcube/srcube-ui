@@ -19,3 +19,8 @@ it('uses single mode by default', () => {
 it('uses weekStartsOn zero by default', () => {
   expect(calendarMiniProps.weekStartsOn.value).toBe(0);
 });
+
+it('uses default tone in mini props', () => {
+  expect(calendarMiniProps.tone.value).toBe('default');
+  expect(template).toContain('tone="{{tone}}"');
+});

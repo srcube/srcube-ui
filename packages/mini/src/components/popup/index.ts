@@ -53,6 +53,7 @@ UIComponent({
         isOpen,
         motion: data.motion,
         backdrop: data.backdrop,
+        tone: data.tone,
       });
 
       return {

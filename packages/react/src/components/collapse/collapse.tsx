@@ -14,6 +14,7 @@ export const Collapse = React.forwardRef<HTMLDivElement, CollapseReactProps>(
       content,
       value,
       defaultValue = false,
+      tone,
       variant,
       size,
       radius,
@@ -38,11 +39,12 @@ export const Collapse = React.forwardRef<HTMLDivElement, CollapseReactProps>(
     const slots = React.useMemo(
       () =>
         collapse({
+          tone,
           variant,
           size,
           radius,
         }),
-      [radius, size, variant],
+      [radius, size, tone, variant],
     );
 
     const stateClass = collapseState({

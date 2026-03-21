@@ -1,288 +1,253 @@
-<view class="{{pageClassName}}">
-  <sr-navbar
-    className="{{navbarClassName}}"
-    title="Tabs"
-    tone="{{tone}}"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
+<app-page title="Tabs" tone="{{tone}}" withBack="{{true}}">
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Basic</view>
+    <view class="{{descriptionClassName}}">horizontal + panel (size=md radius=full)</view>
 
-  <view class="p-4 space-y-6">
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Tone</view>
-      <view class="mt-3 flex gap-2">
+    <sr-tabs
+      className="mt-3"
+      items="{{basicTabs}}"
+      value="{{basicValue}}"
+      tone="{{tone}}"
+      size="md"
+      radius="full"
+      bind:change="handleBasicChange"
+    >
+      <sr-tab-panel
+        value="tab-1"
+        activeValue="{{basicValue}}"
+        className="{{panelClassName}}"
+      >
+        Panel for Tab 1
+      </sr-tab-panel>
+      <sr-tab-panel
+        value="tab-2"
+        activeValue="{{basicValue}}"
+        className="{{panelClassName}}"
+      >
+        Panel for Tab 2
+      </sr-tab-panel>
+      <sr-tab-panel
+        value="tab-3"
+        activeValue="{{basicValue}}"
+        className="{{panelClassName}}"
+      >
+        Panel for Tab 3
+      </sr-tab-panel>
+    </sr-tabs>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Vertical</view>
+    <view class="{{descriptionClassName}}">
+      placement=top/start/end/bottom + variant=underline
+    </view>
+
+    <view class="mt-3">
+      <sr-button-group size="sm" isBlock>
         <sr-button
-          size="sm"
+          class="flex-1"
           tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-          color="{{tone === 'default' ? 'primary' : 'default'}}"
-          variant="{{tone === 'default' ? 'solid' : 'flat'}}"
-          data-tone="default"
-          bind:tap="handleToneTap"
+          color="{{placementValue === 'top' ? 'primary' : 'default'}}"
+          variant="{{placementValue === 'top' ? 'solid' : 'flat'}}"
+          data-placement="top"
+          bind:tap="handlePlacementTap"
+        >
+          top
+        </sr-button>
+        <sr-button
+          class="flex-1"
+          tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+          color="{{placementValue === 'start' ? 'primary' : 'default'}}"
+          variant="{{placementValue === 'start' ? 'solid' : 'flat'}}"
+          data-placement="start"
+          bind:tap="handlePlacementTap"
+        >
+          start
+        </sr-button>
+        <sr-button
+          class="flex-1"
+          tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+          color="{{placementValue === 'end' ? 'primary' : 'default'}}"
+          variant="{{placementValue === 'end' ? 'solid' : 'flat'}}"
+          data-placement="end"
+          bind:tap="handlePlacementTap"
+        >
+          end
+        </sr-button>
+        <sr-button
+          class="flex-1"
+          tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+          color="{{placementValue === 'bottom' ? 'primary' : 'default'}}"
+          variant="{{placementValue === 'bottom' ? 'solid' : 'flat'}}"
+          data-placement="bottom"
+          bind:tap="handlePlacementTap"
+        >
+          bottom
+        </sr-button>
+      </sr-button-group>
+    </view>
+
+    <sr-tabs
+      className="mt-3 h-44"
+      placement="{{placementValue}}"
+      items="{{verticalTabs}}"
+      value="{{verticalValue}}"
+      tone="{{tone}}"
+      variant="underline"
+      color="primary"
+      size="sm"
+      radius="none"
+      bind:change="handleVerticalChange"
+    >
+      <sr-tab-panel
+        value="tab-a"
+        activeValue="{{verticalValue}}"
+        className="{{verticalPanelClassName}}"
+      >
+        Panel for Tab A
+      </sr-tab-panel>
+      <sr-tab-panel
+        value="tab-b"
+        activeValue="{{verticalValue}}"
+        className="{{verticalPanelClassName}}"
+      >
+        Panel for Tab B
+      </sr-tab-panel>
+      <sr-tab-panel
+        value="tab-c"
+        activeValue="{{verticalValue}}"
+        className="{{verticalPanelClassName}}"
+      >
+        Panel for Tab C (disabled tab)
+      </sr-tab-panel>
+    </sr-tabs>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Variant / Color</view>
+    <view class="{{descriptionClassName}}">default / outline / twotone / underline</view>
+
+    <view class="mt-3">
+      <sr-button-group size="sm" isBlock>
+        <sr-button
+          class="flex-1"
+          tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+          color="{{activeVariant === 'default' ? 'primary' : 'default'}}"
+          variant="{{activeVariant === 'default' ? 'solid' : 'flat'}}"
+          data-variant="default"
+          bind:tap="handleVariantTap"
         >
           default
         </sr-button>
         <sr-button
-          size="sm"
-          tone="dark"
-          variant="{{tone === 'dark' ? 'solid' : 'flat'}}"
-          data-tone="dark"
-          bind:tap="handleToneTap"
+          class="flex-1"
+          tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+          color="{{activeVariant === 'outline' ? 'primary' : 'default'}}"
+          variant="{{activeVariant === 'outline' ? 'solid' : 'flat'}}"
+          data-variant="outline"
+          bind:tap="handleVariantTap"
         >
-          dark
+          outline
         </sr-button>
-      </view>
+        <sr-button
+          class="flex-1"
+          tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+          color="{{activeVariant === 'twotone' ? 'primary' : 'default'}}"
+          variant="{{activeVariant === 'twotone' ? 'solid' : 'flat'}}"
+          data-variant="twotone"
+          bind:tap="handleVariantTap"
+        >
+          twotone
+        </sr-button>
+        <sr-button
+          class="flex-1"
+          tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+          color="{{activeVariant === 'underline' ? 'primary' : 'default'}}"
+          variant="{{activeVariant === 'underline' ? 'solid' : 'flat'}}"
+          data-variant="underline"
+          bind:tap="handleVariantTap"
+        >
+          underline
+        </sr-button>
+      </sr-button-group>
     </view>
 
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Basic</view>
-      <view class="{{descriptionClassName}}">horizontal + panel (size=md radius=full)</view>
-
-      <sr-tabs
-        className="mt-3"
-        items="{{basicTabs}}"
-        value="{{basicValue}}"
-        tone="{{tone}}"
-        size="md"
-        radius="full"
-        bind:change="handleBasicChange"
+    <view class="mt-2 flex flex-col gap-2">
+      <block
+        wx:for="{{colorGroups}}"
+        wx:for-item="group"
+        wx:for-index="groupIndex"
+        wx:key="groupIndex"
       >
-        <sr-tab-panel
-          value="tab-1"
-          activeValue="{{basicValue}}"
-          className="{{panelClassName}}"
-        >
-          Panel for Tab 1
-        </sr-tab-panel>
-        <sr-tab-panel
-          value="tab-2"
-          activeValue="{{basicValue}}"
-          className="{{panelClassName}}"
-        >
-          Panel for Tab 2
-        </sr-tab-panel>
-        <sr-tab-panel
-          value="tab-3"
-          activeValue="{{basicValue}}"
-          className="{{panelClassName}}"
-        >
-          Panel for Tab 3
-        </sr-tab-panel>
-      </sr-tabs>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Vertical</view>
-      <view class="{{descriptionClassName}}">
-        placement=top/start/end/bottom + variant=underline
-      </view>
-
-      <view class="mt-3">
         <sr-button-group size="sm" isBlock>
-          <sr-button
-            class="flex-1"
-            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-            color="{{placementValue === 'top' ? 'primary' : 'default'}}"
-            variant="{{placementValue === 'top' ? 'solid' : 'flat'}}"
-            data-placement="top"
-            bind:tap="handlePlacementTap"
-          >
-            top
-          </sr-button>
-          <sr-button
-            class="flex-1"
-            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-            color="{{placementValue === 'start' ? 'primary' : 'default'}}"
-            variant="{{placementValue === 'start' ? 'solid' : 'flat'}}"
-            data-placement="start"
-            bind:tap="handlePlacementTap"
-          >
-            start
-          </sr-button>
-          <sr-button
-            class="flex-1"
-            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-            color="{{placementValue === 'end' ? 'primary' : 'default'}}"
-            variant="{{placementValue === 'end' ? 'solid' : 'flat'}}"
-            data-placement="end"
-            bind:tap="handlePlacementTap"
-          >
-            end
-          </sr-button>
-          <sr-button
-            class="flex-1"
-            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-            color="{{placementValue === 'bottom' ? 'primary' : 'default'}}"
-            variant="{{placementValue === 'bottom' ? 'solid' : 'flat'}}"
-            data-placement="bottom"
-            bind:tap="handlePlacementTap"
-          >
-            bottom
-          </sr-button>
+          <block wx:for="{{group}}" wx:for-item="option" wx:key="value">
+            <sr-button
+              class="flex-1"
+              tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+              color="{{activeColor === option.value ? option.value : 'default'}}"
+              variant="{{activeColor === option.value ? 'solid' : 'flat'}}"
+              data-color="{{option.value}}"
+              bind:tap="handleColorTap"
+            >
+              {{option.label}}
+            </sr-button>
+          </block>
         </sr-button-group>
-      </view>
-
-      <sr-tabs
-        className="mt-3 h-44"
-        placement="{{placementValue}}"
-        items="{{verticalTabs}}"
-        value="{{verticalValue}}"
-        tone="{{tone}}"
-        variant="underline"
-        color="primary"
-        size="sm"
-        radius="none"
-        bind:change="handleVerticalChange"
-      >
-        <sr-tab-panel
-          value="tab-a"
-          activeValue="{{verticalValue}}"
-          className="{{verticalPanelClassName}}"
-        >
-          Panel for Tab A
-        </sr-tab-panel>
-        <sr-tab-panel
-          value="tab-b"
-          activeValue="{{verticalValue}}"
-          className="{{verticalPanelClassName}}"
-        >
-          Panel for Tab B
-        </sr-tab-panel>
-        <sr-tab-panel
-          value="tab-c"
-          activeValue="{{verticalValue}}"
-          className="{{verticalPanelClassName}}"
-        >
-          Panel for Tab C (disabled tab)
-        </sr-tab-panel>
-      </sr-tabs>
+      </block>
     </view>
 
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Variant / Color</view>
-      <view class="{{descriptionClassName}}">default / outline / twotone / underline</view>
+    <sr-tabs
+      className="mt-3"
+      items="{{colorTabs}}"
+      value="{{colorValue}}"
+      tone="{{tone}}"
+      color="{{activeColor}}"
+      variant="{{activeVariant}}"
+      bind:change="handleColorChange"
+    />
 
-      <view class="mt-3">
-        <sr-button-group size="sm" isBlock>
-          <sr-button
-            class="flex-1"
-            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-            color="{{activeVariant === 'default' ? 'primary' : 'default'}}"
-            variant="{{activeVariant === 'default' ? 'solid' : 'flat'}}"
-            data-variant="default"
-            bind:tap="handleVariantTap"
-          >
-            default
-          </sr-button>
-          <sr-button
-            class="flex-1"
-            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-            color="{{activeVariant === 'outline' ? 'primary' : 'default'}}"
-            variant="{{activeVariant === 'outline' ? 'solid' : 'flat'}}"
-            data-variant="outline"
-            bind:tap="handleVariantTap"
-          >
-            outline
-          </sr-button>
-          <sr-button
-            class="flex-1"
-            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-            color="{{activeVariant === 'twotone' ? 'primary' : 'default'}}"
-            variant="{{activeVariant === 'twotone' ? 'solid' : 'flat'}}"
-            data-variant="twotone"
-            bind:tap="handleVariantTap"
-          >
-            twotone
-          </sr-button>
-          <sr-button
-            class="flex-1"
-            tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-            color="{{activeVariant === 'underline' ? 'primary' : 'default'}}"
-            variant="{{activeVariant === 'underline' ? 'solid' : 'flat'}}"
-            data-variant="underline"
-            bind:tap="handleVariantTap"
-          >
-            underline
-          </sr-button>
-        </sr-button-group>
-      </view>
-
-      <view class="mt-2 flex flex-col gap-2">
-        <block
-          wx:for="{{colorGroups}}"
-          wx:for-item="group"
-          wx:for-index="groupIndex"
-          wx:key="groupIndex"
-        >
-          <sr-button-group size="sm" isBlock>
-            <block wx:for="{{group}}" wx:for-item="option" wx:key="value">
-              <sr-button
-                class="flex-1"
-                tone="{{tone === 'dark' ? 'dark' : 'light'}}"
-                color="{{activeColor === option.value ? option.value : 'default'}}"
-                variant="{{activeColor === option.value ? 'solid' : 'flat'}}"
-                data-color="{{option.value}}"
-                bind:tap="handleColorTap"
-              >
-                {{option.label}}
-              </sr-button>
-            </block>
-          </sr-button-group>
-        </block>
-      </view>
-
-      <sr-tabs
-        className="mt-3"
-        items="{{colorTabs}}"
-        value="{{colorValue}}"
-        tone="{{tone}}"
-        color="{{activeColor}}"
-        variant="{{activeVariant}}"
-        bind:change="handleColorChange"
-      />
-
-      <view class="{{metaTextClassName}}">
-        Variant: {{activeVariant}} / Color: {{activeColor}} / Selected: {{colorValue}}
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Tabs Only</view>
-      <view class="{{descriptionClassName}}">
-        external custom panel (e.g. swiper / business container)
-      </view>
-
-      <sr-tabs
-        className="mt-3"
-        items="{{customPanelTabs}}"
-        value="{{customValue}}"
-        tone="{{tone}}"
-        size="md"
-        radius="md"
-        bind:change="handleCustomChange"
-      />
-
-      <view class="{{externalPanelClassName}}">
-        <view wx:if="{{customValue === 'tab-1'}}">External Panel: Tab 1</view>
-        <view wx:elif="{{customValue === 'tab-2'}}">External Panel: Tab 2</view>
-        <view wx:else>External Panel: Tab 3</view>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Long List</view>
-      <view class="{{descriptionClassName}}">virtualized tabs + edge tap auto shift</view>
-
-      <sr-tabs
-        className="mt-3"
-        items="{{longTabs}}"
-        value="{{longValue}}"
-        tone="{{tone}}"
-        radius="full"
-        estimateSize="{{88}}"
-        bind:change="handleLongChange"
-      />
-
-      <view class="{{metaTextClassName}}">Selected: {{longValue}}</view>
+    <view class="{{metaTextClassName}}">
+      Variant: {{activeVariant}} / Color: {{activeColor}} / Selected: {{colorValue}}
     </view>
   </view>
-</view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Tabs Only</view>
+    <view class="{{descriptionClassName}}">
+      external custom panel (e.g. swiper / business container)
+    </view>
+
+    <sr-tabs
+      className="mt-3"
+      items="{{customPanelTabs}}"
+      value="{{customValue}}"
+      tone="{{tone}}"
+      size="md"
+      radius="md"
+      bind:change="handleCustomChange"
+    />
+
+    <view class="{{externalPanelClassName}}">
+      <view wx:if="{{customValue === 'tab-1'}}">External Panel: Tab 1</view>
+      <view wx:elif="{{customValue === 'tab-2'}}">External Panel: Tab 2</view>
+      <view wx:else>External Panel: Tab 3</view>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Long List</view>
+    <view class="{{descriptionClassName}}">virtualized tabs + edge tap auto shift</view>
+
+    <sr-tabs
+      className="mt-3"
+      items="{{longTabs}}"
+      value="{{longValue}}"
+      tone="{{tone}}"
+      radius="full"
+      estimateSize="{{88}}"
+      bind:change="handleLongChange"
+    />
+
+    <view class="{{metaTextClassName}}">Selected: {{longValue}}</view>
+  </view>
+</app-page>

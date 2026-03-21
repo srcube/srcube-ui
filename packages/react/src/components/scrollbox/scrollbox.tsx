@@ -96,6 +96,7 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
   (props, ref) => {
     const {
       orientation,
+      tone = 'default',
       hideMasks = false,
       scrollX,
       scrollY,
@@ -207,13 +208,14 @@ export const Scrollbox = forwardRef<HTMLDivElement, ScrollboxReactProps>(
       () =>
         scrollbox({
           orientation: resolvedOrientation,
+          tone,
           hideMasks,
           showMaskTop: maskState.showMaskTop,
           showMaskBottom: maskState.showMaskBottom,
           showMaskLeft: maskState.showMaskLeft,
           showMaskRight: maskState.showMaskRight,
         }),
-      [resolvedOrientation, hideMasks, maskState],
+      [resolvedOrientation, tone, hideMasks, maskState],
     );
 
     const wrapperClassName = classes.wrapper({

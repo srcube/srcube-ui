@@ -1,18 +1,28 @@
-<view class="min-h-screen bg-slate-50 text-slate-900">
-  <view class="px-6 pt-10 pb-6">
+<view class="{{pageClassName}}">
+  <app-navbar title="Srcube UI" tone="{{tone}}" />
+
+  <view class="px-6 pt-6 pb-4">
     <view class="flex items-center gap-3">
       <image class="w-12 h-12" src="/srcube.png" />
       <view>
         <view class="text-lg font-semibold">
           Srcube UI
-          <text class="text-slate-500">mini</text>
+          <text class="{{subTitleClassName}}">mini</text>
         </view>
-        <view class="text-xs text-slate-500">用于验证小程序端组件实现的精简示例</view>
+        <view class="{{subTitleClassName}}">
+          用于验证小程序端组件实现的精简示例
+        </view>
       </view>
     </view>
   </view>
   <view class="grid grid-cols-2 gap-4 p-4">
-    <view wx:for="{{components}}" wx:key="title" class="flex justify-center py-2 rounded-lg bg-white font-medium shadow-sm active:bg-slate-200" data-url="{{item.url}}" bindtap="handleNavigate">
+    <view
+      wx:for="{{components}}"
+      wx:key="title"
+      class="{{cardClassName}}"
+      data-url="{{item.url}}"
+      bindtap="handleNavigate"
+    >
       {{item.title}}
     </view>
   </view>

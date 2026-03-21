@@ -1,3 +1,6 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 const stepperColorGroups = [
   [
     { label: 'default', value: 'default' },
@@ -15,10 +18,25 @@ type StepperColor = (typeof stepperColorGroups)[number][number]['value'];
 
 Page({
   data: {
+    tone: 'default' as SampleTone,
     basicValue: 2,
     activeColor: 'default' as StepperColor,
     colorValue: 3,
     colorGroups: stepperColorGroups,
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleBasicChange(e: WechatMiniprogram.CustomEvent<{ value?: number }>) {

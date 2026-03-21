@@ -27,7 +27,7 @@ it('builds default dark tone button classes', () => {
   });
 
   const base = slots.base();
-  expect(base).toContain('bg-slate-950');
+  expect(base).toContain('bg-zinc-950');
   expect(base).toContain('text-white');
 });
 

@@ -35,6 +35,10 @@ function resolveRadiusBySize(size: NonNullable<ActionSheetReactProps['size']>) {
   }
 }
 
+function resolveButtonTone(tone: ActionSheetReactProps['tone']) {
+  return tone === 'dark' ? 'dark' : 'light';
+}
+
 export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
   (props, ref) => {
     const {
@@ -49,6 +53,7 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
       footer,
       locale = DEFAULT_ACTION_SHEET_LOCALE,
       isClosable = true,
+      tone,
       size,
       radius,
       isInset,
@@ -64,6 +69,7 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
     const isControlled = isOpen !== null && isOpen !== undefined;
     const [innerOpen, setInnerOpen] = React.useState(Boolean(defaultOpen));
     const open = isControlled ? Boolean(isOpen) : innerOpen;
+    const resolvedTone = tone ?? 'default';
     const resolvedSize = size ?? 'md';
     const resolvedRadius = radius ?? resolveRadiusBySize(resolvedSize);
     const resolvedCancelText = cancelText ?? ACTION_SHEET_CANCEL_TEXT[locale];
@@ -80,11 +86,12 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
       () =>
         actionSheet({
           isOpen: open,
+          tone: resolvedTone,
           size: resolvedSize,
           radius: resolvedRadius,
           isInset,
         }),
-      [open, resolvedRadius, resolvedSize, isInset],
+      [open, resolvedRadius, resolvedSize, resolvedTone, isInset],
     );
 
     const cancelButtonMergedClassName = React.useMemo(
@@ -193,6 +200,7 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
                   const itemColor = item.color ?? DEFAULT_ACTION_COLOR;
                   const itemActionClass = actionSheetAction({
                     color: itemColor,
+                    tone: resolvedTone,
                   });
 
                   if (index > 0) {
@@ -213,6 +221,7 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
                       )}:${index}`}
                       variant="text"
                       color="default"
+                      tone={resolveButtonTone(resolvedTone)}
                       radius="none"
                       isDisabled={Boolean(item.isDisabled)}
                       isBlock
@@ -284,6 +293,9 @@ export const ActionSheet = React.forwardRef<PopupRef, ActionSheetReactProps>(
                 <Button
                   {...restCancelButtonProps}
                   isBlock={restCancelButtonProps.isBlock ?? true}
+                  tone={
+                    restCancelButtonProps.tone ?? resolveButtonTone(resolvedTone)
+                  }
                   className={cancelButtonMergedClassName}
                   onTap={handleCancelTap}
                 >

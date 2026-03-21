@@ -1,3 +1,6 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 type MiniListboxItem = {
   id: string | number;
   label: string;
@@ -58,6 +61,7 @@ function createStickyHorizontalItems() {
 
 Page({
   data: {
+    tone: 'default' as SampleTone,
     stickyItems: createStickyVerticalItems(),
     horizontalStickyItems: createStickyHorizontalItems(),
     plainItems: Array.from({ length: 1000 }, (_, index) => ({
@@ -69,6 +73,20 @@ Page({
     stickyPressed: 'none',
     horizontalPressed: 'none',
     plainPressed: 'none',
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleStickyItemTap(

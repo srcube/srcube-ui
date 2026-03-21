@@ -1,130 +1,96 @@
-<view class="{{pageClassName}}">
-  <sr-navbar
-    className="{{navbarClassName}}"
-    title="Radio"
-    tone="{{tone}}"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
-
-  <view class="p-4 space-y-6">
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Tone</view>
-      <view class="mt-3 flex gap-2">
-        <sr-button
-          size="sm"
-          color="{{tone === 'default' ? 'primary' : 'default'}}"
-          variant="{{tone === 'default' ? 'solid' : 'flat'}}"
-          data-tone="default"
-          bind:tap="handleToneTap"
+<app-page title="Radio" tone="{{tone}}" withBack="{{true}}">
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Colors</view>
+    <view class="{{descriptionClassName}}">color + group</view>
+    <view class="mt-3">
+      <sr-radio-group
+        value="{{colorValue}}"
+        tone="{{tone}}"
+        bind:change="handleColorChange"
+        orientation="y"
+        isBlock
+      >
+        <sr-radio
+          wx:for="{{colors}}"
+          wx:key="value"
+          value="{{item.value}}"
+          color="{{item.value}}"
         >
-          default
-        </sr-button>
-        <sr-button
-          size="sm"
-          tone="dark"
-          variant="{{tone === 'dark' ? 'solid' : 'flat'}}"
-          data-tone="dark"
-          bind:tap="handleToneTap"
-        >
-          dark
-        </sr-button>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Colors</view>
-      <view class="{{descriptionClassName}}">color + group</view>
-      <view class="mt-3">
-        <sr-radio-group
-          value="{{colorValue}}"
-          tone="{{tone}}"
-          bind:change="handleColorChange"
-          orientation="y"
-          isBlock
-        >
-          <sr-radio
-            wx:for="{{colors}}"
-            wx:key="value"
-            value="{{item.value}}"
-            color="{{item.value}}"
-          >
-            {{item.label}}
-          </sr-radio>
-        </sr-radio-group>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Sizes</view>
-      <view class="{{descriptionClassName}}">size + group</view>
-      <view class="mt-3">
-        <sr-radio-group
-          value="{{sizeValue}}"
-          tone="{{tone}}"
-          bind:change="handleSizeChange"
-          orientation="y"
-          isBlock
-        >
-          <sr-radio
-            wx:for="{{sizes}}"
-            wx:key="value"
-            value="{{item.value}}"
-            size="{{item.value}}"
-          >
-            {{item.label}}
-          </sr-radio>
-        </sr-radio-group>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Custom Icon</view>
-      <view class="{{descriptionClassName}}">slot icon</view>
-      <view class="mt-3 flex flex-wrap gap-4">
-        <sr-radio tone="{{tone}}" defaultSelected hasIcon>
-          <view slot="icon" class="icon-[ion--checkmark]" />
-          Check
+          {{item.label}}
         </sr-radio>
-        <sr-radio tone="{{tone}}" hasIcon>
-          <view slot="icon" class="icon-[ion--chevron-back]" />
-          Chevron
-        </sr-radio>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">States</view>
-      <view class="mt-3 flex flex-wrap gap-4">
-        <sr-radio tone="{{tone}}" defaultSelected>Normal</sr-radio>
-        <sr-radio tone="{{tone}}" isDisabled>Disabled</sr-radio>
-        <sr-radio tone="{{tone}}" isLoading>Loading</sr-radio>
-        <sr-radio tone="{{tone}}" isLoading="auto" bind:tap="handleAutoLoading">
-          Auto Loading
-        </sr-radio>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Group</view>
-      <view class="{{descriptionClassName}}">orientation + isBlock</view>
-      <view class="mt-3 space-y-4">
-        <sr-radio-group
-          value="{{groupValue}}"
-          tone="{{tone}}"
-          bind:change="handleGroupChange"
-          orientation="y"
-          isBlock
-        >
-          <sr-radio value="left">Left</sr-radio>
-          <sr-radio value="middle">Middle</sr-radio>
-          <sr-radio value="right">Right</sr-radio>
-        </sr-radio-group>
-        <sr-radio-group defaultValue="a" orientation="x" tone="{{tone}}">
-          <sr-radio value="a">Option A</sr-radio>
-          <sr-radio value="b">Option B</sr-radio>
-        </sr-radio-group>
-      </view>
+      </sr-radio-group>
     </view>
   </view>
-</view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Sizes</view>
+    <view class="{{descriptionClassName}}">size + group</view>
+    <view class="mt-3">
+      <sr-radio-group
+        value="{{sizeValue}}"
+        tone="{{tone}}"
+        bind:change="handleSizeChange"
+        orientation="y"
+        isBlock
+      >
+        <sr-radio
+          wx:for="{{sizes}}"
+          wx:key="value"
+          value="{{item.value}}"
+          size="{{item.value}}"
+        >
+          {{item.label}}
+        </sr-radio>
+      </sr-radio-group>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Custom Icon</view>
+    <view class="{{descriptionClassName}}">slot icon</view>
+    <view class="mt-3 flex flex-wrap gap-4">
+      <sr-radio tone="{{tone}}" defaultSelected hasIcon>
+        <view slot="icon" class="icon-[ion--checkmark]" />
+        Check
+      </sr-radio>
+      <sr-radio tone="{{tone}}" hasIcon>
+        <view slot="icon" class="icon-[ion--chevron-back]" />
+        Chevron
+      </sr-radio>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">States</view>
+    <view class="mt-3 flex flex-wrap gap-4">
+      <sr-radio tone="{{tone}}" defaultSelected>Normal</sr-radio>
+      <sr-radio tone="{{tone}}" isDisabled>Disabled</sr-radio>
+      <sr-radio tone="{{tone}}" isLoading>Loading</sr-radio>
+      <sr-radio tone="{{tone}}" isLoading="auto" bind:tap="handleAutoLoading">
+        Auto Loading
+      </sr-radio>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Group</view>
+    <view class="{{descriptionClassName}}">orientation + isBlock</view>
+    <view class="mt-3 space-y-4">
+      <sr-radio-group
+        value="{{groupValue}}"
+        tone="{{tone}}"
+        bind:change="handleGroupChange"
+        orientation="y"
+        isBlock
+      >
+        <sr-radio value="left">Left</sr-radio>
+        <sr-radio value="middle">Middle</sr-radio>
+        <sr-radio value="right">Right</sr-radio>
+      </sr-radio-group>
+      <sr-radio-group defaultValue="a" orientation="x" tone="{{tone}}">
+        <sr-radio value="a">Option A</sr-radio>
+        <sr-radio value="b">Option B</sr-radio>
+      </sr-radio-group>
+    </view>
+  </view>
+</app-page>

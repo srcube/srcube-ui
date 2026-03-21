@@ -33,3 +33,10 @@ it('renders built-in chevron indicator by default', () => {
 
   expect(container.innerHTML).toContain('icon-chevron-down');
 });
+
+it('supports dark tone classes', () => {
+  render(<Collapse title="Dark" content="Dark content" tone="dark" />);
+
+  const trigger = screen.getByText('Dark').closest('button') as HTMLButtonElement;
+  expect(trigger.className).toContain('text-zinc-50');
+});

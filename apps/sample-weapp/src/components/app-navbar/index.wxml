@@ -1,0 +1,29 @@
+<sr-navbar
+  className="sticky top-0 z-20 {{tone === 'dark' ? 'border-b border-zinc-800' : 'border-b border-slate-200'}}"
+  title="{{title}}"
+  tone="{{tone}}"
+  withBack="{{withBack}}"
+  hasSafeTop="{{true}}"
+>
+  <view slot="end">
+    <view
+      class="inline-flex h-8 items-center gap-2 rounded-full border px-3 text-xs font-semibold leading-none transition-colors {{tone === 'dark' ? 'border-zinc-700 bg-zinc-900 text-zinc-100' : 'border-slate-200 bg-slate-100 text-slate-700'}}"
+      bindtap="handleOpenToneSheet"
+    >
+      <view class="h-2 w-2 rounded-full {{tone === 'dark' ? 'bg-zinc-100' : 'bg-slate-700'}}" />
+      <text>{{tone === 'dark' ? 'Dark' : 'Light'}}</text>
+    </view>
+  </view>
+</sr-navbar>
+
+<sr-action-sheet
+  isOpen="{{isToneSheetOpen}}"
+  title="Switch Theme"
+  description="Apply theme tone to the sample app"
+  actions="{{toneActions}}"
+  cancelText="Close"
+  tone="{{tone}}"
+  isInset="{{true}}"
+  bind:action="handleToneAction"
+  bind:change="handleToneSheetChange"
+/>

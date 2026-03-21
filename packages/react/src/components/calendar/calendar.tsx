@@ -248,6 +248,10 @@ function resolveSizeMetrics(size?: 'sm' | 'md' | 'lg' | null): SizeMetrics {
   };
 }
 
+function resolveButtonTone(tone?: 'default' | 'dark' | null) {
+  return tone === 'dark' ? 'dark' : 'light';
+}
+
 function resolveMonthBounds(params: {
   minDate?: string;
   maxDate?: string;
@@ -529,6 +533,7 @@ type CalendarPanelProps = {
     | 'success'
     | 'warning'
     | 'danger';
+  tone?: 'default' | 'dark';
   className?: string;
   classNames?: CalendarReactProps['classNames'];
   style?: React.CSSProperties;
@@ -554,6 +559,7 @@ function CalendarPanel(props: CalendarPanelProps) {
     size,
     radius,
     color,
+    tone,
     className,
     classNames,
     style,
@@ -842,9 +848,10 @@ function CalendarPanel(props: CalendarPanelProps) {
         size,
         radius,
         color,
+        tone,
         isPickerOpen,
       }),
-    [color, isPickerOpen, radius, size],
+    [color, isPickerOpen, radius, size, tone],
   );
 
   return (
@@ -857,6 +864,7 @@ function CalendarPanel(props: CalendarPanelProps) {
       <div className={rootSlots.header({ class: classNames?.header })}>
         <Button
           color="default"
+          tone={resolveButtonTone(tone)}
           variant="flat"
           radius="full"
           size={size}
@@ -956,6 +964,7 @@ function CalendarPanel(props: CalendarPanelProps) {
                             size,
                             radius,
                             color,
+                            tone,
                             dayStatus: visual.dayStatus,
                             isRangeStart: Boolean(visual.isRangeStart),
                             isRangeEnd: Boolean(visual.isRangeEnd),
@@ -1031,6 +1040,7 @@ function CalendarPanel(props: CalendarPanelProps) {
                   }}
                   size={size}
                   color={color === 'default' ? 'default' : color}
+                  tone={tone}
                   columns={pickerColumns}
                   value={pickerDraft}
                   scrollEndDelay={100}
@@ -1081,6 +1091,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarReactProps>(
       size,
       radius,
       color,
+      tone,
       className,
       classNames,
       style,
@@ -1111,6 +1122,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarReactProps>(
         size={size}
         radius={radius}
         color={color}
+        tone={tone}
         className={className}
         classNames={classNames}
         style={style}
@@ -1172,6 +1184,7 @@ export const CalendarRange = React.forwardRef<
     size,
     radius,
     color,
+    tone,
     className,
     classNames,
     style,
@@ -1214,6 +1227,7 @@ export const CalendarRange = React.forwardRef<
       size={size}
       radius={radius}
       color={color}
+      tone={tone}
       className={className}
       classNames={classNames}
       style={style}

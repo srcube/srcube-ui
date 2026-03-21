@@ -15,6 +15,7 @@ export type InputOtpMiniProps = InputOtpVariants & {
 
 export const inputOtpMiniProps = {
   color: { type: null, value: null },
+  tone: { type: null, value: 'default' },
   variant: { type: null, value: null },
   size: { type: null, value: null },
   radius: { type: null, value: null },

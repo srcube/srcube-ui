@@ -1,5 +1,8 @@
 import type { FieldVariants } from '@srcube-ui/styles/components/field/style';
-import type { PickerMiniClassNames, PickerVariants } from '@srcube-ui/styles/components/picker/style';
+import type {
+  PickerMiniClassNames,
+  PickerVariants,
+} from '@srcube-ui/styles/components/picker/style';
 
 export type PickerMiniType = NonNullable<PickerVariants['type']>;
 export type PickerMiniItemId = string | number;
@@ -33,6 +36,7 @@ export type PickerMiniProps = FieldVariants &
     placeholder?: string;
     description?: string;
     errorMessage?: string;
+    isClearable?: boolean;
     isDisabled?: boolean;
     isReadOnly?: boolean;
     isInvalid?: boolean;
@@ -61,6 +65,7 @@ export type PickerMiniProps = FieldVariants &
 export const pickerMiniProps = {
   id: { type: String, value: '' },
   color: { type: null, value: null },
+  tone: { type: null, value: 'default' },
   variant: { type: null, value: null },
   size: { type: null, value: null },
   radius: { type: null, value: null },
@@ -72,6 +77,7 @@ export const pickerMiniProps = {
   placeholder: { type: String, value: '请选择' },
   description: { type: String, value: '' },
   errorMessage: { type: String, value: '' },
+  isClearable: { type: Boolean, value: false },
   isDisabled: { type: Boolean, value: false },
   isReadOnly: { type: Boolean, value: false },
   isInvalid: { type: Boolean, value: false },

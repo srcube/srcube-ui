@@ -47,6 +47,7 @@ export type PickerSelectMiniProps = FieldVariants &
 export const pickerSelectMiniProps = {
   id: { type: String, value: '' },
   color: { type: null, value: null },
+  tone: { type: null, value: 'default' },
   variant: { type: null, value: null },
   size: { type: null, value: null },
   radius: { type: null, value: null },

@@ -35,23 +35,20 @@ export const uploaderStyle = tv({
       },
     },
     color: {
-      default: {
-        addButton: 'border-slate-300 text-slate-500',
-      },
-      primary: {
-        addButton: 'border-primary/45 text-primary',
-      },
-      secondary: {
-        addButton: 'border-secondary/45 text-secondary',
-      },
-      success: {
-        addButton: 'border-success/45 text-success',
-      },
-      warning: {
-        addButton: 'border-warning/45 text-warning',
-      },
-      danger: {
-        addButton: 'border-danger/45 text-danger',
+      default: {},
+      primary: {},
+      secondary: {},
+      success: {},
+      warning: {},
+      danger: {},
+    },
+    tone: {
+      default: {},
+      dark: {
+        item: 'border-zinc-800 bg-zinc-900',
+        addButton:
+          'border-zinc-700 bg-zinc-900 text-zinc-300 active:bg-zinc-800',
+        helperText: 'text-zinc-400',
       },
     },
     radius: {
@@ -89,9 +86,94 @@ export const uploaderStyle = tv({
   defaultVariants: {
     size: 'md',
     color: 'default',
+    tone: 'default',
     radius: 'md',
     isDisabled: false,
   },
+  compoundVariants: [
+    {
+      color: 'default',
+      tone: 'default',
+      class: {
+        addButton: 'border-slate-300 text-slate-500',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'default',
+      class: {
+        addButton: 'border-primary/45 text-primary',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'default',
+      class: {
+        addButton: 'border-secondary/45 text-secondary',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'default',
+      class: {
+        addButton: 'border-success/45 text-success',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'default',
+      class: {
+        addButton: 'border-warning/45 text-warning',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'default',
+      class: {
+        addButton: 'border-danger/45 text-danger',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        addButton:
+          'border-primary-800 bg-primary-950/40 text-primary-200 active:bg-primary-950',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        addButton:
+          'border-secondary-800 bg-secondary-950/40 text-secondary-200 active:bg-secondary-950',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      class: {
+        addButton:
+          'border-success-800 bg-success-950/40 text-success-200 active:bg-success-950',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        addButton:
+          'border-warning-800 bg-warning-950/40 text-warning-200 active:bg-warning-950',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        addButton:
+          'border-danger-800 bg-danger-950/40 text-danger-200 active:bg-danger-950',
+      },
+    },
+  ],
 });
 
 export type UploaderVariants = VariantProps<typeof uploaderStyle>;

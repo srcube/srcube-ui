@@ -1,6 +1,39 @@
+import { resolveSampleTone, type SampleTone } from '../../shared/sample-theme';
+
+type SampleApp = WechatMiniprogram.App.Instance<{
+  globalData: {
+    sampleTone: SampleTone;
+  };
+  subscribeSampleTone?: (listener: (tone: SampleTone) => void) => () => void;
+}>;
+
+function resolvePageClassName(tone: SampleTone) {
+  return tone === 'dark'
+    ? 'min-h-screen bg-zinc-950 text-zinc-50 pb-safe'
+    : 'min-h-screen bg-slate-50 text-slate-900 pb-safe';
+}
+
+function resolveCardClassName(tone: SampleTone) {
+  return tone === 'dark'
+    ? 'flex justify-center rounded-lg border border-zinc-800 bg-zinc-900 py-2 font-medium shadow-sm active:bg-zinc-800'
+    : 'flex justify-center rounded-lg bg-white py-2 font-medium shadow-sm active:bg-slate-200';
+}
+
+function resolveSubTitleClassName(tone: SampleTone) {
+  return tone === 'dark' ? 'text-xs text-zinc-400' : 'text-xs text-slate-500';
+}
+
 Page({
   data: {
+    tone: 'default' as SampleTone,
+    pageClassName: resolvePageClassName('default'),
+    cardClassName: resolveCardClassName('default'),
+    subTitleClassName: resolveSubTitleClassName('default'),
     components: [
+      {
+        title: 'Theme Center',
+        url: '/pages/theme/index',
+      },
       {
         title: 'Action Sheet',
         url: '/packages/action-sheet/pages/sample/index',
@@ -139,6 +172,33 @@ Page({
       },
     ],
   },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({
+      tone,
+      pageClassName: resolvePageClassName(tone),
+      cardClassName: resolveCardClassName(tone),
+      subTitleClassName: resolveSubTitleClassName(tone),
+    });
+  },
+
+  onLoad() {
+    const app = getApp<SampleApp>();
+    const tone = resolveSampleTone(app.globalData?.sampleTone);
+    this.applyTone(tone);
+
+    this._unsubscribeTone = app.subscribeSampleTone?.((nextTone) => {
+      this.applyTone(nextTone);
+    }) ?? null;
+  },
+
+  onUnload() {
+    this._unsubscribeTone?.();
+    this._unsubscribeTone = null;
+  },
+
   handleNavigate(e: WechatMiniprogram.TouchEvent) {
     const { url } = e.currentTarget.dataset;
     wx.navigateTo({ url });

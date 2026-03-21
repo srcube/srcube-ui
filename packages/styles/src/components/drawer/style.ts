@@ -15,6 +15,13 @@ export const drawer = tv({
     footer: 'shrink-0 px-3 pt-2',
   },
   variants: {
+    tone: {
+      default: {},
+      dark: {
+        content: 'bg-zinc-950 text-zinc-50',
+        header: 'text-zinc-50',
+      },
+    },
     isOpen: {
       true: {},
       false: {},
@@ -60,6 +67,20 @@ export const drawer = tv({
     },
   },
   compoundVariants: [
+    {
+      tone: 'default',
+      placement: ['top', 'bottom'],
+      class: {
+        body: 'border-t border-slate-100',
+      },
+    },
+    {
+      tone: 'dark',
+      placement: ['top', 'bottom'],
+      class: {
+        body: 'border-t border-zinc-900',
+      },
+    },
     {
       hasCustomNavigation: true,
       placement: 'top',
@@ -137,6 +158,7 @@ export const drawer = tv({
     },
   ],
   defaultVariants: {
+    tone: 'default',
     placement: 'bottom',
     backdrop: 'opaque',
     hasCustomNavigation: false,

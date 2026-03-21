@@ -1,101 +1,67 @@
-<view class="{{pageClassName}}">
-  <sr-navbar
-    className="{{navbarClassName}}"
-    title="Switch"
-    tone="{{tone}}"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
-
-  <view class="p-4 space-y-6">
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Tone</view>
-      <view class="mt-3 flex gap-2">
-        <sr-button
-          size="sm"
-          color="{{tone === 'default' ? 'primary' : 'default'}}"
-          variant="{{tone === 'default' ? 'solid' : 'flat'}}"
-          data-tone="default"
-          bind:tap="handleToneTap"
-        >
-          default
-        </sr-button>
-        <sr-button
-          size="sm"
-          tone="dark"
-          variant="{{tone === 'dark' ? 'solid' : 'flat'}}"
-          data-tone="dark"
-          bind:tap="handleToneTap"
-        >
-          dark
-        </sr-button>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Colors</view>
-      <view class="{{descriptionClassName}}">color + controlled</view>
-      <view class="mt-3 flex flex-col gap-3">
-        <sr-switch
-          wx:for="{{colors}}"
-          wx:key="value"
-          tone="{{tone}}"
-          data-value="{{item.value}}"
-          color="{{item.value}}"
-          isSelected="{{item.value === colorValue}}"
-          bind:change="handleColorChange"
-        >
-          {{item.label}}
-        </sr-switch>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Sizes</view>
-      <view class="{{descriptionClassName}}">size + controlled</view>
-      <view class="mt-3 flex flex-col gap-3">
-        <sr-switch
-          wx:for="{{sizes}}"
-          wx:key="value"
-          tone="{{tone}}"
-          data-value="{{item.value}}"
-          size="{{item.value}}"
-          isSelected="{{item.value === sizeValue}}"
-          bind:change="handleSizeChange"
-        >
-          {{item.label}}
-        </sr-switch>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">Custom Icon</view>
-      <view class="{{descriptionClassName}}">slot icon</view>
-      <view class="mt-3 flex flex-col gap-3">
-        <sr-switch tone="{{tone}}" defaultSelected hasIcon>
-          <view slot="icon" class="icon-[ion--checkmark] text-primary text-sm" />
-          Check
-        </sr-switch>
-        <sr-switch tone="{{tone}}" defaultSelected hasIcon>
-          <view slot="icon" class="icon-[ion--flash] text-warning text-sm" />
-          Flash
-        </sr-switch>
-      </view>
-    </view>
-
-    <view class="{{surfaceClassName}}">
-      <view class="{{titleClassName}}">States</view>
-      <view class="mt-3 flex flex-col gap-3">
-        <sr-switch tone="{{tone}}" isSelected="{{isEnabled}}" bind:change="handleEnabledChange">
-          Controlled
-        </sr-switch>
-        <sr-switch tone="{{tone}}" isDisabled>Disabled</sr-switch>
-        <sr-switch tone="{{tone}}" isReadOnly defaultSelected>ReadOnly</sr-switch>
-        <sr-switch tone="{{tone}}" isLoading>Loading</sr-switch>
-        <sr-switch tone="{{tone}}" isLoading="auto" bind:tap="handleAutoLoading">
-          Auto Loading
-        </sr-switch>
-      </view>
+<app-page title="Switch" tone="{{tone}}" withBack="{{true}}">
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Colors</view>
+    <view class="{{descriptionClassName}}">color + controlled</view>
+    <view class="mt-3 flex flex-col gap-3">
+      <sr-switch
+        wx:for="{{colors}}"
+        wx:key="value"
+        tone="{{tone}}"
+        data-value="{{item.value}}"
+        color="{{item.value}}"
+        isSelected="{{item.value === colorValue}}"
+        bind:change="handleColorChange"
+      >
+        {{item.label}}
+      </sr-switch>
     </view>
   </view>
-</view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Sizes</view>
+    <view class="{{descriptionClassName}}">size + controlled</view>
+    <view class="mt-3 flex flex-col gap-3">
+      <sr-switch
+        wx:for="{{sizes}}"
+        wx:key="value"
+        tone="{{tone}}"
+        data-value="{{item.value}}"
+        size="{{item.value}}"
+        isSelected="{{item.value === sizeValue}}"
+        bind:change="handleSizeChange"
+      >
+        {{item.label}}
+      </sr-switch>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">Custom Icon</view>
+    <view class="{{descriptionClassName}}">slot icon</view>
+    <view class="mt-3 flex flex-col gap-3">
+      <sr-switch tone="{{tone}}" defaultSelected hasIcon>
+        <view slot="icon" class="icon-[ion--checkmark] text-primary text-sm" />
+        Check
+      </sr-switch>
+      <sr-switch tone="{{tone}}" defaultSelected hasIcon>
+        <view slot="icon" class="icon-[ion--flash] text-warning text-sm" />
+        Flash
+      </sr-switch>
+    </view>
+  </view>
+
+  <view class="{{surfaceClassName}}">
+    <view class="{{titleClassName}}">States</view>
+    <view class="mt-3 flex flex-col gap-3">
+      <sr-switch tone="{{tone}}" isSelected="{{isEnabled}}" bind:change="handleEnabledChange">
+        Controlled
+      </sr-switch>
+      <sr-switch tone="{{tone}}" isDisabled>Disabled</sr-switch>
+      <sr-switch tone="{{tone}}" isReadOnly defaultSelected>ReadOnly</sr-switch>
+      <sr-switch tone="{{tone}}" isLoading>Loading</sr-switch>
+      <sr-switch tone="{{tone}}" isLoading="auto" bind:tap="handleAutoLoading">
+        Auto Loading
+      </sr-switch>
+    </view>
+  </view>
+</app-page>

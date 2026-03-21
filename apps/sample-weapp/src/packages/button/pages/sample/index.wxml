@@ -1,133 +1,113 @@
-<view class="min-h-screen pb-safe {{tone === 'dark' ? 'bg-zinc-900 text-white' : 'bg-slate-100 text-slate-900'}}">
-  <sr-navbar
-    className="sticky top-0 z-20 border-b border-slate-200"
-    title="Button"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
-
-  <view class="p-4 space-y-6">
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Tone</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">使用 tabs 切换所有样例的 tone</view>
-      <sr-tabs
-        className="mt-3"
-        items="{{toneItems}}"
-        value="{{tone}}"
-        bind:change="handleToneChange"
-      />
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Colors</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color + variant=solid + tone={{tone}}</view>
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button color="default" tone="{{tone}}">Default</sr-button>
-        <sr-button color="primary" tone="{{tone}}">Primary</sr-button>
-        <sr-button color="secondary" tone="{{tone}}">Secondary</sr-button>
-        <sr-button color="success" tone="{{tone}}">Success</sr-button>
-        <sr-button color="warning" tone="{{tone}}">Warning</sr-button>
-        <sr-button color="danger" tone="{{tone}}">Danger</sr-button>
-      </view>
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Variants</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{tone}}</view>
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button variant="solid" tone="{{tone}}">Solid</sr-button>
-        <sr-button variant="outline" tone="{{tone}}">Outline</sr-button>
-        <sr-button variant="flat" tone="{{tone}}">Flat</sr-button>
-        <sr-button variant="text" tone="{{tone}}">Text</sr-button>
-      </view>
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Sizes</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{tone}}</view>
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button size="sm" tone="{{tone}}">Small</sr-button>
-        <sr-button size="md" tone="{{tone}}">Medium</sr-button>
-        <sr-button size="lg" tone="{{tone}}">Large</sr-button>
-      </view>
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Radius</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{tone}}</view>
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button radius="none" tone="{{tone}}">None</sr-button>
-        <sr-button radius="sm" tone="{{tone}}">Small</sr-button>
-        <sr-button radius="md" tone="{{tone}}">Medium</sr-button>
-        <sr-button radius="lg" tone="{{tone}}">Large</sr-button>
-        <sr-button radius="full" tone="{{tone}}">Full</sr-button>
-      </view>
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">States</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{tone}}</view>
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button tone="{{tone}}">Normal</sr-button>
-        <sr-button isDisabled tone="{{tone}}">Disabled</sr-button>
-        <sr-button isLoading tone="{{tone}}">Loading</sr-button>
-        <sr-button isLoading="auto" tone="{{tone}}" bind:tap="handleAutoLoading">
-          Auto Loading
-        </sr-button>
-      </view>
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">OpenType</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{tone}}</view>
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button openType="share" tone="{{tone}}">Share</sr-button>
-        <sr-button openType="contact" tone="{{tone}}">Contact</sr-button>
-        <sr-button openType="openSetting" tone="{{tone}}">Open Setting</sr-button>
-      </view>
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Icon</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{tone}}</view>
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button isIcon tone="{{tone}}" aria-label="Add">
-          +
-        </sr-button>
-        <sr-button tone="{{tone}}">
-          +
-          <text>Star</text>
-        </sr-button>
-      </view>
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Block</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{tone}}</view>
-      <view class="mt-3 flex flex-col gap-2">
-        <sr-button isBlock tone="{{tone}}">Block Button</sr-button>
-        <sr-button isBlock variant="outline" tone="{{tone}}">Outline Block</sr-button>
-      </view>
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-800 text-white' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">ButtonGroup</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">group tone = {{tone}}</view>
-      <view class="mt-3 flex flex-col gap-3">
-        <sr-button-group tone="{{tone}}">
-          <sr-button>Left</sr-button>
-          <sr-button>Middle</sr-button>
-          <sr-button>Right</sr-button>
-        </sr-button-group>
-        <sr-button-group tone="{{tone}}" isBlock>
-          <sr-button class="flex-1">Yes</sr-button>
-          <sr-button variant="outline" class="flex-1">No</sr-button>
-        </sr-button-group>
-        <sr-button-group color="primary" tone="{{tone}}" isBlock>
-          <sr-button class="flex-1">Accept</sr-button>
-          <sr-button variant="outline" class="flex-1">Later</sr-button>
-        </sr-button-group>
-      </view>
+<app-page title="Button" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Colors</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color + variant=solid + tone={{buttonTone}}</view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button color="default" tone="{{buttonTone}}">Default</sr-button>
+      <sr-button color="primary" tone="{{buttonTone}}">Primary</sr-button>
+      <sr-button color="secondary" tone="{{buttonTone}}">Secondary</sr-button>
+      <sr-button color="success" tone="{{buttonTone}}">Success</sr-button>
+      <sr-button color="warning" tone="{{buttonTone}}">Warning</sr-button>
+      <sr-button color="danger" tone="{{buttonTone}}">Danger</sr-button>
     </view>
   </view>
-</view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Variants</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button variant="solid" tone="{{buttonTone}}">Solid</sr-button>
+      <sr-button variant="outline" tone="{{buttonTone}}">Outline</sr-button>
+      <sr-button variant="flat" tone="{{buttonTone}}">Flat</sr-button>
+      <sr-button variant="text" tone="{{buttonTone}}">Text</sr-button>
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Sizes</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button size="sm" tone="{{buttonTone}}">Small</sr-button>
+      <sr-button size="md" tone="{{buttonTone}}">Medium</sr-button>
+      <sr-button size="lg" tone="{{buttonTone}}">Large</sr-button>
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Radius</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button radius="none" tone="{{buttonTone}}">None</sr-button>
+      <sr-button radius="sm" tone="{{buttonTone}}">Small</sr-button>
+      <sr-button radius="md" tone="{{buttonTone}}">Medium</sr-button>
+      <sr-button radius="lg" tone="{{buttonTone}}">Large</sr-button>
+      <sr-button radius="full" tone="{{buttonTone}}">Full</sr-button>
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">States</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button tone="{{buttonTone}}">Normal</sr-button>
+      <sr-button isDisabled tone="{{buttonTone}}">Disabled</sr-button>
+      <sr-button isLoading tone="{{buttonTone}}">Loading</sr-button>
+      <sr-button isLoading="auto" tone="{{buttonTone}}" bind:tap="handleAutoLoading">
+        Auto Loading
+      </sr-button>
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">OpenType</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button openType="share" tone="{{buttonTone}}">Share</sr-button>
+      <sr-button openType="contact" tone="{{buttonTone}}">Contact</sr-button>
+      <sr-button openType="openSetting" tone="{{buttonTone}}">Open Setting</sr-button>
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Icon</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button isIcon tone="{{buttonTone}}" aria-label="Add">
+        +
+      </sr-button>
+      <sr-button tone="{{buttonTone}}">
+        +
+        <text>Star</text>
+      </sr-button>
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Block</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
+    <view class="mt-3 flex flex-col gap-2">
+      <sr-button isBlock tone="{{buttonTone}}">Block Button</sr-button>
+      <sr-button isBlock variant="outline" tone="{{buttonTone}}">Outline Block</sr-button>
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">ButtonGroup</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">group tone = {{buttonTone}}</view>
+    <view class="mt-3 flex flex-col gap-3">
+      <sr-button-group tone="{{buttonTone}}">
+        <sr-button>Left</sr-button>
+        <sr-button>Middle</sr-button>
+        <sr-button>Right</sr-button>
+      </sr-button-group>
+      <sr-button-group tone="{{buttonTone}}" isBlock>
+        <sr-button class="flex-1">Yes</sr-button>
+        <sr-button variant="outline" class="flex-1">No</sr-button>
+      </sr-button-group>
+      <sr-button-group color="primary" tone="{{buttonTone}}" isBlock>
+        <sr-button class="flex-1">Accept</sr-button>
+        <sr-button variant="outline" class="flex-1">Later</sr-button>
+      </sr-button-group>
+    </view>
+  </view>
+</app-page>

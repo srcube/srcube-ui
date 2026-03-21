@@ -26,6 +26,7 @@ export function useInputOtp(props: UseInputOtpProps) {
     defaultValue,
     keyboardType = 'number',
     color,
+    tone,
     variant,
     size,
     radius,
@@ -76,6 +77,7 @@ export function useInputOtp(props: UseInputOtpProps) {
   const classes = useMemo(() => {
     const slots = inputOtpStyle({
       color,
+      tone,
       variant,
       size,
       radius,
@@ -93,6 +95,7 @@ export function useInputOtp(props: UseInputOtpProps) {
     };
   }, [
     color,
+    tone,
     variant,
     size,
     radius,

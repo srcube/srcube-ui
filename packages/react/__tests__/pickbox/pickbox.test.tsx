@@ -196,3 +196,24 @@ it('resolves default item size by size variant', async () => {
   const option = await screen.findByRole('option', { name: 'A' });
   expect(option.getAttribute('style')).toContain('height: 36px;');
 });
+
+it('applies dark tone classes', () => {
+  const { container } = render(
+    <Pickbox
+      tone="dark"
+      columns={[
+        {
+          items: [
+            { id: 'a', label: 'A' },
+            { id: 'b', label: 'B' },
+          ],
+        },
+      ]}
+      defaultValue={['b']}
+    />,
+  );
+
+  expect(container.querySelector('.bg-zinc-950')).toBeTruthy();
+  const option = screen.getByRole('option', { name: 'B' });
+  expect(option.className).toContain('text-zinc-50');
+});

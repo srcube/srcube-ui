@@ -34,6 +34,8 @@ it('uses true as default isClosable value', () => {
 it('supports custom footer and cancel button props in mini props', () => {
   expect(actionSheetMiniProps.hasFooter.value).toBe(false);
   expect(actionSheetMiniProps.cancelButtonProps.type).toBe(Object);
+  expect(actionSheetMiniProps.tone.value).toBe('default');
+  expect(template).toContain('tone="{{item.tone}}"');
 });
 
 it('uses locale defaults for cancel text', () => {

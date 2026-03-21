@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "styleIsolation": "apply-shared",
+  "usingComponents": {
+    "sr-action-sheet": "@srcube-ui/mini/action-sheet/index",
+    "sr-navbar": "@srcube-ui/mini/navbar/index"
+  }
+}

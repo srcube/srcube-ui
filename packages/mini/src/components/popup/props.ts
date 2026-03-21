@@ -5,6 +5,7 @@ export type PopupMiniProps = PopupVariants & {
   defaultOpen?: boolean;
   isDismissable?: boolean;
   hasBackdrop?: boolean;
+  tone?: 'default' | 'dark';
   className?: string;
   classNames?: Partial<PopupClasses>;
   style?: string;
@@ -17,6 +18,7 @@ export const popupMiniProps = {
   hasBackdrop: { type: Boolean, value: true },
   motion: { type: null, value: 'modal' },
   backdrop: { type: null, value: 'opaque' },
+  tone: { type: null, value: 'default' },
   className: { type: String, value: '' },
   classNames: { type: Object, value: {} },
   style: { type: String, value: '' },

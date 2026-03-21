@@ -105,6 +105,28 @@
     </view>
 
     <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Clearable</view>
+      <view class="mt-1 text-xs text-slate-500">
+        基础 Picker 支持 isClearable，选中后可一键清空
+      </view>
+
+      <sr-picker
+        className="mt-3"
+        label="可清空城市"
+        size="{{pickerSize}}"
+        color="primary"
+        items="{{singleItems}}"
+        value="{{clearableValue}}"
+        isClearable="{{true}}"
+        bind:valuechange="handleClearableValueChange"
+      />
+
+      <view class="mt-2 text-xs text-slate-500">
+        Value: {{clearableValue[0] || 'none'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
       <view class="text-sm font-semibold">Cascader Columns</view>
       <view class="mt-1 text-xs text-slate-500">
         使用 options 构建级联多列（替代原 multiple 示例）
@@ -188,6 +210,58 @@
 
       <view class="mt-2 text-xs text-slate-500">
         Value: {{datetimeRangeValue.start || '--'}} ~ {{datetimeRangeValue.end || '--'}}
+      </view>
+    </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Default Value</view>
+      <view class="mt-1 text-xs text-slate-500">
+        单独展示 defaultValue；其它示例均从空值开始
+      </view>
+
+      <view class="mt-3 space-y-4">
+        <sr-picker
+          label="默认城市"
+          color="primary"
+          size="{{pickerSize}}"
+          items="{{singleItems}}"
+          defaultValue="{{defaultSingleValue}}"
+        />
+
+        <sr-picker
+          label="默认商品偏好"
+          color="secondary"
+          size="{{pickerSize}}"
+          options="{{cascadeOptions}}"
+          defaultValue="{{defaultCascadeValue}}"
+        />
+
+        <sr-picker-select
+          label="默认里程碑"
+          color="primary"
+          size="{{pickerSize}}"
+          items="{{selectItems}}"
+          selectionMode="multiple"
+          defaultValue="{{defaultSelectValue}}"
+        />
+
+        <sr-picker-datetime
+          label="默认日期时间"
+          color="success"
+          size="{{pickerSize}}"
+          mode="{{datetimeMode}}"
+          format="{{datetimeFormat}}"
+          defaultValue="{{defaultDatetimeValue}}"
+        />
+
+        <sr-picker-datetime-range
+          label="默认日期时间区间"
+          color="primary"
+          size="{{pickerSize}}"
+          mode="{{datetimeMode}}"
+          format="{{datetimeFormat}}"
+          defaultValue="{{defaultDatetimeRangeValue}}"
+        />
       </view>
     </view>
   </view>

@@ -1,3 +1,6 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 const inputColorGroups = [
   [
     { label: 'default', value: 'default' },
@@ -15,10 +18,25 @@ type InputColor = (typeof inputColorGroups)[number][number]['value'];
 
 Page({
   data: {
+    tone: 'default' as SampleTone,
     basicValue: '',
     activeColor: 'default' as InputColor,
     colorValue: '123456',
     colorGroups: inputColorGroups,
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleBasicValueChange(e: WechatMiniprogram.CustomEvent<{ value?: string }>) {

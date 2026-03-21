@@ -43,3 +43,14 @@ it('renders pending item title', () => {
 
   expect(screen.getByText('Pending')).toBeTruthy();
 });
+
+it('applies dark tone classes', () => {
+  render(
+    <Timeline
+      tone="dark"
+      items={[{ title: 'Dark Step', color: 'primary' }]}
+    />,
+  );
+
+  expect(screen.getByText('Dark Step').className).toContain('text-primary-100');
+});

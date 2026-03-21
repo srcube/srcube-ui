@@ -7,6 +7,7 @@
   isDismissable="{{isDismissable}}"
   hasBackdrop="{{hasBackdrop}}"
   motion="none"
+  tone="{{tone}}"
   backdrop="{{backdrop}}"
   bind:openchange="handleOpenChange"
   bind:close="handleClose"

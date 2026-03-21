@@ -55,6 +55,18 @@ function resolvePickerSize(
   return 'md';
 }
 
+function resolvePickerTone(
+  value: PickerDatetimeReactProps['tone'],
+): NonNullable<PickerDatetimeReactProps['tone']> {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
+function resolveButtonTone(
+  value: PickerDatetimeReactProps['tone'],
+): 'light' | 'dark' {
+  return resolvePickerTone(value) === 'dark' ? 'dark' : 'light';
+}
+
 function toPickerValue(params: {
   panel: PickerDatetimePanel;
   value: ReturnType<typeof resolveDateTimeParts>;
@@ -108,6 +120,7 @@ export const PickerDatetime = React.forwardRef<
     description,
     errorMessage,
     color,
+    tone,
     variant,
     size,
     radius,
@@ -154,6 +167,7 @@ export const PickerDatetime = React.forwardRef<
   });
   const resolvedSize = resolvePickerSize(size);
   const resolvedColor = resolvePickerColor(color);
+  const resolvedTone = resolvePickerTone(tone);
   const includeSecond = hasSecondToken(resolvedFormat);
   const yearRange = React.useMemo(
     () => resolveYearRange(minYear, maxYear),
@@ -234,9 +248,10 @@ export const PickerDatetime = React.forwardRef<
     () =>
       picker({
         type,
+        tone: resolvedTone,
         size: resolvedSize,
       }),
-    [resolvedSize, type],
+    [resolvedSize, resolvedTone, type],
   );
 
   const drawerClassNames = React.useMemo(
@@ -403,6 +418,7 @@ export const PickerDatetime = React.forwardRef<
         description={description}
         errorMessage={errorMessage}
         color={resolvedColor}
+        tone={resolvedTone}
         variant={variant}
         size={resolvedSize}
         radius={radius}
@@ -422,6 +438,7 @@ export const PickerDatetime = React.forwardRef<
         isDismissable={isDismissable}
         hasBackdrop={hasBackdrop}
         backdrop={backdrop}
+        tone={resolvedTone}
         onOpenChange={handleDrawerOpenChange}
         className={slots.drawer({ class: classNames?.drawer })}
         classNames={drawerClassNames}
@@ -444,6 +461,7 @@ export const PickerDatetime = React.forwardRef<
                     <Button
                       className={slots.modeTabButton({ class: classNames?.modeTabButton })}
                       color={activePanel === 'date' ? resolvedColor : 'default'}
+                      tone={resolveButtonTone(resolvedTone)}
                       variant={activePanel === 'date' ? 'solid' : 'flat'}
                       onTap={() => {
                         handlePanelChange('date');
@@ -454,6 +472,7 @@ export const PickerDatetime = React.forwardRef<
                     <Button
                       className={slots.modeTabButton({ class: classNames?.modeTabButton })}
                       color={activePanel === 'time' ? resolvedColor : 'default'}
+                      tone={resolveButtonTone(resolvedTone)}
                       variant={activePanel === 'time' ? 'solid' : 'flat'}
                       onTap={() => {
                         handlePanelChange('time');
@@ -468,6 +487,7 @@ export const PickerDatetime = React.forwardRef<
               <Pickbox
                 className={slots.pickbox({ class: classNames?.pickbox })}
                 color={resolvedColor}
+                tone={resolvedTone}
                 size={resolvedSize}
                 columns={pickerColumns}
                 value={pickerValue}
@@ -486,6 +506,7 @@ export const PickerDatetime = React.forwardRef<
                 class: classNames?.confirmButton,
               })}
               color={resolvedColor}
+              tone={resolveButtonTone(resolvedTone)}
               size={resolvedSize}
               variant="flat"
               isBlock

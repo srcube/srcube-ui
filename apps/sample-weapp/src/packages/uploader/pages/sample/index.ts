@@ -1,9 +1,26 @@
 import type { UploaderFile } from '@srcube-ui/mini/uploader/index';
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
 
 Page({
   data: {
+    tone: 'default' as SampleTone,
     value: [] as UploaderFile[],
     message: '请选择图片',
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleValueChange(

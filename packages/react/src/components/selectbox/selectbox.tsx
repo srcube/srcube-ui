@@ -91,6 +91,10 @@ function resolveColor(value: SelectboxReactProps['color']) {
   return 'default';
 }
 
+function resolveTone(value: SelectboxReactProps['tone']) {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
 function resolveSize(value: SelectboxReactProps['size']) {
   if (value === 'sm' || value === 'lg') {
     return value;
@@ -135,6 +139,7 @@ export const Selectbox = forwardRef<HTMLDivElement, SelectboxReactProps>(
       defaultValue,
       selectionMode = 'multiple',
       color,
+      tone,
       orientation = 'y',
       size = 'md',
       className,
@@ -181,6 +186,7 @@ export const Selectbox = forwardRef<HTMLDivElement, SelectboxReactProps>(
     } = props;
 
     const resolvedColor = resolveColor(color);
+    const resolvedTone = resolveTone(tone);
     const resolvedSize = resolveSize(size);
     const resolvedEstimateSize = useMemo(
       () => resolveEstimateSize(estimateSize, resolvedSize),
@@ -208,10 +214,11 @@ export const Selectbox = forwardRef<HTMLDivElement, SelectboxReactProps>(
       () =>
         selectbox({
           color: resolvedColor,
+          tone: resolvedTone,
           orientation,
           size: resolvedSize,
         }),
-      [orientation, resolvedColor, resolvedSize],
+      [orientation, resolvedColor, resolvedSize, resolvedTone],
     );
 
     const nextValueByItem = useCallback(
@@ -243,6 +250,7 @@ export const Selectbox = forwardRef<HTMLDivElement, SelectboxReactProps>(
             ...item,
             className: selectboxItemState({
               color: resolvedColor,
+              tone: resolvedTone,
               orientation,
               size: resolvedSize,
               isSelected,
@@ -273,6 +281,7 @@ export const Selectbox = forwardRef<HTMLDivElement, SelectboxReactProps>(
         orientation,
         resolvedSize,
         resolvedColor,
+        resolvedTone,
         selectedSet,
         selectIcon,
         slots,
@@ -292,6 +301,7 @@ export const Selectbox = forwardRef<HTMLDivElement, SelectboxReactProps>(
           estimateSize={resolvedEstimateSize}
           overscan={overscan}
           orientation={orientation}
+          tone={resolvedTone}
           size={resolvedSize}
           hasDivider={hasDivider}
           emptyContent={emptyContent}

@@ -1,7 +1,10 @@
+import type { FieldVariants } from '@srcube-ui/styles/components/field';
+import type {
+  PickerReactClassNames,
+  PickerVariants,
+} from '@srcube-ui/styles/components/picker';
 import type * as React from 'react';
 import type { FieldLabelPlacement } from '../field';
-import type { FieldVariants } from '@srcube-ui/styles/components/field';
-import type { PickerReactClassNames, PickerVariants } from '@srcube-ui/styles/components/picker';
 
 export type PickerType = NonNullable<PickerVariants['type']>;
 export type PickerItemId = string | number;
@@ -44,6 +47,7 @@ export type PickerReactProps = FieldVariants &
     placeholder?: React.ReactNode;
     description?: React.ReactNode;
     errorMessage?: React.ReactNode;
+    isClearable?: boolean;
     isDisabled?: boolean;
     isReadOnly?: boolean;
     isInvalid?: boolean;
@@ -71,6 +75,7 @@ export type PickerReactProps = FieldVariants &
     classNames?: Partial<PickerReactClassNames>;
     style?: React.CSSProperties | string;
     onTap?: (event: React.MouseEvent<HTMLDivElement>) => void;
+    onClear?: () => void;
     onCancel?: () => void;
     onOpenChange?: (isOpen: boolean) => void;
     onValueChange?: (value: PickerMultiValue) => void;
@@ -99,8 +104,10 @@ type PickerSelectBaseProps = Omit<
   | 'items'
   | 'columns'
   | 'options'
+  | 'isClearable'
   | 'value'
   | 'defaultValue'
+  | 'onClear'
   | 'onValueChange'
   | 'onDraftValueChange'
 >;
@@ -149,8 +156,10 @@ type PickerDatetimeBaseProps = Omit<
   PickerReactProps,
   | 'items'
   | 'columns'
+  | 'isClearable'
   | 'value'
   | 'defaultValue'
+  | 'onClear'
   | 'onValueChange'
   | 'onDraftValueChange'
 >;
@@ -200,8 +209,10 @@ type PickerDatetimeRangeBaseProps = Omit<
   PickerReactProps,
   | 'items'
   | 'columns'
+  | 'isClearable'
   | 'value'
   | 'defaultValue'
+  | 'onClear'
   | 'onValueChange'
   | 'onDraftValueChange'
 >;

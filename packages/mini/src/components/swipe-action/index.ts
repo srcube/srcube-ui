@@ -96,6 +96,14 @@ function resolveColor(value: unknown): SwipeActionMiniColor {
   return 'default';
 }
 
+function resolveTone(value: unknown) {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
+function resolveButtonTone(value: unknown) {
+  return resolveTone(value) === 'dark' ? 'dark' : 'light';
+}
+
 function resolveActionColor(
   value: unknown,
   fallback: SwipeActionMiniColor,
@@ -398,6 +406,7 @@ UIComponent({
     $classNames(data: SwipeActionMiniData) {
       const slots = swipeAction({
         color: data.color ?? undefined,
+        tone: resolveTone(data.tone),
         size: data.size ?? undefined,
         isDisabled: data.isDisabled,
       });
@@ -418,6 +427,9 @@ UIComponent({
         actionLabel: slots.actionLabel({ class: custom.actionLabel }),
         content: slots.content({ class: custom.content }),
       };
+    },
+    $resolvedButtonTone(data: SwipeActionMiniData) {
+      return resolveButtonTone(data.tone);
     },
   },
 

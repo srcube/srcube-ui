@@ -63,6 +63,13 @@ it('does not show clear button when value is empty', () => {
   expect(screen.queryByRole('button', { name: 'clear' })).toBeNull();
 });
 
+it('renders placeholder with muted placeholder class', () => {
+  render(<Field placeholder="请选择" color="primary" />);
+
+  const placeholder = screen.getByText('请选择');
+  expect(placeholder.className).toContain('opacity-45');
+});
+
 it('supports function children with generated id and className', () => {
   render(
     <Field>

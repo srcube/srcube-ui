@@ -1,3 +1,6 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 type SelectboxColor =
   | 'default'
   | 'primary'
@@ -19,6 +22,7 @@ function formatValue(value: SelectboxValue) {
 
 Page({
   data: {
+    tone: 'default' as SampleTone,
     color: 'default' as SelectboxColor,
     size: 'md' as SelectboxSize,
     mode: 'multiple' as SelectionMode,
@@ -44,6 +48,20 @@ Page({
     ],
     horizontalValue: ['phase-2'] as SelectboxValue,
     horizontalValueText: formatValue(['phase-2']),
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleSizeTap(

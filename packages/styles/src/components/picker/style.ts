@@ -12,7 +12,7 @@ export const picker = tv({
     $drawer: '',
     drawer: '',
     drawerTitle: 'w-full truncate text-center text-slate-900',
-    drawerBody: 'px-4 py-3',
+    drawerBody: 'px-4 py-3 overflow-hidden',
     drawerFooter: 'shrink-0 px-4 pt-2',
     rangeBody: 'space-y-3',
     $rangeTabs: '',
@@ -22,6 +22,8 @@ export const picker = tv({
     modeTabButton: 'flex-1',
     $pickbox: '',
     pickbox: 'w-full rounded-2xl border-0',
+    selectboxListbox: 'h-[50vh] max-h-[50vh]',
+    selectboxListboxContent: 'pb-6 pb-safe-4',
     $confirmButton: '',
     confirmButton: 'w-full',
   },
@@ -29,6 +31,10 @@ export const picker = tv({
     type: {
       default: {},
       calendar: {},
+    },
+    tone: {
+      default: {},
+      dark: {},
     },
     size: {
       sm: {
@@ -44,6 +50,7 @@ export const picker = tv({
   },
   defaultVariants: {
     type: 'default',
+    tone: 'default',
     size: 'md',
   },
 });

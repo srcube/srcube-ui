@@ -92,6 +92,7 @@ UIComponent({
 
     $fieldClassNames(data) {
       const slots = textareaStyle({
+        tone: data.tone ?? undefined,
         size: data.size ?? undefined,
         isDisabled: data.isDisabled,
         isAutoHeight: data.isAutoHeight,
@@ -133,6 +134,7 @@ UIComponent({
 
     $textareaClassName(data) {
       const slots = textareaStyle({
+        tone: data.tone ?? undefined,
         size: data.size ?? undefined,
         isDisabled: data.isDisabled,
         isAutoHeight: data.isAutoHeight,
@@ -162,6 +164,7 @@ UIComponent({
 
     $countClassName(data) {
       const slots = textareaStyle({
+        tone: data.tone ?? undefined,
         size: data.size ?? undefined,
         isDisabled: data.isDisabled,
         isAutoHeight: data.isAutoHeight,
@@ -172,6 +175,7 @@ UIComponent({
 
     $endMetaClassName(data) {
       const slots = textareaStyle({
+        tone: data.tone ?? undefined,
         size: data.size ?? undefined,
         isDisabled: data.isDisabled,
         isAutoHeight: data.isAutoHeight,

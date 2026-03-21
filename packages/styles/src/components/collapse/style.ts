@@ -8,15 +8,26 @@ export const collapse = tv({
   slots: {
     base: 'overflow-hidden',
     trigger:
-      'flex w-full items-center justify-between gap-3 text-left text-slate-900 transition-colors duration-150',
+      'flex w-full items-center justify-between gap-3 text-left transition-colors duration-150',
     title: 'min-w-0 flex-1 truncate font-medium',
-    icon: 'inline-flex shrink-0 items-center justify-center leading-none text-slate-500 transition-transform duration-200',
+    icon: 'inline-flex shrink-0 items-center justify-center leading-none transition-transform duration-200',
     _iIndicator: 'icon-chevron-down text-base',
-    panel:
-      'text-slate-600 overflow-hidden transition-all duration-300 ease-out',
+    panel: 'overflow-hidden transition-all duration-300 ease-out',
     content: 'pt-1',
   },
   variants: {
+    tone: {
+      default: {
+        trigger: 'text-slate-900',
+        icon: 'text-slate-500',
+        panel: 'text-slate-600',
+      },
+      dark: {
+        trigger: 'text-zinc-50',
+        icon: 'text-zinc-400',
+        panel: 'text-zinc-300',
+      },
+    },
     variant: {
       default: {
         base: 'border-transparent bg-transparent',
@@ -66,7 +77,24 @@ export const collapse = tv({
       },
     },
   },
+  compoundVariants: [
+    {
+      tone: 'dark',
+      variant: 'flat',
+      class: {
+        base: 'bg-zinc-900/80',
+      },
+    },
+    {
+      tone: 'dark',
+      variant: 'outline',
+      class: {
+        base: 'border-zinc-800 bg-transparent',
+      },
+    },
+  ],
   defaultVariants: {
+    tone: 'default',
     variant: 'default',
     size: 'md',
     radius: 'md',

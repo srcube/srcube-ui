@@ -23,6 +23,7 @@
 | size | 尺寸 | `'sm' | 'md' | 'lg'` | `'md'` |
 | radius | 圆角 | `'none' | 'sm' | 'md' | 'lg' | 'full'` | `'md'` |
 | color | 主题色 | `'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'` | `'primary'` |
+| tone | 主题明暗 | `'default' | 'dark'` | `'default'` |
 | className | 根节点类名 | `string` | `''` |
 | classNames | 槽位类名覆盖 | `Partial<CalendarClassNames>` | `{}` |
 | style | 根节点样式 | `React.CSSProperties / string` | `undefined / ''` |

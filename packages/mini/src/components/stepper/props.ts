@@ -95,6 +95,10 @@ export const stepperMiniProps = {
     type: null,
     value: 'default',
   },
+  tone: {
+    type: null,
+    value: 'default',
+  },
   size: {
     type: null,
     value: 'md',

@@ -5,6 +5,7 @@ import type { SkeletonReactProps } from './props';
 export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonReactProps>(
   (props, ref) => {
     const {
+      tone,
       radius,
       isLoaded = false,
       className,
@@ -17,10 +18,11 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonReactProps>(
     const slots = React.useMemo(
       () =>
         skeletonStyle({
+          tone,
           radius,
           isLoaded,
         }),
-      [isLoaded, radius],
+      [isLoaded, radius, tone],
     );
 
     const classes = React.useMemo(

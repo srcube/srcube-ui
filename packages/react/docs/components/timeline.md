@@ -30,6 +30,7 @@ export function Demo() {
 | items | 时间线数据 | `TimelineItem[]` | `[]` |
 | size | 尺寸 | `'sm' | 'md' | 'lg'` | `'md'` |
 | color | 默认节点颜色 | `'default' | 'primary' | 'success' | 'warning' | 'danger'` | `'default'` |
+| tone | 主题明暗 | `'default' | 'dark'` | `'default'` |
 | lineStyle | 线条样式 | `'solid' | 'dashed'` | `'solid'` |
 | className | 根节点类名 | `string` | `''` |
 | classNames | 槽位类名覆盖 | `Partial<TimelineClassNames>` | `{}` |

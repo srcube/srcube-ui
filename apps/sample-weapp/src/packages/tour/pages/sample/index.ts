@@ -1,10 +1,11 @@
-type TourTone = 'default' | 'dark';
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
 
 Page({
   data: {
     isOpen: false,
     currentStep: 0,
-    tone: 'default' as TourTone,
+    tone: 'default' as SampleTone,
     lastEvent: 'idle',
     steps: [
       {
@@ -38,6 +39,22 @@ Page({
     ],
   },
 
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({
+      tone,
+    });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
+  },
+
   handleStartTap() {
     this.setData({
       isOpen: true,
@@ -51,25 +68,6 @@ Page({
       isOpen: true,
       currentStep: 2,
       lastEvent: 'start-step-3',
-    });
-  },
-
-  handleToneTap(
-    event: WechatMiniprogram.TouchEvent & {
-      currentTarget: {
-        dataset: {
-          tone?: TourTone;
-        };
-      };
-    },
-  ) {
-    const tone = event.currentTarget?.dataset?.tone;
-    if (!tone) {
-      return;
-    }
-
-    this.setData({
-      tone,
     });
   },
 

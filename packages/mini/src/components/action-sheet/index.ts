@@ -128,6 +128,14 @@ function normalizeButtonTone(value: unknown) {
   }
 }
 
+function resolveSheetTone(value: unknown) {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
+function resolveButtonToneBySheetTone(value: unknown) {
+  return resolveSheetTone(value) === 'dark' ? 'dark' : 'light';
+}
+
 function normalizeButtonRadius(value: unknown) {
   switch (value) {
     case 'none':
@@ -283,6 +291,7 @@ UIComponent({
       const resolvedRadius = normalizeRadius(data.radius, resolvedSize);
       const slots = actionSheet({
         isOpen: resolveOpen(data),
+        tone: resolveSheetTone(data.tone),
         size: resolvedSize,
         radius: resolvedRadius,
         isInset: Boolean(data.isInset),
@@ -320,6 +329,7 @@ UIComponent({
       const resolvedRadius = normalizeRadius(data.radius, resolvedSize);
       const slots = actionSheet({
         isOpen: resolveOpen(data),
+        tone: resolveSheetTone(data.tone),
         size: resolvedSize,
         radius: resolvedRadius,
         isInset: Boolean(data.isInset),
@@ -343,16 +353,23 @@ UIComponent({
       return ACTION_SHEET_CANCEL_TEXT[normalizeLocale(data.locale)];
     },
     $cancelButtonProps(data: ActionSheetMiniData) {
-      return toCancelButtonProps(data.cancelButtonProps);
+      const resolved = toCancelButtonProps(data.cancelButtonProps);
+      return {
+        ...resolved,
+        tone: resolved.tone ?? resolveButtonToneBySheetTone(data.tone),
+      };
     },
     $renderActions(data: ActionSheetMiniData) {
       const actions = toItemArray(data.actions);
+      const tone = resolveSheetTone(data.tone);
       return actions.map((item, index) => ({
         ...item,
         variant: 'text',
         actionClass: actionSheetAction({
           color: item.color ?? DEFAULT_ACTION_COLOR,
+          tone,
         }),
+        tone: resolveButtonToneBySheetTone(tone),
         isLast: index === actions.length - 1,
         index,
         key: `${typeof item.value}:${String(item.value)}`,

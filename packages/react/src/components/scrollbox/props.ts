@@ -1,6 +1,7 @@
 import type * as React from 'react';
 
 type ScrollboxOrientation = 'x' | 'y' | 'xy';
+type ScrollboxTone = 'default' | 'dark';
 
 type ScrollboxClassNames = {
   wrapper?: string;
@@ -26,6 +27,7 @@ export type ScrollboxReactProps = Omit<
   'onScroll'
 > & {
   orientation?: ScrollboxOrientation | null;
+  tone?: ScrollboxTone | null;
   hideMasks?: boolean;
   classNames?: ScrollboxClassNames;
 

@@ -1,5 +1,6 @@
 import { fieldStyle } from '@srcube-ui/styles/components/field/style';
 import { UIComponent } from '../../shared/ui-component';
+import type { FieldMiniProps } from './props';
 import { fieldMiniProps } from './props';
 
 function resolveLabelPlacement(value?: string | null) {
@@ -26,6 +27,46 @@ function resolveCurrentValue(data: { value?: unknown; _innerValue?: string }) {
   return data.value === null || data.value === undefined
     ? normalizeValue(data._innerValue)
     : normalizeValue(data.value);
+}
+
+function resolveFieldClassNames(data: FieldMiniProps) {
+  const slots = fieldStyle({
+    color: data.color ?? undefined,
+    tone: data.tone ?? undefined,
+    variant: data.variant ?? undefined,
+    size: data.size ?? undefined,
+    radius: data.radius ?? undefined,
+    labelPlacement: resolveLabelPlacement(data.labelPlacement),
+    isDisabled: data.isDisabled,
+    isReadOnly: data.isReadOnly,
+    isInvalid: data.isInvalid,
+    isLoading: data.isLoading,
+    isMultiline: data.isMultiline,
+    isClearable: Boolean(
+      data.isClearable && !data.isDisabled && !data.isReadOnly,
+    ),
+  });
+
+  const className = data.className ?? '';
+  const custom = (data.classNames ?? {}) as Record<string, string>;
+
+  return {
+    base: slots.base({ class: [custom.base, className] }),
+    outsideWrapper: slots.outsideWrapper({ class: custom.outsideWrapper }),
+    controlWrapper: slots.controlWrapper({ class: custom.controlWrapper }),
+    label: slots.label({ class: custom.label }),
+    requiredMark: slots.requiredMark({ class: custom.requiredMark }),
+    control: slots.control({ class: custom.control }),
+    input: slots.input({ class: custom.input }),
+    placeholder: slots.placeholder({ class: custom.placeholder }),
+    helperWrapper: slots.helperWrapper({ class: custom.helperWrapper }),
+    description: slots.description({ class: custom.description }),
+    errorMessage: slots.errorMessage({ class: custom.errorMessage }),
+    startContent: slots.startContent({ class: custom.startContent }),
+    endContent: slots.endContent({ class: custom.endContent }),
+    clearButton: slots.clearButton({ class: custom.clearButton }),
+    _iClear: slots._iClear(),
+  };
 }
 
 UIComponent({
@@ -146,45 +187,23 @@ UIComponent({
     },
 
     $showFallbackControl(data) {
-      return !data.hasControl && Boolean(resolveCurrentValue(data) || data.placeholder);
+      return (
+        !data.hasControl &&
+        Boolean(resolveCurrentValue(data) || data.placeholder)
+      );
+    },
+
+    $fallbackControlClassName(data) {
+      const classNames =
+        (data.$classNames as ReturnType<typeof resolveFieldClassNames>) ??
+        resolveFieldClassNames(data);
+      return resolveCurrentValue(data)
+        ? classNames.input
+        : classNames.placeholder;
     },
 
     $classNames(data) {
-      const slots = fieldStyle({
-        color: data.color ?? undefined,
-        variant: data.variant ?? undefined,
-        size: data.size ?? undefined,
-        radius: data.radius ?? undefined,
-        labelPlacement: resolveLabelPlacement(data.labelPlacement),
-        isDisabled: data.isDisabled,
-        isReadOnly: data.isReadOnly,
-        isInvalid: data.isInvalid,
-        isLoading: data.isLoading,
-        isMultiline: data.isMultiline,
-        isClearable: Boolean(
-          data.isClearable && !data.isDisabled && !data.isReadOnly,
-        ),
-      });
-
-      const className = data.className ?? '';
-      const custom = (data.classNames ?? {}) as Record<string, string>;
-
-      return {
-        base: slots.base({ class: [custom.base, className] }),
-        outsideWrapper: slots.outsideWrapper({ class: custom.outsideWrapper }),
-        controlWrapper: slots.controlWrapper({ class: custom.controlWrapper }),
-        label: slots.label({ class: custom.label }),
-        requiredMark: slots.requiredMark({ class: custom.requiredMark }),
-        control: slots.control({ class: custom.control }),
-        input: slots.input({ class: custom.input }),
-        helperWrapper: slots.helperWrapper({ class: custom.helperWrapper }),
-        description: slots.description({ class: custom.description }),
-        errorMessage: slots.errorMessage({ class: custom.errorMessage }),
-        startContent: slots.startContent({ class: custom.startContent }),
-        endContent: slots.endContent({ class: custom.endContent }),
-        clearButton: slots.clearButton({ class: custom.clearButton }),
-        _iClear: slots._iClear(),
-      };
+      return resolveFieldClassNames(data);
     },
   },
 

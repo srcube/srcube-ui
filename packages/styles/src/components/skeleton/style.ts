@@ -9,9 +9,17 @@ export const skeletonStyle = tv({
     base: 'relative inline-flex items-center',
     content: 'w-full transition-opacity duration-300',
     placeholder:
-      'pointer-events-none absolute inset-0 bg-gradient-to-r from-gray-100 to-gray-200 transition-opacity duration-300 animate-pulse',
+      'pointer-events-none absolute inset-0 transition-opacity duration-300 animate-pulse',
   },
   variants: {
+    tone: {
+      default: {
+        placeholder: 'bg-gradient-to-r from-slate-100 to-slate-200',
+      },
+      dark: {
+        placeholder: 'bg-gradient-to-r from-zinc-900 to-zinc-800',
+      },
+    },
     radius: {
       none: {
         placeholder: 'rounded-none',
@@ -41,6 +49,7 @@ export const skeletonStyle = tv({
     },
   },
   defaultVariants: {
+    tone: 'default',
     radius: 'md',
     isLoaded: false,
   },

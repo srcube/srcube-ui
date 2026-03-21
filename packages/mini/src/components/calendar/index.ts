@@ -611,6 +611,7 @@ function buildRenderedMonths(data: CalendarMiniData): RenderMonthPanel[] {
     size: data.size,
     radius: data.radius,
     color: data.color,
+    tone: data.tone,
     isPickerOpen: data._isPickerOpen,
   });
 
@@ -684,6 +685,7 @@ function buildRenderedMonths(data: CalendarMiniData): RenderMonthPanel[] {
           size: data.size,
           radius: data.radius,
           color: data.color,
+          tone: data.tone,
           dayStatus,
           isRangeStart,
           isRangeEnd,
@@ -773,6 +775,7 @@ UIComponent({
         size: data.size,
         radius: data.radius,
         color: data.color,
+        tone: data.tone,
         isPickerOpen: data._isPickerOpen,
       });
       const custom = ensureClassNames(data.classNames);

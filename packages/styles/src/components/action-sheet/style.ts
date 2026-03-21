@@ -27,6 +27,19 @@ export const actionSheet = tv({
     cancel: 'h-auto bg-white font-semibold active:bg-slate-100',
   },
   variants: {
+    tone: {
+      default: {},
+      dark: {
+        overlay: 'bg-black/55',
+        content: 'bg-zinc-950',
+        header: 'bg-zinc-900',
+        title: 'text-white',
+        description: 'text-zinc-400',
+        actionDivider: 'bg-zinc-800',
+        action: 'bg-zinc-950',
+        cancel: 'bg-zinc-950 text-white active:bg-zinc-900',
+      },
+    },
     isOpen: {
       true: {
         overlay: 'animate-fade-in',
@@ -105,6 +118,7 @@ export const actionSheet = tv({
     },
   },
   defaultVariants: {
+    tone: 'default',
     isOpen: true,
     size: 'md',
     radius: 'lg',
@@ -116,17 +130,85 @@ export const actionSheetAction = tv({
   base: 'border-none rounded-none bg-white',
   variants: {
     color: {
-      default: 'text-slate-900 active:text-slate-900 active:bg-slate-50',
-      primary: 'text-primary-500 active:text-primary-600 active:bg-primary-50',
-      secondary:
-        'text-secondary-500 active:text-secondary-600 active:bg-secondary-50',
-      success: 'text-success-500 active:text-success-600 active:bg-success-50',
-      warning: 'text-warning-500 active:text-warning-600 active:bg-warning-50',
-      danger: 'text-danger-500 active:text-danger-600 active:bg-danger-50',
+      default: '',
+      primary: '',
+      secondary: '',
+      success: '',
+      warning: '',
+      danger: '',
+    },
+    tone: {
+      default: '',
+      dark: 'bg-zinc-950',
     },
   },
+  compoundVariants: [
+    {
+      color: 'default',
+      tone: 'default',
+      class: 'text-slate-900 active:text-slate-900 active:bg-slate-50',
+    },
+    {
+      color: 'primary',
+      tone: 'default',
+      class: 'text-primary-500 active:text-primary-600 active:bg-primary-50',
+    },
+    {
+      color: 'secondary',
+      tone: 'default',
+      class:
+        'text-secondary-500 active:text-secondary-600 active:bg-secondary-50',
+    },
+    {
+      color: 'success',
+      tone: 'default',
+      class: 'text-success-500 active:text-success-600 active:bg-success-50',
+    },
+    {
+      color: 'warning',
+      tone: 'default',
+      class: 'text-warning-500 active:text-warning-600 active:bg-warning-50',
+    },
+    {
+      color: 'danger',
+      tone: 'default',
+      class: 'text-danger-500 active:text-danger-600 active:bg-danger-50',
+    },
+    {
+      color: 'default',
+      tone: 'dark',
+      class: 'text-zinc-100 active:text-white active:bg-zinc-900',
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      class: 'text-primary-200 active:text-primary-100 active:bg-primary-950',
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      class:
+        'text-secondary-200 active:text-secondary-100 active:bg-secondary-950',
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      class: 'text-success-200 active:text-success-100 active:bg-success-950',
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      class: 'text-warning-200 active:text-warning-100 active:bg-warning-950',
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      class: 'text-danger-200 active:text-danger-100 active:bg-danger-950',
+    },
+  ],
   defaultVariants: {
     color: 'default',
+    tone: 'default',
   },
 });
 

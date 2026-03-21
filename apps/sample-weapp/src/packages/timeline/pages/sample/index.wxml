@@ -1,31 +1,22 @@
-<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
-  <sr-navbar
-    className="sticky top-0 z-20 border-b border-slate-200"
-    title="Timeline"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
-
-  <view class="p-4 space-y-6">
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Default</view>
-      <view class="mt-3">
-        <sr-timeline items="{{productTimeline}}" />
-      </view>
-    </view>
-
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Dashed / Small</view>
-      <view class="mt-3">
-        <sr-timeline items="{{dashedTimeline}}" size="sm" line-style="dashed" />
-      </view>
-    </view>
-
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Custom Icons</view>
-      <view class="mt-3">
-        <sr-timeline items="{{customIconTimeline}}" />
-      </view>
+<app-page title="Timeline" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Default</view>
+    <view class="mt-3">
+      <sr-timeline items="{{productTimeline}}" tone="{{tone}}" />
     </view>
   </view>
-</view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Dashed / Small</view>
+    <view class="mt-3">
+      <sr-timeline items="{{dashedTimeline}}" tone="{{tone}}" size="sm" line-style="dashed" />
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Custom Icons</view>
+    <view class="mt-3">
+      <sr-timeline items="{{customIconTimeline}}" tone="{{tone}}" />
+    </view>
+  </view>
+</app-page>

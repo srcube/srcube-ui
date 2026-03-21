@@ -42,6 +42,10 @@ export const timelineMiniProps = {
     type: null,
     value: 'default',
   },
+  tone: {
+    type: null,
+    value: 'default',
+  },
   lineStyle: {
     type: null,
     value: 'solid',

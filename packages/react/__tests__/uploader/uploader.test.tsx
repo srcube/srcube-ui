@@ -56,3 +56,9 @@ it('removes file when remove button is tapped', () => {
   fireEvent.click(getByLabelText('remove file'));
   expect(onValueChange).toHaveBeenCalledWith([]);
 });
+
+it('applies dark tone add button classes', () => {
+  const { getByText } = render(<Uploader tone="dark" />);
+  const addButton = getByText('Upload').closest('button');
+  expect((addButton as HTMLButtonElement).className).toContain('bg-zinc-900');
+});

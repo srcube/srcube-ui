@@ -37,11 +37,18 @@ export const selectbox = tv({
       warning: {},
       danger: {},
     },
+    tone: {
+      default: {},
+      dark: {
+        listbox: 'bg-zinc-950',
+      },
+    },
   },
   defaultVariants: {
     orientation: 'y',
     size: 'md',
     color: 'default',
+    tone: 'default',
   },
 });
 
@@ -59,6 +66,10 @@ export const selectboxItemState = tv({
       success: '',
       warning: '',
       danger: '',
+    },
+    tone: {
+      default: '',
+      dark: '',
     },
     size: {
       sm: '',
@@ -84,37 +95,85 @@ export const selectboxItemState = tv({
   compoundVariants: [
     {
       isSelected: false,
+      tone: 'default',
       class: 'text-slate-700',
+    },
+    {
+      isSelected: false,
+      tone: 'dark',
+      class: 'text-zinc-300',
     },
     {
       isSelected: true,
       color: 'default',
+      tone: 'default',
       class: 'bg-slate-100 text-slate-900',
     },
     {
       isSelected: true,
       color: 'primary',
+      tone: 'default',
       class: 'bg-primary-50 text-primary-700',
     },
     {
       isSelected: true,
       color: 'secondary',
+      tone: 'default',
       class: 'bg-secondary-50 text-secondary-700',
     },
     {
       isSelected: true,
       color: 'success',
+      tone: 'default',
       class: 'bg-success-50 text-success-700',
     },
     {
       isSelected: true,
       color: 'warning',
+      tone: 'default',
       class: 'bg-warning-50 text-warning-700',
     },
     {
       isSelected: true,
       color: 'danger',
+      tone: 'default',
       class: 'bg-danger-50 text-danger-700',
+    },
+    {
+      isSelected: true,
+      color: 'default',
+      tone: 'dark',
+      class: 'bg-zinc-800 text-zinc-50',
+    },
+    {
+      isSelected: true,
+      color: 'primary',
+      tone: 'dark',
+      class: 'bg-primary-950 text-primary-100',
+    },
+    {
+      isSelected: true,
+      color: 'secondary',
+      tone: 'dark',
+      class: 'bg-secondary-950 text-secondary-100',
+    },
+    {
+      isSelected: true,
+      color: 'success',
+      tone: 'dark',
+      class: 'bg-success-950 text-success-100',
+    },
+    {
+      isSelected: true,
+      color: 'warning',
+      tone: 'dark',
+      class: 'bg-warning-950 text-warning-100',
+    },
+    {
+      isSelected: true,
+      color: 'danger',
+      tone: 'dark',
+      class: 'bg-danger-950 text-danger-100',
     },
     {
       isSelected: true,
@@ -280,6 +339,7 @@ export const selectboxItemState = tv({
     orientation: 'y',
     size: 'md',
     color: 'default',
+    tone: 'default',
     isSelected: false,
     isDisabled: false,
     blockPosition: 'none',

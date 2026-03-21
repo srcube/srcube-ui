@@ -1,3 +1,5 @@
+import { picker } from '@srcube-ui/styles/components/picker';
+import * as React from 'react';
 import { Button } from '../button';
 import {
   Drawer,
@@ -8,8 +10,6 @@ import {
 } from '../drawer';
 import { Field } from '../field';
 import { Pickbox } from '../pickbox';
-import * as React from 'react';
-import { picker } from '@srcube-ui/styles/components/picker';
 import type {
   PickerColumn,
   PickerDraftDetail,
@@ -28,17 +28,26 @@ function isSameItemId(
     return true;
   }
 
-  if (left === null || left === undefined || right === null || right === undefined) {
+  if (
+    left === null ||
+    left === undefined ||
+    right === null ||
+    right === undefined
+  ) {
     return false;
   }
 
   if (
-    (typeof left === 'number' && typeof right === 'string')
-    || (typeof left === 'string' && typeof right === 'number')
+    (typeof left === 'number' && typeof right === 'string') ||
+    (typeof left === 'string' && typeof right === 'number')
   ) {
     const leftNumber = Number(left);
     const rightNumber = Number(right);
-    return Number.isFinite(leftNumber) && Number.isFinite(rightNumber) && leftNumber === rightNumber;
+    return (
+      Number.isFinite(leftNumber) &&
+      Number.isFinite(rightNumber) &&
+      leftNumber === rightNumber
+    );
   }
 
   return false;
@@ -58,7 +67,15 @@ function normalizeInputArray(
   return [value];
 }
 
-function normalizePickerOptions(options: PickerReactProps['options']): PickerOption[] {
+function hasPickerInputValue(value?: PickerMultiValue | PickerItemId | null) {
+  return normalizeInputArray(value).some(
+    (item) => item !== null && item !== undefined,
+  );
+}
+
+function normalizePickerOptions(
+  options: PickerReactProps['options'],
+): PickerOption[] {
   if (!Array.isArray(options)) {
     return [];
   }
@@ -66,9 +83,9 @@ function normalizePickerOptions(options: PickerReactProps['options']): PickerOpt
   return options
     .filter(
       (option): option is PickerOption =>
-        Boolean(option)
-        && typeof option === 'object'
-        && (typeof option.id === 'string' || typeof option.id === 'number'),
+        Boolean(option) &&
+        typeof option === 'object' &&
+        (typeof option.id === 'string' || typeof option.id === 'number'),
     )
     .map((option) => ({
       id: option.id,
@@ -128,7 +145,8 @@ function buildCascadeColumns(
     });
 
     const selected = levelOptions.find((option) =>
-      isSameItemId(option.id, value[levelIndex]));
+      isSameItemId(option.id, value[levelIndex]),
+    );
     const fallback = selected ?? getEnabledOption(levelOptions);
     if (!fallback) {
       break;
@@ -154,7 +172,8 @@ function resolveCascadeDisplayLabels(
     }
 
     const selected = levelOptions.find((option) =>
-      isSameItemId(option.id, itemId));
+      isSameItemId(option.id, itemId),
+    );
     if (!selected) {
       break;
     }
@@ -214,7 +233,8 @@ function ensureNormalizedValue(
   input?: PickerMultiValue,
 ): PickerMultiValue {
   return columns.map((column, index) =>
-    normalizeColumnValue(column, input?.[index]));
+    normalizeColumnValue(column, input?.[index]),
+  );
 }
 
 function toOutputValue(value: PickerMultiValue): PickerMultiValue {
@@ -234,7 +254,8 @@ function resolveDisplayValue(params: {
       }
 
       const item = columns[index]?.items.find((candidate) =>
-        isSameItemId(candidate.id, itemId));
+        isSameItemId(candidate.id, itemId),
+      );
       return item?.label ?? '';
     })
     .filter(Boolean);
@@ -242,7 +263,10 @@ function resolveDisplayValue(params: {
   return labels.join(separator);
 }
 
-function resolveChangedIndex(previous: PickerMultiValue, next: PickerMultiValue) {
+function resolveChangedIndex(
+  previous: PickerMultiValue,
+  next: PickerMultiValue,
+) {
   const total = Math.max(previous.length, next.length);
   for (let index = 0; index < total; index += 1) {
     if (!isSameItemId(previous[index], next[index])) {
@@ -256,11 +280,11 @@ function resolvePickerColor(
   value: PickerReactProps['color'],
 ): NonNullable<PickerReactProps['color']> {
   if (
-    value === 'primary'
-    || value === 'secondary'
-    || value === 'success'
-    || value === 'warning'
-    || value === 'danger'
+    value === 'primary' ||
+    value === 'secondary' ||
+    value === 'success' ||
+    value === 'warning' ||
+    value === 'danger'
   ) {
     return value;
   }
@@ -278,6 +302,18 @@ function resolvePickerSize(
   return 'md';
 }
 
+function resolvePickerTone(
+  value: PickerReactProps['tone'],
+): NonNullable<PickerReactProps['tone']> {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
+function resolveButtonTone(
+  value: PickerReactProps['tone'],
+): 'light' | 'dark' {
+  return resolvePickerTone(value) === 'dark' ? 'dark' : 'light';
+}
+
 export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
   (props, ref) => {
     const {
@@ -287,7 +323,9 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
       placeholder = '请选择',
       description,
       errorMessage,
+      isClearable,
       color,
+      tone,
       variant,
       size,
       radius,
@@ -318,6 +356,7 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
       classNames,
       style,
       onTap,
+      onClear,
       onCancel,
       onOpenChange,
       onValueChange,
@@ -327,6 +366,7 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
 
     const resolvedSize = resolvePickerSize(size);
     const resolvedColor = resolvePickerColor(color);
+    const resolvedTone = resolvePickerTone(tone);
     const staticColumns = React.useMemo(
       () =>
         resolvePickerColumns({
@@ -344,6 +384,10 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
     const isValueControlled = value !== undefined;
     const [innerCommittedValue, setInnerCommittedValue] =
       React.useState<PickerMultiValue>(() => {
+        if (!hasPickerInputValue(defaultValue)) {
+          return [];
+        }
+
         const input = normalizeInputArray(defaultValue);
         if (isCascade) {
           return normalizeCascadeValue(normalizedOptions, input);
@@ -356,6 +400,10 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
       const input = isValueControlled
         ? normalizeInputArray(value)
         : innerCommittedValue;
+
+      if (!hasPickerInputValue(input)) {
+        return [];
+      }
 
       if (isCascade) {
         return normalizeCascadeValue(normalizedOptions, input);
@@ -377,6 +425,10 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
       }
 
       setInnerCommittedValue((prev) => {
+        if (!hasPickerInputValue(prev)) {
+          return [];
+        }
+
         if (isCascade) {
           return normalizeCascadeValue(normalizedOptions, prev);
         }
@@ -388,7 +440,8 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
     const [innerOpen, setInnerOpen] = React.useState(defaultOpen);
     const resolvedOpen = isOpenControlled ? Boolean(isOpenProp) : innerOpen;
 
-    const [draftValue, setDraftValue] = React.useState<PickerMultiValue>(committedValue);
+    const [draftValue, setDraftValue] =
+      React.useState<PickerMultiValue>(committedValue);
     const pendingCommittedRef = React.useRef<PickerMultiValue | null>(null);
 
     React.useEffect(() => {
@@ -431,7 +484,10 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
 
     const displayValue = React.useMemo(() => {
       if (isCascade) {
-        const labels = resolveCascadeDisplayLabels(normalizedOptions, committedValue);
+        const labels = resolveCascadeDisplayLabels(
+          normalizedOptions,
+          committedValue,
+        );
         return labels.join(separator);
       }
 
@@ -440,15 +496,22 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
         value: committedValue,
         separator,
       });
-    }, [committedValue, isCascade, normalizedOptions, separator, staticColumns]);
+    }, [
+      committedValue,
+      isCascade,
+      normalizedOptions,
+      separator,
+      staticColumns,
+    ]);
 
     const slots = React.useMemo(
       () =>
         picker({
           type,
+          tone: resolvedTone,
           size: resolvedSize,
         }),
-      [resolvedSize, type],
+      [resolvedSize, resolvedTone, type],
     );
 
     const drawerClassNames = React.useMemo(
@@ -478,6 +541,20 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
       [committedValue, isDisabled, isReadOnly, onTap, setOpen],
     );
 
+    const handleClear = React.useCallback(() => {
+      const clearedValue: PickerMultiValue = [];
+
+      pendingCommittedRef.current = null;
+      setDraftValue(clearedValue);
+
+      if (!isValueControlled) {
+        setInnerCommittedValue(clearedValue);
+      }
+
+      onValueChange?.(toOutputValue(clearedValue));
+      onClear?.();
+    }, [isValueControlled, onClear, onValueChange]);
+
     const handleDraftValueChange = React.useCallback(
       (nextValue: PickerMultiValue) => {
         let normalized: PickerMultiValue;
@@ -486,9 +563,10 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
         if (isCascade) {
           const nextNormalizedInput = normalizeInputArray(nextValue);
           changedIndex = resolveChangedIndex(draftValue, nextNormalizedInput);
-          const cascadeInput = changedIndex === undefined
-            ? nextNormalizedInput
-            : nextNormalizedInput.slice(0, changedIndex + 1);
+          const cascadeInput =
+            changedIndex === undefined
+              ? nextNormalizedInput
+              : nextNormalizedInput.slice(0, changedIndex + 1);
           normalized = normalizeCascadeValue(normalizedOptions, cascadeInput);
           if (changedIndex !== undefined && changedIndex >= normalized.length) {
             changedIndex = normalized.length - 1;
@@ -510,7 +588,13 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
         setDraftValue(normalized);
         onDraftValueChange?.(toOutputValue(normalized), detail);
       },
-      [draftValue, isCascade, normalizedOptions, onDraftValueChange, staticColumns],
+      [
+        draftValue,
+        isCascade,
+        normalizedOptions,
+        onDraftValueChange,
+        staticColumns,
+      ],
     );
 
     const handleConfirmTap = React.useCallback(() => {
@@ -559,8 +643,8 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
 
     const isConfirmDisabled = React.useMemo(
       () =>
-        Boolean(isDisabled || isReadOnly)
-        || resolvedColumns.every((column) => column.items.length === 0),
+        Boolean(isDisabled || isReadOnly) ||
+        resolvedColumns.every((column) => column.items.length === 0),
       [isDisabled, isReadOnly, resolvedColumns],
     );
 
@@ -579,7 +663,9 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
           placeholder={placeholder}
           description={description}
           errorMessage={errorMessage}
+          isClearable={isClearable}
           color={resolvedColor}
+          tone={resolvedTone}
           variant={variant}
           size={resolvedSize}
           radius={radius}
@@ -590,6 +676,7 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
           isLoading={isLoading}
           className={slots.field({ class: classNames?.field })}
           onTap={handleFieldTap}
+          onClear={handleClear}
         />
 
         <Drawer
@@ -599,6 +686,7 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
           isDismissable={isDismissable}
           hasBackdrop={hasBackdrop}
           backdrop={backdrop}
+          tone={resolvedTone}
           onOpenChange={handleDrawerOpenChange}
           className={slots.drawer({ class: classNames?.drawer })}
           classNames={drawerClassNames}
@@ -614,6 +702,7 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
                 className={slots.pickbox({ class: classNames?.pickbox })}
                 size={resolvedSize}
                 color={resolvedColor}
+                tone={resolvedTone}
                 columns={resolvedColumns}
                 value={draftValue}
                 estimateSize={estimateSize}
@@ -630,6 +719,7 @@ export const Picker = React.forwardRef<HTMLDivElement, PickerReactProps>(
                   class: classNames?.confirmButton,
                 })}
                 color={resolvedColor}
+                tone={resolveButtonTone(resolvedTone)}
                 size={resolvedSize}
                 variant="flat"
                 isBlock

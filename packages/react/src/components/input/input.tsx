@@ -29,6 +29,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputReactProps>(
       isRequired,
       isLoading,
       color,
+      tone,
       variant,
       size,
       radius,
@@ -45,6 +46,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputReactProps>(
     } = props;
 
     const slots = inputStyle({
+      tone,
       size,
       isDisabled: Boolean(isDisabled),
     });
@@ -73,6 +75,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputReactProps>(
         isRequired={isRequired}
         isLoading={isLoading}
         color={color}
+        tone={tone}
         variant={variant}
         size={size}
         radius={radius}

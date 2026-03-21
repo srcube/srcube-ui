@@ -67,6 +67,7 @@ export const actionSheetMiniProps = {
   cancelButtonProps: { type: Object, value: {} },
   locale: { type: String, value: 'en' },
   isClosable: { type: Boolean, value: true },
+  tone: { type: null, value: 'default' },
   size: { type: null, value: 'md' },
   radius: { type: null, value: null },
   isInset: { type: Boolean, value: false },

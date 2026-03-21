@@ -6,6 +6,7 @@
   description="{{description}}"
   errorMessage="{{errorMessage}}"
   color="{{color}}"
+  tone="{{tone}}"
   variant="{{variant}}"
   size="{{size}}"
   radius="{{radius}}"

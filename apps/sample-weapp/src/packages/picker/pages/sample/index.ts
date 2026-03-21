@@ -28,7 +28,8 @@ Page({
       { id: 'sh', label: '上海' },
       { id: 'sz', label: '深圳' },
     ],
-    singleValue: ['cq'] as PickerMultiValue,
+    singleValue: [] as PickerMultiValue,
+    clearableValue: [] as PickerMultiValue,
     cascadeOptions: [
       {
         id: 'fruit',
@@ -97,8 +98,8 @@ Page({
         ],
       },
     ],
-    cascadeValue: ['fruit', 'citrus', 'orange'] as PickerMultiValue,
-    cascadeValueText: formatMultiValueText(['fruit', 'citrus', 'orange']),
+    cascadeValue: [] as PickerMultiValue,
+    cascadeValueText: 'none',
     selectItems: [
       { id: 'discover', label: '需求调研', isSticky: true },
       { id: 'design', label: '设计方案' },
@@ -120,10 +121,18 @@ Page({
       { id: 'feedback', label: '反馈闭环' },
       { id: 'archive', label: '归档沉淀' },
     ],
-    selectValue: ['design', 'develop'] as PickerSelectValue,
-    selectValueText: 'design / develop',
-    datetimeValue: '2026-02-13 09:30:00',
+    selectValue: [] as PickerSelectValue,
+    selectValueText: 'none',
+    datetimeValue: '',
     datetimeRangeValue: {
+      start: null,
+      end: null,
+    } as DateRangeValue,
+    defaultSingleValue: ['cd'] as PickerMultiValue,
+    defaultCascadeValue: ['fruit', 'citrus', 'orange'] as PickerMultiValue,
+    defaultSelectValue: ['design', 'develop'] as PickerSelectValue,
+    defaultDatetimeValue: '2026-02-13 09:30:00',
+    defaultDatetimeRangeValue: {
       start: '2026-02-13 09:30:00',
       end: '2026-02-18 18:30:00',
     } as DateRangeValue,
@@ -203,6 +212,21 @@ Page({
     this.setData({
       cascadeValue: nextValue,
       cascadeValueText: formatMultiValueText(nextValue),
+    });
+  },
+
+  handleClearableValueChange(
+    event: WechatMiniprogram.CustomEvent<{
+      value?: PickerMultiValue;
+    }>,
+  ) {
+    const nextValue = event.detail?.value;
+    if (!Array.isArray(nextValue)) {
+      return;
+    }
+
+    this.setData({
+      clearableValue: nextValue,
     });
   },
 

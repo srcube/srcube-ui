@@ -14,3 +14,7 @@ it('contains add tap handler in template', () => {
 it('uses default maxCount as 9', () => {
   expect(uploaderMiniProps.maxCount.value).toBe(9);
 });
+
+it('uses default tone as default', () => {
+  expect(uploaderMiniProps.tone.value).toBe('default');
+});

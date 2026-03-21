@@ -15,24 +15,16 @@ export const swipeAction = tv({
   },
   variants: {
     color: {
-      default: {
-        content: 'bg-white text-slate-900',
-      },
-      primary: {
-        content: 'bg-white text-primary',
-      },
-      secondary: {
-        content: 'bg-white text-secondary',
-      },
-      success: {
-        content: 'bg-white text-success',
-      },
-      warning: {
-        content: 'bg-white text-warning',
-      },
-      danger: {
-        content: 'bg-white text-danger',
-      },
+      default: {},
+      primary: {},
+      secondary: {},
+      success: {},
+      warning: {},
+      danger: {},
+    },
+    tone: {
+      default: {},
+      dark: {},
     },
     size: {
       sm: {
@@ -57,9 +49,96 @@ export const swipeAction = tv({
   },
   defaultVariants: {
     color: 'default',
+    tone: 'default',
     size: 'md',
     isDisabled: false,
   },
+  compoundVariants: [
+    {
+      color: 'default',
+      tone: 'default',
+      class: {
+        content: 'bg-white text-slate-900',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'default',
+      class: {
+        content: 'bg-white text-primary',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'default',
+      class: {
+        content: 'bg-white text-secondary',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'default',
+      class: {
+        content: 'bg-white text-success',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'default',
+      class: {
+        content: 'bg-white text-warning',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'default',
+      class: {
+        content: 'bg-white text-danger',
+      },
+    },
+    {
+      color: 'default',
+      tone: 'dark',
+      class: {
+        content: 'bg-zinc-950 text-zinc-100',
+      },
+    },
+    {
+      color: 'primary',
+      tone: 'dark',
+      class: {
+        content: 'bg-zinc-950 text-primary-200',
+      },
+    },
+    {
+      color: 'secondary',
+      tone: 'dark',
+      class: {
+        content: 'bg-zinc-950 text-secondary-200',
+      },
+    },
+    {
+      color: 'success',
+      tone: 'dark',
+      class: {
+        content: 'bg-zinc-950 text-success-200',
+      },
+    },
+    {
+      color: 'warning',
+      tone: 'dark',
+      class: {
+        content: 'bg-zinc-950 text-warning-200',
+      },
+    },
+    {
+      color: 'danger',
+      tone: 'dark',
+      class: {
+        content: 'bg-zinc-950 text-danger-200',
+      },
+    },
+  ],
 });
 
 export const swipeActionActionTone = tv({

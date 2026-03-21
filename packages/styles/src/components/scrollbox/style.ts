@@ -19,6 +19,15 @@ export const scrollbox = tv({
       'absolute top-0 right-0 bottom-0 z-10 w-6 h-full pointer-events-none transition-opacity duration-300 bg-gradient-to-l from-white to-transparent',
   },
   variants: {
+    tone: {
+      default: {},
+      dark: {
+        maskTop: 'from-zinc-950',
+        maskBottom: 'from-zinc-950',
+        maskLeft: 'from-zinc-950',
+        maskRight: 'from-zinc-950',
+      },
+    },
     hideMasks: {
       true: {
         maskTop: 'hidden',
@@ -61,6 +70,7 @@ export const scrollbox = tv({
     },
   },
   defaultVariants: {
+    tone: 'default',
     orientation: 'y',
     showMaskTop: false,
     showMaskBottom: false,

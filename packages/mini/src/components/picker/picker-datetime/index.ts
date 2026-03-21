@@ -40,6 +40,7 @@ type PickerMiniColor =
   | 'danger';
 
 type PickerMiniSize = 'sm' | 'md' | 'lg';
+type PickerMiniTone = 'default' | 'dark';
 
 function ensureClassName(value: unknown) {
   return typeof value === 'string' ? value : '';
@@ -81,6 +82,14 @@ function resolveSize(value?: string | null): PickerMiniSize {
   }
 
   return 'md';
+}
+
+function resolveTone(value?: string | null): PickerMiniTone {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
+function resolveButtonTone(value?: string | null) {
+  return resolveTone(value) === 'dark' ? 'dark' : 'light';
 }
 
 function resolveCommittedParts(data: PickerDatetimeMiniData): DateTimeParts {
@@ -318,6 +327,12 @@ UIComponent({
     $resolvedColor(data: PickerDatetimeMiniData) {
       return resolveColor(data.color);
     },
+    $resolvedTone(data: PickerDatetimeMiniData) {
+      return resolveTone(data.tone);
+    },
+    $buttonTone(data: PickerDatetimeMiniData) {
+      return resolveButtonTone(data.tone);
+    },
     $resolvedSize(data: PickerDatetimeMiniData) {
       return resolveSize(data.size);
     },
@@ -346,6 +361,7 @@ UIComponent({
     $classNames(data: PickerDatetimeMiniData) {
       const slots = picker({
         type: resolveType(data.type),
+        tone: resolveTone(data.tone),
         size: resolveSize(data.size),
       });
       const classNames = (data.classNames ?? {}) as Record<string, string | undefined>;
@@ -388,6 +404,7 @@ UIComponent({
     $drawerClassNames(data: PickerDatetimeMiniData) {
       const slots = picker({
         type: resolveType(data.type),
+        tone: resolveTone(data.tone),
         size: resolveSize(data.size),
       });
       const classNames = (data.classNames ?? {}) as Record<string, string | undefined>;

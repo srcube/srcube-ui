@@ -34,6 +34,7 @@ export function Demo() {
 | previewSrc | 预览主图地址 | `string` | `''` |
 | previewUrls | 预览图片列表 | `string[]` | `[]` |
 | isPreviewable | 是否可点击预览 | `boolean` | `false` |
+| tone | 主题明暗风格 | `'default' | 'dark'` | `'default'` |
 | size | 固定尺寸 | `'sm' | 'md' | 'lg' | 'xl'` | `'md'` |
 | radius | 圆角 | `'none' | 'sm' | 'md' | 'lg' | 'full'` | `'md'` |
 | fit | 图片填充模式 | `'cover' | 'contain' | 'fill' | 'none'` | `'cover'` |

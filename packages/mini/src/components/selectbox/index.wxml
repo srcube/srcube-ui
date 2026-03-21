@@ -4,6 +4,7 @@
     className="{{$classNames.listbox}}"
     classNames="{{listboxClassNames}}"
     orientation="{{orientation}}"
+    tone="{{tone}}"
     size="{{size}}"
     hasDivider="{{hasDivider}}"
     items="{{$resolvedItems}}"

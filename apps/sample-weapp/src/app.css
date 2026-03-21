@@ -4,3 +4,4 @@
 @plugin "@iconify/tailwind4";
 
 @source "../node_modules/@srcube-ui/styles/dist";
+@source "./components";

@@ -37,6 +37,7 @@ export function Demo() {
 | helperText | 辅助文案 | `ReactNode / string` | `''` |
 | size | 尺寸 | `'sm' \| 'md' \| 'lg'` | `'md'` |
 | color | 颜色 | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger'` | `'default'` |
+| tone | 主题明暗 | `'default' \| 'dark'` | `'default'` |
 | radius | 圆角 | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'` | `'md'` |
 | isDisabled | 是否禁用 | `boolean` | `false` |
 | className | 根节点类名 | `string` | `''` |

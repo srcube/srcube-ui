@@ -22,6 +22,7 @@
 | cancelButtonProps | 取消按钮 props 覆盖 | React: `Omit<ButtonReactProps, 'children'>`; Mini: `Partial<Pick<ButtonMiniProps, 'buttonId' \| 'color' \| 'tone' \| 'variant' \| 'size' \| 'radius' \| 'isBlock' \| 'isDisabled' \| 'isLoading' \| 'className' \| 'style' \| 'hoverClass' \| 'hoverStopPropagation' \| 'hoverStartTime' \| 'hoverStayTime' \| 'ariaLabel'>>` | `{}` |
 | locale | 取消文案语言 | `'en' \| 'zh-CN' \| 'zh-TW'` | `'en'` |
 | isClosable | 是否显示取消按钮 | `boolean` | `true` |
+| tone | 主题明暗 | `'default' \| 'dark'` | `'default'` |
 | size | 操作项尺寸 | `'sm' \| 'md' \| 'lg'` | `'md'` |
 | radius | 操作按钮组圆角 | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'` | `'lg'` |
 | isInset | 是否启用底部内缩布局 | `boolean` | `false` |

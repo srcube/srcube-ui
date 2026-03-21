@@ -64,11 +64,29 @@ export const listbox = tv({
       },
       false: {},
     },
+    tone: {
+      default: {},
+      dark: {
+        base: 'bg-zinc-950',
+        stickyItem: 'bg-zinc-950',
+        emptyContent: 'text-zinc-500',
+      },
+    },
   },
+  compoundVariants: [
+    {
+      tone: 'dark',
+      hasDivider: true,
+      class: {
+        item: 'border-b border-zinc-900 last:border-b-0',
+      },
+    },
+  ],
   defaultVariants: {
     orientation: 'y',
     size: 'md',
     hasDivider: false,
+    tone: 'default',
   },
 });
 
@@ -79,13 +97,30 @@ export const listboxItemState = tv({
       y: 'w-full',
       x: 'h-full min-w-max',
     },
+    tone: {
+      default: '',
+      dark: '',
+    },
     isDisabled: {
       true: 'cursor-not-allowed opacity-50',
-      false: 'text-slate-700',
+      false: '',
     },
   },
+  compoundVariants: [
+    {
+      tone: 'default',
+      isDisabled: false,
+      class: 'text-slate-700',
+    },
+    {
+      tone: 'dark',
+      isDisabled: false,
+      class: 'text-zinc-200',
+    },
+  ],
   defaultVariants: {
     orientation: 'y',
+    tone: 'default',
     isDisabled: false,
   },
 });

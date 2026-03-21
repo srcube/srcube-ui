@@ -81,6 +81,10 @@ export const calendarMiniProps = {
     type: null,
     value: 'primary',
   },
+  tone: {
+    type: null,
+    value: 'default',
+  },
   className: {
     type: String,
     value: '',

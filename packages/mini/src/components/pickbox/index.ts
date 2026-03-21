@@ -321,6 +321,10 @@ function resolveDefaultMetricBySize(size: PickboxMiniProps['size']) {
   return 44;
 }
 
+function resolveTone(value?: string | null) {
+  return value === 'dark' ? 'dark' : 'default';
+}
+
 function resolveMetricValue(value: unknown, fallback: number) {
   const next = Number(value);
   if (Number.isFinite(next) && next > 0) {
@@ -427,6 +431,7 @@ UIComponent({
       const slots = pickbox({
         size: data.size ?? 'md',
         color: data.color ?? 'default',
+        tone: resolveTone(data.tone),
       });
       const classNames = data.classNames ?? {};
       const baseClassName = [classNames.base, data.className]
@@ -615,6 +620,7 @@ UIComponent({
           const isDisabled = item.isDisabled === true;
           const stateClassName = pickboxItemState({
             color: this.data.color ?? 'default',
+            tone: resolveTone(this.data.tone),
             size: this.data.size ?? 'md',
             isSelected,
             isDisabled,

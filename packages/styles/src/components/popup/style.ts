@@ -8,6 +8,7 @@ export type PopupVariants = {
   isOpen?: boolean;
   motion?: PopupMotion;
   backdrop?: PopupBackdropTone;
+  tone?: 'default' | 'dark';
 };
 export type PopupSlot =
   | 'base'
@@ -52,6 +53,14 @@ export const popup = tv({
         backdrop: 'bg-zinc-900/25 backdrop-blur-sm',
       },
     },
+    tone: {
+      default: {
+        content: 'bg-white text-slate-900',
+      },
+      dark: {
+        content: 'bg-zinc-950 text-zinc-50',
+      },
+    },
   },
   compoundVariants: [
     {
@@ -72,5 +81,6 @@ export const popup = tv({
   defaultVariants: {
     motion: 'modal',
     backdrop: 'opaque',
+    tone: 'default',
   },
 });

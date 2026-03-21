@@ -1,0 +1,27 @@
+<view class="{{pageClassName}}">
+  <app-navbar title="Theme Center" tone="{{tone}}" withBack="{{true}}" />
+
+  <view class="px-6 pt-6">
+    <view class="{{surfaceClassName}}">
+      <view class="{{titleClassName}}">Theme Center</view>
+      <view class="{{descriptionClassName}}">
+        app-navbar 右侧按钮会弹出 action sheet，用来切换全局 sample tone。
+      </view>
+
+      <view class="mt-4 {{previewCardClassName}}">
+        <view class="{{titleClassName}}">Current Tone</view>
+        <view class="{{descriptionClassName}}">Now using {{toneMeta}} mode.</view>
+
+        <view class="mt-4 flex flex-col gap-3">
+          <sr-card color="default" tone="{{tone}}">
+            <view slot="body">Card tone = {{tone}}</view>
+          </sr-card>
+
+          <sr-button tone="{{tone}}" isBlock bind:tap="handleGoHome">
+            Back To Components
+          </sr-button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

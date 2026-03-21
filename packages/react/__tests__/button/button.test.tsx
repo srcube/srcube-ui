@@ -58,5 +58,5 @@ it('uses default color with light tone by default', () => {
 it('supports dark tone for default color', () => {
   render(<Button tone="dark">Dark</Button>);
 
-  expect(screen.getByRole('button').className).toContain('bg-slate-950');
+  expect(screen.getByRole('button').className).toContain('bg-zinc-950');
 });

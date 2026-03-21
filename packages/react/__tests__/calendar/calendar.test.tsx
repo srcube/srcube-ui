@@ -60,3 +60,8 @@ it('updates helper text for range selection', () => {
 
   expect(screen.getByText('2026-02-10 ~ 2026-02-12')).toBeTruthy();
 });
+
+it('applies dark tone classes', () => {
+  const { container } = render(<Calendar tone="dark" month="2026-02" />);
+  expect(container.querySelector('.bg-zinc-950')).toBeTruthy();
+});

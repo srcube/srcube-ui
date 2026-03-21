@@ -1,3 +1,6 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 const textareaColorGroups = [
   [
     { label: 'default', value: 'default' },
@@ -15,11 +18,26 @@ type TextareaColor = (typeof textareaColorGroups)[number][number]['value'];
 
 Page({
   data: {
+    tone: 'default' as SampleTone,
     basicValue: '',
     autoValue: 'A longer content for preview',
     activeColor: 'default' as TextareaColor,
     colorValue: 'Textarea preview',
     colorGroups: textareaColorGroups,
+  },
+
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
   },
 
   handleBasicValueChange(e: WechatMiniprogram.CustomEvent<{ value?: string }>) {

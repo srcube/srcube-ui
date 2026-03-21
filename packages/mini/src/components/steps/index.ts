@@ -87,6 +87,7 @@ UIComponent({
         orientation: data.orientation,
         size: data.size,
         color: data.color,
+        tone: data.tone,
         variant: data.variant,
         isDot: Boolean(data.isDot),
       });
@@ -105,6 +106,7 @@ UIComponent({
         : 0;
       const size = data.size;
       const color = data.color;
+      const tone = data.tone;
       const variant = data.variant;
       const isDot = Boolean(data.isDot);
       const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
@@ -123,6 +125,7 @@ UIComponent({
           orientation: data.orientation,
           size,
           color,
+          tone,
           variant,
           isDot,
           status,

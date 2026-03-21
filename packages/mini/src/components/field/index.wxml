@@ -34,7 +34,7 @@
         <view
           wx:if="{{$showFallbackControl}}"
           id="{{$controlId}}"
-          class="sr-field__input {{$classNames.input}}"
+          class="sr-field__input {{$fallbackControlClassName}}"
         >
           {{$displayValue}}
         </view>

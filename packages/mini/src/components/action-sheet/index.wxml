@@ -38,6 +38,7 @@
               className="sr-action-sheet__action {{$classNames.action}} {{item.actionClass}} {{item.isLast ? $classNames.actionLast : ''}}"
               variant="{{item.variant}}"
               color="default"
+              tone="{{item.tone}}"
               radius="none"
               isDisabled="{{item.isDisabled}}"
               isBlock="{{true}}"

@@ -61,6 +61,7 @@ export const uploaderMiniProps = {
   style: { type: String, value: '' },
   size: { type: null, value: 'md' },
   color: { type: null, value: 'default' },
+  tone: { type: null, value: 'default' },
   radius: { type: null, value: 'md' },
   isDisabled: { type: Boolean, value: false },
 } as const;

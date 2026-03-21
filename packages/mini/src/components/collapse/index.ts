@@ -71,6 +71,7 @@ UIComponent({
   computed: {
     $classNames(data: CollapseMiniData) {
       const slots = collapse({
+        tone: data.tone,
         variant: data.variant,
         size: data.size,
         radius: data.radius,

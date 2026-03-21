@@ -32,3 +32,11 @@ it('opens preview overlay when previewable image is clicked', () => {
   fireEvent.click(closeButton);
   expect(screen.queryByRole('button', { name: 'Close preview' })).toBeNull();
 });
+
+it('supports dark tone placeholder surface', () => {
+  const { container } = render(<Image tone="dark" fit="contain" fallback="No image" />);
+  const root = container.firstElementChild as HTMLElement;
+
+  expect(root.className).toContain('bg-zinc-900');
+  expect(screen.getByText('No image').className).toContain('text-zinc-400');
+});

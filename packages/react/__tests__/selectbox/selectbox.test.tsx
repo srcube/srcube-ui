@@ -56,3 +56,21 @@ it('emits value change when pressing item', () => {
   fireEvent.click(option);
   expect(onValueChange).toHaveBeenCalledWith(['b']);
 });
+
+it('applies dark tone selected classes', () => {
+  render(
+    <Selectbox
+      className="h-48"
+      tone="dark"
+      selectionMode="single"
+      items={[
+        { id: 'a', label: 'Alpha' },
+        { id: 'b', label: 'Beta' },
+      ]}
+      defaultValue={['a']}
+    />,
+  );
+
+  const option = screen.getByText('Alpha').closest('[role="option"]') as HTMLElement;
+  expect(option.className).toContain('bg-zinc-800');
+});

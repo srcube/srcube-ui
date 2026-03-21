@@ -8,6 +8,7 @@ export const Timeline = React.forwardRef<HTMLDivElement, TimelineReactProps>(
       items = [],
       size,
       color = 'default',
+      tone = 'default',
       lineStyle,
       className,
       classNames,
@@ -20,9 +21,10 @@ export const Timeline = React.forwardRef<HTMLDivElement, TimelineReactProps>(
         timelineStyle({
           size,
           color,
+          tone,
           lineStyle,
         }),
-      [color, lineStyle, size],
+      [color, lineStyle, size, tone],
     );
 
     return (
@@ -37,6 +39,7 @@ export const Timeline = React.forwardRef<HTMLDivElement, TimelineReactProps>(
             const slots = timelineStyle({
               size,
               color: item.color ?? color,
+              tone,
               lineStyle,
               isPending: Boolean(item.isPending),
               isLast: index === items.length - 1,

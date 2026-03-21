@@ -86,6 +86,16 @@ it('uses active bg 50 for danger action without flat 200 conflict', () => {
   expect(classes).not.toContain('active:bg-slate-200');
 });
 
+it('applies dark tone classes', () => {
+  render(<ActionSheet isOpen tone="dark" actions={actions} />);
+
+  const deleteLabel = screen.getByText('删除');
+  const button = deleteLabel.closest('button');
+
+  expect(document.querySelector('.bg-zinc-950')).toBeTruthy();
+  expect((button as HTMLButtonElement).className).toContain('text-danger-200');
+});
+
 it('renders custom footer and skips default cancel button', () => {
   render(
     <ActionSheet

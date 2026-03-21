@@ -10,6 +10,7 @@
     description="{{description}}"
     errorMessage="{{errorMessage}}"
     color="{{$resolvedColor}}"
+    tone="{{$resolvedTone}}"
     variant="{{variant}}"
     size="{{$resolvedSize}}"
     radius="{{radius}}"
@@ -30,6 +31,7 @@
     title="{{drawerTitle || label || ''}}"
     isDismissable="{{isDismissable}}"
     hasBackdrop="{{hasBackdrop}}"
+    tone="{{$resolvedTone}}"
     backdrop="{{backdrop}}"
     bind:openchange="handleDrawerOpenChange"
   >
@@ -44,6 +46,7 @@
         className="{{$classNames.pickbox}}"
         size="{{$resolvedSize}}"
         color="{{$resolvedColor}}"
+        tone="{{$resolvedTone}}"
         selectionMode="{{selectionMode}}"
         selectIcon="{{true}}"
         items="{{$resolvedItems}}"
@@ -61,6 +64,7 @@
         class="sr-picker-select__confirm {{$classNames.$confirmButton}}"
         className="{{$classNames.confirmButton}}"
         color="{{$resolvedColor}}"
+        tone="{{$buttonTone}}"
         size="{{$resolvedSize}}"
         variant="flat"
         isBlock

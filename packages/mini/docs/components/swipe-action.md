@@ -19,6 +19,7 @@
 | onAction / bind:action | 点击动作回调 | React: `(detail) => void`；Mini: `event.detail` | - | 全平台 |
 | onTap / bind:tap | 内容区点击回调 | React: `(event) => void`；Mini: 组件事件 | - | 全平台 |
 | color | 内容主题色 | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` | 全平台 |
+| tone | 主题明暗 | `"default" \| "dark"` | `"default"` | 全平台 |
 | size | 尺寸 | `"sm" \| "md" \| "lg"` | `"md"` | 全平台 |
 | isDisabled | 禁用态 | `boolean` | `false` | 全平台 |
 | classNames | slot 样式映射 | React: `SwipeActionReactClassNames`；Mini: `SwipeActionMiniClassNames` | - | 全平台 |

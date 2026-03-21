@@ -30,6 +30,7 @@ export type SwipeActionMiniProps = SwipeActionVariants & {
 
 export const swipeActionMiniProps = {
   color: { type: null, value: null },
+  tone: { type: null, value: 'default' },
   size: { type: null, value: null },
   leftActions: { type: Array, value: [] },
   rightActions: { type: Array, value: [] },

@@ -30,3 +30,7 @@ it('accepts title in mini render data', () => {
 it('uses false as defaultValue', () => {
   expect(collapseMiniProps.defaultValue.value).toBe(false);
 });
+
+it('uses default as default tone', () => {
+  expect(collapseMiniProps.tone.value).toBe('default');
+});

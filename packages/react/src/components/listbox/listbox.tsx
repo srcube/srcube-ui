@@ -66,6 +66,7 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
       renderItem,
       getItemKey,
       orientation = 'y',
+      tone = 'default',
       size = 'md',
       hasDivider = false,
       className,
@@ -214,10 +215,11 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
       () =>
         listbox({
           orientation,
+          tone,
           size,
           hasDivider,
         }),
-      [orientation, size, hasDivider],
+      [orientation, tone, size, hasDivider],
     );
 
     const isHorizontal = orientation === 'x';
@@ -292,6 +294,7 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
           className={listboxScrollboxClassName}
           classNames={scrollboxClassNames}
           orientation={orientation}
+          tone={tone}
           hideMasks={hideMasks}
           upperThreshold={upperThreshold}
           lowerThreshold={lowerThreshold}
@@ -353,6 +356,7 @@ export const Listbox = forwardRef<HTMLDivElement, ListboxReactProps>(
 
               const stateClassName = listboxItemState({
                 orientation,
+                tone,
                 isDisabled: item.isDisabled,
               });
 

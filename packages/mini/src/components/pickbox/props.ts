@@ -34,6 +34,7 @@ export type PickboxMiniProps = PickboxVariants & {
 export const pickboxMiniProps = {
   size: { type: null, value: 'md' },
   color: { type: null, value: 'default' },
+  tone: { type: null, value: 'default' },
   className: { type: String, value: '' },
   classNames: { type: Object, value: {} },
   style: { type: String, value: '' },

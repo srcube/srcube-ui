@@ -86,6 +86,7 @@ UIComponent({
       const slots = timelineStyle({
         size: data.size,
         color: data.color,
+        tone: data.tone,
         lineStyle: data.lineStyle,
       });
       const custom = (data.classNames ?? {}) as Record<
@@ -112,6 +113,7 @@ UIComponent({
         const slots = timelineStyle({
           size: data.size,
           color: (item.color ?? baseColor) as TimelineColor,
+          tone: data.tone,
           lineStyle: data.lineStyle,
           isPending: Boolean(item.isPending),
           isLast: index === items.length - 1,

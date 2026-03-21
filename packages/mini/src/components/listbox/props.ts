@@ -46,6 +46,7 @@ export type ListboxMiniProps = ListboxVariants & {
 
 export const listboxMiniProps = {
   orientation: { type: null, value: 'y' },
+  tone: { type: null, value: 'default' },
   size: { type: null, value: 'md' },
   hasDivider: { type: Boolean, value: false },
   className: { type: String, value: '' },

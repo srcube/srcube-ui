@@ -1,4 +1,5 @@
 import { Button } from '@srcube-ui/react';
+import { ActionSheet } from '@srcube-ui/react';
 import {
   Drawer,
   DrawerBody,
@@ -40,11 +41,32 @@ function DrawerDemo() {
   const [isOpen, setIsOpen] = useState(false);
   const [placement, setPlacement] = useState<DrawerPlacement>('right');
   const [lockedOpen, setLockedOpen] = useState(false);
+  const [topActionDrawerOpen, setTopActionDrawerOpen] = useState(false);
+  const [topActionSheetOpen, setTopActionSheetOpen] = useState(false);
+  const [topActionResult, setTopActionResult] = useState('-');
 
   const openPlacement = (nextPlacement: DrawerPlacement) => {
     setPlacement(nextPlacement);
     setIsOpen(true);
   };
+
+  const actionSheetActions = [
+    {
+      value: 'copy',
+      label: '复制链接',
+      description: '复制当前内容链接',
+    },
+    {
+      value: 'share',
+      label: '分享给团队',
+      description: '发送给协作者',
+    },
+    {
+      value: 'archive',
+      label: '归档',
+      description: '完成后归档到历史记录',
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-slate-100 pb-24 text-slate-900">
@@ -67,6 +89,18 @@ function DrawerDemo() {
 
         <Section title="Non Dismissable">
           <Button onTap={() => setLockedOpen(true)}>Open Locked Drawer</Button>
+        </Section>
+
+        <Section
+          title="Top Drawer + ActionSheet"
+          description="从 top 弹出 Drawer，并在 Drawer 内继续弹出 ActionSheet"
+        >
+          <Button onTap={() => setTopActionDrawerOpen(true)}>
+            Open Top Drawer Scene
+          </Button>
+          <div className="w-full text-xs text-slate-500">
+            Result: {topActionResult}
+          </div>
         </Section>
       </div>
 
@@ -104,6 +138,49 @@ function DrawerDemo() {
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
+
+      <Drawer
+        isOpen={topActionDrawerOpen}
+        placement="top"
+        title="Drawer top"
+        onOpenChange={(nextOpen) => {
+          setTopActionDrawerOpen(nextOpen);
+          if (!nextOpen) {
+            setTopActionSheetOpen(false);
+          }
+        }}
+      >
+        <DrawerContent>
+          <DrawerBody>
+            <div className="space-y-3">
+              <div className="text-sm text-slate-600">
+                这个场景用于验证 Drawer(top) 内再打开 ActionSheet。
+              </div>
+              <Button isBlock onTap={() => setTopActionSheetOpen(true)}>
+                Open Action Sheet
+              </Button>
+            </div>
+          </DrawerBody>
+          <DrawerFooter>
+            <Button variant="text" onTap={() => setTopActionDrawerOpen(false)}>
+              Close
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+
+      <ActionSheet
+        isOpen={topActionSheetOpen}
+        title="Top Drawer Actions"
+        description="从 Drawer 内继续触发的 ActionSheet"
+        actions={actionSheetActions}
+        isInset
+        onAction={(value) => {
+          setTopActionResult(String(value));
+          setTopActionSheetOpen(false);
+        }}
+        onOpenChange={setTopActionSheetOpen}
+      />
     </main>
   );
 }

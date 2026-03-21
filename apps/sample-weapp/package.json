@@ -28,6 +28,7 @@
   "dependencies": {
     "@srcube-ui/mini": "workspace:*",
     "@srcube-ui/styles": "workspace:*",
+    "@tanstack/virtual-core": "catalog:",
     "@weapp-tailwindcss/variants": "catalog:",
     "miniprogram-computed": "catalog:"
   },

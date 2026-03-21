@@ -31,6 +31,7 @@ export const Steps = React.forwardRef<HTMLDivElement, StepsReactProps>(
       orientation,
       size,
       color,
+      tone,
       variant,
       isDot = false,
       className,
@@ -46,10 +47,11 @@ export const Steps = React.forwardRef<HTMLDivElement, StepsReactProps>(
           orientation: resolvedOrientation,
           size,
           color,
+          tone,
           variant,
           isDot,
         }),
-      [color, isDot, resolvedOrientation, size, variant],
+      [color, isDot, resolvedOrientation, size, tone, variant],
     );
 
     return (
@@ -72,6 +74,7 @@ export const Steps = React.forwardRef<HTMLDivElement, StepsReactProps>(
               orientation: resolvedOrientation,
               size,
               color,
+              tone,
               variant,
               isDot,
               status,

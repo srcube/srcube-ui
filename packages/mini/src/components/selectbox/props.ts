@@ -66,6 +66,7 @@ export const selectboxMiniProps = {
   orientation: { type: null, value: 'y' },
   size: { type: null, value: 'md' },
   color: { type: null, value: 'default' },
+  tone: { type: null, value: 'default' },
   hasDivider: { type: Boolean, value: false },
   className: { type: String, value: '' },
   classNames: { type: Object, value: {} },

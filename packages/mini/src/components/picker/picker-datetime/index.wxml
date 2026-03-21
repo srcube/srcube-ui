@@ -10,6 +10,7 @@
     description="{{description}}"
     errorMessage="{{errorMessage}}"
     color="{{$resolvedColor}}"
+    tone="{{$resolvedTone}}"
     variant="{{variant}}"
     size="{{$resolvedSize}}"
     radius="{{radius}}"
@@ -30,6 +31,7 @@
     title="{{$drawerTitle}}"
     isDismissable="{{isDismissable}}"
     hasBackdrop="{{hasBackdrop}}"
+    tone="{{$resolvedTone}}"
     backdrop="{{backdrop}}"
     bind:openchange="handleDrawerOpenChange"
   >
@@ -51,6 +53,7 @@
             <sr-button
               className="{{$classNames.modeTabButton}}"
               color="{{_activePanel === 'date' ? $resolvedColor : 'default'}}"
+              tone="{{$buttonTone}}"
               variant="{{_activePanel === 'date' ? 'solid' : 'flat'}}"
               data-panel="date"
               bind:tap="handlePanelTabTap"
@@ -60,6 +63,7 @@
             <sr-button
               className="{{$classNames.modeTabButton}}"
               color="{{_activePanel === 'time' ? $resolvedColor : 'default'}}"
+              tone="{{$buttonTone}}"
               variant="{{_activePanel === 'time' ? 'solid' : 'flat'}}"
               data-panel="time"
               bind:tap="handlePanelTabTap"
@@ -75,6 +79,7 @@
             className="{{$classNames.pickbox}}"
             size="{{$resolvedSize}}"
             color="{{$resolvedColor}}"
+            tone="{{$resolvedTone}}"
             columns="{{_pickerColumns}}"
             value="{{_pickerValue}}"
             estimateSize="{{estimateSize}}"
@@ -92,6 +97,7 @@
         class="sr-picker__confirm {{$classNames.$confirmButton}}"
         className="{{$classNames.confirmButton}}"
         color="{{$resolvedColor}}"
+        tone="{{$buttonTone}}"
         size="{{$resolvedSize}}"
         variant="flat"
         isBlock

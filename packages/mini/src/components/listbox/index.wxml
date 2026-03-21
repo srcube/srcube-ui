@@ -16,6 +16,7 @@
     className="{{$classNames.scrollbox}}"
     classNames="{{$scrollboxClassNames}}"
     orientation="{{orientation}}"
+    tone="{{tone}}"
     hideMasks="{{hideMasks}}"
     upperThreshold="{{upperThreshold}}"
     lowerThreshold="{{lowerThreshold}}"
@@ -54,9 +55,9 @@
         bindtap="handleItemTap"
       >
         <view class="{{$classNames.itemInner}}">
-          <text class="{{$classNames.itemLabel}} {{item.labelClassName}}">
+          <view class="{{$classNames.itemLabel}} {{item.labelClassName}}">
             {{item.label}}
-          </text>
+          </view>
           <view
             wx:if="{{item.endIconClassName}}"
             class="{{$classNames.itemIcon}} {{item.endIconClassName}}"

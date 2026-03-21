@@ -105,6 +105,7 @@ UIComponent({
       const slots = uploaderStyle({
         size: data.size,
         color: data.color,
+        tone: data.tone,
         radius: data.radius,
         isDisabled: Boolean(data.isDisabled),
       });

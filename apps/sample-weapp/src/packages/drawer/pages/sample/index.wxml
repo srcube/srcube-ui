@@ -32,6 +32,19 @@
         <sr-button bind:tap="openLocked">Open Locked Drawer</sr-button>
       </view>
     </view>
+
+    <view class="rounded-2xl bg-white p-4 shadow-sm">
+      <view class="text-sm font-semibold">Top Drawer + ActionSheet</view>
+      <view class="mt-1 text-xs text-slate-500">
+        从 top 弹出 Drawer，并在 Drawer 内继续弹出 ActionSheet
+      </view>
+      <view class="mt-3 flex flex-wrap gap-2">
+        <sr-button bind:tap="openTopActionScene">Open Top Drawer Scene</sr-button>
+      </view>
+      <view class="mt-2 text-xs text-slate-500">
+        Result: {{topActionResult}}
+      </view>
+    </view>
   </view>
 
   <sr-drawer
@@ -60,4 +73,33 @@
       <sr-button variant="text" bind:tap="closeLocked">Close</sr-button>
     </view>
   </sr-drawer>
+
+  <sr-drawer
+    isOpen="{{topActionDrawerOpen}}"
+    placement="top"
+    title="Drawer top"
+    bind:openchange="handleTopActionDrawerChange"
+  >
+    <view slot="body" class="space-y-3">
+      <view class="text-sm text-slate-600">
+        这个场景用于验证 Drawer(top) 内再打开 ActionSheet。
+      </view>
+      <sr-button isBlock="{{true}}" bind:tap="openTopActionSheet">
+        Open Action Sheet
+      </sr-button>
+    </view>
+    <view slot="footer" class="flex items-center justify-end gap-2">
+      <sr-button variant="text" bind:tap="closeTopActionDrawer">Close</sr-button>
+    </view>
+  </sr-drawer>
+
+  <sr-action-sheet
+    isOpen="{{topActionSheetOpen}}"
+    title="Top Drawer Actions"
+    description="从 Drawer 内继续触发的 ActionSheet"
+    actions="{{topActionSheetActions}}"
+    isInset="{{true}}"
+    bind:action="handleTopActionSheetAction"
+    bind:change="handleTopActionSheetChange"
+  />
 </view>

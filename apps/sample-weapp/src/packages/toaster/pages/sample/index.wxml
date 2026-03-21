@@ -1,85 +1,85 @@
-<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
-  <sr-navbar
-    className="sticky top-0 z-20 border-b border-slate-200"
-    title="Toaster"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
+<app-page title="Toaster" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Toaster Props</view>
 
-  <view class="p-4 space-y-6">
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Toaster Props</view>
-
-      <view class="mt-3 text-xs text-slate-500">classNames / style</view>
-      <view class="mt-2 flex flex-wrap gap-2">
-        <sr-button variant="{{useCustomClassNames ? 'solid' : 'outline'}}" bind:tap="toggleCustomClassNames">
-          Custom classNames
-        </sr-button>
-        <sr-button variant="{{useCustomStyle ? 'solid' : 'outline'}}" bind:tap="toggleCustomStyle">
-          Custom style
-        </sr-button>
-      </view>
-
-      <view class="mt-3 text-xs text-slate-500">
-        classNames={{useCustomClassNames}}, style={{useCustomStyle}}
-      </view>
+    <view class="mt-3 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">classNames / style</view>
+    <view class="mt-2 flex flex-wrap gap-2">
+      <sr-button
+        tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+        variant="{{useCustomClassNames ? 'solid' : 'outline'}}"
+        bind:tap="toggleCustomClassNames"
+      >
+        Custom classNames
+      </sr-button>
+      <sr-button
+        tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+        variant="{{useCustomStyle ? 'solid' : 'outline'}}"
+        bind:tap="toggleCustomStyle"
+      >
+        Custom style
+      </sr-button>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">ToastOptions</view>
+    <view class="mt-3 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
+      classNames={{useCustomClassNames}}, style={{useCustomStyle}}
+    </view>
+  </view>
 
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button data-color="default" data-tone="default" data-label="Default" variant="outline" bind:tap="handleToneTap">Default</sr-button>
-        <sr-button data-color="default" data-tone="dark" data-label="Dark" variant="outline" tone="dark" bind:tap="handleToneTap">Dark</sr-button>
-        <sr-button data-color="primary" data-label="Primary" color="primary" bind:tap="handleToneTap">Primary</sr-button>
-        <sr-button data-color="secondary" data-label="Secondary" color="secondary" bind:tap="handleToneTap">Secondary</sr-button>
-        <sr-button data-color="success" data-label="Success" color="success" bind:tap="handleToneTap">Success</sr-button>
-        <sr-button data-color="warning" data-label="Warning" color="warning" bind:tap="handleToneTap">Warning</sr-button>
-        <sr-button data-color="danger" data-label="Danger" color="danger" bind:tap="handleToneTap">Danger</sr-button>
-      </view>
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">ToastOptions</view>
 
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button variant="outline" bind:tap="showIconToast">icon</sr-button>
-        <sr-button variant="outline" bind:tap="showCustomIdToast">id</sr-button>
-        <sr-button variant="outline" bind:tap="showShortDurationToast">duration</sr-button>
-        <sr-button variant="outline" bind:tap="showPersistentToast">persistent</sr-button>
-        <sr-button variant="outline" bind:tap="showOnCloseToast">onClose</sr-button>
-      </view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button data-color="default" data-tone="default" data-label="Default" variant="outline" tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="handleToneTap">Default</sr-button>
+      <sr-button data-color="default" data-tone="dark" data-label="Dark" variant="outline" tone="dark" bind:tap="handleToneTap">Dark</sr-button>
+      <sr-button data-color="primary" data-label="Primary" color="primary" tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="handleToneTap">Primary</sr-button>
+      <sr-button data-color="secondary" data-label="Secondary" color="secondary" tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="handleToneTap">Secondary</sr-button>
+      <sr-button data-color="success" data-label="Success" color="success" tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="handleToneTap">Success</sr-button>
+      <sr-button data-color="warning" data-label="Warning" color="warning" tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="handleToneTap">Warning</sr-button>
+      <sr-button data-color="danger" data-label="Danger" color="danger" tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="handleToneTap">Danger</sr-button>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
-      <view class="text-sm font-semibold">Registry API</view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="showIconToast">icon</sr-button>
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="showCustomIdToast">id</sr-button>
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="showShortDurationToast">duration</sr-button>
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="showPersistentToast">persistent</sr-button>
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="showOnCloseToast">onClose</sr-button>
+    </view>
+  </view>
 
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button variant="flat" bind:tap="showByAlias">showToast</sr-button>
-        <sr-button color="success" variant="flat" bind:tap="showBySuccess">toast.success</sr-button>
-        <sr-button color="warning" variant="flat" bind:tap="showByWarning">toast.warning</sr-button>
-        <sr-button color="danger" variant="flat" bind:tap="showByDanger">toast.danger</sr-button>
-        <sr-button color="primary" variant="flat" bind:tap="showByPrimary">toast.primary</sr-button>
-      </view>
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Registry API</view>
 
-      <view class="mt-3 flex flex-wrap gap-2">
-        <sr-button variant="outline" bind:tap="showHandleToast">AddToastResult</sr-button>
-        <sr-button variant="outline" bind:tap="closeHandleToast">close(handle)</sr-button>
-        <sr-button variant="outline" bind:tap="closeLatestToast">closeToast(id)</sr-button>
-        <sr-button
-          color="primary"
-          variant="{{isSimulatingSave ? 'solid' : 'outline'}}"
-          bind:tap="simulateSaveFlow"
-        >
-          {{isSimulatingSave ? 'Saving...' : 'simulate save'}}
-        </sr-button>
-        <sr-button variant="outline" bind:tap="readSnapshot">getToasts()</sr-button>
-        <sr-button variant="outline" bind:tap="clearAll">clearToasts()</sr-button>
-      </view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="flat" bind:tap="showByAlias">showToast</sr-button>
+      <sr-button color="success" tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="flat" bind:tap="showBySuccess">toast.success</sr-button>
+      <sr-button color="warning" tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="flat" bind:tap="showByWarning">toast.warning</sr-button>
+      <sr-button color="danger" tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="flat" bind:tap="showByDanger">toast.danger</sr-button>
+      <sr-button color="primary" tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="flat" bind:tap="showByPrimary">toast.primary</sr-button>
+    </view>
 
-      <view class="mt-3 rounded-xl bg-slate-50 p-3 text-xs text-slate-600">
-        <view>active count: {{toastCount}}</view>
-        <view>latest id: {{latestToastId}}</view>
-        <view>onClose called: {{closedCount}}</view>
-        <view>handle status: {{handleStatus}}</view>
-        <view class="break-all">snapshot: {{snapshotText}}</view>
-      </view>
+    <view class="mt-3 flex flex-wrap gap-2">
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="showHandleToast">AddToastResult</sr-button>
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="closeHandleToast">close(handle)</sr-button>
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="closeLatestToast">closeToast(id)</sr-button>
+      <sr-button
+        color="primary"
+        tone="{{tone === 'dark' ? 'dark' : 'light'}}"
+        variant="{{isSimulatingSave ? 'solid' : 'outline'}}"
+        bind:tap="simulateSaveFlow"
+      >
+        {{isSimulatingSave ? 'Saving...' : 'simulate save'}}
+      </sr-button>
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="readSnapshot">getToasts()</sr-button>
+      <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="outline" bind:tap="clearAll">clearToasts()</sr-button>
+    </view>
+
+    <view class="mt-3 rounded-xl p-3 text-xs {{tone === 'dark' ? 'bg-zinc-950 text-zinc-300' : 'bg-slate-50 text-slate-600'}}">
+      <view>active count: {{toastCount}}</view>
+      <view>latest id: {{latestToastId}}</view>
+      <view>onClose called: {{closedCount}}</view>
+      <view>handle status: {{handleStatus}}</view>
+      <view class="break-all">snapshot: {{snapshotText}}</view>
     </view>
   </view>
 
@@ -88,4 +88,4 @@
     classNames="{{useCustomClassNames ? customClassNames : emptyClassNames}}"
     style="{{useCustomStyle ? customStyle : ''}}"
   />
-</view>
+</app-page>

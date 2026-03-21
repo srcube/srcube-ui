@@ -23,6 +23,7 @@ export type ImageReactProps = ImageVariants &
 
 export type ImagePreviewReactProps = {
   src: string;
+  tone?: ImageVariants['tone'];
   isOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   classNames?: Partial<ImageClassNames>;

@@ -2,7 +2,7 @@
   "navigationStyle": "custom",
   "navigationBarTitleText": "Input",
   "usingComponents": {
-    "sr-navbar": "@srcube-ui/mini/navbar/index",
+    "app-page": "../../../../components/app-page/index",
     "sr-input": "@srcube-ui/mini/input/index",
     "sr-button": "@srcube-ui/mini/button/index",
     "sr-button-group": "@srcube-ui/mini/button/button-group/index"

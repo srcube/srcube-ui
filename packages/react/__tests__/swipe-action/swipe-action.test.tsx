@@ -98,3 +98,13 @@ it('triggers action event and closes after click', () => {
   });
   expect(onOpenDirectionChange).toHaveBeenCalledWith('none');
 });
+
+it('applies dark tone content classes', () => {
+  const { container } = render(
+    <SwipeAction tone="dark" rightActions={[{ key: 'delete', label: 'Delete' }]}>
+      <div>Order #1004</div>
+    </SwipeAction>,
+  );
+
+  expect(container.querySelector('.bg-zinc-950')).toBeTruthy();
+});

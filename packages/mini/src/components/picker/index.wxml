@@ -9,7 +9,9 @@
     placeholder="{{placeholder}}"
     description="{{description}}"
     errorMessage="{{errorMessage}}"
+    isClearable="{{isClearable}}"
     color="{{$resolvedColor}}"
+    tone="{{$resolvedTone}}"
     variant="{{variant}}"
     size="{{$resolvedSize}}"
     radius="{{radius}}"
@@ -19,6 +21,7 @@
     isRequired="{{isRequired}}"
     isLoading="{{isLoading}}"
     bind:tap="handleFieldTap"
+    bind:clear="handleFieldClear"
   />
 
   <sr-drawer
@@ -30,6 +33,7 @@
     title="{{drawerTitle || label || ''}}"
     isDismissable="{{isDismissable}}"
     hasBackdrop="{{hasBackdrop}}"
+    tone="{{$resolvedTone}}"
     backdrop="{{backdrop}}"
     bind:openchange="handleDrawerOpenChange"
   >
@@ -44,6 +48,7 @@
         className="{{$classNames.pickbox}}"
         size="{{$resolvedSize}}"
         color="{{$resolvedColor}}"
+        tone="{{$resolvedTone}}"
         columns="{{$resolvedColumns}}"
         value="{{$resolvedDraftValue}}"
         estimateSize="{{estimateSize}}"
@@ -59,6 +64,7 @@
         class="sr-picker__confirm {{$classNames.$confirmButton}}"
         className="{{$classNames.confirmButton}}"
         color="{{$resolvedColor}}"
+        tone="{{$buttonTone}}"
         size="{{$resolvedSize}}"
         variant="flat"
         isBlock
