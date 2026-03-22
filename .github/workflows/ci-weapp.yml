@@ -8,6 +8,9 @@ on:
       - feat/arch
     paths:
       - 'apps/sample-weapp/**'
+      - 'pnpm-lock.yaml'
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
       - '.github/workflows/ci-weapp.yml'
 
 jobs:
