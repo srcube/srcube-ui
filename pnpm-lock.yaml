@@ -39,6 +39,9 @@ catalogs:
     '@tanstack/router-plugin':
       specifier: ^1.132.0
       version: 1.157.17
+    '@tanstack/virtual-core':
+      specifier: ^3.13.18
+      version: 3.13.20
     '@testing-library/dom':
       specifier: ^10.4.0
       version: 10.4.1
@@ -279,6 +282,9 @@ importers:
       '@srcube-ui/styles':
         specifier: workspace:*
         version: link:../../packages/styles
+      '@tanstack/virtual-core':
+        specifier: 'catalog:'
+        version: 3.13.20
       '@weapp-tailwindcss/variants':
         specifier: 'catalog:'
         version: 0.2.0(tailwind-merge@3.4.0)(tailwindcss@4.1.18)
