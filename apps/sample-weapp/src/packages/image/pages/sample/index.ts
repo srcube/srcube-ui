@@ -1,5 +1,23 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 Page({
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
+  },
+
   data: {
+    tone: 'default' as SampleTone,
     coverUrl: 'https://picsum.photos/id/1015/800/800',
     videoUrl: 'https://picsum.photos/id/1002/1200/675',
     photoUrl: 'https://picsum.photos/id/1011/1200/900',

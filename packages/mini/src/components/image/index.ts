@@ -90,8 +90,14 @@ function ensurePreviewViewport(instance: ImageMiniInstance) {
 function resolvePreviewBaseSize(instance: ImageMiniInstance) {
   ensurePreviewViewport(instance);
 
-  const viewportWidth = Math.max(1, Number(instance._previewViewportWidth ?? 0));
-  const viewportHeight = Math.max(1, Number(instance._previewViewportHeight ?? 0));
+  const viewportWidth = Math.max(
+    1,
+    Number(instance._previewViewportWidth ?? 0),
+  );
+  const viewportHeight = Math.max(
+    1,
+    Number(instance._previewViewportHeight ?? 0),
+  );
   const imageWidth = Number(instance._previewImageWidth ?? 0);
   const imageHeight = Number(instance._previewImageHeight ?? 0);
 
@@ -295,6 +301,7 @@ UIComponent({
             ? 'normal'
             : 'loading';
       const slots = imageStyle({
+        tone: data.tone,
         radius: data.radius,
         fit: data.fit,
         ratio: data.ratio,
@@ -403,10 +410,18 @@ UIComponent({
         instance._previewImageHeight = height;
       }
 
-      const scale = clampPreviewScale(instance, Number(this.data._previewScale) || 1);
+      const scale = clampPreviewScale(
+        instance,
+        Number(this.data._previewScale) || 1,
+      );
       const currentX = Number(this.data._previewTranslateX) || 0;
       const currentY = Number(this.data._previewTranslateY) || 0;
-      const nextOffset = clampPreviewTranslate(instance, currentX, currentY, scale);
+      const nextOffset = clampPreviewTranslate(
+        instance,
+        currentX,
+        currentY,
+        scale,
+      );
 
       this.setData({
         _previewTranslateX: nextOffset.x,
@@ -425,15 +440,18 @@ UIComponent({
         return;
       }
 
-      this.setData({
-        _previewVisible: true,
-        _previewScale: 1,
-        _previewTranslateX: 0,
-        _previewTranslateY: 0,
-        _previewTransitionMs: 0,
-      } satisfies Partial<ImageMiniState>, () => {
-        this.ensurePreviewMeta(current);
-      });
+      this.setData(
+        {
+          _previewVisible: true,
+          _previewScale: 1,
+          _previewTranslateX: 0,
+          _previewTranslateY: 0,
+          _previewTransitionMs: 0,
+        } satisfies Partial<ImageMiniState>,
+        () => {
+          this.ensurePreviewMeta(current);
+        },
+      );
     },
 
     handlePreviewClose() {
@@ -500,8 +518,10 @@ UIComponent({
       const touchPoint = getTouchPoint(event.touches[0]);
       instance._previewPanStartX = touchPoint.x;
       instance._previewPanStartY = touchPoint.y;
-      instance._previewPanStartTranslateX = Number(data._previewTranslateX) || 0;
-      instance._previewPanStartTranslateY = Number(data._previewTranslateY) || 0;
+      instance._previewPanStartTranslateX =
+        Number(data._previewTranslateX) || 0;
+      instance._previewPanStartTranslateY =
+        Number(data._previewTranslateY) || 0;
       instance._previewPanMoved = false;
     },
 
@@ -601,8 +621,8 @@ UIComponent({
       const currentScale = Number(this.data._previewScale) || 1;
       const maxScale = resolvePreviewMaxScale(instance);
       if (
-        currentScale > maxScale + PREVIEW_SCALE_EPSILON
-        || currentScale < PREVIEW_MIN_SCALE - PREVIEW_SCALE_EPSILON
+        currentScale > maxScale + PREVIEW_SCALE_EPSILON ||
+        currentScale < PREVIEW_MIN_SCALE - PREVIEW_SCALE_EPSILON
       ) {
         const targetScale = clampPreviewScale(instance, currentScale);
         const currentX = Number(this.data._previewTranslateX) || 0;
@@ -666,16 +686,16 @@ UIComponent({
       const centerX = viewportWidth / 2;
       const centerY = viewportHeight / 2;
       const tapX = Number(
-        event.detail?.x
-          ?? event.changedTouches?.[0]?.pageX
-          ?? event.touches?.[0]?.pageX
-          ?? centerX,
+        event.detail?.x ??
+          event.changedTouches?.[0]?.pageX ??
+          event.touches?.[0]?.pageX ??
+          centerX,
       );
       const tapY = Number(
-        event.detail?.y
-          ?? event.changedTouches?.[0]?.pageY
-          ?? event.touches?.[0]?.pageY
-          ?? centerY,
+        event.detail?.y ??
+          event.changedTouches?.[0]?.pageY ??
+          event.touches?.[0]?.pageY ??
+          centerY,
       );
       const resolvedTapX = Number.isFinite(tapX) ? tapX : centerX;
       const resolvedTapY = Number.isFinite(tapY) ? tapY : centerY;
@@ -686,9 +706,10 @@ UIComponent({
 
       if (currentScale <= PREVIEW_MIN_SCALE + PREVIEW_SCALE_EPSILON) {
         const { baseHeight } = resolvePreviewBaseSize(instance);
-        const targetScale = baseHeight < viewportHeight - 0.5
-          ? viewportHeight / Math.max(1, baseHeight)
-          : currentScale * 2;
+        const targetScale =
+          baseHeight < viewportHeight - 0.5
+            ? viewportHeight / Math.max(1, baseHeight)
+            : currentScale * 2;
         nextScale = clampPreviewScale(instance, targetScale);
 
         if (nextScale > PREVIEW_MIN_SCALE) {

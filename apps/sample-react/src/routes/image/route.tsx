@@ -45,49 +45,110 @@ const fitOptions = [
 type ImageRatio = (typeof ratioOptions)[number]['value'];
 type ImageRadius = (typeof radiusOptions)[number]['value'];
 type ImageFit = (typeof fitOptions)[number]['value'];
+type ImageTone = 'default' | 'dark';
 
-function Card({ children }: { children: React.ReactNode }) {
+function Card({
+  children,
+  tone,
+}: {
+  children: React.ReactNode;
+  tone: ImageTone;
+}) {
   return (
-    <section className="rounded-2xl bg-white p-4 shadow-sm">{children}</section>
+    <section
+      className={[
+        'rounded-2xl p-4 shadow-sm transition-colors duration-200',
+        tone === 'dark'
+          ? 'bg-zinc-900 text-zinc-50 shadow-black/20'
+          : 'bg-white text-slate-900',
+      ].join(' ')}
+    >
+      {children}
+    </section>
   );
 }
 
 function ImageDemo() {
+  const [tone, setTone] = useState<ImageTone>('default');
   const [previewOpen, setPreviewOpen] = useState(false);
   const [demoRatio, setDemoRatio] = useState<ImageRatio>('video');
   const [demoRadius, setDemoRadius] = useState<ImageRadius>('lg');
   const [demoFit, setDemoFit] = useState<ImageFit>('cover');
   const ratioPreviewSrc =
     demoRatio === 'video' ? IMAGE_DEMO_URLS.video : IMAGE_DEMO_URLS.photo;
+  const buttonTone = tone === 'dark' ? 'dark' : 'light';
+  const descriptionClassName =
+    tone === 'dark'
+      ? 'mt-1 text-xs text-zinc-400'
+      : 'mt-1 text-xs text-slate-500';
 
   return (
-    <main className="min-h-screen bg-slate-100 pb-safe-4 text-slate-900">
-      <PageHeader title="Image" />
+    <main
+      className={[
+        'min-h-screen pb-safe-4 transition-colors duration-200',
+        tone === 'dark'
+          ? 'bg-zinc-950 text-zinc-50'
+          : 'bg-slate-100 text-slate-900',
+      ].join(' ')}
+    >
+      <PageHeader title="Image" tone={tone} />
 
       <div className="space-y-6 p-4">
-        <Card>
+        <Card tone={tone}>
+          <div className="text-sm font-semibold">Tone</div>
+          <div className="mt-3 flex gap-2">
+            <Button
+              size="sm"
+              color={tone === 'default' ? 'primary' : 'default'}
+              variant={tone === 'default' ? 'solid' : 'flat'}
+              onTap={() => {
+                setTone('default');
+              }}
+            >
+              default
+            </Button>
+            <Button
+              size="sm"
+              tone="dark"
+              variant={tone === 'dark' ? 'solid' : 'flat'}
+              onTap={() => {
+                setTone('dark');
+              }}
+            >
+              dark
+            </Button>
+          </div>
+        </Card>
+
+        <Card tone={tone}>
           <div className="text-sm font-semibold">Basic / State</div>
           <div className="mt-3 grid grid-cols-3 gap-2">
             <SrcubeImage
+              tone={tone}
               src={IMAGE_DEMO_URLS.basic}
               className="aspect-square w-full"
             />
             <SrcubeImage
+              tone={tone}
               src="https://invalid.srcube-ui.dev/fail.png"
               fallback="Load failed"
               className="aspect-square w-full"
             />
-            <SrcubeImage fallback="No src" className="aspect-square w-full" />
+            <SrcubeImage
+              tone={tone}
+              fallback="No src"
+              className="aspect-square w-full"
+            />
           </div>
         </Card>
 
-        <Card>
+        <Card tone={tone}>
           <div className="text-sm font-semibold">Ratio / Radius / Fit</div>
-          <div className="mt-1 text-xs text-slate-500">
+          <div className={descriptionClassName}>
             use ButtonGroup to switch ratio, radius and fit
           </div>
           <div className="mt-3 space-y-2">
-            <ButtonGroup size="sm" isBlock>
+            <ButtonGroup size="sm" tone={buttonTone} isBlock>
               {ratioOptions.map((option) => (
                 <Button
                   key={option.value}
@@ -102,7 +163,7 @@ function ImageDemo() {
               ))}
             </ButtonGroup>
 
-            <ButtonGroup size="sm" isBlock>
+            <ButtonGroup size="sm" tone={buttonTone} isBlock>
               {radiusOptions.map((option) => (
                 <Button
                   key={option.value}
@@ -117,7 +178,7 @@ function ImageDemo() {
               ))}
             </ButtonGroup>
 
-            <ButtonGroup size="sm" isBlock>
+            <ButtonGroup size="sm" tone={buttonTone} isBlock>
               {fitOptions.map((option) => (
                 <Button
                   key={option.value}
@@ -134,6 +195,7 @@ function ImageDemo() {
           </div>
           <div className="mt-3">
             <SrcubeImage
+              tone={tone}
               isBlock
               ratio={demoRatio}
               radius={demoRadius}
@@ -143,10 +205,11 @@ function ImageDemo() {
           </div>
         </Card>
 
-        <Card>
+        <Card tone={tone}>
           <div className="text-sm font-semibold">Preview</div>
           <div className="mt-3 grid grid-cols-2 gap-3">
             <SrcubeImage
+              tone={tone}
               src={IMAGE_DEMO_URLS.previewThumb}
               previewSrc={IMAGE_DEMO_URLS.previewMain}
               isPreviewable
@@ -158,7 +221,12 @@ function ImageDemo() {
             />
             <button
               type="button"
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-medium"
+              className={[
+                'rounded-xl border px-3 py-2 text-sm font-medium transition-colors duration-200',
+                tone === 'dark'
+                  ? 'border-zinc-700 bg-zinc-950 text-zinc-100'
+                  : 'border-slate-200 bg-white text-slate-900',
+              ].join(' ')}
               onClick={() => {
                 setPreviewOpen(true);
               }}
@@ -171,6 +239,7 @@ function ImageDemo() {
 
       <ImagePreview
         src={IMAGE_DEMO_URLS.previewMain}
+        tone={tone}
         isOpen={previewOpen}
         onOpenChange={setPreviewOpen}
       />

@@ -14,6 +14,15 @@ export const imageStyle = tv({
       'absolute bottom-8 left-1/2 inline-flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-white/65 text-4xl leading-none text-black',
   },
   variants: {
+    tone: {
+      default: {},
+      dark: {
+        base: 'bg-zinc-900',
+        placeholder: 'text-zinc-400',
+        previewMask: 'bg-black/85',
+        previewClose: 'bg-zinc-950/80 text-zinc-50',
+      },
+    },
     size: {
       sm: {
         base: 'h-20 w-20',
@@ -98,7 +107,17 @@ export const imageStyle = tv({
       false: {},
     },
   },
+  compoundVariants: [
+    {
+      tone: 'dark',
+      fit: 'contain',
+      class: {
+        image: 'bg-zinc-950',
+      },
+    },
+  ],
   defaultVariants: {
+    tone: 'default',
     size: 'md',
     radius: 'md',
     fit: 'cover',

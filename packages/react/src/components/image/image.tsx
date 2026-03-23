@@ -50,8 +50,14 @@ function applyScaleResistance(value: number, min: number, max: number): number {
 }
 
 function PreviewLayer(props: ImagePreviewReactProps) {
-  const { src, isOpen = false, onOpenChange, classNames } = props;
-  const slots = React.useMemo(() => imageStyle(), []);
+  const {
+    src,
+    tone = 'default',
+    isOpen = false,
+    onOpenChange,
+    classNames,
+  } = props;
+  const slots = React.useMemo(() => imageStyle({ tone }), [tone]);
   const [scale, setScale] = React.useState(1);
   const [offset, setOffset] = React.useState<PreviewPoint>({
     x: 0,
@@ -65,7 +71,9 @@ function PreviewLayer(props: ImagePreviewReactProps) {
     y: 0,
   });
   const lastTapAtRef = React.useRef(0);
-  const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
   const pinchStartDistanceRef = React.useRef(0);
   const pinchStartScaleRef = React.useRef(1);
   const ignoreTapUntilRef = React.useRef(0);
@@ -108,7 +116,10 @@ function PreviewLayer(props: ImagePreviewReactProps) {
 
     const scaleToFullWidth = viewportWidth / Math.max(1, baseWidth);
     const scaleToFullHeight = viewportHeight / Math.max(1, baseHeight);
-    const maxScale = Math.max(2, Math.max(scaleToFullWidth, scaleToFullHeight) * 2);
+    const maxScale = Math.max(
+      2,
+      Math.max(scaleToFullWidth, scaleToFullHeight) * 2,
+    );
 
     return {
       viewportWidth,
@@ -135,22 +146,25 @@ function PreviewLayer(props: ImagePreviewReactProps) {
     const deltaY = second.clientY - first.clientY;
     return Math.hypot(deltaX, deltaY);
   }, []);
-  const resolveMaxOffset = React.useCallback((nextScale: number) => {
-    if (nextScale <= PREVIEW_MIN_SCALE) {
+  const resolveMaxOffset = React.useCallback(
+    (nextScale: number) => {
+      if (nextScale <= PREVIEW_MIN_SCALE) {
+        return {
+          maxX: 0,
+          maxY: 0,
+        };
+      }
+
+      const { viewportWidth, viewportHeight, baseWidth, baseHeight } =
+        resolvePreviewMetrics();
+
       return {
-        maxX: 0,
-        maxY: 0,
+        maxX: Math.max(0, (baseWidth * nextScale - viewportWidth) / 2),
+        maxY: Math.max(0, (baseHeight * nextScale - viewportHeight) / 2),
       };
-    }
-
-    const { viewportWidth, viewportHeight, baseWidth, baseHeight } =
-      resolvePreviewMetrics();
-
-    return {
-      maxX: Math.max(0, (baseWidth * nextScale - viewportWidth) / 2),
-      maxY: Math.max(0, (baseHeight * nextScale - viewportHeight) / 2),
-    };
-  }, [resolvePreviewMetrics]);
+    },
+    [resolvePreviewMetrics],
+  );
   const clampOffset = React.useCallback(
     (x: number, y: number, nextScale: number): PreviewPoint => {
       const { maxX, maxY } = resolveMaxOffset(nextScale);
@@ -235,10 +249,7 @@ function PreviewLayer(props: ImagePreviewReactProps) {
     onOpenChange?.(false);
   }, [onOpenChange]);
 
-  useCloseOnEscape(
-    Boolean(isOpen),
-    closePreview,
-  );
+  useCloseOnEscape(Boolean(isOpen), closePreview);
 
   React.useEffect(() => {
     if (isOpen) {
@@ -441,8 +452,8 @@ function PreviewLayer(props: ImagePreviewReactProps) {
           const { maxScale } = resolvePreviewMetrics();
           const currentScale = scaleRef.current;
           if (
-            currentScale > maxScale + PREVIEW_SCALE_EPSILON
-            || currentScale < PREVIEW_MIN_SCALE - PREVIEW_SCALE_EPSILON
+            currentScale > maxScale + PREVIEW_SCALE_EPSILON ||
+            currentScale < PREVIEW_MIN_SCALE - PREVIEW_SCALE_EPSILON
           ) {
             const targetScale = clampScale(currentScale);
             const targetOffset = clampOffset(
@@ -476,13 +487,21 @@ function PreviewLayer(props: ImagePreviewReactProps) {
             transform: `translate3d(${offset.x}px, ${offset.y}px, 0) scale(${scale})`,
             transformOrigin: 'center center',
             transition:
-              transitionMs > 0
-                ? `transform ${transitionMs}ms ease`
-                : 'none',
+              transitionMs > 0 ? `transform ${transitionMs}ms ease` : 'none',
             willChange: 'transform',
           }}
         />
       </div>
+      <button
+        type="button"
+        aria-label="Close preview"
+        className={slots.previewClose({ class: classNames?.previewClose })}
+        onClick={() => {
+          closePreview();
+        }}
+      >
+        &times;
+      </button>
     </>,
     document.body,
   );
@@ -499,6 +518,7 @@ export const Image = React.forwardRef<HTMLDivElement, ImageReactProps>(
       loadingText,
       previewSrc,
       previewUrls,
+      tone = 'default',
       onImageLoad,
       onImageError,
       radius,
@@ -536,6 +556,7 @@ export const Image = React.forwardRef<HTMLDivElement, ImageReactProps>(
     const slots = React.useMemo(
       () =>
         imageStyle({
+          tone,
           radius,
           fit,
           ratio,
@@ -543,7 +564,7 @@ export const Image = React.forwardRef<HTMLDivElement, ImageReactProps>(
           status,
           isPreviewable,
         }),
-      [fit, isBlock, isPreviewable, radius, ratio, status],
+      [fit, isBlock, isPreviewable, radius, ratio, status, tone],
     );
 
     const resolvedStyle = React.useMemo<React.CSSProperties | undefined>(() => {
@@ -605,6 +626,7 @@ export const Image = React.forwardRef<HTMLDivElement, ImageReactProps>(
 
         <PreviewLayer
           src={resolvedPreviewSrc}
+          tone={tone}
           isOpen={open}
           onOpenChange={setOpen}
           classNames={classNames}
