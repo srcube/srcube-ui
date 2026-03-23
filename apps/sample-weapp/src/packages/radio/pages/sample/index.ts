@@ -67,6 +67,16 @@ Page({
     if (!value) return;
     this.setData({ sizeValue: value });
   },
+  handleColorTap(e: WechatMiniprogram.TouchEvent) {
+    const value = e.currentTarget.dataset.value as string | undefined;
+    if (!value) return;
+    this.setData({ colorValue: value });
+  },
+  handleSizeTap(e: WechatMiniprogram.TouchEvent) {
+    const value = e.currentTarget.dataset.value as string | undefined;
+    if (!value) return;
+    this.setData({ sizeValue: value });
+  },
   handleGroupChange(e: WechatMiniprogram.CustomEvent) {
     const { value } = e.detail || {};
     if (!value) return;

@@ -1,46 +1,46 @@
 <app-page title="Radio" tone="{{tone}}" withBack="{{true}}">
   <view class="{{surfaceClassName}}">
     <view class="{{titleClassName}}">Colors</view>
-    <view class="{{descriptionClassName}}">color + group</view>
-    <view class="mt-3">
-      <sr-radio-group
-        value="{{colorValue}}"
-        tone="{{tone}}"
-        bind:change="handleColorChange"
-        orientation="y"
-        isBlock
-      >
-        <sr-radio
+    <view class="{{descriptionClassName}}">button group controller</view>
+    <view class="mt-3 space-y-4">
+      <sr-button-group size="sm" isBlock>
+        <sr-button
           wx:for="{{colors}}"
           wx:key="value"
-          value="{{item.value}}"
-          color="{{item.value}}"
+          class="flex-1"
+          color="{{colorValue === item.value ? 'primary' : 'default'}}"
+          variant="{{colorValue === item.value ? 'solid' : 'flat'}}"
+          data-value="{{item.value}}"
+          bind:tap="handleColorTap"
         >
           {{item.label}}
-        </sr-radio>
+        </sr-button>
+      </sr-button-group>
+      <sr-radio-group value="{{colorValue}}" tone="{{tone}}" bind:change="handleColorChange" orientation="y" isBlock>
+        <sr-radio wx:for="{{colors}}" wx:key="value" value="{{item.value}}" color="{{item.value}}">{{item.label}}</sr-radio>
       </sr-radio-group>
     </view>
   </view>
 
   <view class="{{surfaceClassName}}">
     <view class="{{titleClassName}}">Sizes</view>
-    <view class="{{descriptionClassName}}">size + group</view>
-    <view class="mt-3">
-      <sr-radio-group
-        value="{{sizeValue}}"
-        tone="{{tone}}"
-        bind:change="handleSizeChange"
-        orientation="y"
-        isBlock
-      >
-        <sr-radio
+    <view class="{{descriptionClassName}}">button group controller</view>
+    <view class="mt-3 space-y-4">
+      <sr-button-group size="sm" isBlock>
+        <sr-button
           wx:for="{{sizes}}"
           wx:key="value"
-          value="{{item.value}}"
-          size="{{item.value}}"
+          class="flex-1"
+          color="{{sizeValue === item.value ? 'primary' : 'default'}}"
+          variant="{{sizeValue === item.value ? 'solid' : 'flat'}}"
+          data-value="{{item.value}}"
+          bind:tap="handleSizeTap"
         >
           {{item.label}}
-        </sr-radio>
+        </sr-button>
+      </sr-button-group>
+      <sr-radio-group value="{{sizeValue}}" tone="{{tone}}" bind:change="handleSizeChange" orientation="y" isBlock>
+        <sr-radio wx:for="{{sizes}}" wx:key="value" value="{{item.value}}" size="{{item.value}}">{{item.label}}</sr-radio>
       </sr-radio-group>
     </view>
   </view>

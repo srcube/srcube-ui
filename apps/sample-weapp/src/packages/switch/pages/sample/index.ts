@@ -64,11 +64,21 @@ Page({
     if (!isSelected || typeof value !== "string") return;
     this.setData({ colorValue: value });
   },
+  handleColorTap(e: WechatMiniprogram.TouchEvent) {
+    const value = e.currentTarget.dataset.value as string | undefined;
+    if (!value) return;
+    this.setData({ colorValue: value });
+  },
   handleSizeChange(e: WechatMiniprogram.CustomEvent) {
     const { isSelected } = e.detail || {};
     const { value } = e.currentTarget.dataset;
 
     if (!isSelected || typeof value !== "string") return;
+    this.setData({ sizeValue: value });
+  },
+  handleSizeTap(e: WechatMiniprogram.TouchEvent) {
+    const value = e.currentTarget.dataset.value as string | undefined;
+    if (!value) return;
     this.setData({ sizeValue: value });
   },
   handleEnabledChange(e: WechatMiniprogram.CustomEvent) {

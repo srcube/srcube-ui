@@ -1,3 +1,6 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 type PickerSize = 'sm' | 'md' | 'lg';
 type PickerDatetimeMode = 'datetime' | 'date' | 'time';
 
@@ -18,7 +21,22 @@ function formatMultiValueText(value: PickerMultiValue) {
 }
 
 Page({
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
+  },
+
   data: {
+    tone: 'default' as SampleTone,
     pickerSize: 'md' as PickerSize,
     datetimeMode: 'datetime' as PickerDatetimeMode,
     datetimeFormat: 'YYYY-MM-DD HH:mm:ss',
