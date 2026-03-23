@@ -1,22 +1,23 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export const drawer = tv({
   slots: {
     $modal: '',
     base: '',
     backdrop: '',
-    content: 'bg-white shadow-lg flex flex-col overflow-hidden outline-none',
-    header: 'shrink-0 p-3 text-center text-lg font-semibold text-slate-900',
-    body: 'px-4 py-3',
-    footer: 'shrink-0 px-3 pt-2',
+    content:
+      'bg-white text-slate-900 shadow-lg flex flex-col overflow-hidden outline-none',
+    header:
+      'shrink-0 bg-inherit p-3 text-center text-lg font-semibold text-slate-900',
+    body: 'bg-inherit px-4 py-3',
+    footer: 'shrink-0 bg-inherit px-3 pt-2',
   },
   variants: {
     tone: {
-      default: {},
+      default: {
+        content: 'bg-white text-slate-900',
+        header: 'text-slate-900',
+      },
       dark: {
         content: 'bg-zinc-950 text-zinc-50',
         header: 'text-zinc-50',
@@ -67,6 +68,20 @@ export const drawer = tv({
     },
   },
   compoundVariants: [
+    {
+      tone: 'dark',
+      backdrop: 'opaque',
+      class: {
+        backdrop: 'bg-zinc-100/12',
+      },
+    },
+    {
+      tone: 'dark',
+      backdrop: 'blur',
+      class: {
+        backdrop: 'bg-zinc-100/12 backdrop-blur-sm',
+      },
+    },
     {
       tone: 'default',
       placement: ['top', 'bottom'],

@@ -1,7 +1,25 @@
+import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
+import type { SampleTone } from '../../../../shared/sample-theme';
+
 type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom';
 
 Page({
+  _unsubscribeTone: null as null | (() => void),
+
+  applyTone(tone: SampleTone) {
+    this.setData({ tone });
+  },
+
+  onLoad() {
+    attachSampleTone(this);
+  },
+
+  onUnload() {
+    detachSampleTone(this);
+  },
+
   data: {
+    tone: 'default' as SampleTone,
     isOpen: false,
     placement: 'right' as DrawerPlacement,
     lockedOpen: false,
