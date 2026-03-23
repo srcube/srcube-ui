@@ -24,6 +24,16 @@ export const timelineStyle = tv({
     description: 'mt-1 text-sm text-slate-500',
   },
   variants: {
+    tone: {
+      default: {},
+      dark: {
+        lineStart: 'bg-zinc-800',
+        lineEnd: 'bg-zinc-800',
+        title: 'text-zinc-100',
+        time: 'text-zinc-500',
+        description: 'text-zinc-400',
+      },
+    },
     size: {
       sm: {
         indicatorWrap: 'w-5',
@@ -103,6 +113,57 @@ export const timelineStyle = tv({
   },
   compoundVariants: [
     {
+      tone: 'dark',
+      color: 'default',
+      class: {
+        node: 'border-zinc-500 bg-zinc-500',
+        title: 'text-zinc-100',
+      },
+    },
+    {
+      tone: 'dark',
+      color: 'primary',
+      class: {
+        title: 'text-primary-100',
+      },
+    },
+    {
+      tone: 'dark',
+      color: 'success',
+      class: {
+        title: 'text-success-100',
+      },
+    },
+    {
+      tone: 'dark',
+      color: 'warning',
+      class: {
+        title: 'text-warning-100',
+      },
+    },
+    {
+      tone: 'dark',
+      color: 'danger',
+      class: {
+        title: 'text-danger-100',
+      },
+    },
+    {
+      tone: 'dark',
+      lineStyle: 'dashed',
+      class: {
+        lineStart: 'border-zinc-700 bg-transparent',
+        lineEnd: 'border-zinc-700 bg-transparent',
+      },
+    },
+    {
+      tone: 'dark',
+      isPending: true,
+      class: {
+        node: 'bg-zinc-950 text-zinc-500',
+      },
+    },
+    {
       isPending: true,
       color: 'default',
       class: {
@@ -137,8 +198,49 @@ export const timelineStyle = tv({
         node: 'border-danger/40',
       },
     },
+    {
+      tone: 'dark',
+      isPending: true,
+      color: 'default',
+      class: {
+        node: 'border-zinc-700',
+      },
+    },
+    {
+      tone: 'dark',
+      isPending: true,
+      color: 'primary',
+      class: {
+        node: 'border-primary-600 text-primary-200',
+      },
+    },
+    {
+      tone: 'dark',
+      isPending: true,
+      color: 'success',
+      class: {
+        node: 'border-success-600 text-success-200',
+      },
+    },
+    {
+      tone: 'dark',
+      isPending: true,
+      color: 'warning',
+      class: {
+        node: 'border-warning-600 text-warning-200',
+      },
+    },
+    {
+      tone: 'dark',
+      isPending: true,
+      color: 'danger',
+      class: {
+        node: 'border-danger-600 text-danger-200',
+      },
+    },
   ],
   defaultVariants: {
+    tone: 'default',
     size: 'md',
     color: 'default',
     lineStyle: 'solid',

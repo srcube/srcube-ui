@@ -1,5 +1,6 @@
-import { Timeline } from '@srcube-ui/react';
+import { Button, Timeline } from '@srcube-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
+import { useState } from 'react';
 import PageHeader from '@/components/page-header';
 
 export const Route = createFileRoute('/timeline')({
@@ -65,10 +66,7 @@ const customIconTimeline = [
     time: '10:00',
     description: 'Custom icon on warning node',
     icon: (
-      <span
-        aria-hidden
-        className="icon-[mingcute--warning-line] text-[12px]"
-      />
+      <span aria-hidden className="icon-[mingcute--warning-line] text-[12px]" />
     ),
     color: 'warning' as const,
   },
@@ -83,27 +81,94 @@ const customIconTimeline = [
   },
 ];
 
-function Card({ children }: { children: React.ReactNode }) {
-  return <section className="rounded-2xl bg-white p-4 shadow-sm">{children}</section>;
+type TimelineTone = 'default' | 'dark';
+
+function Card({
+  children,
+  tone,
+}: {
+  children: React.ReactNode;
+  tone: TimelineTone;
+}) {
+  return (
+    <section
+      className={[
+        'rounded-2xl p-4 shadow-sm transition-colors duration-200',
+        tone === 'dark'
+          ? 'bg-zinc-900 text-zinc-50 shadow-black/20'
+          : 'bg-white text-slate-900',
+      ].join(' ')}
+    >
+      {children}
+    </section>
+  );
 }
 
 function TimelineDemo() {
+  const [tone, setTone] = useState<TimelineTone>('default');
+  const descriptionClassName =
+    tone === 'dark'
+      ? 'mt-1 text-xs text-zinc-400'
+      : 'mt-1 text-xs text-slate-500';
+
   return (
-    <main className="min-h-screen bg-slate-100 pb-safe-4 text-slate-900">
-      <PageHeader title="Timeline" />
+    <main
+      className={[
+        'min-h-screen pb-safe-4 transition-colors duration-200',
+        tone === 'dark'
+          ? 'bg-zinc-950 text-zinc-50'
+          : 'bg-slate-100 text-slate-900',
+      ].join(' ')}
+    >
+      <PageHeader title="Timeline" tone={tone} />
 
       <div className="space-y-6 p-4">
-        <Card>
-          <div className="text-sm font-semibold">Default</div>
-          <div className="mt-3">
-            <Timeline items={productTimeline} />
+        <Card tone={tone}>
+          <div className="text-sm font-semibold">Tone</div>
+          <div className="mt-3 flex gap-2">
+            <Button
+              size="sm"
+              color={tone === 'default' ? 'primary' : 'default'}
+              variant={tone === 'default' ? 'solid' : 'flat'}
+              onTap={() => {
+                setTone('default');
+              }}
+            >
+              default
+            </Button>
+            <Button
+              size="sm"
+              tone="dark"
+              variant={tone === 'dark' ? 'solid' : 'flat'}
+              onTap={() => {
+                setTone('dark');
+              }}
+            >
+              dark
+            </Button>
           </div>
         </Card>
 
-        <Card>
+        <Card tone={tone}>
+          <div className="text-sm font-semibold">Default</div>
+          <div className={descriptionClassName}>
+            default timeline tokens should remain legible on both light and dark
+            surfaces
+          </div>
+          <div className="mt-3">
+            <Timeline tone={tone} items={productTimeline} />
+          </div>
+        </Card>
+
+        <Card tone={tone}>
           <div className="text-sm font-semibold">Dashed / Small</div>
+          <div className={descriptionClassName}>
+            dashed connectors and pending states should keep enough contrast in
+            dark mode
+          </div>
           <div className="mt-3">
             <Timeline
+              tone={tone}
               size="sm"
               lineStyle="dashed"
               items={[
@@ -129,10 +194,13 @@ function TimelineDemo() {
           </div>
         </Card>
 
-        <Card>
+        <Card tone={tone}>
           <div className="text-sm font-semibold">Custom Icons</div>
+          <div className={descriptionClassName}>
+            semantic title colors should step up to lighter ramps on dark tone
+          </div>
           <div className="mt-3">
-            <Timeline items={customIconTimeline} />
+            <Timeline tone={tone} items={customIconTimeline} />
           </div>
         </Card>
       </div>
