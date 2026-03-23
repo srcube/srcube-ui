@@ -32,6 +32,7 @@
   <input
     slot=""
     class="{{$inputClassName}}"
+    style="{{tone === 'dark' ? 'color: #f4f4f5;' : 'color: inherit;'}}"
     value="{{$resolvedValue}}"
     placeholder="{{placeholder}}"
     type="{{inputType}}"

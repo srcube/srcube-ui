@@ -1,15 +1,9 @@
-<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
-  <sr-navbar
-    className="sticky top-0 z-20 border-b border-slate-200"
-    title="Input"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
-
-  <view class="p-4 space-y-6">
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+<app-page title="Input" tone="{{tone}}" withBack="{{true}}">
+  <view class="{{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} pb-safe">
+    <view class="p-4 space-y-6">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Basic</view>
-      <view class="mt-1 text-xs text-slate-500">Input 复用 Field 的容器能力</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Input 复用 Field 的容器能力</view>
 
       <sr-input
         class="mt-3"
@@ -20,18 +14,18 @@
         isClearable
         hasEndContent
         bind:valuechange="handleBasicValueChange"
-      >
+       tone="{{tone}}">
         <view slot="end" class="flex items-center justify-center">
           <view class="icon-[mingcute--phone-fill]" />
         </view>
       </sr-input>
 
-      <view class="mt-2 text-xs text-slate-500">Value: {{basicValue || 'empty'}}</view>
+      <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Value: {{basicValue || 'empty'}}</view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Label Placement</view>
-      <view class="mt-1 text-xs text-slate-500">outside / outside-left / inside</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">outside / outside-left / inside</view>
 
       <view class="mt-3 space-y-3">
         <view>
@@ -40,7 +34,7 @@
             value="field value"
             labelPlacement="outside"
             isClearable
-          />
+           tone="{{tone}}" />
         </view>
         <view>
           <sr-input
@@ -48,7 +42,7 @@
             value="field value"
             labelPlacement="outside-left"
             isClearable
-          />
+           tone="{{tone}}" />
         </view>
         <view>
           <sr-input
@@ -56,51 +50,51 @@
             value="field value"
             labelPlacement="inside"
             isClearable
-          />
+           tone="{{tone}}" />
         </view>
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Variants</view>
-      <view class="mt-1 text-xs text-slate-500">default / outline / twotone / underline</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">default / outline / twotone / underline</view>
 
       <view class="mt-3 space-y-3">
         <view>
-          <sr-input label="Default" value="field value" variant="default" />
+          <sr-input label="Default" value="field value" variant="default"  tone="{{tone}}" />
         </view>
         <view>
-          <sr-input label="Outline" value="field value" variant="outline" />
+          <sr-input label="Outline" value="field value" variant="outline"  tone="{{tone}}" />
         </view>
         <view>
-          <sr-input label="Twotone" value="field value" variant="twotone" />
+          <sr-input label="Twotone" value="field value" variant="twotone"  tone="{{tone}}" />
         </view>
         <view>
-          <sr-input label="Underline" value="field value" variant="underline" />
+          <sr-input label="Underline" value="field value" variant="underline"  tone="{{tone}}" />
         </view>
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Sizes</view>
-      <view class="mt-1 text-xs text-slate-500">sm / md / lg</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">sm / md / lg</view>
 
       <view class="mt-3 space-y-3">
         <view>
-          <sr-input label="Small" value="field value" size="sm" />
+          <sr-input label="Small" value="field value" size="sm"  tone="{{tone}}" />
         </view>
         <view>
-          <sr-input label="Medium" value="field value" size="md" />
+          <sr-input label="Medium" value="field value" size="md"  tone="{{tone}}" />
         </view>
         <view>
-          <sr-input label="Large" value="field value" size="lg" />
+          <sr-input label="Large" value="field value" size="lg"  tone="{{tone}}" />
         </view>
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">States</view>
-      <view class="mt-1 text-xs text-slate-500">invalid / disabled / readOnly</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">invalid / disabled / readOnly</view>
 
       <view class="mt-3 space-y-3">
         <view>
@@ -111,7 +105,7 @@
             variant="outline"
             color="danger"
             isInvalid
-          />
+           tone="{{tone}}" />
         </view>
         <view>
           <sr-input
@@ -119,7 +113,7 @@
             value="disabled value"
             description="disabled state"
             isDisabled
-          />
+           tone="{{tone}}" />
         </view>
         <view>
           <sr-input
@@ -127,14 +121,14 @@
             value="readonly value"
             description="readonly state"
             isReadOnly
-          />
+           tone="{{tone}}" />
         </view>
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Colors</view>
-      <view class="mt-1 text-xs text-slate-500">use 2 sm ButtonGroup to switch color</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">use 2 sm ButtonGroup to switch color</view>
 
       <view class="mt-3 flex flex-col gap-2">
         <block
@@ -166,9 +160,10 @@
         color="{{activeColor}}"
         isClearable
         bind:valuechange="handleColorValueChange"
-      />
+       tone="{{tone}}" />
 
-      <view class="mt-2 text-xs text-slate-500">Color: {{activeColor}}</view>
+      <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Color: {{activeColor}}</view>
     </view>
   </view>
-</view>
+  </view>
+</app-page>

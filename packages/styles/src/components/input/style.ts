@@ -14,7 +14,7 @@ export const inputStyle = tv({
     tone: {
       default: {},
       dark: {
-        input: 'placeholder:text-zinc-500',
+        input: 'text-zinc-100 placeholder:text-zinc-500',
       },
     },
     size: {
