@@ -30,7 +30,7 @@ export const collapse = tv({
     },
     variant: {
       default: {
-        base: 'border-transparent bg-transparent',
+        base: 'border-0 border-transparent bg-transparent shadow-none',
       },
       flat: {
         base: 'bg-slate-100/80 border-transparent',

@@ -1,23 +1,21 @@
 <view class="sr-collapse {{$classNames.base}}" style="{{style}}">
-  <button
+  <view
     class="sr-collapse__trigger {{$classNames.trigger}}"
     bindtap="handleTriggerTap"
-    disabled="{{isDisabled}}"
-    type="default"
-    plain="{{true}}"
     hover-class="none"
+    aria-disabled="{{isDisabled}}"
   >
     <text class="sr-collapse__title {{$classNames.title}}">{{title}}</text>
     <text
       wx:if="{{hasIndicator}}"
       class="sr-collapse__icon {{$classNames.icon}} {{$classNames.iIndicator}}"
     ></text>
-  </button>
+  </view>
 
   <view class="sr-collapse__panel {{$classNames.panel}}" style="{{$panelStyle}}">
-    <view class="sr-collapse__content {{$classNames.content}}">
-      <view class="sr-collapse__content-inner">
-        <text wx:if="{{content}}">{{content}}</text>
+    <view class="sr-collapse__content">
+      <view class="sr-collapse__content-inner w-full {{$classNames.content}}">
+        <view wx:if="{{content}}" class="block w-full">{{content}}</view>
         <slot />
       </view>
     </view>

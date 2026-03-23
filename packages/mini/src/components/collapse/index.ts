@@ -93,6 +93,7 @@ UIComponent({
         iIndicator: slots._iIndicator(),
         panel: slots.panel({ class: [custom.panel, panelState] }),
         content: slots.content({ class: custom.content }),
+        contentInner: slots.content({ class: custom.content }),
       };
     },
     $isExpanded(data: CollapseMiniData) {
