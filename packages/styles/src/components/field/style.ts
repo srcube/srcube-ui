@@ -61,6 +61,9 @@ export const fieldStyle = tv({
         label: 'text-zinc-50',
         description: 'text-zinc-400',
         clearButton: 'text-zinc-400',
+        control: 'text-zinc-100',
+        input: 'text-zinc-100',
+        placeholder: 'text-zinc-500',
       },
     },
     size: {
@@ -454,6 +457,13 @@ export const fieldStyle = tv({
       tone: 'dark',
       class: {
         controlWrapper: 'text-danger-100/40',
+      },
+    },
+    {
+      tone: 'dark',
+      isDisabled: true,
+      class: {
+        controlWrapper: 'before:bg-zinc-50/6',
       },
     },
     {

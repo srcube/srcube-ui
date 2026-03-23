@@ -1,15 +1,9 @@
-<view class="min-h-screen bg-slate-100 text-slate-900 pb-safe">
-  <sr-navbar
-    className="sticky top-0 z-20 border-b border-slate-200"
-    title="Field"
-    withBack="{{true}}"
-    hasSafeTop="{{true}}"
-  />
-
-  <view class="p-4 space-y-6">
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+<app-page title="Field" tone="{{tone}}" withBack="{{true}}">
+  <view class="{{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} pb-safe">
+    <view class="p-4 space-y-6">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Basic</view>
-      <view class="mt-1 text-xs text-slate-500">field 负责表现层，input 逻辑由业务控件承载</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">field 负责表现层，input 逻辑由业务控件承载</view>
 
       <sr-field
         class="mt-3"
@@ -22,10 +16,11 @@
         hasEndContent
         bind:valuechange="handleBasicValueChange"
         bind:clear="handleBasicClear"
-      >
+       tone="{{tone}}">
         <input
           id="mini-field-phone"
           class="w-full bg-transparent"
+          style="{{tone === 'dark' ? 'color: #f4f4f5;' : ''}}"
           value="{{basicValue}}"
           placeholder="例如：13800000000"
           bindinput="handleBasicInput"
@@ -35,69 +30,70 @@
         </view>
       </sr-field>
 
-      <view class="mt-2 text-xs text-slate-500">Value: {{basicValue || 'empty'}}</view>
+      <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Value: {{basicValue || 'empty'}}</view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Label Placement</view>
-      <view class="mt-1 text-xs text-slate-500">outside / outside-left / inside</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">outside / outside-left / inside</view>
 
       <view class="mt-3 space-y-3">
         <view>
-          <sr-field label="Outside" labelPlacement="outside" placeholder="outside" />
+          <sr-field label="Outside" labelPlacement="outside" placeholder="outside"  tone="{{tone}}" />
         </view>
         <view>
           <sr-field
             label="Left"
             labelPlacement="outside-left"
             placeholder="outside-left"
+            tone="{{tone}}"
           />
         </view>
         <view>
-          <sr-field label="Inside" labelPlacement="inside" placeholder="inside" />
+          <sr-field label="Inside" labelPlacement="inside" placeholder="inside"  tone="{{tone}}" />
         </view>
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Variants</view>
-      <view class="mt-1 text-xs text-slate-500">default / outline / twotone / underline</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">default / outline / twotone / underline</view>
 
       <view class="mt-3 space-y-3">
-        <sr-field label="Default" value="field value" variant="default" />
-        <sr-field label="Outline" value="field value" variant="outline" />
-        <sr-field label="Twotone" value="field value" variant="twotone" />
-        <sr-field label="Underline" value="field value" variant="underline" />
+        <sr-field label="Default" value="field value" variant="default"  tone="{{tone}}" />
+        <sr-field label="Outline" value="field value" variant="outline"  tone="{{tone}}" />
+        <sr-field label="Twotone" value="field value" variant="twotone"  tone="{{tone}}" />
+        <sr-field label="Underline" value="field value" variant="underline"  tone="{{tone}}" />
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Sizes</view>
-      <view class="mt-1 text-xs text-slate-500">sm / md / lg</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">sm / md / lg</view>
 
       <view class="mt-3 space-y-3">
-        <sr-field label="Small" value="field value" size="sm" />
-        <sr-field label="Medium" value="field value" size="md" />
-        <sr-field label="Large" value="field value" size="lg" />
+        <sr-field label="Small" value="field value" size="sm"  tone="{{tone}}" />
+        <sr-field label="Medium" value="field value" size="md"  tone="{{tone}}" />
+        <sr-field label="Large" value="field value" size="lg"  tone="{{tone}}" />
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Radius</view>
-      <view class="mt-1 text-xs text-slate-500">none / sm / md / lg / full</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">none / sm / md / lg / full</view>
 
       <view class="mt-3 space-y-3">
-        <sr-field label="Radius None" value="field value" variant="twotone" radius="none" />
-        <sr-field label="Radius Sm" value="field value" variant="twotone" radius="sm" />
-        <sr-field label="Radius Md" value="field value" variant="twotone" radius="md" />
-        <sr-field label="Radius Lg" value="field value" variant="twotone" radius="lg" />
-        <sr-field label="Radius Full" value="field value" variant="twotone" radius="full" />
+        <sr-field label="Radius None" value="field value" variant="twotone" radius="none"  tone="{{tone}}" />
+        <sr-field label="Radius Sm" value="field value" variant="twotone" radius="sm"  tone="{{tone}}" />
+        <sr-field label="Radius Md" value="field value" variant="twotone" radius="md"  tone="{{tone}}" />
+        <sr-field label="Radius Lg" value="field value" variant="twotone" radius="lg"  tone="{{tone}}" />
+        <sr-field label="Radius Full" value="field value" variant="twotone" radius="full"  tone="{{tone}}" />
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">States</view>
-      <view class="mt-1 text-xs text-slate-500">invalid / disabled / readOnly</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">invalid / disabled / readOnly</view>
 
       <view class="mt-3 space-y-3">
         <sr-field
@@ -107,25 +103,25 @@
           variant="outline"
           color="danger"
           isInvalid
-        />
+         tone="{{tone}}" />
         <sr-field
           label="Disabled"
           value="disabled value"
           description="disabled state"
           isDisabled
-        />
+         tone="{{tone}}" />
         <sr-field
           label="Readonly"
           value="readonly value"
           description="readonly state"
           isReadOnly
-        />
+         tone="{{tone}}" />
       </view>
     </view>
 
-    <view class="rounded-2xl bg-white p-4 shadow-sm">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Colors</view>
-      <view class="mt-1 text-xs text-slate-500">use 2 sm ButtonGroup to switch color</view>
+      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">use 2 sm ButtonGroup to switch color</view>
 
       <view class="mt-3 flex flex-col gap-2">
         <block
@@ -138,6 +134,7 @@
             <block wx:for="{{group}}" wx:for-item="option" wx:key="value">
               <sr-button
                 class="flex-1"
+                tone="{{tone}}"
                 color="{{activeColor === option.value ? option.value : 'default'}}"
                 variant="{{activeColor === option.value ? 'solid' : 'flat'}}"
                 data-color="{{option.value}}"
@@ -160,16 +157,18 @@
         hasControl="{{true}}"
         bind:valuechange="handleColorValueChange"
         bind:clear="handleColorClear"
-      >
+       tone="{{tone}}">
         <input
           id="mini-field-color"
           class="w-full bg-transparent"
+          style="{{tone === 'dark' ? 'color: #f4f4f5;' : ''}}"
           value="{{colorValue}}"
           bindinput="handleColorInput"
         />
       </sr-field>
 
-      <view class="mt-2 text-xs text-slate-500">Color: {{activeColor}}</view>
+      <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Color: {{activeColor}}</view>
     </view>
   </view>
-</view>
+  </view>
+</app-page>

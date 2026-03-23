@@ -35,6 +35,7 @@
           wx:if="{{$showFallbackControl}}"
           id="{{$controlId}}"
           class="sr-field__input {{$fallbackControlClassName}}"
+          style="{{tone === 'dark' ? 'color: #f4f4f5;' : ''}}"
         >
           {{$displayValue}}
         </view>
