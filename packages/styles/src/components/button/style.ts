@@ -23,13 +23,13 @@ const semanticToneVariants = [
     color: 'primary',
     tone: 'dark',
     variant: ['outline', 'flat', 'text'],
-    class: { base: 'text-primary-600 active:text-primary-700' },
+    class: { base: 'text-primary-100 active:text-primary-200' },
   },
   {
     color: 'primary',
     tone: 'dark',
     variant: 'outline',
-    class: { base: 'border-primary-600' },
+    class: { base: 'border-primary-700' },
   },
   {
     color: 'primary',
@@ -41,7 +41,7 @@ const semanticToneVariants = [
     color: 'primary',
     tone: 'dark',
     variant: 'flat',
-    class: { base: 'bg-primary-200 active:bg-primary-300' },
+    class: { base: 'bg-primary-950 active:bg-primary-900' },
   },
   {
     color: 'secondary',
@@ -65,13 +65,13 @@ const semanticToneVariants = [
     color: 'secondary',
     tone: 'dark',
     variant: ['outline', 'flat', 'text'],
-    class: { base: 'text-secondary-600 active:text-secondary-700' },
+    class: { base: 'text-secondary-100 active:text-secondary-200' },
   },
   {
     color: 'secondary',
     tone: 'dark',
     variant: 'outline',
-    class: { base: 'border-secondary-600' },
+    class: { base: 'border-secondary-700' },
   },
   {
     color: 'secondary',
@@ -83,7 +83,7 @@ const semanticToneVariants = [
     color: 'secondary',
     tone: 'dark',
     variant: 'flat',
-    class: { base: 'bg-secondary-200 active:bg-secondary-300' },
+    class: { base: 'bg-secondary-950 active:bg-secondary-900' },
   },
   {
     color: 'success',
@@ -107,13 +107,13 @@ const semanticToneVariants = [
     color: 'success',
     tone: 'dark',
     variant: ['outline', 'flat', 'text'],
-    class: { base: 'text-success-600 active:text-success-700' },
+    class: { base: 'text-success-100 active:text-success-200' },
   },
   {
     color: 'success',
     tone: 'dark',
     variant: 'outline',
-    class: { base: 'border-success-600' },
+    class: { base: 'border-success-700' },
   },
   {
     color: 'success',
@@ -125,7 +125,7 @@ const semanticToneVariants = [
     color: 'success',
     tone: 'dark',
     variant: 'flat',
-    class: { base: 'bg-success-200 active:bg-success-300' },
+    class: { base: 'bg-success-950 active:bg-success-900' },
   },
   {
     color: 'warning',
@@ -137,7 +137,7 @@ const semanticToneVariants = [
     color: 'warning',
     tone: 'dark',
     variant: 'solid',
-    class: { base: 'bg-warning-600 text-white active:bg-warning-700' },
+    class: { base: 'bg-warning-600 text-black active:bg-warning-700' },
   },
   {
     color: 'warning',
@@ -149,13 +149,13 @@ const semanticToneVariants = [
     color: 'warning',
     tone: 'dark',
     variant: ['outline', 'flat', 'text'],
-    class: { base: 'text-warning-600 active:text-warning-700' },
+    class: { base: 'text-warning-100 active:text-warning-200' },
   },
   {
     color: 'warning',
     tone: 'dark',
     variant: 'outline',
-    class: { base: 'border-warning-600' },
+    class: { base: 'border-warning-700' },
   },
   {
     color: 'warning',
@@ -167,7 +167,7 @@ const semanticToneVariants = [
     color: 'warning',
     tone: 'dark',
     variant: 'flat',
-    class: { base: 'bg-warning-200 active:bg-warning-300' },
+    class: { base: 'bg-warning-950 active:bg-warning-900' },
   },
   {
     color: 'danger',
@@ -191,13 +191,13 @@ const semanticToneVariants = [
     color: 'danger',
     tone: 'dark',
     variant: ['outline', 'flat', 'text'],
-    class: { base: 'text-danger-600 active:text-danger-700' },
+    class: { base: 'text-danger-100 active:text-danger-200' },
   },
   {
     color: 'danger',
     tone: 'dark',
     variant: 'outline',
-    class: { base: 'border-danger-600' },
+    class: { base: 'border-danger-700' },
   },
   {
     color: 'danger',
@@ -209,7 +209,7 @@ const semanticToneVariants = [
     color: 'danger',
     tone: 'dark',
     variant: 'flat',
-    class: { base: 'bg-danger-200 active:bg-danger-300' },
+    class: { base: 'bg-danger-950 active:bg-danger-900' },
   },
 ] as const;
 
