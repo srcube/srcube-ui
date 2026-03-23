@@ -17,7 +17,7 @@ export const skeletonStyle = tv({
         placeholder: 'bg-gradient-to-r from-slate-100 to-slate-200',
       },
       dark: {
-        placeholder: 'bg-gradient-to-r from-zinc-900 to-zinc-800',
+        placeholder: 'bg-gradient-to-r from-zinc-950 to-zinc-900',
       },
     },
     radius: {
