@@ -104,5 +104,7 @@ it('keeps radius classes on root and skeleton placeholder', () => {
 it('supports dark tone fallback', () => {
   const { container } = render(<Avatar name="Dark" tone="dark" />);
 
-  expect(container.innerHTML).toContain('#52525b');
+  const root = container.firstElementChild as HTMLElement | null;
+  expect(root?.className ?? '').toContain('bg-zinc-800');
+  expect(container.querySelector('[data-sr-avatar-orb="base"]')).toBeTruthy();
 });

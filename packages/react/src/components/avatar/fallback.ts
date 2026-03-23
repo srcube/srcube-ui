@@ -41,7 +41,7 @@ export type AvatarFallbackStyle = 'gradient-orb' | 'solid';
 
 const GRADIENT_TEXT_STYLE = {
   color: 'rgba(248, 250, 252, 0.96)',
-  textShadow: '0 1px 2px rgba(15, 23, 42, 0.5)',
+  textShadow: 'none',
 } as const;
 
 function normalizeSeedValue(value: string | number | null | undefined): string {

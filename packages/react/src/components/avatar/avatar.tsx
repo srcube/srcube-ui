@@ -1,5 +1,6 @@
-import { Skeleton } from '../skeleton';
+import { avatar } from '@srcube-ui/styles/components/avatar';
 import * as React from 'react';
+import { Skeleton } from '../skeleton';
 import {
   createAvatarFallbackSeed,
   getAvatarGradientLayerStyles,
@@ -7,7 +8,6 @@ import {
   resolveAvatarFallbackStyle,
   resolveAvatarGradientTheme,
 } from './fallback';
-import { avatar } from '@srcube-ui/styles/components/avatar';
 import type { AvatarReactProps } from './props';
 
 function getInitials(name?: string) {

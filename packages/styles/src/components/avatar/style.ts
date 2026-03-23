@@ -67,87 +67,103 @@ export const avatar = tv({
   },
   compoundVariants: [
     {
+      tone: 'default',
+      class: {
+        fallbackOrb: 'opacity-50',
+        fallbackGlow: 'opacity-[0.425]',
+        fallbackHighlight: 'opacity-50',
+      },
+    },
+    {
+      tone: 'dark',
+      class: {
+        fallbackOrb: 'opacity-40',
+        fallbackGlow: 'opacity-[0.3]',
+        fallbackHighlight: 'opacity-35',
+      },
+    },
+    {
       color: 'default',
       tone: 'default',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,#cbd5e1,#64748b)]',
+        base: 'bg-slate-200 text-slate-700',
       },
     },
     {
       color: 'default',
       tone: 'dark',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,#52525b,#09090b)]',
+        base: 'bg-zinc-800 text-zinc-100',
       },
     },
     {
       color: 'primary',
       tone: 'default',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-primary),color-mix(in_srgb,var(--color-primary)_70%,black))]',
+        base: 'bg-primary text-white',
       },
     },
     {
       color: 'primary',
       tone: 'dark',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-primary-600),color-mix(in_srgb,var(--color-primary-600)_68%,black))]',
+        base: 'bg-primary-600 text-white',
       },
     },
     {
       color: 'secondary',
       tone: 'default',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-secondary),color-mix(in_srgb,var(--color-secondary)_70%,black))]',
+        base: 'bg-secondary text-white',
       },
     },
     {
       color: 'secondary',
       tone: 'dark',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-secondary-600),color-mix(in_srgb,var(--color-secondary-600)_68%,black))]',
+        base: 'bg-secondary-600 text-white',
       },
     },
     {
       color: 'success',
       tone: 'default',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-success),color-mix(in_srgb,var(--color-success)_70%,black))]',
+        base: 'bg-success text-white',
       },
     },
     {
       color: 'success',
       tone: 'dark',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-success-600),color-mix(in_srgb,var(--color-success-600)_68%,black))]',
+        base: 'bg-success-600 text-white',
       },
     },
     {
       color: 'warning',
       tone: 'default',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-warning),color-mix(in_srgb,var(--color-warning)_70%,black))] text-black',
+        base: 'bg-warning text-black',
       },
     },
     {
       color: 'warning',
       tone: 'dark',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-warning-600),color-mix(in_srgb,var(--color-warning-600)_68%,black))] text-white',
+        base: 'bg-warning-600 text-black',
       },
     },
     {
       color: 'danger',
       tone: 'default',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-danger),color-mix(in_srgb,var(--color-danger)_70%,black))]',
+        base: 'bg-danger text-white',
       },
     },
     {
       color: 'danger',
       tone: 'dark',
       class: {
-        base: 'bg-[radial-gradient(circle_at_50%_20%,var(--color-danger-600),color-mix(in_srgb,var(--color-danger-600)_68%,black))]',
+        base: 'bg-danger-600 text-white',
       },
     },
   ],
