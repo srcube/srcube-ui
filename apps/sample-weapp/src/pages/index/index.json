@@ -1,7 +1,8 @@
 {
   "$schema": "https://vite.icebreaker.top/page.json",
   "usingComponents": {
-    "app-navbar": "../../components/app-navbar/index"
+    "app-navbar": "../../components/app-navbar/index",
+    "sr-action-sheet": "@srcube-ui/mini/action-sheet/index"
   },
   "navigationStyle": "custom",
   "navigationBarTitleText": "组件示例"

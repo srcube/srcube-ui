@@ -2,6 +2,7 @@
   "component": true,
   "styleIsolation": "apply-shared",
   "usingComponents": {
-    "app-navbar": "../app-navbar/index"
+    "app-navbar": "../app-navbar/index",
+    "sr-action-sheet": "@srcube-ui/mini/action-sheet/index"
   }
 }

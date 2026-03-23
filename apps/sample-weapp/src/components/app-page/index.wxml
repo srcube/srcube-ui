@@ -1,8 +1,36 @@
 <view
-  class="min-h-screen pb-safe {{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} {{pageClassName}}"
+  class="min-h-screen pb-24 pb-safe {{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} {{pageClassName}}"
 >
   <app-navbar title="{{title}}" tone="{{tone}}" withBack="{{withBack}}" />
   <view class="{{contentClassName}}">
     <slot />
   </view>
+
+  <view class="pointer-events-none fixed inset-x-0 bottom-0 z-20 px-4 pt-3 pb-safe {{tone === 'dark' ? 'border-t border-zinc-800 bg-black' : 'border-t border-slate-200 bg-white'}}">
+    <view class="pointer-events-auto mx-auto flex w-full max-w-md items-center justify-center pb-3">
+      <view
+        class="inline-flex h-9 items-center justify-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors {{tone === 'dark' ? 'border-zinc-700 bg-zinc-900 text-zinc-100' : 'border-slate-200 bg-white text-slate-700'}}"
+        bindtap="handleOpenToneSheet"
+      >
+        <view class="flex h-full items-center justify-center">
+          <view class="h-2.5 w-2.5 shrink-0 rounded-full {{tone === 'dark' ? 'bg-zinc-100' : 'bg-slate-700'}}" />
+        </view>
+        <view class="flex h-full items-center justify-center">
+          <text class="block leading-[1]">Theme · {{tone === 'dark' ? 'Dark' : 'Light'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <sr-action-sheet
+    isOpen="{{isToneSheetOpen}}"
+    title="Switch Theme"
+    description="Apply theme tone to the sample app"
+    actions="{{toneActions}}"
+    cancelText="Close"
+    tone="{{tone}}"
+    isInset="{{true}}"
+    bind:action="handleToneAction"
+    bind:change="handleToneSheetChange"
+  />
 </view>

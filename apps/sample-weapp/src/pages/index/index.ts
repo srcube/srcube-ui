@@ -1,4 +1,8 @@
-import { resolveSampleTone, type SampleTone } from '../../shared/sample-theme';
+import {
+  resolveSampleTone,
+  type SampleTone,
+} from '../../shared/sample-theme';
+import { updateGlobalSampleTone } from '../../shared/sample-theme-page';
 
 type SampleApp = WechatMiniprogram.App.Instance<{
   globalData: {
@@ -23,12 +27,24 @@ function resolveSubTitleClassName(tone: SampleTone) {
   return tone === 'dark' ? 'text-xs text-zinc-400' : 'text-xs text-slate-500';
 }
 
+function resolveFooterClassName(tone: SampleTone) {
+  return tone === 'dark'
+    ? 'bg-zinc-900 px-6 py-3 text-center text-zinc-400 text-xs border-t border-zinc-800'
+    : 'bg-white px-6 py-3 text-center text-slate-500 text-xs border-t border-slate-200';
+}
+
 Page({
   data: {
     tone: 'default' as SampleTone,
     pageClassName: resolvePageClassName('default'),
     cardClassName: resolveCardClassName('default'),
     subTitleClassName: resolveSubTitleClassName('default'),
+    footerClassName: resolveFooterClassName('default'),
+    isToneSheetOpen: false,
+    toneActions: [
+      { value: 'default', label: 'Light', description: 'Bright surfaces' },
+      { value: 'dark', label: 'Dark', description: 'Dark zinc surfaces' },
+    ],
     components: [
       {
         title: 'Theme Center',
@@ -181,6 +197,7 @@ Page({
       pageClassName: resolvePageClassName(tone),
       cardClassName: resolveCardClassName(tone),
       subTitleClassName: resolveSubTitleClassName(tone),
+      footerClassName: resolveFooterClassName(tone),
     });
   },
 
@@ -197,6 +214,19 @@ Page({
   onUnload() {
     this._unsubscribeTone?.();
     this._unsubscribeTone = null;
+  },
+
+  handleOpenToneSheet() {
+    this.setData({ isToneSheetOpen: true });
+  },
+
+  handleToneSheetChange(event: WechatMiniprogram.CustomEvent<{ isOpen?: boolean }>) {
+    this.setData({ isToneSheetOpen: Boolean(event.detail?.isOpen) });
+  },
+
+  handleToneAction(event: WechatMiniprogram.CustomEvent<{ value?: SampleTone }>) {
+    updateGlobalSampleTone(resolveSampleTone(event.detail?.value));
+    this.setData({ isToneSheetOpen: false });
   },
 
   handleNavigate(e: WechatMiniprogram.TouchEvent) {

@@ -2,16 +2,26 @@
   <app-navbar title="Srcube UI" tone="{{tone}}" />
 
   <view class="px-6 pt-6 pb-4">
-    <view class="flex items-center gap-3">
-      <image class="w-12 h-12" src="/srcube.png" />
-      <view>
-        <view class="text-lg font-semibold">
-          Srcube UI
-          <text class="{{subTitleClassName}}">mini</text>
+    <view class="flex items-center justify-between gap-3">
+      <view class="flex items-center gap-3 min-w-0">
+        <image class="h-12 w-11 shrink-0 p-2" src="{{tone === 'dark' ? '/srcube-light.png' : '/srcube-dark.png'}}" />
+        <view class="min-w-0">
+          <view class="text-lg font-semibold">
+            Srcube UI
+            <text class="{{subTitleClassName}}">mini</text>
+          </view>
+          <view class="{{subTitleClassName}}">
+            用于验证小程序端组件实现的精简示例
+          </view>
         </view>
-        <view class="{{subTitleClassName}}">
-          用于验证小程序端组件实现的精简示例
-        </view>
+      </view>
+
+      <view
+        class="inline-flex h-8 shrink-0 items-center justify-center gap-2 rounded-full border px-3 text-xs font-semibold leading-none transition-colors {{tone === 'dark' ? 'border-zinc-700 bg-zinc-900 text-zinc-100' : 'border-slate-200 bg-white text-slate-700'}}"
+        bindtap="handleOpenToneSheet"
+      >
+        <view class="h-2 w-2 rounded-full {{tone === 'dark' ? 'bg-zinc-100' : 'bg-slate-700'}}" />
+        <text>{{tone === 'dark' ? 'Dark' : 'Light'}}</text>
       </view>
     </view>
   </view>
@@ -26,4 +36,20 @@
       {{item.title}}
     </view>
   </view>
+
+  <view class="{{footerClassName}}">
+    Built with Srcube UI
+  </view>
+
+  <sr-action-sheet
+    isOpen="{{isToneSheetOpen}}"
+    title="Switch Theme"
+    description="Apply theme tone to the sample app"
+    actions="{{toneActions}}"
+    cancelText="Close"
+    tone="{{tone}}"
+    isInset="{{true}}"
+    bind:action="handleToneAction"
+    bind:change="handleToneSheetChange"
+  />
 </view>

@@ -1,3 +1,6 @@
+import { updateGlobalSampleTone } from '../../shared/sample-theme-page';
+import { resolveSampleTone, type SampleTone } from '../../shared/sample-theme';
+
 Component({
   properties: {
     title: {
@@ -19,6 +22,48 @@ Component({
     contentClassName: {
       type: String,
       value: 'p-4 space-y-6',
+    },
+  },
+
+  data: {
+    isToneSheetOpen: false,
+    toneActions: [
+      {
+        value: 'default',
+        label: 'Light',
+        description: 'Bright surfaces for daytime preview',
+      },
+      {
+        value: 'dark',
+        label: 'Dark',
+        description: 'Zinc-based dark surfaces for night preview',
+      },
+    ],
+  },
+
+  methods: {
+    handleOpenToneSheet() {
+      this.setData({
+        isToneSheetOpen: true,
+      });
+    },
+
+    handleToneSheetChange(
+      event: WechatMiniprogram.CustomEvent<{ isOpen?: boolean }>,
+    ) {
+      this.setData({
+        isToneSheetOpen: Boolean(event.detail?.isOpen),
+      });
+    },
+
+    handleToneAction(
+      event: WechatMiniprogram.CustomEvent<{ value?: SampleTone }>,
+    ) {
+      const tone = resolveSampleTone(event.detail?.value);
+      updateGlobalSampleTone(tone);
+      this.setData({
+        isToneSheetOpen: false,
+      });
     },
   },
 });
