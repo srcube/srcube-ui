@@ -1,22 +1,16 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
 export const pickbox = tv({
   slots: {
-    base:
-      'relative isolate overflow-hidden rounded-2xl border border-slate-200 bg-white outline-none',
+    base: 'relative isolate overflow-hidden rounded-2xl border border-slate-200 bg-white outline-none',
     columns: 'relative z-10 flex h-full divide-x divide-slate-100',
     column: 'relative min-w-0 flex-1',
     columnScroll: 'h-full overflow-y-auto scrollbar-none outline-none',
     columnContent: 'relative w-full',
-    item:
-      'absolute left-0 right-0 flex select-none origin-center items-center justify-center transition-colors duration-200',
+    item: 'absolute left-0 right-0 flex select-none origin-center items-center justify-center transition-colors duration-200',
     itemLabel: 'truncate',
     indicator:
-      'pointer-events-none absolute inset-0 top-1/2 z-0 w-full -translate-y-1/2',
+      'pointer-events-none absolute inset-0 top-1/2 z-0 w-full -translate-y-1/2 border border-transparent',
     maskTop: '',
     maskBottom: '',
   },
@@ -104,42 +98,42 @@ export const pickbox = tv({
       color: 'default',
       tone: 'dark',
       class: {
-        indicator: 'bg-zinc-900',
+        indicator: 'border-zinc-800 bg-zinc-900',
       },
     },
     {
       color: 'primary',
       tone: 'dark',
       class: {
-        indicator: 'bg-primary-950',
+        indicator: 'border-primary-900 bg-primary-950',
       },
     },
     {
       color: 'secondary',
       tone: 'dark',
       class: {
-        indicator: 'bg-secondary-950',
+        indicator: 'border-secondary-900 bg-secondary-950',
       },
     },
     {
       color: 'success',
       tone: 'dark',
       class: {
-        indicator: 'bg-success-950',
+        indicator: 'border-success-900 bg-success-950',
       },
     },
     {
       color: 'warning',
       tone: 'dark',
       class: {
-        indicator: 'bg-warning-950',
+        indicator: 'border-warning-900 bg-warning-950',
       },
     },
     {
       color: 'danger',
       tone: 'dark',
       class: {
-        indicator: 'bg-danger-950',
+        indicator: 'border-danger-900 bg-danger-950',
       },
     },
   ],

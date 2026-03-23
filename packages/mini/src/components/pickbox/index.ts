@@ -1094,6 +1094,14 @@ UIComponent({
         this.recomputeVirtualColumns();
       }
 
+      setTimeout(() => {
+        try {
+          wx.vibrateShort({ type: 'light' });
+        } catch {
+          // ignore vibration failures
+        }
+      }, 0);
+
       this.triggerEvent('valuechange', {
         value: nextValue,
         columnIndex,

@@ -1,14 +1,17 @@
 import {
+  pickbox,
+  pickboxItemState,
+} from '@srcube-ui/styles/components/pickbox';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import {
   forwardRef,
-  useLayoutEffect,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
-import { useVirtualizer } from '@tanstack/react-virtual';
-import { pickbox, pickboxItemState } from '@srcube-ui/styles/components/pickbox';
 import type {
   PickboxColumn,
   PickboxItem,
@@ -26,10 +29,15 @@ function ensurePickboxValue(
   columns: PickboxColumn[],
   input?: PickboxValue,
 ): PickboxValue {
-  return columns.map((column, index) => input?.[index] ?? getDefaultColumnValue(column));
+  return columns.map(
+    (column, index) => input?.[index] ?? getDefaultColumnValue(column),
+  );
 }
 
-function resolveSelectedIndex(items: PickboxItem[], selectedId: PickboxItemId | null) {
+function resolveSelectedIndex(
+  items: PickboxItem[],
+  selectedId: PickboxItemId | null,
+) {
   if (items.length === 0) {
     return -1;
   }
@@ -64,10 +72,7 @@ function resolveTone(value: PickboxReactProps['tone']) {
   return value === 'dark' ? 'dark' : 'default';
 }
 
-function resolveMetricValue(
-  value: number | undefined,
-  fallback: number,
-) {
+function resolveMetricValue(value: number | undefined, fallback: number) {
   const next = Number(value);
   if (Number.isFinite(next) && next > 0) {
     return next;
@@ -92,6 +97,21 @@ type ColumnViewProps = {
   renderItem?: PickboxReactProps['renderItem'];
   getItemKey?: PickboxReactProps['getItemKey'];
 };
+
+function vibratePickbox() {
+  if (
+    typeof navigator === 'undefined' ||
+    typeof navigator.vibrate !== 'function'
+  ) {
+    return;
+  }
+
+  try {
+    navigator.vibrate(10);
+  } catch {
+    // ignore vibration failures
+  }
+}
 
 function ColumnView({
   slots,
@@ -146,9 +166,12 @@ function ColumnView({
       clearTimeout(autoAdjustTimerRef.current);
     }
 
-    autoAdjustTimerRef.current = setTimeout(() => {
-      isAutoAdjustingRef.current = false;
-    }, Math.max(scrollEndDelay, 80));
+    autoAdjustTimerRef.current = setTimeout(
+      () => {
+        isAutoAdjustingRef.current = false;
+      },
+      Math.max(scrollEndDelay, 80),
+    );
   }, [scrollEndDelay]);
 
   const cancelScrollAnimation = useCallback(() => {
@@ -191,7 +214,10 @@ function ColumnView({
 
       const targetOffset = Math.max(
         0,
-        padding + index * estimateSize + estimateSize / 2 - scrollElement.clientHeight / 2,
+        padding +
+          index * estimateSize +
+          estimateSize / 2 -
+          scrollElement.clientHeight / 2,
       );
 
       cancelScrollAnimation();
@@ -206,7 +232,10 @@ function ColumnView({
       const startOffset = scrollElement.scrollTop;
       const distance = targetOffset - startOffset;
 
-      if (Math.abs(distance) < 1 || typeof requestAnimationFrame !== 'function') {
+      if (
+        Math.abs(distance) < 1 ||
+        typeof requestAnimationFrame !== 'function'
+      ) {
         scrollElement.scrollTop = targetOffset;
         isAutoAdjustingRef.current = false;
         return;
@@ -216,7 +245,7 @@ function ColumnView({
       const startedAt = performance.now();
       const step = (now: number) => {
         const progress = Math.min(1, (now - startedAt) / duration);
-        const eased = 1 - Math.pow(1 - progress, 3);
+        const eased = 1 - (1 - progress) ** 3;
         scrollElement.scrollTop = startOffset + distance * eased;
 
         if (progress < 1) {
@@ -255,7 +284,8 @@ function ColumnView({
       return;
     }
 
-    const viewportCenter = scrollElement.scrollTop + scrollElement.clientHeight / 2;
+    const viewportCenter =
+      scrollElement.scrollTop + scrollElement.clientHeight / 2;
 
     let nearestIndex = -1;
     let nearestDistance = Number.POSITIVE_INFINITY;
@@ -284,8 +314,18 @@ function ColumnView({
     }
 
     alignToIndex(nearestIndex, 'smooth');
+    if (nearestItem.id !== selectedId) {
+      vibratePickbox();
+    }
     onSelect(columnIndex, nearestItem.id);
-  }, [alignToIndex, column.items, columnIndex, onSelect, virtualizer]);
+  }, [
+    alignToIndex,
+    column.items,
+    columnIndex,
+    onSelect,
+    selectedId,
+    virtualizer,
+  ]);
 
   useLayoutEffect(() => {
     if (column.items.length === 0 || selectedIndex < 0) {
@@ -342,7 +382,9 @@ function ColumnView({
         ref={scrollElementRef}
         onScroll={handleScroll}
         role="listbox"
-        aria-label={column.id != null ? `${column.id}` : `column-${columnIndex + 1}`}
+        aria-label={
+          column.id != null ? `${column.id}` : `column-${columnIndex + 1}`
+        }
       >
         <div
           className={columnContentClassName}
@@ -379,6 +421,7 @@ function ColumnView({
                 role="option"
                 aria-selected={isSelected}
                 aria-disabled={isDisabled}
+                tabIndex={isDisabled ? -1 : 0}
                 style={{
                   top: 0,
                   transform: `translateY(${virtualItem.start}px)`,
@@ -395,202 +438,209 @@ function ColumnView({
   );
 }
 
-export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>((props, ref) => {
-  const {
-    columns,
-    size = 'md',
-    color = 'default',
-    tone = 'default',
-    value,
-    defaultValue,
-    onValueChange,
-    estimateSize,
-    overscan = 5,
-    indicatorHeight,
-    scrollEndDelay = 120,
-    className,
-    classNames,
-    getItemKey,
-    renderItem,
-    style,
-    ...rest
-  } = props;
+export const Pickbox = forwardRef<HTMLDivElement, PickboxReactProps>(
+  (props, ref) => {
+    const {
+      columns,
+      size = 'md',
+      color = 'default',
+      tone = 'default',
+      value,
+      defaultValue,
+      onValueChange,
+      estimateSize,
+      overscan = 5,
+      indicatorHeight,
+      scrollEndDelay = 120,
+      className,
+      classNames,
+      getItemKey,
+      renderItem,
+      style,
+      ...rest
+    } = props;
 
-  const rootRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, setContainerHeight] = useState(0);
-  const [innerValue, setInnerValue] = useState<PickboxValue>(() =>
-    ensurePickboxValue(columns, defaultValue),
-  );
+    const rootRef = useRef<HTMLDivElement>(null);
+    const [containerHeight, setContainerHeight] = useState(0);
+    const [innerValue, setInnerValue] = useState<PickboxValue>(() =>
+      ensurePickboxValue(columns, defaultValue),
+    );
 
-  const mergedValue = useMemo(
-    () => ensurePickboxValue(columns, value ?? innerValue),
-    [columns, innerValue, value],
-  );
-  const resolvedEstimateSize = useMemo(() => {
-    const fallback = resolveDefaultMetricBySize(size);
-    return resolveMetricValue(estimateSize, fallback);
-  }, [estimateSize, size]);
-  const resolvedIndicatorHeight = useMemo(() => {
-    return resolveMetricValue(indicatorHeight, resolvedEstimateSize);
-  }, [indicatorHeight, resolvedEstimateSize]);
+    const mergedValue = useMemo(
+      () => ensurePickboxValue(columns, value ?? innerValue),
+      [columns, innerValue, value],
+    );
+    const resolvedEstimateSize = useMemo(() => {
+      const fallback = resolveDefaultMetricBySize(size);
+      return resolveMetricValue(estimateSize, fallback);
+    }, [estimateSize, size]);
+    const resolvedIndicatorHeight = useMemo(() => {
+      return resolveMetricValue(indicatorHeight, resolvedEstimateSize);
+    }, [indicatorHeight, resolvedEstimateSize]);
 
-  const resolvedPadding = useMemo(
-    () => Math.max(0, containerHeight / 2 - resolvedIndicatorHeight / 2),
-    [containerHeight, resolvedIndicatorHeight],
-  );
+    const resolvedPadding = useMemo(
+      () => Math.max(0, containerHeight / 2 - resolvedIndicatorHeight / 2),
+      [containerHeight, resolvedIndicatorHeight],
+    );
 
-  const setRefs = useCallback(
-    (node: HTMLDivElement | null) => {
-      rootRef.current = node;
-      if (typeof ref === 'function') {
-        ref(node);
-      } else if (ref && 'current' in ref) {
-        ref.current = node;
+    const setRefs = useCallback(
+      (node: HTMLDivElement | null) => {
+        rootRef.current = node;
+        if (typeof ref === 'function') {
+          ref(node);
+        } else if (ref && 'current' in ref) {
+          ref.current = node;
+        }
+      },
+      [ref],
+    );
+
+    const measureContainer = useCallback(() => {
+      const node = rootRef.current;
+      if (!node) {
+        return;
       }
-    },
-    [ref],
-  );
 
-  const measureContainer = useCallback(() => {
-    const node = rootRef.current;
-    if (!node) {
-      return;
-    }
+      const nextHeight = node.getBoundingClientRect().height;
+      if (Number.isFinite(nextHeight) && nextHeight > 0) {
+        setContainerHeight(nextHeight);
+      }
+    }, []);
 
-    const nextHeight = node.getBoundingClientRect().height;
-    if (Number.isFinite(nextHeight) && nextHeight > 0) {
-      setContainerHeight(nextHeight);
-    }
-  }, []);
+    useEffect(() => {
+      if (value !== undefined) {
+        return;
+      }
 
-  useEffect(() => {
-    if (value !== undefined) {
-      return;
-    }
+      setInnerValue((prev) => ensurePickboxValue(columns, prev));
+    }, [columns, value]);
 
-    setInnerValue((prev) => ensurePickboxValue(columns, prev));
-  }, [columns, value]);
-
-  useEffect(() => {
-    measureContainer();
-  }, [columns.length, measureContainer, resolvedIndicatorHeight]);
-
-  useEffect(() => {
-    const node = rootRef.current;
-    if (!node || typeof ResizeObserver === 'undefined') {
-      return;
-    }
-
-    const observer = new ResizeObserver(() => {
+    useEffect(() => {
       measureContainer();
-    });
+    }, [columns.length, measureContainer, resolvedIndicatorHeight]);
 
-    observer.observe(node);
-    return () => {
-      observer.disconnect();
-    };
-  }, [measureContainer]);
-
-  const slots = useMemo(
-    () =>
-      pickbox({
-        size,
-        color,
-        tone,
-      }),
-    [color, size, tone],
-  );
-  const maskTopStyle = useMemo(
-    () => ({
-      background:
-        'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 22%, rgba(255,255,255,0.78) 56%, rgba(255,255,255,0.4) 82%, rgba(255,255,255,0) 100%)',
-    }),
-    [],
-  );
-  const maskBottomStyle = useMemo(
-    () => ({
-      background:
-        'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 22%, rgba(255,255,255,0.78) 56%, rgba(255,255,255,0.4) 82%, rgba(255,255,255,0) 100%)',
-    }),
-    [],
-  );
-
-  const handleSelect = useCallback(
-    (columnIndex: number, nextItemId: PickboxItemId) => {
-      const nextValue = [...mergedValue];
-      nextValue[columnIndex] = nextItemId;
-
-      if (value === undefined) {
-        setInnerValue(nextValue);
+    useEffect(() => {
+      const node = rootRef.current;
+      if (!node || typeof ResizeObserver === 'undefined') {
+        return;
       }
 
-      onValueChange?.(nextValue);
-    },
-    [mergedValue, onValueChange, value],
-  );
+      const observer = new ResizeObserver(() => {
+        measureContainer();
+      });
 
-  return (
-    <div
-      ref={setRefs}
-      className={slots.base({ class: [classNames?.base, className] })}
-      style={style}
-      {...rest}
-    >
-      <div className={slots.columns({ class: classNames?.columns })}>
-        {columns.map((column, columnIndex) => (
-          <ColumnView
-            key={column.id ?? columnIndex}
+      observer.observe(node);
+      return () => {
+        observer.disconnect();
+      };
+    }, [measureContainer]);
+
+    const slots = useMemo(
+      () =>
+        pickbox({
+          size,
+          color,
+          tone,
+        }),
+      [color, size, tone],
+    );
+    const resolvedTone = resolveTone(tone);
+    const maskTopStyle = useMemo(
+      () => ({
+        background:
+          resolvedTone === 'dark'
+            ? 'linear-gradient(180deg, rgba(9,9,11,1) 0%, rgba(9,9,11,0.96) 22%, rgba(9,9,11,0.78) 56%, rgba(9,9,11,0.4) 82%, rgba(9,9,11,0) 100%)'
+            : 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 22%, rgba(255,255,255,0.78) 56%, rgba(255,255,255,0.4) 82%, rgba(255,255,255,0) 100%)',
+      }),
+      [resolvedTone],
+    );
+    const maskBottomStyle = useMemo(
+      () => ({
+        background:
+          resolvedTone === 'dark'
+            ? 'linear-gradient(0deg, rgba(9,9,11,1) 0%, rgba(9,9,11,0.96) 22%, rgba(9,9,11,0.78) 56%, rgba(9,9,11,0.4) 82%, rgba(9,9,11,0) 100%)'
+            : 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 22%, rgba(255,255,255,0.78) 56%, rgba(255,255,255,0.4) 82%, rgba(255,255,255,0) 100%)',
+      }),
+      [resolvedTone],
+    );
+
+    const handleSelect = useCallback(
+      (columnIndex: number, nextItemId: PickboxItemId) => {
+        const nextValue = [...mergedValue];
+        nextValue[columnIndex] = nextItemId;
+
+        if (value === undefined) {
+          setInnerValue(nextValue);
+        }
+
+        onValueChange?.(nextValue);
+      },
+      [mergedValue, onValueChange, value],
+    );
+
+    return (
+      <div
+        ref={setRefs}
+        className={slots.base({ class: [classNames?.base, className] })}
+        style={style}
+        {...rest}
+      >
+        <div className={slots.columns({ class: classNames?.columns })}>
+          {columns.map((column, columnIndex) => (
+            <ColumnView
+              key={column.id ?? columnIndex}
               slots={slots}
               color={color}
-              tone={resolveTone(tone)}
+              tone={resolvedTone}
               size={size}
-            column={column}
-            columnIndex={columnIndex}
-            selectedId={mergedValue[columnIndex] ?? null}
-            estimateSize={resolvedEstimateSize}
-            overscan={overscan}
-            padding={resolvedPadding}
-            scrollEndDelay={scrollEndDelay}
-            classNames={classNames}
-            onSelect={handleSelect}
-            getItemKey={getItemKey}
-            renderItem={renderItem}
-          />
-        ))}
-      </div>
+              column={column}
+              columnIndex={columnIndex}
+              selectedId={mergedValue[columnIndex] ?? null}
+              estimateSize={resolvedEstimateSize}
+              overscan={overscan}
+              padding={resolvedPadding}
+              scrollEndDelay={scrollEndDelay}
+              classNames={classNames}
+              onSelect={handleSelect}
+              getItemKey={getItemKey}
+              renderItem={renderItem}
+            />
+          ))}
+        </div>
 
-      <div
-        className={slots.indicator({ class: classNames?.indicator })}
-        style={{ height: resolvedIndicatorHeight }}
-      />
-      <div
-        className={slots.maskTop({ class: classNames?.maskTop })}
-        style={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          height: '33.3333%',
-          zIndex: 20,
-          pointerEvents: 'none',
-          ...maskTopStyle,
-        }}
-      />
-      <div
-        className={slots.maskBottom({ class: classNames?.maskBottom })}
-        style={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          height: '33.3333%',
-          zIndex: 20,
-          pointerEvents: 'none',
-          ...maskBottomStyle,
-        }}
-      />
-    </div>
-  );
-});
+        <div
+          className={slots.indicator({ class: classNames?.indicator })}
+          style={{ height: resolvedIndicatorHeight }}
+        />
+        <div
+          className={slots.maskTop({ class: classNames?.maskTop })}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            height: '33.3333%',
+            zIndex: 20,
+            pointerEvents: 'none',
+            ...maskTopStyle,
+          }}
+        />
+        <div
+          className={slots.maskBottom({ class: classNames?.maskBottom })}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: '33.3333%',
+            zIndex: 20,
+            pointerEvents: 'none',
+            ...maskBottomStyle,
+          }}
+        />
+      </div>
+    );
+  },
+);
 
 Pickbox.displayName = 'Srcube.Pickbox';

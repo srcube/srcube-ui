@@ -163,32 +163,42 @@ it('keeps selected text style during auto align animation', async () => {
     }>;
   };
 
-  const selectedItem = data.renderColumns[0]?.items.find((item) => item.id === 2);
+  const selectedItem = data.renderColumns[0]?.items.find(
+    (item) => item.id === 2,
+  );
   expect(selectedItem?.className).toContain('font-semibold');
 
   comp.detach();
 });
 
 it('uses dark tone classes when tone is dark', async () => {
-  const comp = renderPickbox({
-    tone: 'dark',
-    columns: [
-      {
-        id: 'month',
-        items: [{ id: 1, label: '1 月' }],
-      },
-    ],
-  });
-
-  await tick();
-
-  const data = comp.data as {
-    $classNames: {
-      base: string;
+  const computed = definition as {
+    computed?: {
+      $classNames?: (data: {
+        size?: 'sm' | 'md' | 'lg';
+        color?:
+          | 'default'
+          | 'primary'
+          | 'secondary'
+          | 'success'
+          | 'warning'
+          | 'danger';
+        tone?: 'default' | 'dark';
+        className?: string;
+        classNames?: Record<string, string | undefined>;
+      }) => {
+        base: string;
+      };
     };
   };
-  expect(data.$classNames.base).toContain('bg-zinc-950');
-  comp.detach();
+
+  const classNames = computed.computed?.$classNames?.({
+    tone: 'dark',
+    size: 'md',
+    color: 'default',
+  });
+
+  expect(classNames?.base ?? '').toContain('bg-zinc-950');
 });
 
 it('cancels pending auto align on touchstart for short swipe', async () => {

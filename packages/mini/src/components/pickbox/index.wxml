@@ -47,11 +47,11 @@
   />
   <view
     class="sr-pickbox__mask-top {{$classNames.maskTop}}"
-    style="position: absolute; left: 0; right: 0; top: 0; height: 33.3333%; z-index: 20; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 22%, rgba(255,255,255,0.78) 56%, rgba(255,255,255,0.4) 82%, rgba(255,255,255,0) 100%);"
+    style="position: absolute; left: 0; right: 0; top: 0; height: 33.3333%; z-index: 20; pointer-events: none; background: {{tone === 'dark' ? 'linear-gradient(180deg, rgba(9,9,11,1) 0%, rgba(9,9,11,0.96) 22%, rgba(9,9,11,0.78) 56%, rgba(9,9,11,0.4) 82%, rgba(9,9,11,0) 100%)' : 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 22%, rgba(255,255,255,0.78) 56%, rgba(255,255,255,0.4) 82%, rgba(255,255,255,0) 100%)'}};"
   />
   <view
     class="sr-pickbox__mask-bottom {{$classNames.maskBottom}}"
-    style="position: absolute; left: 0; right: 0; bottom: 0; height: 33.3333%; z-index: 20; pointer-events: none; background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 22%, rgba(255,255,255,0.78) 56%, rgba(255,255,255,0.4) 82%, rgba(255,255,255,0) 100%);"
+    style="position: absolute; left: 0; right: 0; bottom: 0; height: 33.3333%; z-index: 20; pointer-events: none; background: {{tone === 'dark' ? 'linear-gradient(0deg, rgba(9,9,11,1) 0%, rgba(9,9,11,0.96) 22%, rgba(9,9,11,0.78) 56%, rgba(9,9,11,0.4) 82%, rgba(9,9,11,0) 100%)' : 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.96) 22%, rgba(255,255,255,0.78) 56%, rgba(255,255,255,0.4) 82%, rgba(255,255,255,0) 100%)'}};"
   />
 
   <slot />
