@@ -1,6 +1,4 @@
-import {
-  tv,
-} from '../../shared/tv';
+import { tv } from '../../shared/tv';
 
 export type PopupMotion = 'modal' | 'none';
 export type PopupBackdropTone = 'transparent' | 'opaque' | 'blur';
@@ -75,6 +73,20 @@ export const popup = tv({
       motion: 'modal',
       class: {
         content: 'animate-modal-out',
+      },
+    },
+    {
+      tone: 'dark',
+      backdrop: 'opaque',
+      class: {
+        backdrop: 'bg-zinc-100/12',
+      },
+    },
+    {
+      tone: 'dark',
+      backdrop: 'blur',
+      class: {
+        backdrop: 'bg-zinc-100/12 backdrop-blur-sm',
       },
     },
   ],

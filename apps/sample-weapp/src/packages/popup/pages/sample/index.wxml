@@ -31,7 +31,7 @@
 
   <sr-popup isOpen="{{basicOpen}}" tone="{{tone}}" bind:openchange="handleBasicChange">
     <view slot="header">Basic Popup</view>
-    <view slot="body">This is a basic popup message.</view>
+    <view slot="body" class="min-h-24">This is a basic popup message.</view>
     <view slot="footer" class="flex items-center justify-end gap-2">
       <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="text" bind:tap="closeBasic">Cancel</sr-button>
       <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="closeBasic">Confirm</sr-button>
@@ -40,7 +40,7 @@
 
   <sr-popup isOpen="{{backdropOpen}}" tone="{{tone}}" backdrop="{{backdropValue}}" bind:openchange="handleBackdropChange">
     <view slot="header">Backdrop: {{backdropValue}}</view>
-    <view slot="body">Switch between backdrop styles.</view>
+    <view slot="body" class="min-h-24">Switch between backdrop styles.</view>
     <view slot="footer" class="flex items-center justify-end gap-2">
       <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="text" bind:tap="closeBackdrop">Close</sr-button>
     </view>
@@ -48,7 +48,7 @@
 
   <sr-popup isOpen="{{lockedOpen}}" tone="{{tone}}" isDismissable="{{false}}" bind:openchange="handleLockedChange">
     <view slot="header">Locked Popup</view>
-    <view slot="body">Backdrop clicks are disabled. Use the button to close.</view>
+    <view slot="body" class="min-h-24">Backdrop clicks are disabled. Use the button to close.</view>
     <view slot="footer" class="flex items-center justify-end gap-2">
       <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="text" bind:tap="closeLocked">Close</sr-button>
     </view>
@@ -56,7 +56,7 @@
 
   <sr-popup isOpen="{{noBackdropOpen}}" tone="{{tone}}" hasBackdrop="{{false}}" bind:openchange="handleNoBackdropChange">
     <view slot="header">No Backdrop</view>
-    <view slot="body">Popup without a backdrop.</view>
+    <view slot="body" class="min-h-24">Popup without a backdrop.</view>
     <view slot="footer" class="flex items-center justify-end gap-2">
       <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" variant="text" bind:tap="closeNoBackdrop">Close</sr-button>
     </view>
