@@ -1,4 +1,4 @@
-<app-page title="Input OTP" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Input OTP" description="用于输入一次性验证码，支持分段输入和焦点引导。适合验证和安全确认流程。" tone="{{tone}}" withBack="{{true}}">
   <view class="{{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} pb-safe">
     <view class="p-4 space-y-6">
     <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
