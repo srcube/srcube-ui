@@ -1,4 +1,4 @@
-<app-page title="Popup" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Popup" description="用于在当前页面上方展示分层内容，适合确认操作、快捷操作和轻量详情展示。" tone="{{tone}}" withBack="{{true}}">
   <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Basic</view>
     <view class="mt-3 flex flex-wrap gap-3">
