@@ -1,21 +1,8 @@
-<app-page title="Radio" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Radio" description="用于在一组选项中单选一个，适合偏好设置、模式切换和单选表单。" tone="{{tone}}" withBack="{{true}}">
   <view class="{{surfaceClassName}}">
     <view class="{{titleClassName}}">Colors</view>
-    <view class="{{descriptionClassName}}">button group controller</view>
-    <view class="mt-3 space-y-4">
-      <sr-button-group size="sm" isBlock>
-        <sr-button
-          wx:for="{{colors}}"
-          wx:key="value"
-          class="flex-1"
-          color="{{colorValue === item.value ? 'primary' : 'default'}}"
-          variant="{{colorValue === item.value ? 'solid' : 'flat'}}"
-          data-value="{{item.value}}"
-          bind:tap="handleColorTap"
-        >
-          {{item.label}}
-        </sr-button>
-      </sr-button-group>
+    <view class="{{descriptionClassName}}">color variants</view>
+    <view class="mt-3">
       <sr-radio-group value="{{colorValue}}" tone="{{tone}}" bind:change="handleColorChange" orientation="y" isBlock>
         <sr-radio wx:for="{{colors}}" wx:key="value" value="{{item.value}}" color="{{item.value}}">{{item.label}}</sr-radio>
       </sr-radio-group>

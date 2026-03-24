@@ -1,5 +1,8 @@
-import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
-import type { SampleTone } from '../../../../shared/sample-theme';
+import {
+  attachSampleTone,
+  detachSampleTone,
+} from "../../../../shared/sample-theme-page";
+import type { SampleTone } from "../../../../shared/sample-theme";
 
 Page({
   data: {
