@@ -1,4 +1,4 @@
-<app-page title="Picker" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Picker" description="用于从预设数据中选择值，比如日期、时间和选项。适合约束明确的选择流程。" tone="{{tone}}" withBack="{{true}}">
   <view class="p-4 space-y-6">
     <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Datetime Mode</view>

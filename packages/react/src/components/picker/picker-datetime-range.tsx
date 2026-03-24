@@ -33,6 +33,14 @@ import type {
   PickerMultiValue,
 } from './props';
 
+function resolveRangeMiddleLabel(locale?: string) {
+  if (!locale) {
+    return '至';
+  }
+
+  return String(locale).toLowerCase().startsWith('zh') ? '至' : 'To';
+}
+
 function resolvePickerColor(
   value: PickerDatetimeRangeReactProps['color'],
 ): NonNullable<PickerDatetimeRangeReactProps['color']> {
@@ -233,6 +241,7 @@ export const PickerDatetimeRange = React.forwardRef<
     dateTabText = '日期',
     timeTabText = '时间',
     valueSeparator = ' ~ ',
+    locale,
     className,
     classNames,
     style,
@@ -351,6 +360,10 @@ export const PickerDatetimeRange = React.forwardRef<
         separator: valueSeparator,
       }),
     [committedValue, valueSeparator],
+  );
+  const rangeMiddleLabel = React.useMemo(
+    () => resolveRangeMiddleLabel(locale),
+    [locale],
   );
 
   const slots = React.useMemo(
@@ -561,7 +574,51 @@ export const PickerDatetimeRange = React.forwardRef<
         isLoading={isLoading}
         className={slots.field({ class: classNames?.field })}
         onTap={handleFieldTap}
-      />
+      >
+        {({ className, id: controlId }) => {
+          const emptyStart = !committedValue.start;
+          const emptyEnd = !committedValue.end;
+          const lineBaseClassName =
+            resolvedTone === 'dark' ? 'text-zinc-100' : 'text-slate-900';
+          const mutedClassName =
+            resolvedTone === 'dark' ? 'text-zinc-500' : 'text-slate-400';
+          const separatorClassName =
+            resolvedTone === 'dark' ? 'text-zinc-400' : 'text-slate-500';
+
+          return (
+            <div
+              id={controlId}
+              className={className}
+              aria-label={typeof label === 'string' ? label : 'date time range'}
+            >
+              <div className="relative flex min-h-[calc(var(--field-height,44px)*2)] w-full items-stretch overflow-hidden rounded-[inherit]">
+                <div className="flex min-w-0 flex-1 flex-col justify-center pl-9 pr-3">
+                  <div
+                    className={`flex min-h-[var(--field-height,44px)] items-center border-b border-current/8 text-sm ${emptyStart ? mutedClassName : lineBaseClassName}`}
+                  >
+                    <span className="truncate">
+                      {committedValue.start || placeholder || startTabText}
+                    </span>
+                  </div>
+                  <div
+                    className={`flex min-h-[var(--field-height,44px)] items-center text-sm ${emptyEnd ? mutedClassName : lineBaseClassName}`}
+                  >
+                    <span className="truncate">
+                      {committedValue.end || placeholder || endTabText}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2">
+                  <span className={`text-xs font-medium ${separatorClassName}`}>
+                    {rangeMiddleLabel}
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        }}
+      </Field>
 
       <Drawer
         placement="bottom"
