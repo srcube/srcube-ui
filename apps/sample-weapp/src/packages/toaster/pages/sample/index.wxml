@@ -1,4 +1,4 @@
-<app-page title="Toaster" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Toaster" description="用于在不打断当前流程的情况下展示短暂反馈信息，适合成功提示、警告提示和轻量状态更新。" tone="{{tone}}" withBack="{{true}}">
   <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Toaster Props</view>
 
