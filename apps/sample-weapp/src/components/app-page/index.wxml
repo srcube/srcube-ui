@@ -1,8 +1,12 @@
 <view
-  class="min-h-screen pb-24 pb-safe {{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} {{pageClassName}}"
+  class="min-h-screen pb-safe {{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} {{pageClassName}}"
+  style="padding-bottom: calc(72px + env(safe-area-inset-bottom));"
 >
-  <app-navbar title="{{title}}" tone="{{tone}}" withBack="{{withBack}}" />
-  <view class="{{contentClassName}}">
+  <app-navbar title="{{title}}" tone="{{tone}}" withBack="{{withBack}}" hasSafeTop="{{true}}" />
+  <view class="pt-[calc(56px+env(safe-area-inset-top))] {{contentClassName}}">
+    <view wx:if="{{description || false}}" class="-mt-1 text-sm {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
+      {{description}}
+    </view>
     <slot />
   </view>
 

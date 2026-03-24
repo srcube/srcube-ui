@@ -13,7 +13,7 @@ export const navbarMiniProps = {
   tone: { type: null, value: 'default' },
   size: { type: null, value: 'md' },
   isBordered: { type: Boolean, value: true },
-  hasSafeTop: { type: Boolean, value: false },
+  hasSafeTop: { type: Boolean, value: true },
   titleAlign: { type: null, value: 'center' },
   withBack: { type: Boolean, value: false },
   className: { type: String, value: '' },

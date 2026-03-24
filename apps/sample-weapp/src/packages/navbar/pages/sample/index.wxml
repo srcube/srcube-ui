@@ -1,4 +1,4 @@
-<app-page title="Navbar" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Navbar" description="用于在统一头部中承载页面导航、品牌信息和顶部操作，适合主要导航和上下文控制。" tone="{{tone}}" withBack="{{true}}">
   <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Basic</view>
     <sr-navbar

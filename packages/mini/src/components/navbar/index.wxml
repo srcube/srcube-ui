@@ -1,19 +1,21 @@
 <view class="sr-navbar {{$classNames.base}}" style="{{style}}">
-  <view class="sr-navbar__inner {{$classNames.inner}}">
-    <view class="sr-navbar__start {{$classNames.start}}">
+  <view class="sr-navbar__inner {{$classNames.inner}}" style="min-height: {{_contentHeight}}px; padding-left: {{_horizontalInset}}px; padding-right: {{_horizontalInset}}px;">
+    <view class="sr-navbar__start {{$classNames.start}}" style="min-width: {{_horizontalInset}}px;">
       <view
         wx:if="{{withBack}}"
         class="sr-navbar__back {{$classNames.back}}"
+        style="width: {{_horizontalInset}}px;"
         bind:tap="handleBackTap"
       >
         <view class="sr-navbar__back-icon {{$classNames.iBack}}" />
       </view>
+      <view wx:else class="sr-navbar__placeholder {{$classNames.placeholder}}" style="width: {{_horizontalInset}}px;" />
       <slot name="start" />
     </view>
     <view class="sr-navbar__title {{$classNames.title}}">
       {{title}}
     </view>
-    <view class="sr-navbar__end {{$classNames.end}}">
+    <view class="sr-navbar__end {{$classNames.end}}" style="min-width: {{_horizontalInset}}px;">
       <slot name="end" />
     </view>
   </view>

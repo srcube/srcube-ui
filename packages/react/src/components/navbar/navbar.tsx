@@ -90,7 +90,12 @@ export const Navbar = React.forwardRef<HTMLDivElement, NavbarReactProps>(
       >
         <div className={slots.inner({ class: classNames?.inner })}>
           <div className={slots.start({ class: classNames?.start })}>
-            {resolvedStartContent}
+            {resolvedStartContent ?? (
+              <span
+                aria-hidden
+                className={slots.placeholder({ class: classNames?.placeholder })}
+              />
+            )}
           </div>
           <div className={slots.title({ class: classNames?.title })}>{title}</div>
           <div className={slots.end({ class: classNames?.end })}>

@@ -34,6 +34,10 @@ Component({
   },
 
   methods: {
+    handleBack() {
+      // back is handled by sr-navbar internally when possible
+    },
+
     handleOpenToneSheet() {
       this.setData({
         isToneSheetOpen: true,

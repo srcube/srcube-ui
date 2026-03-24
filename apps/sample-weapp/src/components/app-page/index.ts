@@ -15,6 +15,10 @@ Component({
       type: Boolean,
       value: false,
     },
+    description: {
+      type: String,
+      value: '',
+    },
     pageClassName: {
       type: String,
       value: '',
