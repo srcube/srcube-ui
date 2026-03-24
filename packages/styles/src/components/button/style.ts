@@ -1,17 +1,25 @@
 import { tv, type VariantClasses, type VariantProps } from '../../shared/tv';
 
+const semanticSolidText = {
+  primary: { light: 'text-white', dark: 'text-black' },
+  secondary: { light: 'text-white', dark: 'text-black' },
+  success: { light: 'text-white', dark: 'text-black' },
+  warning: { light: 'text-white', dark: 'text-black' },
+  danger: { light: 'text-white', dark: 'text-black' },
+} as const;
+
 const semanticToneVariants = [
   {
     color: 'primary',
     tone: 'light',
     variant: 'solid',
-    class: { base: 'bg-primary text-white active:bg-primary-600' },
+    class: { base: `bg-primary ${semanticSolidText.primary.light} active:bg-primary-600` },
   },
   {
     color: 'primary',
     tone: 'dark',
     variant: 'solid',
-    class: { base: 'bg-primary-600 text-white active:bg-primary-700' },
+    class: { base: `bg-primary-600 ${semanticSolidText.primary.dark} active:bg-primary-700` },
   },
   {
     color: 'primary',
@@ -47,13 +55,13 @@ const semanticToneVariants = [
     color: 'secondary',
     tone: 'light',
     variant: 'solid',
-    class: { base: 'bg-secondary text-white active:bg-secondary-600' },
+    class: { base: `bg-secondary ${semanticSolidText.secondary.light} active:bg-secondary-600` },
   },
   {
     color: 'secondary',
     tone: 'dark',
     variant: 'solid',
-    class: { base: 'bg-secondary-600 text-white active:bg-secondary-700' },
+    class: { base: `bg-secondary-600 ${semanticSolidText.secondary.dark} active:bg-secondary-700` },
   },
   {
     color: 'secondary',
@@ -89,13 +97,13 @@ const semanticToneVariants = [
     color: 'success',
     tone: 'light',
     variant: 'solid',
-    class: { base: 'bg-success text-white active:bg-success-600' },
+    class: { base: `bg-success ${semanticSolidText.success.light} active:bg-success-600` },
   },
   {
     color: 'success',
     tone: 'dark',
     variant: 'solid',
-    class: { base: 'bg-success-600 text-white active:bg-success-700' },
+    class: { base: `bg-success-600 ${semanticSolidText.success.dark} active:bg-success-700` },
   },
   {
     color: 'success',
@@ -131,13 +139,13 @@ const semanticToneVariants = [
     color: 'warning',
     tone: 'light',
     variant: 'solid',
-    class: { base: 'bg-warning text-white active:bg-warning-600' },
+    class: { base: `bg-warning ${semanticSolidText.warning.light} active:bg-warning-600` },
   },
   {
     color: 'warning',
     tone: 'dark',
     variant: 'solid',
-    class: { base: 'bg-warning-600 text-black active:bg-warning-700' },
+    class: { base: `bg-warning-600 ${semanticSolidText.warning.dark} active:bg-warning-700` },
   },
   {
     color: 'warning',
@@ -173,13 +181,13 @@ const semanticToneVariants = [
     color: 'danger',
     tone: 'light',
     variant: 'solid',
-    class: { base: 'bg-danger text-white active:bg-danger-600' },
+    class: { base: `bg-danger ${semanticSolidText.danger.light} active:bg-danger-600` },
   },
   {
     color: 'danger',
     tone: 'dark',
     variant: 'solid',
-    class: { base: 'bg-danger-600 text-white active:bg-danger-700' },
+    class: { base: `bg-danger-600 ${semanticSolidText.danger.dark} active:bg-danger-700` },
   },
   {
     color: 'danger',

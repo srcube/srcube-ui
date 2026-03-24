@@ -1,4 +1,4 @@
-<app-page title="Button" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Button" description="用于触发操作，支持统一的样式、尺寸和状态。适合主流程操作、次级操作和成组按钮。" tone="{{tone}}" withBack="{{true}}">
   <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Colors</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color + variant=solid + tone={{buttonTone}}</view>

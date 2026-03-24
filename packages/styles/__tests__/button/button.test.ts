@@ -31,6 +31,20 @@ it('builds default dark tone button classes', () => {
   expect(base).toContain('text-white');
 });
 
+it('uses semantic solid foreground mapping for button tones', () => {
+  const primaryLight = button({ color: 'primary', tone: 'light', variant: 'solid' }).base();
+  const primaryDark = button({ color: 'primary', tone: 'dark', variant: 'solid' }).base();
+  const warningLight = button({ color: 'warning', tone: 'light', variant: 'solid' }).base();
+  const warningDark = button({ color: 'warning', tone: 'dark', variant: 'solid' }).base();
+  const dangerDark = button({ color: 'danger', tone: 'dark', variant: 'solid' }).base();
+
+  expect(primaryLight).toContain('text-white');
+  expect(primaryDark).toContain('text-black');
+  expect(warningLight).toContain('text-white');
+  expect(warningDark).toContain('text-black');
+  expect(dangerDark).toContain('text-black');
+});
+
 it('marks disabled buttons as not interactive', () => {
   const slots = button({
     color: 'primary',
