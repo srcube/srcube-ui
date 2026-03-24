@@ -1,4 +1,4 @@
-<app-page title="Stepper" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Stepper" description="用于通过紧凑的加减控件调整数值，适合数量、计数和有范围约束的数字输入。" tone="{{tone}}" withBack="{{true}}">
   <view class="{{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} pb-safe">
     <view class="p-4 space-y-6">
     <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">

@@ -1,19 +1,15 @@
-import {
-  tv,
-  type VariantClasses,
-  type VariantProps,
-} from '../../shared/tv';
+import { tv, type VariantClasses, type VariantProps } from "../../shared/tv";
 
 export const stepperStyle = tv({
   slots: {
-    base: '',
+    base: "",
     decrementButton:
-      'h-full min-w-0 shrink-0 rounded-none px-0 font-semibold leading-none',
+      "h-full min-w-0 shrink-0 rounded-none px-0 font-semibold leading-none",
     incrementButton:
-      'h-full min-w-0 shrink-0 rounded-none px-0 font-semibold leading-none',
-    valueWrap: 'flex min-w-0 flex-1 items-center px-2',
+      "h-full min-w-0 shrink-0 rounded-none px-0 font-semibold leading-none",
+    valueWrap: "flex min-w-0 flex-1 items-center px-2",
     input:
-      'block w-full border-none bg-transparent text-center text-inherit outline-none tabular-nums placeholder:text-slate-400',
+      "block w-full border-none bg-transparent text-center text-inherit outline-none tabular-nums placeholder:text-slate-400",
   },
   variants: {
     variant: {
@@ -33,24 +29,24 @@ export const stepperStyle = tv({
     tone: {
       default: {},
       dark: {
-        input: 'placeholder:text-zinc-500',
+        input: "placeholder:text-zinc-400 text-zinc-100",
       },
     },
     size: {
       sm: {
-        decrementButton: 'w-7 text-sm',
-        incrementButton: 'w-7 text-sm',
-        input: 'text-sm',
+        decrementButton: "w-7 text-sm",
+        incrementButton: "w-7 text-sm",
+        input: "text-sm",
       },
       md: {
-        decrementButton: 'w-8 text-base',
-        incrementButton: 'w-8 text-base',
-        input: 'text-base',
+        decrementButton: "w-8 text-base",
+        incrementButton: "w-8 text-base",
+        input: "text-base",
       },
       lg: {
-        decrementButton: 'w-9 text-lg',
-        incrementButton: 'w-9 text-lg',
-        input: 'text-lg',
+        decrementButton: "w-9 text-lg",
+        incrementButton: "w-9 text-lg",
+        input: "text-lg",
       },
     },
     radius: {
@@ -62,27 +58,27 @@ export const stepperStyle = tv({
     },
     isDisabled: {
       true: {
-        decrementButton: 'pointer-events-none',
-        incrementButton: 'pointer-events-none',
-        input: 'cursor-not-allowed',
+        decrementButton: "pointer-events-none",
+        incrementButton: "pointer-events-none",
+        input: "cursor-not-allowed",
       },
       false: {},
     },
     isReadOnly: {
       true: {
-        decrementButton: 'pointer-events-none',
-        incrementButton: 'pointer-events-none',
-        input: 'cursor-default',
+        decrementButton: "pointer-events-none",
+        incrementButton: "pointer-events-none",
+        input: "cursor-default",
       },
       false: {},
     },
   },
   defaultVariants: {
-    variant: 'default',
-    color: 'default',
-    tone: 'default',
-    size: 'md',
-    radius: 'md',
+    variant: "default",
+    color: "default",
+    tone: "default",
+    size: "md",
+    radius: "md",
     isDisabled: false,
     isReadOnly: false,
   },
