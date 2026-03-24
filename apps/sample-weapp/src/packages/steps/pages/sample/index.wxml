@@ -1,4 +1,4 @@
-<app-page title="Steps" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Steps" description="用于展示多阶段流程的当前进度和状态，适合引导流程、下单流程和多步骤任务。" tone="{{tone}}" withBack="{{true}}">
   <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Size</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">global size control</view>
