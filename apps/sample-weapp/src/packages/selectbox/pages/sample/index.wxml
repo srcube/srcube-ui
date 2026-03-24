@@ -1,4 +1,4 @@
-<app-page title="Selectbox" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Selectbox" description="用于构建更丰富的选择交互，支持受控值展示和选项管理。适合需要更清晰反馈的表单场景。" tone="{{tone}}" withBack="{{true}}">
   <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Controls</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">color + size + selectionMode + selectIcon</view>
