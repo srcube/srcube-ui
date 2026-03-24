@@ -1,4 +1,4 @@
-<app-page title="Textarea" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Textarea" description="用于收集较长的多行文本输入，支持清晰的状态和反馈。适合评论、备注和详细内容提交。" tone="{{tone}}" withBack="{{true}}">
   <view class="{{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} pb-safe">
     <view class="p-4 space-y-6">
     <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">

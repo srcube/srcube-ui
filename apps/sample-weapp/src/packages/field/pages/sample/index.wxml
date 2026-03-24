@@ -1,4 +1,4 @@
-<app-page title="Field" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Field" description="用于把标签、提示、校验和控件内容组合成统一的表单项容器，适合规范化结构化录入。" tone="{{tone}}" withBack="{{true}}">
   <view class="{{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} pb-safe">
     <view class="p-4 space-y-6">
     <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
