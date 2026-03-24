@@ -1,5 +1,5 @@
-<app-page title="Listbox" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+<app-page title="Listbox" description="用于以列表方式展示可选项，适合菜单、选项选择和更清晰的选择交互。" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Sticky Vertical</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">@tanstack/virtual-core + rangeExtractor (orientation=y)</view>
     <sr-listbox
@@ -16,7 +16,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Sticky Horizontal</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">orientation=x + sticky section item</view>
     <sr-listbox
@@ -33,7 +33,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Virtualized List</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">plain mode (1000 items)</view>
     <sr-listbox
@@ -50,7 +50,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Empty</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">locale=zh-CN</view>
     <sr-listbox

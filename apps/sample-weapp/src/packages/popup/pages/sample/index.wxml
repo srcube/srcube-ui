@@ -1,12 +1,12 @@
-<app-page title="Popup" description="用于在当前页面上方展示分层内容，适合确认操作、快捷操作和轻量详情展示。" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+<app-page title="Popup" description="用于在当前页面上方展示分层内容，适合确认操作、快捷操作和轻量详情展示。" tone="{{tone}}" withBack="{{true}}" contentClassName="space-y-6">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Basic</view>
     <view class="mt-3 flex flex-wrap gap-3">
       <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="openBasic">Open Popup</sr-button>
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Backdrop</view>
     <view class="mt-3 flex flex-wrap gap-2">
       <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" data-backdrop="opaque" variant="outline" bind:tap="openBackdrop">Opaque</sr-button>
@@ -15,14 +15,14 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Non Dismissable</view>
     <view class="mt-3 flex flex-wrap gap-3">
       <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="openLocked">Open Locked</sr-button>
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">No Backdrop</view>
     <view class="mt-3 flex flex-wrap gap-3">
       <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="openNoBackdrop">Open Popup</sr-button>

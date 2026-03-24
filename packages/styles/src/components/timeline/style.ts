@@ -19,6 +19,7 @@ export const timelineStyle = tv({
     lineStart: "h-0 w-px bg-slate-200",
     lineEnd: "w-px flex-1 bg-slate-200",
     content: "min-w-0 flex-1 pt-0",
+    contentSpacer: "w-full shrink-0",
     title: "text-sm font-medium text-slate-900",
     time: "mt-0.5 text-xs text-slate-400",
     description: "mt-1 text-sm text-slate-500",
@@ -27,11 +28,11 @@ export const timelineStyle = tv({
     tone: {
       default: {},
       dark: {
-        lineStart: "bg-zinc-800",
-        lineEnd: "bg-zinc-800",
+        lineStart: "bg-zinc-700",
+        lineEnd: "bg-zinc-700",
         title: "text-zinc-100",
-        time: "text-zinc-500",
-        description: "text-zinc-400",
+        time: "text-zinc-400",
+        description: "text-zinc-300",
       },
     },
     size: {
@@ -39,6 +40,7 @@ export const timelineStyle = tv({
         indicatorWrap: "w-5",
         node: "h-4 w-4",
         icon: "text-[10px]",
+        contentSpacer: "h-3",
         title: "text-xs",
         time: "text-[11px]",
         description: "text-xs",
@@ -47,6 +49,7 @@ export const timelineStyle = tv({
         indicatorWrap: "w-6",
         node: "h-5 w-5",
         icon: "text-xs",
+        contentSpacer: "h-4",
         title: "text-sm",
         time: "text-xs",
         description: "text-sm",
@@ -55,6 +58,7 @@ export const timelineStyle = tv({
         indicatorWrap: "w-7",
         node: "h-6 w-6",
         icon: "text-sm",
+        contentSpacer: "h-5",
         title: "text-base",
         time: "text-sm",
         description: "text-base",
@@ -116,7 +120,7 @@ export const timelineStyle = tv({
       tone: "dark",
       color: "default",
       class: {
-        node: "border-zinc-700 bg-zinc-700",
+        node: "border-zinc-600 bg-zinc-600 text-white",
         title: "text-zinc-100",
       },
     },
@@ -152,8 +156,8 @@ export const timelineStyle = tv({
       tone: "dark",
       lineStyle: "dashed",
       class: {
-        lineStart: "border-zinc-700 bg-transparent",
-        lineEnd: "border-zinc-700 bg-transparent",
+        lineStart: "border-zinc-600 bg-transparent",
+        lineEnd: "border-zinc-600 bg-transparent",
       },
     },
     {
@@ -253,5 +257,5 @@ export const timelineStyle = tv({
 export type TimelineVariants = VariantProps<typeof timelineStyle>;
 export type TimelineClasses = VariantClasses<typeof timelineStyle>;
 export type TimelineClassNames = TimelineClasses;
-export type TimelineReactClassNames = TimelineClassNames;
-export type TimelineMiniClassNames = TimelineClassNames;
+export interface TimelineReactClassNames extends TimelineClassNames {}
+export interface TimelineMiniClassNames extends TimelineClassNames {}

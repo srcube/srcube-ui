@@ -1,5 +1,5 @@
-<app-page title="Swipe Action" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+<app-page title="Swipe Action" description="用于在列表项上通过滑动手势展示次级操作，适合收件箱、管理列表和节省空间的操作场景。" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Basic</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">左右滑动揭示动作按钮</view>
 
@@ -12,7 +12,7 @@
     <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Last Action: {{lastAction}}</view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Controlled</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">openDirection 受控模式</view>
 
@@ -31,7 +31,7 @@
     <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Open Direction: {{controlledDirection}}</view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Sizes</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">sm / md / lg</view>
     <view class="mt-3 space-y-3">
@@ -41,7 +41,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">States</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">disabled / custom action style</view>
 

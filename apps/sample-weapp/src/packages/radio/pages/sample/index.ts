@@ -35,7 +35,7 @@ Page({
       tone,
       surfaceClassName:
         tone === "dark"
-          ? "rounded-2xl bg-zinc-900 p-4 shadow-sm shadow-black/20"
+          ? "rounded-2xl border border-zinc-800 bg-black p-4 shadow-sm shadow-black/30"
           : "rounded-2xl bg-white p-4 shadow-sm",
       titleClassName:
         tone === "dark"
@@ -67,16 +67,6 @@ Page({
   },
   handleSizeChange(e: WechatMiniprogram.CustomEvent) {
     const { value } = e.detail || {};
-    if (!value) return;
-    this.setData({ sizeValue: value });
-  },
-  handleColorTap(e: WechatMiniprogram.TouchEvent) {
-    const value = e.currentTarget.dataset.value as string | undefined;
-    if (!value) return;
-    this.setData({ colorValue: value });
-  },
-  handleSizeTap(e: WechatMiniprogram.TouchEvent) {
-    const value = e.currentTarget.dataset.value as string | undefined;
     if (!value) return;
     this.setData({ sizeValue: value });
   },

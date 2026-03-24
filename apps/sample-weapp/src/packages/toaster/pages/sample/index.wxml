@@ -1,5 +1,5 @@
 <app-page title="Toaster" description="用于在不打断当前流程的情况下展示短暂反馈信息，适合成功提示、警告提示和轻量状态更新。" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Toaster Props</view>
 
     <view class="mt-3 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">classNames / style</view>
@@ -25,7 +25,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">ToastOptions</view>
 
     <view class="mt-3 flex flex-wrap gap-2">
@@ -47,7 +47,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Registry API</view>
 
     <view class="mt-3 flex flex-wrap gap-2">

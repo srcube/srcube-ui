@@ -14,47 +14,15 @@ import {
 } from 'react';
 import type {
   PickboxColumn,
-  PickboxItem,
   PickboxItemId,
   PickboxReactProps,
   PickboxValue,
 } from './props';
-
-function getDefaultColumnValue(column: PickboxColumn): PickboxItemId | null {
-  const firstEnabled = column.items.find((item) => !item.isDisabled);
-  return firstEnabled?.id ?? column.items[0]?.id ?? null;
-}
-
-function ensurePickboxValue(
-  columns: PickboxColumn[],
-  input?: PickboxValue,
-): PickboxValue {
-  return columns.map(
-    (column, index) => input?.[index] ?? getDefaultColumnValue(column),
-  );
-}
-
-function resolveSelectedIndex(
-  items: PickboxItem[],
-  selectedId: PickboxItemId | null,
-) {
-  if (items.length === 0) {
-    return -1;
-  }
-
-  if (selectedId == null) {
-    const firstEnabledIndex = items.findIndex((item) => !item.isDisabled);
-    return firstEnabledIndex >= 0 ? firstEnabledIndex : 0;
-  }
-
-  const currentIndex = items.findIndex((item) => item.id === selectedId);
-  if (currentIndex >= 0) {
-    return currentIndex;
-  }
-
-  const firstEnabledIndex = items.findIndex((item) => !item.isDisabled);
-  return firstEnabledIndex >= 0 ? firstEnabledIndex : 0;
-}
+import {
+  ensurePickboxValue,
+  resolveNearestEnabledIndex,
+  resolveSelectedIndex,
+} from './virtual-core';
 
 function resolveDefaultMetricBySize(size: PickboxReactProps['size']) {
   if (size === 'sm') {
@@ -287,22 +255,11 @@ function ColumnView({
     const viewportCenter =
       scrollElement.scrollTop + scrollElement.clientHeight / 2;
 
-    let nearestIndex = -1;
-    let nearestDistance = Number.POSITIVE_INFINITY;
-
-    for (const virtualItem of visibleItems) {
-      const item = column.items[virtualItem.index];
-      if (!item || item.isDisabled) {
-        continue;
-      }
-
-      const itemCenter = virtualItem.start + virtualItem.size / 2;
-      const distance = Math.abs(itemCenter - viewportCenter);
-      if (distance < nearestDistance) {
-        nearestDistance = distance;
-        nearestIndex = virtualItem.index;
-      }
-    }
+    const nearestIndex = resolveNearestEnabledIndex({
+      items: column.items,
+      virtualItems: visibleItems,
+      viewportCenter,
+    });
 
     if (nearestIndex < 0) {
       return;

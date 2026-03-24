@@ -72,6 +72,33 @@ function createColumns(): PickboxMiniColumn[] {
   ];
 }
 
+function createVirtualColumns(): PickboxMiniColumn[] {
+  return [
+    {
+      id: 'hour',
+      items: Array.from({ length: 240 }, (_, index) => ({
+        id: index,
+        label: `${index.toString().padStart(3, '0')} 时段`,
+      })),
+    },
+    {
+      id: 'minute',
+      items: Array.from({ length: 1000 }, (_, index) => ({
+        id: index,
+        label: `${index.toString().padStart(4, '0')} 分刻`,
+        isDisabled: index % 13 === 0,
+      })),
+    },
+    {
+      id: 'slot',
+      items: Array.from({ length: 180 }, (_, index) => ({
+        id: `slot-${index}`,
+        label: `档位 ${index + 1}`,
+      })),
+    },
+  ];
+}
+
 Page({
   data: {
     tone: 'default' as SampleTone,
@@ -82,6 +109,9 @@ Page({
     activeColor: 'default' as PickboxColor,
     colorValue: [2000, 1, 1] as PickboxSampleValue,
     colorValueText: formatPickboxValue([2000, 1, 1]),
+    virtualColumns: createVirtualColumns(),
+    virtualValue: [96, 321, 'slot-42'] as PickboxSampleValue,
+    virtualValueText: formatPickboxValue([96, 321, 'slot-42']),
     colorGroups: pickboxColorGroups,
   },
 
@@ -120,6 +150,17 @@ Page({
     this.setData({
       colorValue: event.detail.value,
       colorValueText: formatPickboxValue(event.detail.value),
+    });
+  },
+
+  handleVirtualValueChange(
+    event: WechatMiniprogram.CustomEvent<{
+      value: Array<string | number | null>;
+    }>,
+  ) {
+    this.setData({
+      virtualValue: event.detail.value,
+      virtualValueText: formatPickboxValue(event.detail.value),
     });
   },
 

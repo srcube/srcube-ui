@@ -1,0 +1,10 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "app-page": "../../../../components/app-page/index",
+    "contrastbox": "../../../../components/contrastbox/index"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "Contrastbox",
+  "backgroundColor": "#ffffff"
+}

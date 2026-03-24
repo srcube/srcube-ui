@@ -80,7 +80,7 @@
     },
     {
       "root": "packages/pickbox",
-      "pages": ["pages/sample/index"]
+      "pages": ["pages/sample/index", "pages/lab/index"]
     },
     {
       "root": "packages/picker",
@@ -136,6 +136,10 @@
     },
     {
       "root": "packages/textarea",
+      "pages": ["pages/sample/index"]
+    },
+    {
+      "root": "packages/contrastbox",
       "pages": ["pages/sample/index"]
     }
   ],

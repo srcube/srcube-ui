@@ -5,6 +5,10 @@
       wx:for-item="column"
       wx:key="id"
       class="sr-pickbox__column {{$classNames.column}}"
+      bindtouchstart="handleColumnTouchStart"
+      bindtouchmove="handleColumnTouchMove"
+      bindtouchend="handleColumnTouchEnd"
+      bindtouchcancel="handleColumnTouchCancel"
     >
       <scroll-view
         class="sr-pickbox__column-scroll {{$classNames.columnScroll}}"
@@ -17,10 +21,6 @@
         binddragstart="handleColumnDragStart"
         binddragging="handleColumnDragging"
         binddragend="handleColumnDragEnd"
-        bindtouchstart="handleColumnTouchStart"
-        bindtouchmove="handleColumnTouchMove"
-        bindtouchend="handleColumnTouchEnd"
-        bindtouchcancel="handleColumnTouchCancel"
         bindscroll="handleColumnScroll"
       >
         <view

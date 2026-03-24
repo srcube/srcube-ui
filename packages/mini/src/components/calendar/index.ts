@@ -942,28 +942,10 @@ UIComponent({
       const data = this.data as CalendarMiniData;
       const context = resolveCalendarContext(data);
       const nextValue = resolvePickerValue(event.detail?.value, context.bounds);
-      const nextMonthDate = new Date(
-        Number(nextValue[0]),
-        Number(nextValue[1]) - 1,
-        1,
-      );
-      const nextMonth = clampMonth(nextMonthDate, context.bounds);
-      const nextMonthKey = toMonthKey(nextMonth);
-      const nextScrollTop = resolveVisibleMonthOffset(
-        context.series,
-        nextMonthKey,
-      );
-      const changed = nextMonthKey !== data._visibleMonth;
 
       this.setData({
-        _pickerValue: [nextMonth.getFullYear(), nextMonth.getMonth() + 1],
-        _visibleMonth: nextMonthKey,
-        _scrollTop: nextScrollTop,
+        _pickerValue: [Number(nextValue[0]), Number(nextValue[1])],
       } satisfies Partial<CalendarMiniState>);
-
-      if (changed) {
-        this.triggerEvent('monthchange', { month: nextMonthKey });
-      }
     },
 
     closePickerAndApply() {

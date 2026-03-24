@@ -1,11 +1,18 @@
 <view
-  class="min-h-screen pb-safe {{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} {{pageClassName}}"
+  class="min-h-screen pb-safe {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50' : 'bg-slate-100 text-slate-900'}} {{pageClassName}}"
   style="padding-bottom: calc(72px + env(safe-area-inset-bottom));"
 >
   <app-navbar title="{{title}}" tone="{{tone}}" withBack="{{withBack}}" hasSafeTop="{{true}}" />
-  <view class="pt-[calc(56px+env(safe-area-inset-top))] {{contentClassName}}">
-    <view wx:if="{{description || false}}" class="-mt-1 text-sm {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
-      {{description}}
+
+  <view
+    class="px-4 py-4 {{contentClassName}}"
+    style="padding-top: calc(env(safe-area-inset-top) + var(--navbar-height) + 16px);"
+  >
+    <view wx:if="{{description || false}}" class="space-y-3">
+      <view class="text-sm {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
+        {{description}}
+      </view>
+      <view class="text-base font-semibold {{tone === 'dark' ? 'text-zinc-100' : 'text-slate-900'}}">组件预览</view>
     </view>
     <slot />
   </view>

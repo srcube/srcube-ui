@@ -8,6 +8,7 @@ function App() {
     { title: 'Avatar', to: '/avatar' as const },
     { title: 'Button', to: '/button' as const },
     { title: 'Calendar', to: '/calendar' as const },
+    { title: 'Calendar Lab', to: '/calendar-lab' as const },
     { title: 'Card', to: '/card' as const },
     { title: 'Checkbox', to: '/checkbox' as const },
     { title: 'Collapse', to: '/collapse' as const },

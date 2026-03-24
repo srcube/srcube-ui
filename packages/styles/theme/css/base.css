@@ -4,5 +4,6 @@
     --default-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-animation-dely: 0s;
     --default-animation-delay: 0s;
+    --navbar-height: 48px;
   }
 }

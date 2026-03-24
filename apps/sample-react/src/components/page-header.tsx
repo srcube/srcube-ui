@@ -10,6 +10,6 @@ export default function PageHeader({
   tone = 'default',
 }: PageHeaderProps) {
   return (
-    <Navbar className="sticky top-0 z-20" title={title} tone={tone} withBack />
+    <Navbar className="fixed inset-x-0 top-0 z-20" title={title} tone={tone} withBack />
   );
 }

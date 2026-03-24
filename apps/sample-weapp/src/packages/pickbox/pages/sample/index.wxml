@@ -1,5 +1,5 @@
-<app-page title="Pickbox" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+<app-page title="Pickbox" description="用于在紧凑容器中处理多列和结构化选择，适合联动选择和分层选项集合。" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Multi Column Picker</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">多列虚拟列表 + 中心指示器 + 滚动结束自动对齐</view>
 
@@ -17,7 +17,7 @@
     <view class="mt-3 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Selected: {{valueText}}</view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Colors</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">使用 2 组 sm ButtonGroup 切换颜色（default=100，语义色=50）</view>
 
@@ -54,7 +54,25 @@
     <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Color: {{activeColor}} / Selected: {{colorValueText}}</view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Virtual Columns</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">touch-driven + virtual window，长列只渲染中心附近窗口，保留正式 Pickbox 样式</view>
+
+    <sr-pickbox
+      className="mt-3 h-72 rounded-2xl border {{tone === 'dark' ? 'border-zinc-800' : 'border-slate-200'}}"
+      tone="{{tone}}"
+      columns="{{virtualColumns}}"
+      value="{{virtualValue}}"
+      estimateSize="44"
+      overscan="6"
+      indicatorHeight="44"
+      bind:valuechange="handleVirtualValueChange"
+    />
+
+    <view class="mt-3 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Selected: {{virtualValueText}}</view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Sizes</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">sm / md / lg 高度由 size 决定（不额外覆盖 height）</view>
 

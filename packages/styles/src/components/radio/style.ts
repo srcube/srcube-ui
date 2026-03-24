@@ -38,14 +38,14 @@ export const radio = tv({
         radio: "size-4",
         iconWrapper: "size-2",
         iDefault: "size-2",
-        _iLoading: "size-3.5",
+        _iLoading: "size-2.5",
         content: "text-sm",
       },
       md: {
         radio: "size-5",
         iconWrapper: "size-2.5",
         iDefault: "size-2.5",
-        _iLoading: "size-3.5",
+        _iLoading: "size-3",
         content: "text-base",
       },
       lg: {
@@ -97,62 +97,62 @@ export const radio = tv({
     {
       color: "default",
       tone: "default",
-      class: { iconWrapper: "text-slate-700" },
+      class: { iconWrapper: "text-slate-700", _iLoading: "text-slate-700" },
     },
     {
       color: "default",
       tone: "dark",
-      class: { iconWrapper: "text-zinc-100" },
+      class: { iconWrapper: "text-zinc-100", _iLoading: "text-zinc-100" },
     },
     {
       color: "primary",
       tone: "default",
-      class: { iconWrapper: "text-primary" },
+      class: { iconWrapper: "text-primary", _iLoading: "text-primary" },
     },
     {
       color: "primary",
       tone: "dark",
-      class: { iconWrapper: "text-primary-600" },
+      class: { iconWrapper: "text-primary-300", _iLoading: "text-primary-300" },
     },
     {
       color: "secondary",
       tone: "default",
-      class: { iconWrapper: "text-secondary" },
+      class: { iconWrapper: "text-secondary", _iLoading: "text-secondary" },
     },
     {
       color: "secondary",
       tone: "dark",
-      class: { iconWrapper: "text-secondary-600" },
+      class: { iconWrapper: "text-secondary-300", _iLoading: "text-secondary-300" },
     },
     {
       color: "success",
       tone: "default",
-      class: { iconWrapper: "text-success" },
+      class: { iconWrapper: "text-success", _iLoading: "text-success" },
     },
     {
       color: "success",
       tone: "dark",
-      class: { iconWrapper: "text-success-600" },
+      class: { iconWrapper: "text-success-300", _iLoading: "text-success-300" },
     },
     {
       color: "warning",
       tone: "default",
-      class: { iconWrapper: "text-warning" },
+      class: { iconWrapper: "text-warning", _iLoading: "text-warning" },
     },
     {
       color: "warning",
       tone: "dark",
-      class: { iconWrapper: "text-warning-600" },
+      class: { iconWrapper: "text-warning-300", _iLoading: "text-warning-300" },
     },
     {
       color: "danger",
       tone: "default",
-      class: { iconWrapper: "text-danger" },
+      class: { iconWrapper: "text-danger", _iLoading: "text-danger" },
     },
     {
       color: "danger",
       tone: "dark",
-      class: { iconWrapper: "text-danger-600" },
+      class: { iconWrapper: "text-danger-300", _iLoading: "text-danger-300" },
     },
     {
       color: "default",
@@ -228,7 +228,7 @@ export const radio = tv({
     },
     {
       isLoading: true,
-      class: { _iLoading: "opacity-80" },
+      class: { _iLoading: "opacity-80 animate-spin" },
     },
   ],
   defaultVariants: {

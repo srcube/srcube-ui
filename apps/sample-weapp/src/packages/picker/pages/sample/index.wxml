@@ -1,6 +1,6 @@
 <app-page title="Picker" description="用于从预设数据中选择值，比如日期、时间和选项。适合约束明确的选择流程。" tone="{{tone}}" withBack="{{true}}">
   <view class="p-4 space-y-6">
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Datetime Mode</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">datetime / date / time</view>
 
@@ -40,7 +40,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Size</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
         同步到 Drawer title、Pickbox/Selectbox 与 footer button
@@ -82,7 +82,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Single</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
         Field + Drawer(bottom) + Pickbox，dismiss=取消
@@ -104,7 +104,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Clearable</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
         基础 Picker 支持 isClearable，选中后可一键清空
@@ -127,7 +127,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Cascader Columns</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
         使用 options 构建级联多列（替代原 multiple 示例）
@@ -149,7 +149,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">PickerSelect</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
         多选场景使用 PickerSelect（内部为 Selectbox）
@@ -172,7 +172,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">PickerDatetime</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
         mode + format；mode=datetime 时展示全宽 Date/Time Tab
@@ -195,7 +195,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">PickerDatetimeRange</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
         start/end + date/time 双层全宽 Tab，支持 format
@@ -218,7 +218,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Default Value</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
         单独展示 defaultValue；其它示例均从空值开始

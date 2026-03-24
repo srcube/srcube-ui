@@ -1,4 +1,4 @@
-<app-page title="Card" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Card" description="用于在清晰的容器中组织相关内容和操作，适合仪表盘、摘要信息和模块化内容块。" tone="{{tone}}" withBack="{{true}}">
   <view>
     <sr-card hasHeader="{{true}}" hasFooter="{{true}}" tone="{{tone}}">
       <view slot="header">订单信息</view>
@@ -60,5 +60,19 @@
         <view slot="body">size=lg / radius=lg</view>
       </sr-card>
     </view>
+  </view>
+
+  <view>
+    <sr-card hasHeader="{{true}}" tone="{{tone}}">
+      <view slot="header">应用里的示例卡片容器</view>
+      <view slot="body" class="space-y-3 text-sm">
+        <view class="font-medium {{tone === 'dark' ? 'text-zinc-100' : 'text-slate-900'}}">本周发布进度</view>
+        <view class="rounded-xl px-3 py-2 {{tone === 'dark' ? 'bg-zinc-800 text-zinc-300' : 'bg-slate-100 text-slate-600'}}">已完成组件联调与样式回归，等待 QA 最终确认。</view>
+        <view class="flex items-center justify-between text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
+          <text>发布窗口</text>
+          <text>今天 20:30</text>
+        </view>
+      </view>
+    </sr-card>
   </view>
 </app-page>

@@ -1,7 +1,6 @@
-<app-page title="Input" tone="{{tone}}" withBack="{{true}}">
-  <view class="{{tone === 'dark' ? 'bg-zinc-950 text-zinc-50' : 'bg-slate-100 text-slate-900'}} pb-safe">
-    <view class="p-4 space-y-6">
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+<app-page
+ title="Input" description="用于收集短文本输入，支持清晰的状态和校验反馈。适合表单、搜索和结构化文本录入。" tone="{{tone}}" withBack="{{true}}" contentClassName="space-y-6">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Basic</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Input 复用 Field 的容器能力</view>
 
@@ -23,7 +22,7 @@
       <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Value: {{basicValue || 'empty'}}</view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Label Placement</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">outside / outside-left / inside</view>
 
@@ -55,7 +54,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Variants</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">default / outline / twotone / underline</view>
 
@@ -75,7 +74,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Sizes</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">sm / md / lg</view>
 
@@ -92,7 +91,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">States</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">invalid / disabled / readOnly</view>
 
@@ -126,7 +125,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Colors</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">use 2 sm ButtonGroup to switch color</view>
 
@@ -164,6 +163,4 @@
 
       <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Color: {{activeColor}}</view>
     </view>
-  </view>
-  </view>
 </app-page>

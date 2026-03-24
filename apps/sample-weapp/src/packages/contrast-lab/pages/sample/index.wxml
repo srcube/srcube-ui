@@ -1,0 +1,72 @@
+<app-page
+  title="Contrast Lab"
+  description="点击 Tailwind 色板，或者直接看 Contrastbox 原型根据自身最终背景自动切换内部字色。"
+  tone="{{tone}}"
+  withBack="{{true}}"
+>
+  <view class="{{cardClassName}}">
+    <view class="text-sm font-semibold">怎么玩</view>
+    <view class="{{hintClassName}}">
+      下面直接列 Tailwind 常用色板。你点任意一个色块，就会看到这个背景色在亮度算法下应该配黑字还是白字。
+    </view>
+  </view>
+
+  <view class="{{cardClassName}}">
+    <view class="text-sm font-semibold">Contrastbox 原型</view>
+    <view class="{{hintClassName}}">下面这个容器组件会读取自身最终 backgroundColor，再自动决定内部文字用黑还是白。</view>
+    <contrastbox className="mt-3 bg-sky-600" debug="{{true}}">
+      <view class="text-sm font-semibold">Sky 600 container</view>
+      <view class="mt-1 text-xs">foreground is computed from rendered background</view>
+    </contrastbox>
+    <contrastbox className="mt-3 bg-amber-500" debug="{{true}}">
+      <view class="text-sm font-semibold">Amber 500 container</view>
+      <view class="mt-1 text-xs">this one should usually prefer black text</view>
+    </contrastbox>
+    <contrastbox className="mt-3 bg-red-700" debug="{{true}}">
+      <view class="text-sm font-semibold">Red 700 container</view>
+      <view class="mt-1 text-xs">deep colors should usually flip to white text</view>
+    </contrastbox>
+  </view>
+
+  <view class="{{cardClassName}}">
+    <view class="text-sm font-semibold">当前选中</view>
+    <view class="{{hintClassName}}">点击下方色块切换</view>
+    <view class="mt-3 rounded-2xl px-4 py-5" style="background: {{selectedColor}}; color: {{selectedTextColor}};">
+      <view class="text-sm font-semibold">{{selectedLabel}}</view>
+      <view class="mt-1 text-xs">{{selectedColor}}</view>
+      <view class="mt-2 text-xs">Auto foreground → {{selectedTextColor}}</view>
+    </view>
+    <view class="mt-3 flex flex-col gap-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-600'}}">
+      <view>Luminance: {{selectedLuminance}}</view>
+      <view>Contrast vs black: {{selectedContrastBlack}}</view>
+      <view>Contrast vs white: {{selectedContrastWhite}}</view>
+    </view>
+  </view>
+
+  <view class="{{cardClassName}}">
+    <view class="text-sm font-semibold">Tailwind 色板</view>
+    <view class="{{hintClassName}}">点击色块即可查看算法结果</view>
+    <view class="mt-3 flex flex-col gap-4">
+      <view wx:for="{{swatchGroups}}" wx:key="family">
+        <view class="mb-2 text-xs font-semibold uppercase tracking-wide {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
+          {{item.title}}
+        </view>
+        <view class="grid grid-cols-3 gap-2">
+          <view
+            wx:for="{{item.items}}"
+            wx:key="id"
+            data-family="{{subitem.family}}"
+            data-step="{{subitem.step}}"
+            bindtap="handleSelectSwatch"
+            class="rounded-xl border px-3 py-3 {{selectedId === subitem.id ? (tone === 'dark' ? 'border-zinc-100 ring-1 ring-zinc-100' : 'border-slate-900 ring-1 ring-slate-900') : (tone === 'dark' ? 'border-zinc-800' : 'border-slate-200')}}"
+            style="background: {{subitem.value}}; color: {{subitem.textColor}};"
+            wx:for-item="subitem"
+          >
+            <view class="text-xs font-semibold">{{subitem.step}}</view>
+            <view class="mt-1 text-[10px] opacity-80">{{subitem.textColor === '#000000' ? 'black' : 'white'}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</app-page>

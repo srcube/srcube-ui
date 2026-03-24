@@ -1,4 +1,4 @@
-<view class="{{pageClassName}}">
+<view class="{{pageClassName}}" style="padding-top: calc(env(safe-area-inset-top) + var(--navbar-height));">
   <app-navbar title="Srcube UI" tone="{{tone}}" />
 
   <view class="px-6 pt-6 pb-4">

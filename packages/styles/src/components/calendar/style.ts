@@ -21,7 +21,7 @@ export const calendarStyle = tv({
     dayCell: 'relative min-h-0',
     dayPlaceholder: 'h-full rounded-xl',
     dayButton:
-      'inline-flex h-9 w-full items-center justify-center rounded-xl border border-transparent transition-colors duration-150',
+      'inline-flex h-8 w-[calc(100%-8px)] mx-auto items-center justify-center rounded-lg border border-transparent transition-[background-color,border-color,color] duration-150 box-border leading-none',
     dayText: 'text-sm text-slate-900',
     helper: 'mt-3 text-xs text-slate-500',
     pickerBackdrop: 'absolute inset-0 z-10 bg-white/70 backdrop-blur-[1px]',
@@ -38,7 +38,7 @@ export const calendarStyle = tv({
         monthList: 'h-64',
         monthHeader: 'h-8 text-xs',
         monthBody: 'pb-1',
-        dayButton: 'h-8 rounded-lg',
+        dayButton: 'h-7 w-[calc(100%-8px)] rounded-lg',
         dayPlaceholder: 'rounded-lg',
         dayText: 'text-xs',
       },
@@ -49,7 +49,7 @@ export const calendarStyle = tv({
         monthList: 'h-72',
         monthHeader: 'h-9 text-sm',
         monthBody: 'pb-2',
-        dayButton: 'h-9 rounded-xl',
+        dayButton: 'h-8 w-[calc(100%-8px)] rounded-lg',
         dayPlaceholder: 'rounded-xl',
         dayText: 'text-sm',
       },
@@ -60,7 +60,7 @@ export const calendarStyle = tv({
         monthList: 'h-80',
         monthHeader: 'h-10 text-base',
         monthBody: 'pb-3',
-        dayButton: 'h-10 rounded-xl',
+        dayButton: 'h-8.5 w-[calc(100%-8px)] rounded-xl',
         dayPlaceholder: 'rounded-xl',
         dayText: 'text-base',
       },
@@ -239,7 +239,8 @@ export const calendarStyle = tv({
       tone: 'default',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-slate-900',
+        dayButton: 'bg-slate-900 border-transparent',
+        dayText: 'text-white',
       },
     },
     {
@@ -247,7 +248,8 @@ export const calendarStyle = tv({
       tone: 'default',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-primary',
+        dayButton: 'bg-primary border-transparent',
+        dayText: 'text-white',
       },
     },
     {
@@ -255,7 +257,8 @@ export const calendarStyle = tv({
       tone: 'default',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-secondary',
+        dayButton: 'bg-secondary border-transparent',
+        dayText: 'text-white',
       },
     },
     {
@@ -263,7 +266,8 @@ export const calendarStyle = tv({
       tone: 'default',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-success',
+        dayButton: 'bg-success border-transparent',
+        dayText: 'text-white',
       },
     },
     {
@@ -271,7 +275,7 @@ export const calendarStyle = tv({
       tone: 'default',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-warning',
+        dayButton: 'bg-warning border-transparent',
         dayText: 'text-black',
       },
     },
@@ -280,7 +284,8 @@ export const calendarStyle = tv({
       tone: 'default',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-danger',
+        dayButton: 'bg-danger border-transparent',
+        dayText: 'text-white',
       },
     },
     {
@@ -397,7 +402,8 @@ export const calendarStyle = tv({
       tone: 'dark',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-zinc-700',
+        dayButton: 'bg-zinc-700 border-transparent shadow-none',
+        dayText: 'text-zinc-50',
       },
     },
     {
@@ -405,7 +411,8 @@ export const calendarStyle = tv({
       tone: 'dark',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-primary-700',
+        dayButton: 'bg-primary-700 border-transparent shadow-none',
+        dayText: 'text-white',
       },
     },
     {
@@ -413,7 +420,8 @@ export const calendarStyle = tv({
       tone: 'dark',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-secondary-700',
+        dayButton: 'bg-secondary-700 border-transparent shadow-none',
+        dayText: 'text-white',
       },
     },
     {
@@ -421,7 +429,8 @@ export const calendarStyle = tv({
       tone: 'dark',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-success-700',
+        dayButton: 'bg-success-700 border-transparent shadow-none',
+        dayText: 'text-white',
       },
     },
     {
@@ -429,7 +438,7 @@ export const calendarStyle = tv({
       tone: 'dark',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-warning-700',
+        dayButton: 'bg-warning-700 border-transparent shadow-none',
         dayText: 'text-white',
       },
     },
@@ -438,7 +447,8 @@ export const calendarStyle = tv({
       tone: 'dark',
       dayStatus: 'selected',
       class: {
-        dayButton: 'bg-danger-700',
+        dayButton: 'bg-danger-700 border-transparent shadow-none',
+        dayText: 'text-white',
       },
     },
     {

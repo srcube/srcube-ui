@@ -1,4 +1,4 @@
-<app-page title="Checkbox" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Checkbox" description="用于选择一个或多个彼此独立的选项，适合多选设置、筛选条件和确认列表。" tone="{{tone}}" withBack="{{true}}">
   <view class="{{surfaceClassName}}">
     <view class="{{titleClassName}}">Colors</view>
     <view class="{{descriptionClassName}}">button group controller</view>

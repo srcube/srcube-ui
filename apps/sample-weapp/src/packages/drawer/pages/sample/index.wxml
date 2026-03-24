@@ -1,6 +1,6 @@
-<app-page title="Drawer" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Drawer" description="用于从屏幕边缘滑出分层内容，不打断当前上下文。适合详情面板、次级流程和临时任务。" tone="{{tone}}" withBack="{{true}}" contentClassName="space-y-6">
   <view class="p-4 space-y-6">
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Placement</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">left / right / top / bottom</view>
       <view class="mt-3 flex flex-wrap gap-2">
@@ -19,14 +19,14 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Non Dismissable</view>
       <view class="mt-3 flex flex-wrap gap-2">
         <sr-button tone="{{tone === 'dark' ? 'dark' : 'light'}}" bind:tap="openLocked">Open Locked Drawer</sr-button>
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Top Drawer + ActionSheet</view>
       <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
         从 top 弹出 Drawer，并在 Drawer 内继续弹出 ActionSheet

@@ -1,5 +1,5 @@
-<app-page title="Tabbar" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+<app-page title="Tabbar" description="用于在应用主要分区之间提供常驻一级导航，适合稳定入口和大层级信息架构。" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Basic</view>
     <sr-tabbar
       className="mt-3"
@@ -11,7 +11,7 @@
     <view class="mt-2 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">Value: {{value}}</view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Colors</view>
     <view class="mt-3 space-y-2">
       <view>

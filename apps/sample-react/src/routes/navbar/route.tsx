@@ -120,7 +120,10 @@ function NavbarDemo() {
         </Card>
 
         <Card>
-          <div className="text-sm font-semibold">Sizes</div>
+          <div className="text-sm font-semibold">Title Sizes</div>
+          <div className="mt-1 text-xs text-slate-500">
+            height is controlled by <code>--navbar-height</code>; size only affects title / icon scale
+          </div>
           <div className="mt-3 space-y-2">
             <Navbar size="sm" title="Small" titleAlign={titleAlign} tone={tone} />
             <Navbar size="md" title="Medium" titleAlign={titleAlign} tone={tone} />

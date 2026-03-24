@@ -1,5 +1,5 @@
-<app-page title="Scrollbox" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+<app-page title="Scrollbox" description="用于创建横向或纵向的限定滚动区域，适合轮播内容、标签条和嵌入式内容区。" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Vertical</view>
     <view class="mt-3 h-56">
       <sr-scrollbox orientation="y" tone="{{tone}}" className="h-full rounded-2xl border {{tone === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-slate-200 bg-white'}}">
@@ -12,7 +12,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Horizontal</view>
     <view class="mt-3">
       <sr-scrollbox orientation="x" tone="{{tone}}" className="h-fit rounded-2xl border {{tone === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-slate-200 bg-white'}}">
@@ -25,7 +25,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Both (xy)</view>
     <view class="mt-3 h-48">
       <sr-scrollbox orientation="xy" tone="{{tone}}" className="h-full rounded-2xl border {{tone === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-slate-200 bg-white'}}">
@@ -38,7 +38,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Hide Masks</view>
     <view class="mt-3 h-48">
       <sr-scrollbox hideMasks tone="{{tone}}" className="h-full rounded-2xl border {{tone === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-slate-200 bg-white'}}">
@@ -51,7 +51,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Show Scrollbar</view>
     <view class="mt-3 h-48">
       <sr-scrollbox showScrollbar tone="{{tone}}" className="h-full rounded-2xl border {{tone === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-slate-200 bg-white'}}">

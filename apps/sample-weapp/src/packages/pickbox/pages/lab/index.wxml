@@ -1,0 +1,40 @@
+<app-page title="Vibration Lab" description="用于真机测试微信小程序震动能力，直接点按即可验证不同震动调用。" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Vibration Lab</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
+      建议在真机微信里测试；开发者工具里可能无真实震感。
+    </view>
+
+    <view class="mt-4 flex flex-col gap-3">
+      <block wx:for="{{methods}}" wx:key="id">
+        <sr-button
+          isBlock="{{true}}"
+          tone="{{buttonTone}}"
+          variant="outline"
+          data-id="{{item.id}}"
+          bind:tap="handleTapMethod"
+        >
+          {{item.title}} · {{item.description}}
+        </sr-button>
+      </block>
+
+      <sr-button
+        isBlock="{{true}}"
+        tone="{{buttonTone}}"
+        color="primary"
+        bind:tap="handleTapSequence"
+      >
+        连续短震动 · light → medium → heavy
+      </sr-button>
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">状态</view>
+    <view class="mt-3 rounded-xl p-3 text-xs {{tone === 'dark' ? 'bg-zinc-950 text-zinc-300' : 'bg-slate-50 text-slate-600'}}">
+      <view>当前状态：{{statusText}}</view>
+      <view class="mt-1 break-all">最近成功：{{lastSuccessText}}</view>
+      <view class="mt-1 break-all">最近失败：{{lastErrorText}}</view>
+    </view>
+  </view>
+</app-page>

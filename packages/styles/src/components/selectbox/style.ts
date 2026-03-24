@@ -331,19 +331,11 @@ export const selectboxItemState = tv({
       class: "rounded-l-none rounded-r-3xl",
     },
   ],
-  defaultVariants: {
-    orientation: "y",
-    size: "md",
-    color: "default",
-    tone: "default",
-    isSelected: false,
-    isDisabled: false,
-    blockPosition: "none",
-  },
 });
 
 export type SelectboxVariants = VariantProps<typeof selectbox>;
 export type SelectboxClasses = VariantClasses<typeof selectbox>;
 export type SelectboxClassNames = SelectboxClasses;
-export type SelectboxReactClassNames = Omit<SelectboxClassNames, "$listbox">;
+export type SelectboxReactClassNames = SelectboxClassNames;
 export type SelectboxMiniClassNames = SelectboxClassNames;
+export type SelectboxItemStateVariants = VariantProps<typeof selectboxItemState>;

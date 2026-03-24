@@ -25,7 +25,7 @@ Component({
     },
     contentClassName: {
       type: String,
-      value: 'p-4 space-y-6',
+      value: 'space-y-6',
     },
   },
 

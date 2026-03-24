@@ -24,6 +24,7 @@ type TimelineRenderItem = {
     lineStart: string;
     lineEnd: string;
     content: string;
+    contentSpacer: string;
     title: string;
     time: string;
     description: string;
@@ -134,6 +135,7 @@ UIComponent({
             lineStart: slots.lineStart({ class: custom.lineStart }),
             lineEnd: slots.lineEnd({ class: custom.lineEnd }),
             content: slots.content({ class: custom.content }),
+            contentSpacer: slots.contentSpacer({ class: custom.contentSpacer }),
             title: slots.title({ class: custom.title }),
             time: slots.time({ class: custom.time }),
             description: slots.description({ class: custom.description }),

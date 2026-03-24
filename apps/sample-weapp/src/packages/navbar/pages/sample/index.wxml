@@ -1,5 +1,5 @@
 <app-page title="Navbar" description="用于在统一头部中承载页面导航、品牌信息和顶部操作，适合主要导航和上下文控制。" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Basic</view>
     <sr-navbar
       className="mt-3"
@@ -9,7 +9,7 @@
     />
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Title Align</view>
     <view class="mt-3 flex gap-2">
       <sr-button
@@ -45,7 +45,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">With Back</view>
     <sr-navbar
       className="mt-3"
@@ -63,8 +63,9 @@
     </sr-navbar>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
-    <view class="text-sm font-semibold">Sizes</view>
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Title Sizes</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">height is controlled by --navbar-height; size only affects title / icon scale</view>
     <view class="mt-3 space-y-2">
       <view>
         <sr-navbar size="sm" title="Small" titleAlign="{{titleAlign}}" tone="{{tone}}" />

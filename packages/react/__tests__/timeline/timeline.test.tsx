@@ -54,3 +54,14 @@ it('applies dark tone classes', () => {
 
   expect(screen.getByText('Dark Step').className).toContain('text-primary-100');
 });
+
+it('renders size-based content spacer', () => {
+  const { container } = render(
+    <Timeline
+      size="lg"
+      items={[{ title: 'Spaced Step' }]}
+    />,
+  );
+
+  expect(container.querySelector('[aria-hidden="true"]')?.className).toContain('h-5');
+});

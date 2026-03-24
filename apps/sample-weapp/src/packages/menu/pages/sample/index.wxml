@@ -1,5 +1,5 @@
-<app-page title="Menu" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+<app-page title="Menu" description="用于在结构化弹出列表中展示上下文操作和导航选项，适合命令菜单、溢出操作和紧凑导航。" tone="{{tone}}" withBack="{{true}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Basic (Controlled)</view>
     <view class="mt-3">
       <sr-menu
@@ -17,7 +17,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Orientation</view>
     <view class="mt-3">
       <sr-menu items="{{horizontalItems}}" tone="{{tone}}" orientation="x" defaultValue="all" hasArrow="{{false}}">
@@ -31,7 +31,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Size & Radius</view>
     <view class="mt-3 flex flex-wrap gap-3">
       <sr-menu items="{{menuItems}}" tone="{{tone}}" size="sm" radius="sm" hasArrow="{{false}}">
@@ -46,7 +46,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Tone + Variant + Color</view>
     <view class="mt-3 flex flex-wrap gap-3">
       <sr-menu items="{{menuItems}}" defaultValue="share" color="success" variant="solid" tone="{{tone}}">

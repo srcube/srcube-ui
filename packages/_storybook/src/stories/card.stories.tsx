@@ -97,6 +97,21 @@ export const Showcase: Story = {
             </Card>
           </div>
         </StorySection>
+
+        <StorySection title="应用里的示例卡片容器" description="模拟真实应用里的摘要卡片容器">
+          <Card header={<div>本周发布进度</div>}>
+            <div className="space-y-3 text-sm">
+              <div className="font-medium text-slate-900">本周发布进度</div>
+              <div className="rounded-xl bg-slate-100 px-3 py-2 text-slate-600">
+                已完成组件联调与样式回归，等待 QA 最终确认。
+              </div>
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span>发布窗口</span>
+                <span>今天 20:30</span>
+              </div>
+            </div>
+          </Card>
+        </StorySection>
       </StoryStack>
     </StoryPage>
   ),

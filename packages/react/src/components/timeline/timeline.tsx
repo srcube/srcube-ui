@@ -91,6 +91,12 @@ export const Timeline = React.forwardRef<HTMLDivElement, TimelineReactProps>(
                       {item.description}
                     </div>
                   ) : null}
+                  <div
+                    aria-hidden="true"
+                    className={slots.contentSpacer({
+                      class: classNames?.contentSpacer,
+                    })}
+                  />
                 </div>
               </li>
             );

@@ -26,6 +26,7 @@
           >
             {{item.description}}
           </view>
+          <view class="sr-timeline__content-spacer {{item.classes.contentSpacer}}" style="{{item.spacerStyle}}" />
         </view>
       </view>
     </block>

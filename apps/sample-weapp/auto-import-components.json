@@ -1,4 +1,5 @@
 {
   "app-navbar": "/components/app-navbar/index",
-  "app-page": "/components/app-page/index"
+  "app-page": "/components/app-page/index",
+  "contrastbox": "/components/contrastbox/index"
 }

@@ -1,5 +1,8 @@
 import { UIComponent } from '../../shared/ui-component';
-import { pickbox, pickboxItemState } from '@srcube-ui/styles/components/pickbox/style';
+import {
+  pickbox,
+  pickboxItemState,
+} from '@srcube-ui/styles/components/pickbox/style';
 import type {
   PickboxMiniColumn,
   PickboxMiniItem,
@@ -37,7 +40,29 @@ type PickboxMiniVirtualState = {
 };
 
 type PickboxMiniData = PickboxMiniProps & PickboxMiniVirtualState;
-type PickboxScrollBehavior = 'auto' | 'smooth';
+
+type InternalColumnState = {
+  hasInitialized: boolean;
+  selectedIndex: number;
+  anchorIndex: number;
+  scrollTop: number;
+  isTouching: boolean;
+  startY: number;
+  startScrollTop: number;
+  lastTouchY: number;
+  lastTouchAt: number;
+  velocity: number;
+  settleTimer: ReturnType<typeof setTimeout> | null;
+  inertiaTimer: ReturnType<typeof setTimeout> | null;
+  lastVibrateAt: number;
+  lastSelectedId: PickboxMiniItemId | null | undefined;
+  ignoreScrollUntil: number;
+  pendingScrollTop: number | null;
+};
+
+type PickboxInternalState = {
+  columns: InternalColumnState[];
+};
 
 type NestedScrollDetail = {
   detail?: {
@@ -46,97 +71,46 @@ type NestedScrollDetail = {
   scrollTop?: number;
 };
 
-type NestedDragDetail = {
-  detail?: {
-    scrollTop?: number;
-    scrollLeft?: number;
-    velocity?: number;
-  };
-  scrollTop?: number;
-  scrollLeft?: number;
-  velocity?: number;
-};
-
-type InternalColumnState = {
-  hasInitialized: boolean;
-  hasUserInteracted: boolean;
-  lastTouchAt: number;
-  currentOffset: number;
-  controlledOffset: number;
-  lastSelectedId: PickboxMiniItemId | null | undefined;
-  isScrolling: boolean;
-  isAutoAdjusting: boolean;
-  alignPhase: 'idle' | 'prepare' | 'running';
-  pendingAlignOffset: number | null;
-  pendingScrollWithAnimation: boolean;
-  ignoreScrollEventsUntil: number;
-  lastScrollAt: number;
-  isTouching: boolean;
-  scrollStopTimer: ReturnType<typeof setTimeout> | null;
-  autoAdjustTimer: ReturnType<typeof setTimeout> | null;
-};
-
-type PickboxInternalState = {
-  columns: InternalColumnState[];
-};
-
 const internalStateMap = new WeakMap<object, PickboxInternalState>();
+
+const VISIBLE_ROWS = 5;
+const CENTER_OFFSET = Math.floor(VISIBLE_ROWS / 2);
+const VIBRATE_GAP = 40;
+const SCROLL_SETTLE_DELAY = 96;
+const INERTIA_DECAY = 0.92;
+const INERTIA_MIN_VELOCITY = 0.5;
+const INERTIA_STEP_MS = 16;
 
 function createColumnState(): InternalColumnState {
   return {
     hasInitialized: false,
-    hasUserInteracted: false,
-    lastTouchAt: 0,
-    currentOffset: 0,
-    controlledOffset: 0,
-    lastSelectedId: undefined,
-    isScrolling: false,
-    isAutoAdjusting: false,
-    alignPhase: 'idle',
-    pendingAlignOffset: null,
-    pendingScrollWithAnimation: false,
-    ignoreScrollEventsUntil: 0,
-    lastScrollAt: 0,
+    selectedIndex: 0,
+    anchorIndex: 0,
+    scrollTop: 0,
     isTouching: false,
-    scrollStopTimer: null,
-    autoAdjustTimer: null,
+    startY: 0,
+    startScrollTop: 0,
+    lastTouchY: 0,
+    lastTouchAt: 0,
+    velocity: 0,
+    settleTimer: null,
+    inertiaTimer: null,
+    lastVibrateAt: 0,
+    lastSelectedId: undefined,
+    ignoreScrollUntil: 0,
+    pendingScrollTop: null,
   };
 }
 
 function clearColumnTimers(columnState: InternalColumnState) {
-  if (columnState.scrollStopTimer) {
-    clearTimeout(columnState.scrollStopTimer);
-    columnState.scrollStopTimer = null;
+  if (columnState.settleTimer) {
+    clearTimeout(columnState.settleTimer);
+    columnState.settleTimer = null;
   }
-
-  if (columnState.autoAdjustTimer) {
-    clearTimeout(columnState.autoAdjustTimer);
-    columnState.autoAdjustTimer = null;
+  if (columnState.inertiaTimer) {
+    clearTimeout(columnState.inertiaTimer);
+    columnState.inertiaTimer = null;
   }
-}
-
-function cancelColumnAutoAdjust(columnState: InternalColumnState) {
-  if (columnState.autoAdjustTimer) {
-    clearTimeout(columnState.autoAdjustTimer);
-    columnState.autoAdjustTimer = null;
-  }
-
-  columnState.isScrolling = false;
-  columnState.isAutoAdjusting = false;
-  columnState.controlledOffset = columnState.currentOffset;
-  columnState.pendingAlignOffset = null;
-  columnState.pendingScrollWithAnimation = false;
-  columnState.alignPhase = 'idle';
-  columnState.ignoreScrollEventsUntil = 0;
-}
-
-function isPassiveRollbackToStart(
-  columnState: InternalColumnState,
-  nextOffset: number,
-) {
-  const rollbackTolerance = 2;
-  const controlledOffset = Math.max(0, columnState.controlledOffset);
-  return nextOffset <= rollbackTolerance && controlledOffset > rollbackTolerance;
 }
 
 function getInternalState(instance: object, columnCount: number) {
@@ -219,7 +193,12 @@ function isSamePickboxItemId(
     return true;
   }
 
-  if (left === null || left === undefined || right === null || right === undefined) {
+  if (
+    left === null ||
+    left === undefined ||
+    right === null ||
+    right === undefined
+  ) {
     return false;
   }
 
@@ -229,13 +208,19 @@ function isSamePickboxItemId(
   ) {
     const leftNumber = Number(left);
     const rightNumber = Number(right);
-    return Number.isFinite(leftNumber) && Number.isFinite(rightNumber) && leftNumber === rightNumber;
+    return (
+      Number.isFinite(leftNumber) &&
+      Number.isFinite(rightNumber) &&
+      leftNumber === rightNumber
+    );
   }
 
   return false;
 }
 
-function getDefaultColumnValue(column: PickboxMiniColumn): PickboxMiniItemId | null {
+function getDefaultColumnValue(
+  column: PickboxMiniColumn,
+): PickboxMiniItemId | null {
   const firstEnabled = column.items.find((item) => !item.isDisabled);
   return firstEnabled?.id ?? column.items[0]?.id ?? null;
 }
@@ -248,7 +233,9 @@ function normalizeColumnValue(
     return getDefaultColumnValue(column);
   }
 
-  const matchedItem = column.items.find((item) => isSamePickboxItemId(item.id, value));
+  const matchedItem = column.items.find((item) =>
+    isSamePickboxItemId(item.id, value),
+  );
   if (matchedItem) {
     return matchedItem.id;
   }
@@ -260,10 +247,15 @@ function ensurePickboxValue(
   columns: PickboxMiniColumn[],
   input?: PickboxMiniValue | null,
 ): PickboxMiniValue {
-  return columns.map((column, index) => normalizeColumnValue(column, input?.[index]));
+  return columns.map((column, index) =>
+    normalizeColumnValue(column, input?.[index]),
+  );
 }
 
-function resolveSelectedIndex(items: PickboxMiniItem[], selectedId: PickboxMiniItemId | null) {
+function resolveSelectedIndex(
+  items: PickboxMiniItem[],
+  selectedId: PickboxMiniItemId | null,
+) {
   if (items.length === 0) {
     return -1;
   }
@@ -273,7 +265,9 @@ function resolveSelectedIndex(items: PickboxMiniItem[], selectedId: PickboxMiniI
     return firstEnabledIndex >= 0 ? firstEnabledIndex : 0;
   }
 
-  const currentIndex = items.findIndex((item) => isSamePickboxItemId(item.id, selectedId));
+  const currentIndex = items.findIndex((item) =>
+    isSamePickboxItemId(item.id, selectedId),
+  );
   if (currentIndex >= 0) {
     return currentIndex;
   }
@@ -282,31 +276,34 @@ function resolveSelectedIndex(items: PickboxMiniItem[], selectedId: PickboxMiniI
   return firstEnabledIndex >= 0 ? firstEnabledIndex : 0;
 }
 
-function resolveScrollTopForIndex(params: {
-  index: number;
-  estimateSize: number;
-  resolvedPadding: number;
-  containerHeight: number;
-}) {
-  const { index, estimateSize, resolvedPadding, containerHeight } = params;
+function clampIndex(index: number, length: number) {
+  if (length <= 0) {
+    return 0;
+  }
+  return Math.max(0, Math.min(length - 1, index));
+}
+
+function resolveOffsetByIndex(index: number, estimateSize: number) {
+  return -Math.max(0, index) * estimateSize;
+}
+
+function resolveScrollTopForIndex(index: number, estimateSize: number) {
   if (index < 0) {
     return 0;
   }
-
-  const itemCenter = resolvedPadding + index * estimateSize + estimateSize / 2;
-  const viewportCenter = containerHeight / 2;
-  return Math.max(0, itemCenter - viewportCenter);
+  return Math.max(0, Math.round(index * estimateSize));
 }
 
-function resolveScrollDetail(detail: NestedScrollDetail | undefined | null) {
-  if (!detail) {
-    return { scrollTop: 0 };
+function resolveIndexByScrollTop(
+  scrollTop: number,
+  estimateSize: number,
+  length: number,
+) {
+  if (estimateSize <= 0) {
+    return 0;
   }
 
-  const payload = detail.detail ?? detail;
-  return {
-    scrollTop: Number(payload.scrollTop ?? 0),
-  };
+  return clampIndex(Math.round(scrollTop / estimateSize), length);
 }
 
 function resolveDefaultMetricBySize(size: PickboxMiniProps['size']) {
@@ -336,7 +333,10 @@ function resolveMetricValue(value: unknown, fallback: number) {
 function resolvePickboxMetrics(data: PickboxMiniData) {
   const fallback = resolveDefaultMetricBySize(data.size);
   const estimateSize = resolveMetricValue(data.estimateSize, fallback);
-  const indicatorHeight = resolveMetricValue(data.indicatorHeight, estimateSize);
+  const indicatorHeight = resolveMetricValue(
+    data.indicatorHeight,
+    estimateSize,
+  );
 
   return {
     estimateSize,
@@ -354,6 +354,77 @@ function resolveDefaultContainerHeightBySize(size: PickboxMiniProps['size']) {
   }
 
   return 256;
+}
+
+function maybeVibrate(columnState: InternalColumnState) {
+  const now = Date.now();
+  if (now - columnState.lastVibrateAt < VIBRATE_GAP) {
+    return;
+  }
+
+  columnState.lastVibrateAt = now;
+  try {
+    wx.vibrateShort({ type: 'light' });
+  } catch {
+    // ignore vibration failures
+  }
+}
+
+function resolveNearestEnabledIndex(
+  column: PickboxMiniColumn,
+  targetIndex: number,
+) {
+  if (column.items.length === 0) {
+    return -1;
+  }
+
+  const safeIndex = clampIndex(targetIndex, column.items.length);
+  if (!column.items[safeIndex]?.isDisabled) {
+    return safeIndex;
+  }
+
+  let bestIndex = -1;
+  let bestDistance = Number.POSITIVE_INFINITY;
+
+  column.items.forEach((item, index) => {
+    if (item.isDisabled) {
+      return;
+    }
+
+    const distance = Math.abs(index - safeIndex);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      bestIndex = index;
+    }
+  });
+
+  return bestIndex >= 0 ? bestIndex : safeIndex;
+}
+
+function resolveWindowRange(params: {
+  itemCount: number;
+  anchorIndex: number;
+  visibleCount: number;
+  overscan: number;
+}) {
+  const { itemCount, anchorIndex, visibleCount, overscan } = params;
+
+  if (itemCount <= 0) {
+    return {
+      startIndex: 0,
+      endIndex: -1,
+    };
+  }
+
+  const lead = Math.max(CENTER_OFFSET + 1, overscan);
+  const trail = Math.max(visibleCount + CENTER_OFFSET + 1, overscan + visibleCount);
+  const startIndex = Math.max(0, anchorIndex - lead);
+  const endIndex = Math.min(itemCount - 1, anchorIndex + trail);
+
+  return {
+    startIndex,
+    endIndex,
+  };
 }
 
 UIComponent({
@@ -459,14 +530,8 @@ UIComponent({
       const internalState = getInternalState(this, columns.length);
 
       internalState.columns.forEach((columnState) => {
-        cancelColumnAutoAdjust(columnState);
-        columnState.hasInitialized = false;
-        columnState.hasUserInteracted = false;
-        columnState.lastTouchAt = 0;
-        columnState.currentOffset = 0;
-        columnState.controlledOffset = 0;
-        columnState.lastSelectedId = undefined;
-        columnState.ignoreScrollEventsUntil = 0;
+        clearColumnTimers(columnState);
+        Object.assign(columnState, createColumnState());
       });
 
       this.remeasureAndRecompute();
@@ -481,7 +546,6 @@ UIComponent({
         clearTimeout(this._settleMeasureTimer);
       }
 
-      // Drawer mount/animation can delay final layout; remeasure twice to lock center.
       this._measureTimer = setTimeout(() => {
         this.remeasureAndRecompute();
         this._measureTimer = null;
@@ -523,11 +587,13 @@ UIComponent({
           const { estimateSize, indicatorHeight } = resolvePickboxMetrics(
             this.data,
           );
-          const fallbackHeight = resolveDefaultContainerHeightBySize(this.data.size);
+          const fallbackHeight = resolveDefaultContainerHeightBySize(
+            this.data.size,
+          );
           const containerHeight =
             measuredHeight > 0
               ? measuredHeight
-              : Math.max(fallbackHeight, estimateSize, indicatorHeight);
+              : Math.max(fallbackHeight, estimateSize * VISIBLE_ROWS);
           const resolvedPadding = Math.max(
             0,
             containerHeight / 2 - indicatorHeight / 2,
@@ -551,21 +617,24 @@ UIComponent({
     recomputeVirtualColumns() {
       const columns = resolveColumns(this.data.columns);
       const internalState = getInternalState(this, columns.length);
-
       const { estimateSize, indicatorHeight } = resolvePickboxMetrics(
         this.data,
       );
-      const fallbackHeight = resolveDefaultContainerHeightBySize(this.data.size);
+      const fallbackHeight = resolveDefaultContainerHeightBySize(
+        this.data.size,
+      );
       const containerHeight = Math.max(
         1,
         Number(this.data.containerHeight) ||
-          Math.max(fallbackHeight, estimateSize, indicatorHeight),
+          Math.max(fallbackHeight, estimateSize * VISIBLE_ROWS),
       );
       const resolvedPadding = Math.max(
         0,
-        Number(this.data.resolvedPadding) || containerHeight / 2 - indicatorHeight / 2,
+        Number(this.data.resolvedPadding) ||
+          containerHeight / 2 - indicatorHeight / 2,
       );
-
+      const visibleCount = Math.max(1, Math.ceil(containerHeight / estimateSize));
+      const overscan = Math.max(2, Number(this.data.overscan) || 0);
       const mergedValue = ensurePickboxValue(
         columns,
         isArrayLikeValue(this.data.value)
@@ -575,88 +644,86 @@ UIComponent({
 
       const renderColumns = columns.map((column, columnIndex) => {
         const columnState = internalState.columns[columnIndex] ?? createColumnState();
-        const propSelectedItemId = mergedValue[columnIndex] ?? null;
-        const selectedItemId =
-          columnState.isAutoAdjusting &&
-          columnState.lastSelectedId !== undefined
-            ? (columnState.lastSelectedId ?? null)
-            : propSelectedItemId;
-        const selectedIndex = resolveSelectedIndex(column.items, selectedItemId);
-        const selectedId = selectedItemId;
+        const selectedId = mergedValue[columnIndex] ?? null;
+        const selectedIndex = resolveSelectedIndex(column.items, selectedId);
+        const normalizedSelectedIndex = Math.max(0, selectedIndex);
+        const stableSelectedId =
+          normalizedSelectedIndex >= 0
+            ? (column.items[normalizedSelectedIndex]?.id ?? null)
+            : null;
 
-        const shouldAlignSelected =
+        if (
           !columnState.hasInitialized ||
-          (columnState.lastSelectedId !== selectedItemId &&
-            !columnState.isAutoAdjusting &&
-            columnState.pendingAlignOffset === null);
-
-        if (shouldAlignSelected) {
-          const targetOffset = resolveScrollTopForIndex({
-            index: selectedIndex,
+          (!columnState.isTouching &&
+            !isSamePickboxItemId(columnState.lastSelectedId, stableSelectedId))
+        ) {
+          const targetScrollTop = resolveScrollTopForIndex(
+            normalizedSelectedIndex,
             estimateSize,
-            resolvedPadding,
-            containerHeight,
-          });
-
-          // Keep controlled/open-sync alignment immediate to avoid reopen replay.
-          columnState.currentOffset = targetOffset;
-          columnState.controlledOffset = targetOffset;
-          columnState.pendingAlignOffset = null;
-          columnState.pendingScrollWithAnimation = false;
-          columnState.alignPhase = 'idle';
-          columnState.isScrolling = false;
-          columnState.isAutoAdjusting = false;
-          columnState.ignoreScrollEventsUntil = Date.now() + 80;
+          );
+          columnState.selectedIndex = normalizedSelectedIndex;
+          columnState.anchorIndex = normalizedSelectedIndex;
+          columnState.scrollTop = targetScrollTop;
           columnState.hasInitialized = true;
+        } else {
+          columnState.anchorIndex = resolveIndexByScrollTop(
+            columnState.scrollTop,
+            estimateSize,
+            column.items.length,
+          );
         }
 
-        columnState.lastSelectedId = selectedItemId;
+        columnState.lastSelectedId = stableSelectedId;
 
-        const totalSize =
-          Math.max(0, resolvedPadding * 2) + column.items.length * estimateSize;
-
-        const renderItems = column.items.map((item, itemIndex) => {
-          const isSelected = selectedId === item.id;
-          const isDisabled = item.isDisabled === true;
-          const stateClassName = pickboxItemState({
-            color: this.data.color ?? 'default',
-            tone: resolveTone(this.data.tone),
-            size: this.data.size ?? 'md',
-            isSelected,
-            isDisabled,
-          });
-          const start = resolvedPadding + itemIndex * estimateSize;
-
-          return {
-            id: item.id,
-            label: item.label,
-            index: itemIndex,
-            virtualKey: `${String(item.id)}-${itemIndex}`,
-            className: stateClassName,
-            style: `position:absolute;left:0;top:${start}px;width:100%;height:${estimateSize}px;`,
-          };
+        const { startIndex, endIndex } = resolveWindowRange({
+          itemCount: column.items.length,
+          anchorIndex: columnState.anchorIndex,
+          visibleCount,
+          overscan,
         });
 
-        const contentStyle = `position:relative;width:100%;height:${totalSize}px;`;
-        const hasPendingAlign = columnState.pendingAlignOffset !== null;
+        const items =
+          endIndex >= startIndex
+            ? column.items
+                .slice(startIndex, endIndex + 1)
+                .map((item, relativeIndex) => {
+                  const itemIndex = startIndex + relativeIndex;
+                  const isSelected = itemIndex === columnState.anchorIndex;
+                  const stateClassName = pickboxItemState({
+                    color: this.data.color ?? 'default',
+                    tone: resolveTone(this.data.tone),
+                    size: this.data.size ?? 'md',
+                    isSelected,
+                    isDisabled: item.isDisabled === true,
+                  });
+
+                  return {
+                    id: item.id,
+                    label: item.label,
+                    index: itemIndex,
+                    virtualKey: `${String(item.id)}-${itemIndex}`,
+                    className: stateClassName,
+                    style: `position:absolute;left:0;top:${resolvedPadding + itemIndex * estimateSize}px;width:100%;height:${estimateSize}px;`,
+                  } satisfies RenderItem;
+                })
+            : [];
+
+        const totalSize = resolvedPadding * 2 + column.items.length * estimateSize;
+
+        const renderScrollTop = Math.max(
+          0,
+          Math.round(columnState.pendingScrollTop ?? columnState.scrollTop),
+        );
+        columnState.pendingScrollTop = null;
 
         return {
           id: String(column.id ?? columnIndex),
           columnIndex,
-          contentStyle,
-          scrollTop: Math.max(
-            0,
-            hasPendingAlign
-              ? (columnState.pendingAlignOffset ?? columnState.currentOffset)
-              : columnState.isScrolling
-                ? columnState.currentOffset
-                : columnState.controlledOffset,
-          ),
-          scrollWithAnimation: hasPendingAlign
-            ? columnState.pendingScrollWithAnimation
-            : false,
-          items: renderItems,
-        };
+          contentStyle: `position:relative;width:100%;height:${totalSize}px;`,
+          scrollTop: renderScrollTop,
+          scrollWithAnimation: !columnState.isTouching,
+          items,
+        } satisfies RenderColumn;
       });
 
       this.setData({
@@ -664,291 +731,13 @@ UIComponent({
         resolvedEstimateSize: estimateSize,
         resolvedIndicatorHeight: indicatorHeight,
       } satisfies Partial<PickboxMiniVirtualState>);
-
-      const autoAdjustDuration = Math.max(
-        220,
-        Number(this.data.scrollEndDelay) || 120,
-      );
-
-      internalState.columns.forEach((columnState) => {
-        if (!columnState.isAutoAdjusting) {
-          return;
-        }
-
-        if (columnState.autoAdjustTimer) {
-          clearTimeout(columnState.autoAdjustTimer);
-        }
-
-        columnState.autoAdjustTimer = setTimeout(() => {
-          columnState.isAutoAdjusting = false;
-          if (columnState.pendingAlignOffset !== null) {
-            columnState.currentOffset = columnState.pendingAlignOffset;
-            columnState.controlledOffset = columnState.pendingAlignOffset;
-            columnState.pendingAlignOffset = null;
-            columnState.pendingScrollWithAnimation = false;
-            columnState.alignPhase = 'idle';
-          }
-
-          if (columnState.isScrolling) {
-            columnState.isScrolling = false;
-          }
-
-          this.recomputeVirtualColumns();
-        }, autoAdjustDuration);
-      });
     },
 
-    handleColumnTouchStart(e: WechatMiniprogram.TouchEvent) {
-      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
-      if (Number.isNaN(columnIndex)) {
-        return;
-      }
-
-      const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
-      if (!columnState) {
-        return;
-      }
-
-      cancelColumnAutoAdjust(columnState);
-      columnState.isTouching = true;
-      columnState.lastTouchAt = Date.now();
-      columnState.ignoreScrollEventsUntil = 0;
-    },
-
-    handleColumnTouchMove(e: WechatMiniprogram.TouchEvent) {
-      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
-      if (Number.isNaN(columnIndex)) {
-        return;
-      }
-
-      const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
-      if (!columnState) {
-        return;
-      }
-
-      if (!columnState.hasUserInteracted) {
-        columnState.hasUserInteracted = true;
-      }
-      columnState.lastTouchAt = Date.now();
-    },
-
-    handleColumnTouchEnd(e: WechatMiniprogram.TouchEvent) {
-      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
-      if (Number.isNaN(columnIndex)) {
-        return;
-      }
-
-      const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
-      if (!columnState) {
-        return;
-      }
-
-      columnState.isTouching = false;
-      columnState.lastTouchAt = Date.now();
-    },
-
-    handleColumnTouchCancel(e: WechatMiniprogram.TouchEvent) {
-      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
-      if (Number.isNaN(columnIndex)) {
-        return;
-      }
-
-      const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
-      if (!columnState) {
-        return;
-      }
-
-      columnState.isTouching = false;
-      columnState.lastTouchAt = Date.now();
-    },
-
-    handleColumnDragStart(e: WechatMiniprogram.CustomEvent<NestedDragDetail>) {
-      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
-      if (Number.isNaN(columnIndex)) {
-        return;
-      }
-
-      const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
-      if (!columnState) {
-        return;
-      }
-
-      cancelColumnAutoAdjust(columnState);
-      columnState.isTouching = true;
-      columnState.hasUserInteracted = true;
-      columnState.lastTouchAt = Date.now();
-      columnState.ignoreScrollEventsUntil = 0;
-      const detail = resolveScrollDetail(e.detail);
-      columnState.currentOffset = Math.max(0, detail.scrollTop);
-      columnState.controlledOffset = columnState.currentOffset;
-      columnState.lastScrollAt = Date.now();
-    },
-
-    handleColumnDragging(e: WechatMiniprogram.CustomEvent<NestedDragDetail>) {
-      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
-      if (Number.isNaN(columnIndex)) {
-        return;
-      }
-
-      const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
-      if (!columnState) {
-        return;
-      }
-
-      cancelColumnAutoAdjust(columnState);
-      columnState.hasUserInteracted = true;
-      columnState.isTouching = true;
-      columnState.lastTouchAt = Date.now();
-
-      const detail = resolveScrollDetail(e.detail);
-      const nextOffset = Math.max(0, detail.scrollTop);
-      columnState.currentOffset = nextOffset;
-      columnState.controlledOffset = nextOffset;
-      columnState.lastScrollAt = Date.now();
-    },
-
-    handleColumnDragEnd(e: WechatMiniprogram.CustomEvent<NestedDragDetail>) {
-      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
-      if (Number.isNaN(columnIndex)) {
-        return;
-      }
-
-      const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
-      if (!columnState) {
-        return;
-      }
-
-      const detail = resolveScrollDetail(e.detail);
-      const nextOffset = Math.max(0, detail.scrollTop);
-      const isPassiveOpenScroll =
-        !columnState.hasUserInteracted &&
-        !columnState.isAutoAdjusting &&
-        !columnState.isTouching;
-
-      if (isPassiveOpenScroll && isPassiveRollbackToStart(columnState, nextOffset)) {
-        return;
-      }
-
-      columnState.currentOffset = nextOffset;
-      columnState.controlledOffset = nextOffset;
-      columnState.lastScrollAt = Date.now();
-      columnState.isTouching = false;
-    },
-
-    handleColumnScroll(e: WechatMiniprogram.CustomEvent<NestedScrollDetail>) {
-      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
-      if (Number.isNaN(columnIndex)) {
-        return;
-      }
-
-      const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
-      if (!columnState) {
-        return;
-      }
-
-      if (columnState.pendingAlignOffset !== null) {
-        return;
-      }
-
-      if (Date.now() < columnState.ignoreScrollEventsUntil) {
-        return;
-      }
-
-      const detail = resolveScrollDetail(e.detail);
-      const nextOffset = Math.max(0, detail.scrollTop);
-      const isPassiveOpenScroll =
-        !columnState.hasUserInteracted &&
-        !columnState.isAutoAdjusting &&
-        !columnState.isTouching;
-
-      if (isPassiveOpenScroll) {
-        if (isPassiveRollbackToStart(columnState, nextOffset)) {
-          return;
-        }
-
-        const passiveActivationDelta = 3;
-        const deltaFromControlled = Math.abs(nextOffset - columnState.controlledOffset);
-        if (deltaFromControlled >= passiveActivationDelta) {
-          columnState.hasUserInteracted = true;
-        } else {
-          return;
-        }
-      }
-
-      columnState.currentOffset = nextOffset;
-      columnState.controlledOffset = columnState.currentOffset;
-      columnState.lastScrollAt = Date.now();
-
-      if (columnState.isAutoAdjusting) {
-        return;
-      }
-
-      if (!columnState.isScrolling) {
-        columnState.isScrolling = true;
-      }
-
-      if (columnState.scrollStopTimer) {
-        clearTimeout(columnState.scrollStopTimer);
-        columnState.scrollStopTimer = null;
-      }
-
-      const scrollEndDelay = Math.max(
-        50,
-        Number(this.data.scrollEndDelay) || 120,
-      );
-      this.scheduleColumnSnap(columnIndex, scrollEndDelay);
-    },
-
-    scheduleColumnSnap(columnIndex: number, delay: number) {
-      const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
-      if (!columnState) {
-        return;
-      }
-
-      if (columnState.scrollStopTimer) {
-        clearTimeout(columnState.scrollStopTimer);
-      }
-
-      columnState.scrollStopTimer = setTimeout(() => {
-        columnState.scrollStopTimer = null;
-
-        if (columnState.isAutoAdjusting) {
-          return;
-        }
-
-        if (!columnState.hasUserInteracted) {
-          columnState.isScrolling = false;
-          return;
-        }
-
-        if (columnState.isTouching) {
-          this.scheduleColumnSnap(columnIndex, 40);
-          return;
-        }
-
-        this.snapColumnToNearest(columnIndex);
-      }, Math.max(32, delay));
-    },
-
-    snapColumnToNearest(columnIndex: number) {
+    commitColumnIndex(
+      columnIndex: number,
+      nextIndex: number,
+      reason: 'touchmove' | 'touchend' | 'inertia-end',
+    ) {
       const columns = resolveColumns(this.data.columns);
       const column = columns[columnIndex];
       if (!column || column.items.length === 0) {
@@ -961,63 +750,276 @@ UIComponent({
         return;
       }
 
-      const { estimateSize, indicatorHeight } = resolvePickboxMetrics(
-        this.data,
+      const estimateSize =
+        this.data.resolvedEstimateSize ||
+        resolvePickboxMetrics(this.data).estimateSize;
+      const resolvedIndex = resolveNearestEnabledIndex(column, nextIndex);
+      const nextItem = column.items[resolvedIndex];
+      if (!nextItem) {
+        return;
+      }
+
+      const mergedValue = ensurePickboxValue(
+        columns,
+        isArrayLikeValue(this.data.value)
+          ? (this.data.value as PickboxMiniValue)
+          : this.data.innerValue,
       );
-      const fallbackHeight = resolveDefaultContainerHeightBySize(this.data.size);
-      const containerHeight = Math.max(
-        1,
-        Number(this.data.containerHeight) ||
-          Math.max(fallbackHeight, estimateSize, indicatorHeight),
-      );
-      const resolvedPadding = Math.max(
-        0,
-        Number(this.data.resolvedPadding) || containerHeight / 2 - indicatorHeight / 2,
+      const prevValue = mergedValue[columnIndex] ?? null;
+      const nextValue = [...mergedValue];
+      nextValue[columnIndex] = nextItem.id;
+
+      const targetScrollTop = resolveScrollTopForIndex(resolvedIndex, estimateSize);
+      columnState.selectedIndex = resolvedIndex;
+      columnState.anchorIndex = resolvedIndex;
+      columnState.scrollTop = targetScrollTop;
+      columnState.pendingScrollTop = targetScrollTop;
+      columnState.ignoreScrollUntil = Date.now() + 80;
+
+      const applyData = () => {
+        this.recomputeVirtualColumns();
+      };
+
+      if (!isArrayLikeValue(this.data.value)) {
+        this.setData(
+          {
+            innerValue: nextValue,
+          } satisfies Partial<PickboxMiniVirtualState>,
+          applyData,
+        );
+      } else {
+        applyData();
+      }
+
+      if (!isSamePickboxItemId(prevValue, nextItem.id)) {
+        maybeVibrate(columnState);
+      }
+
+      if (
+        reason === 'touchmove' ||
+        !isSamePickboxItemId(prevValue, nextItem.id)
+      ) {
+        this.triggerEvent('valuechange', {
+          value: nextValue,
+          columnIndex,
+          itemId: nextItem.id,
+        });
+      }
+    },
+
+    settleColumn(columnIndex: number, reason: 'touchend' | 'inertia-end') {
+      const columns = resolveColumns(this.data.columns);
+      const column = columns[columnIndex];
+      if (!column || column.items.length === 0) {
+        return;
+      }
+
+      const internalState = getInternalState(this, columns.length);
+      const columnState = internalState.columns[columnIndex];
+      if (!columnState) {
+        return;
+      }
+
+      const estimateSize =
+        this.data.resolvedEstimateSize ||
+        resolvePickboxMetrics(this.data).estimateSize;
+      const anchorIndex = resolveIndexByScrollTop(
+        columnState.scrollTop,
+        estimateSize,
+        column.items.length,
       );
 
-      const viewportCenter = columnState.currentOffset + containerHeight / 2;
+      this.commitColumnIndex(columnIndex, anchorIndex, reason);
+    },
 
-      let nearestIndex = -1;
-      let nearestDistance = Number.POSITIVE_INFINITY;
+    scheduleSettle(columnIndex: number, reason: 'touchend' | 'inertia-end') {
+      const columns = resolveColumns(this.data.columns);
+      const internalState = getInternalState(this, columns.length);
+      const columnState = internalState.columns[columnIndex];
+      if (!columnState) {
+        return;
+      }
 
-      column.items.forEach((item, itemIndex) => {
-        if (item.isDisabled) {
+      if (columnState.settleTimer) {
+        clearTimeout(columnState.settleTimer);
+      }
+
+      const delay = Math.max(48, Number(this.data.scrollEndDelay) || SCROLL_SETTLE_DELAY);
+      columnState.settleTimer = setTimeout(() => {
+        columnState.settleTimer = null;
+        this.settleColumn(columnIndex, reason);
+      }, delay);
+    },
+
+    startColumnInertia(columnIndex: number, initialVelocity: number) {
+      const columns = resolveColumns(this.data.columns);
+      const column = columns[columnIndex];
+      if (!column || column.items.length === 0) {
+        return;
+      }
+
+      const internalState = getInternalState(this, columns.length);
+      const columnState = internalState.columns[columnIndex];
+      if (!columnState) {
+        return;
+      }
+
+      const estimateSize =
+        this.data.resolvedEstimateSize ||
+        resolvePickboxMetrics(this.data).estimateSize;
+      const maxScrollTop = Math.max(0, (column.items.length - 1) * estimateSize);
+
+      clearColumnTimers(columnState);
+
+      const tick = (velocity: number) => {
+        const nextScrollTop = Math.max(
+          0,
+          Math.min(maxScrollTop, columnState.scrollTop - velocity),
+        );
+        const previousAnchor = columnState.anchorIndex;
+        columnState.scrollTop = nextScrollTop;
+        columnState.anchorIndex = resolveIndexByScrollTop(
+          nextScrollTop,
+          estimateSize,
+          column.items.length,
+        );
+
+        if (columnState.anchorIndex !== previousAnchor) {
+          this.commitColumnIndex(columnIndex, columnState.anchorIndex, 'touchmove');
+        } else {
+          this.recomputeVirtualColumns();
+        }
+
+        const nextVelocity = velocity * INERTIA_DECAY;
+        if (
+          Math.abs(nextVelocity) < INERTIA_MIN_VELOCITY ||
+          nextScrollTop <= 0 ||
+          nextScrollTop >= maxScrollTop
+        ) {
+          columnState.inertiaTimer = null;
+          this.scheduleSettle(columnIndex, 'inertia-end');
           return;
         }
 
-        const itemCenter =
-          resolvedPadding + itemIndex * estimateSize + estimateSize / 2;
-        const distance = Math.abs(itemCenter - viewportCenter);
+        columnState.inertiaTimer = setTimeout(() => tick(nextVelocity), INERTIA_STEP_MS);
+      };
 
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nearestIndex = itemIndex;
-        }
-      });
+      columnState.inertiaTimer = setTimeout(
+        () => tick(initialVelocity),
+        INERTIA_STEP_MS,
+      );
+    },
 
-      if (nearestIndex < 0) {
+    handleColumnTouchStart(e: WechatMiniprogram.TouchEvent) {
+      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
+      if (Number.isNaN(columnIndex)) {
         return;
       }
 
-      const nearestItem = column.items[nearestIndex];
-      if (!nearestItem) {
+      const touch =
+        e.touches?.[0] ?? ({ clientY: 0 } as WechatMiniprogram.Touch);
+      const columns = resolveColumns(this.data.columns);
+      const internalState = getInternalState(this, columns.length);
+      const columnState = internalState.columns[columnIndex];
+      if (!columnState) {
         return;
       }
 
-      this.selectColumnItem(columnIndex, nearestItem.id, 'smooth');
+      clearColumnTimers(columnState);
+      columnState.isTouching = true;
+      columnState.pendingScrollTop = null;
+      columnState.startY = touch.clientY;
+      columnState.startScrollTop = columnState.scrollTop;
+      columnState.lastTouchY = touch.clientY;
+      columnState.lastTouchAt = Date.now();
+      columnState.velocity = 0;
+    },
+
+    handleColumnTouchMove(e: WechatMiniprogram.TouchEvent) {
+      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
+      if (Number.isNaN(columnIndex)) {
+        return;
+      }
+
+      const touch = e.touches?.[0];
+      if (!touch) {
+        return;
+      }
+
+      const columns = resolveColumns(this.data.columns);
+      const column = columns[columnIndex];
+      const internalState = getInternalState(this, columns.length);
+      const columnState = internalState.columns[columnIndex];
+      if (!column || !columnState || !columnState.isTouching) {
+        return;
+      }
+
+      const estimateSize =
+        this.data.resolvedEstimateSize ||
+        resolvePickboxMetrics(this.data).estimateSize;
+      const maxScrollTop = Math.max(0, (column.items.length - 1) * estimateSize);
+      const deltaY = touch.clientY - columnState.startY;
+      const nextScrollTop = Math.max(
+        0,
+        Math.min(maxScrollTop, columnState.startScrollTop - deltaY),
+      );
+      const previousAnchor = columnState.anchorIndex;
+      const now = Date.now();
+      const deltaMoveY = touch.clientY - columnState.lastTouchY;
+      const deltaMoveAt = Math.max(1, now - columnState.lastTouchAt);
+
+      columnState.scrollTop = nextScrollTop;
+      columnState.anchorIndex = resolveIndexByScrollTop(
+        nextScrollTop,
+        estimateSize,
+        column.items.length,
+      );
+      columnState.velocity = (deltaMoveY / deltaMoveAt) * 16;
+      columnState.lastTouchY = touch.clientY;
+      columnState.lastTouchAt = now;
+
+      if (columnState.anchorIndex !== previousAnchor) {
+        this.commitColumnIndex(columnIndex, columnState.anchorIndex, 'touchmove');
+      } else {
+        this.recomputeVirtualColumns();
+      }
+    },
+
+    handleColumnTouchEnd(e: WechatMiniprogram.TouchEvent) {
+      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
+      if (Number.isNaN(columnIndex)) {
+        return;
+      }
+
+      const columns = resolveColumns(this.data.columns);
+      const internalState = getInternalState(this, columns.length);
+      const columnState = internalState.columns[columnIndex];
+      if (!columnState || !columnState.isTouching) {
+        return;
+      }
+
+      columnState.isTouching = false;
+      const releaseVelocity = columnState.velocity;
+      if (Math.abs(releaseVelocity) >= 1) {
+        this.startColumnInertia(columnIndex, releaseVelocity);
+        return;
+      }
+
+      this.scheduleSettle(columnIndex, 'touchend');
+    },
+
+    handleColumnTouchCancel(e: WechatMiniprogram.TouchEvent) {
+      this.handleColumnTouchEnd(e);
     },
 
     selectColumnItem(
       columnIndex: number,
       itemId: PickboxMiniItemId,
-      behavior: PickboxScrollBehavior,
+      behavior: 'auto' | 'smooth' = 'smooth',
     ) {
       const columns = resolveColumns(this.data.columns);
-      const internalState = getInternalState(this, columns.length);
-      const columnState = internalState.columns[columnIndex];
       const column = columns[columnIndex];
-
-      if (!columnState || !column) {
+      if (!column) {
         return;
       }
 
@@ -1028,90 +1030,74 @@ UIComponent({
         return;
       }
 
-      const { estimateSize, indicatorHeight } = resolvePickboxMetrics(
-        this.data,
-      );
-      const containerHeight = Math.max(
-        1,
-        Number(this.data.containerHeight) || Math.max(estimateSize, indicatorHeight),
-      );
-      const resolvedPadding = Math.max(
-        0,
-        Number(this.data.resolvedPadding) || containerHeight / 2 - indicatorHeight / 2,
-      );
-
-      if (columnState.scrollStopTimer) {
-        clearTimeout(columnState.scrollStopTimer);
-        columnState.scrollStopTimer = null;
-      }
-      if (columnState.autoAdjustTimer) {
-        clearTimeout(columnState.autoAdjustTimer);
-        columnState.autoAdjustTimer = null;
-      }
-
-      const nextOffset = resolveScrollTopForIndex({
-        index: itemIndex,
-        estimateSize,
-        resolvedPadding,
-        containerHeight,
-      });
-      columnState.currentOffset = nextOffset;
-      columnState.pendingAlignOffset = nextOffset;
-      columnState.pendingScrollWithAnimation = behavior === 'smooth';
-      columnState.isScrolling = behavior === 'smooth';
-      columnState.isAutoAdjusting = behavior === 'smooth';
-      columnState.alignPhase = behavior === 'smooth' ? 'running' : 'idle';
-      columnState.ignoreScrollEventsUntil =
-        behavior === 'smooth' ? 0 : Date.now() + 80;
-      if (behavior !== 'smooth') {
-        columnState.controlledOffset = nextOffset;
-        columnState.pendingAlignOffset = null;
-        columnState.pendingScrollWithAnimation = false;
-        columnState.alignPhase = 'idle';
-      }
-      columnState.hasInitialized = true;
-      columnState.lastSelectedId = itemId;
-
-      const mergedValue = ensurePickboxValue(
-        columns,
-        isArrayLikeValue(this.data.value)
-          ? (this.data.value as PickboxMiniValue)
-          : this.data.innerValue,
-      );
-      const nextValue = [...mergedValue];
-      nextValue[columnIndex] = itemId;
-
-      if (!isArrayLikeValue(this.data.value)) {
-        this.setData(
-          {
-            innerValue: nextValue,
-          } satisfies Partial<PickboxMiniVirtualState>,
-          () => {
-            this.recomputeVirtualColumns();
-          },
-        );
-      } else {
-        this.recomputeVirtualColumns();
-      }
-
-      setTimeout(() => {
-        try {
-          wx.vibrateShort({ type: 'light' });
-        } catch {
-          // ignore vibration failures
-        }
-      }, 0);
-
-      this.triggerEvent('valuechange', {
-        value: nextValue,
+      this.commitColumnIndex(
         columnIndex,
-        itemId,
-      });
+        itemIndex,
+        behavior === 'smooth' ? 'touchend' : 'inertia-end',
+      );
+    },
+
+    handleColumnDragStart() {
+      // touch-driven implementation: keep method for template compatibility
+    },
+
+    handleColumnDragging() {
+      // touch-driven implementation: keep method for template compatibility
+    },
+
+    handleColumnDragEnd() {
+      // touch-driven implementation: keep method for template compatibility
+    },
+
+    handleColumnScroll(e: WechatMiniprogram.CustomEvent<NestedScrollDetail>) {
+      const columnIndex = Number(e.currentTarget.dataset.columnIndex);
+      if (Number.isNaN(columnIndex)) {
+        return;
+      }
+
+      const columns = resolveColumns(this.data.columns);
+      const column = columns[columnIndex];
+      const columnState = getInternalState(this, columns.length).columns[columnIndex];
+      if (!column || !columnState) {
+        return;
+      }
+
+      if (Date.now() < columnState.ignoreScrollUntil) {
+        return;
+      }
+
+      const detail = e.detail?.detail ?? e.detail;
+      if (!columnState.isTouching && !columnState.hasInitialized) {
+        return;
+      }
+      const nextScrollTop = Math.max(0, Number(detail?.scrollTop ?? 0));
+      const estimateSize =
+        this.data.resolvedEstimateSize ||
+        resolvePickboxMetrics(this.data).estimateSize;
+      const previousAnchor = columnState.anchorIndex;
+
+      columnState.pendingScrollTop = null;
+      columnState.scrollTop = nextScrollTop;
+      columnState.anchorIndex = resolveIndexByScrollTop(
+        nextScrollTop,
+        estimateSize,
+        column.items.length,
+      );
+
+      if (columnState.anchorIndex !== previousAnchor) {
+        this.commitColumnIndex(columnIndex, columnState.anchorIndex, 'touchmove');
+        return;
+      }
+
+      this.recomputeVirtualColumns();
     },
   },
 });
 
-export { pickbox, pickboxItemState } from '@srcube-ui/styles/components/pickbox/style';
+export {
+  pickbox,
+  pickboxItemState,
+} from '@srcube-ui/styles/components/pickbox/style';
 export type {
   PickboxMiniColumn,
   PickboxMiniItem,

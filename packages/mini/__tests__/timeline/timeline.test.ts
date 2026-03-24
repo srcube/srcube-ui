@@ -19,3 +19,9 @@ it('supports icon class payload in template', () => {
   expect(template).toContain('item.iconClass || item.iconText');
   expect(template).toContain('{{item.iconClass}}');
 });
+
+it('renders a content spacer in template', () => {
+  expect(template).toContain('sr-timeline__content-spacer');
+  expect(template).toContain('item.classes.contentSpacer');
+  expect(template).toContain('item.spacerStyle');
+});

@@ -3,7 +3,7 @@ import { tv, type VariantClasses, type VariantProps } from "../../shared/tv";
 export const toasterStyle = tv({
   slots: {
     base: "fixed inset-0 z-[1400] pointer-events-none grid place-items-center px-4",
-    stack: "relative grid w-full max-w-[28rem] place-items-center pb-safe-4",
+    stack: "relative grid w-full max-w-[30rem] place-items-center pb-safe-4",
     closeLayer:
       "pointer-events-none absolute inset-0 z-10 grid place-items-center",
   },
@@ -14,14 +14,14 @@ export const toastStyle = tv({
     layer:
       "col-start-1 row-start-1 transition-[transform,opacity] duration-200 ease-out will-change-transform",
     toast:
-      "pointer-events-auto relative flex h-40 w-40 flex-col items-center justify-center gap-2.5 rounded-[1.75rem] border border-transparent px-5 py-5 text-center shadow-lg backdrop-blur-md",
-    icon: "inline-flex h-11 w-11 shrink-0 items-center justify-center text-[2rem] leading-none",
+      "pointer-events-auto relative flex h-44 w-44 flex-col items-center justify-center gap-3 rounded-[1.75rem] border border-transparent px-5 py-5 text-center shadow-lg backdrop-blur-md",
+    icon: "inline-flex h-12 w-12 shrink-0 items-center justify-center text-[2.125rem] leading-none",
     _iIcon: "icon-info size-[1em]",
     textWrap: "min-w-0 w-full",
     title: "truncate text-sm font-semibold leading-5",
     description: "mt-1 line-clamp-2 text-xs leading-4",
     closeButton:
-      "pointer-events-auto relative z-[1] inline-flex h-10 w-10 translate-y-[8.5rem] items-center justify-center rounded-full bg-black/10 text-current/80 transition-[background-color,transform,opacity] duration-150 active:scale-95",
+      "pointer-events-auto relative z-[1] inline-flex h-10 w-10 translate-y-[9.25rem] items-center justify-center rounded-full bg-black/10 text-current/80 transition-[background-color,transform,opacity] duration-150 active:scale-95",
     _iClose: "icon-close size-4",
   },
   variants: {
@@ -35,12 +35,13 @@ export const toastStyle = tv({
     },
     tone: {
       default: {
-        toast: "bg-slate-100/92 text-slate-900",
+        toast: "bg-slate-100/94 text-slate-900",
         description: "text-slate-700",
       },
       dark: {
-        toast: "bg-zinc-900/92 text-white",
-        description: "text-white/80",
+        toast: "border-zinc-700 bg-zinc-900/94 text-white",
+        description: "text-zinc-200",
+        closeButton: "bg-zinc-800/90 text-white/80",
       },
     },
     state: {
@@ -53,7 +54,7 @@ export const toastStyle = tv({
       color: "primary",
       tone: "default",
       class: {
-        toast: "bg-primary-50/92 text-primary",
+        toast: "bg-primary-50/94 text-primary",
         title: "text-primary",
         description: "text-primary/80",
       },
@@ -62,16 +63,16 @@ export const toastStyle = tv({
       color: "primary",
       tone: "dark",
       class: {
-        toast: "bg-primary-600/92 text-white",
+        toast: "border-primary-700 bg-primary-950/94 text-white",
         title: "text-white",
-        description: "text-white/80",
+        description: "text-primary-100/90",
       },
     },
     {
       color: "secondary",
       tone: "default",
       class: {
-        toast: "bg-secondary-50/92 text-secondary",
+        toast: "bg-secondary-50/94 text-secondary",
         title: "text-secondary",
         description: "text-secondary/80",
       },
@@ -80,16 +81,16 @@ export const toastStyle = tv({
       color: "secondary",
       tone: "dark",
       class: {
-        toast: "bg-secondary-600/92 text-white",
+        toast: "border-secondary-700 bg-secondary-950/94 text-white",
         title: "text-white",
-        description: "text-white/80",
+        description: "text-secondary-100/90",
       },
     },
     {
       color: "success",
       tone: "default",
       class: {
-        toast: "bg-success-50/92 text-success",
+        toast: "bg-success-50/94 text-success",
         title: "text-success",
         description: "text-success/80",
         _iIcon: "icon-toast-success size-[1em]",
@@ -99,9 +100,9 @@ export const toastStyle = tv({
       color: "success",
       tone: "dark",
       class: {
-        toast: "bg-success-600/92 text-white",
+        toast: "border-success-700 bg-success-950/94 text-white",
         title: "text-white",
-        description: "text-white/80",
+        description: "text-success-100/90",
         _iIcon: "icon-toast-success size-[1em]",
       },
     },
@@ -109,7 +110,7 @@ export const toastStyle = tv({
       color: "warning",
       tone: "default",
       class: {
-        toast: "bg-warning-50/92 text-warning",
+        toast: "bg-warning-50/94 text-warning",
         title: "text-warning",
         description: "text-warning/80",
         _iIcon: "icon-toast-warning size-[1em]",
@@ -119,9 +120,9 @@ export const toastStyle = tv({
       color: "warning",
       tone: "dark",
       class: {
-        toast: "bg-warning-600/92 text-white",
+        toast: "border-warning-700 bg-warning-950/94 text-white",
         title: "text-white",
-        description: "text-white/80",
+        description: "text-warning-100/90",
         _iIcon: "icon-toast-warning size-[1em]",
       },
     },
@@ -129,7 +130,7 @@ export const toastStyle = tv({
       color: "danger",
       tone: "default",
       class: {
-        toast: "bg-danger-50/92 text-danger",
+        toast: "bg-danger-50/94 text-danger",
         title: "text-danger",
         description: "text-danger/80",
         _iIcon: "icon-toast-danger size-[1em]",
@@ -139,9 +140,9 @@ export const toastStyle = tv({
       color: "danger",
       tone: "dark",
       class: {
-        toast: "bg-danger-600/92 text-white",
+        toast: "border-danger-700 bg-danger-950/94 text-white",
         title: "text-white",
-        description: "text-white/80",
+        description: "text-danger-100/90",
         _iIcon: "icon-toast-danger size-[1em]",
       },
     },

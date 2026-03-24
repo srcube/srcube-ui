@@ -87,7 +87,7 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>((props, ref) => {
         {...rest}
         isOpen={isOpen}
         motion="none"
-        backdrop={backdrop}
+        backdrop={backdrop ?? undefined}
         tone={tone}
         onOpenChange={handleOpenChange}
         onClose={onClose}

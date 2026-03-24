@@ -1,0 +1,39 @@
+<app-page
+  title="Contrastbox"
+  description="读取容器当前背景色，并基于 WCAG 对比度算法自动选择黑字或白字。"
+  tone="{{tone}}"
+  withBack="{{true}}"
+>
+  <view class="{{cardClassName}}">
+    <view class="text-sm font-semibold">当前选中</view>
+    <view class="{{hintClassName}}">点击色块切换背景，组件会读取当前背景色，并基于 WCAG 对比度算法选择黑字或白字。</view>
+    <contrastbox className="mt-3" style="background-color: {{selectedColor}};" debug="{{true}}">
+      <view class="text-sm font-semibold">{{selectedLabel}}</view>
+      <view class="mt-1 text-xs">算法预期 → {{selectedTextColor}}</view>
+    </contrastbox>
+  </view>
+
+  <view class="{{cardClassName}}">
+    <view class="text-sm font-semibold">Tailwind 色板</view>
+    <view class="{{hintClassName}}">一行一个颜色族，点小色块就行，不额外堆文字。</view>
+    <view class="mt-3 flex flex-col gap-4">
+      <view wx:for="{{swatchGroups}}" wx:key="family">
+        <view class="mb-2 text-xs font-semibold uppercase tracking-wide {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
+          {{item.title}}
+        </view>
+        <view class="flex flex-nowrap gap-2 overflow-hidden">
+          <view
+            wx:for="{{item.items}}"
+            wx:key="id"
+            wx:for-item="subitem"
+            data-family="{{subitem.family}}"
+            data-step="{{subitem.step}}"
+            bindtap="handleSelectSwatch"
+            class="h-7 w-7 shrink-0 rounded-md border {{selectedId === subitem.id ? (tone === 'dark' ? 'border-zinc-100 ring-1 ring-zinc-100' : 'border-slate-900 ring-1 ring-slate-900') : (tone === 'dark' ? 'border-zinc-800' : 'border-slate-200')}}"
+            style="background: {{subitem.value}};"
+          />
+        </view>
+      </view>
+    </view>
+  </view>
+</app-page>

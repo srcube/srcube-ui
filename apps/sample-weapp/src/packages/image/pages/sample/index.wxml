@@ -1,103 +1,112 @@
-<app-page title="Image" tone="{{tone}}" withBack="{{true}}">
-  <view class="p-4 space-y-6">
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Basic / State</view>
-      <view class="mt-3 grid grid-cols-3 gap-3">
-        <view>
-          <sr-image tone="{{tone}}" src="{{coverUrl}}" className="w-full aspect-square" />
-        </view>
-        <view>
-          <sr-image
-            tone="{{tone}}"
-            src="https://invalid.srcube-ui.dev/fail.png"
-            fallback="Load failed"
-            className="w-full aspect-square"
-          />
-        </view>
-        <view>
-          <sr-image tone="{{tone}}" fallback="No src" className="w-full aspect-square" />
-        </view>
+<app-page title="Image" description="用于展示图片，并控制加载、裁剪和兜底表现。适合媒体卡片、图片列表和装饰资源。" tone="{{tone}}" withBack="{{true}}" contentClassName="space-y-6">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Basic / State</view>
+    <view class="mt-3 grid grid-cols-3 gap-3">
+      <view>
+        <sr-image tone="{{tone}}" src="{{coverUrl}}" className="w-full aspect-square" />
       </view>
-    </view>
-
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Ratio / Radius / Fit</view>
-      <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
-        use ButtonGroup to switch ratio, radius and fit
-      </view>
-      <view class="mt-3 space-y-2">
-        <sr-button-group size="sm" tone="{{tone === 'dark' ? 'dark' : 'light'}}" isBlock>
-          <block wx:for="{{ratioOptions}}" wx:key="value" wx:for-item="option">
-            <sr-button
-              color="{{ratioMode === option.value ? 'primary' : 'default'}}"
-              variant="{{ratioMode === option.value ? 'solid' : 'flat'}}"
-              data-value="{{option.value}}"
-              bind:tap="handleRatioModeTap"
-            >
-              {{option.label}}
-            </sr-button>
-          </block>
-        </sr-button-group>
-
-        <sr-button-group size="sm" tone="{{tone === 'dark' ? 'dark' : 'light'}}" isBlock>
-          <block wx:for="{{radiusOptions}}" wx:key="value" wx:for-item="option">
-            <sr-button
-              color="{{radiusMode === option.value ? 'primary' : 'default'}}"
-              variant="{{radiusMode === option.value ? 'solid' : 'flat'}}"
-              data-value="{{option.value}}"
-              bind:tap="handleRadiusModeTap"
-            >
-              {{option.label}}
-            </sr-button>
-          </block>
-        </sr-button-group>
-
-        <sr-button-group size="sm" tone="{{tone === 'dark' ? 'dark' : 'light'}}" isBlock>
-          <block wx:for="{{fitOptions}}" wx:key="value" wx:for-item="option">
-            <sr-button
-              color="{{fitMode === option.value ? 'primary' : 'default'}}"
-              variant="{{fitMode === option.value ? 'solid' : 'flat'}}"
-              data-value="{{option.value}}"
-              bind:tap="handleFitModeTap"
-            >
-              {{option.label}}
-            </sr-button>
-          </block>
-        </sr-button-group>
-      </view>
-      <view class="mt-3">
+      <view>
         <sr-image
           tone="{{tone}}"
-          is-block="{{true}}"
-          ratio="{{ratioMode}}"
-          radius="{{radiusMode}}"
-          fit="{{fitMode}}"
-          src="{{ratioPreviewUrl}}"
+          src="https://invalid.srcube-ui.dev/fail.png"
+          fallback="Load failed"
+          className="w-full aspect-square"
         />
       </view>
+      <view>
+        <sr-image tone="{{tone}}" fallback="No src" className="w-full aspect-square" />
+      </view>
     </view>
+  </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
-      <view class="text-sm font-semibold">Preview</view>
-      <view class="mt-3 grid grid-cols-2 gap-3">
-        <view>
-          <sr-image
-            tone="{{tone}}"
-            src="{{coverUrl}}"
-            is-previewable="{{true}}"
-            className="w-full aspect-square"
-            preview-urls="{{previewUrls}}"
-          />
-        </view>
-        <view>
-          <sr-image
-            tone="{{tone}}"
-            src="{{photoUrl}}"
-            ratio="square"
-            is-previewable="{{true}}"
-            preview-src="{{photoUrl}}"
-          />
-        </view>
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">组件预览</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
+      当前配置会同步到底部预览图，先看效果，再调参数
+    </view>
+    <view class="mt-3">
+      <sr-image
+        tone="{{tone}}"
+        is-block="{{true}}"
+        ratio="{{ratioMode}}"
+        radius="{{radiusMode}}"
+        fit="{{fitMode}}"
+        src="{{ratioPreviewUrl}}"
+      />
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">属性控制 Tabs</view>
+    <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">
+      先看上方预览，再在这里切换 ratio、radius 和 fit
+    </view>
+    <view class="mt-3 space-y-2 w-full">
+      <sr-button-group class="w-full" size="sm" tone="{{tone === 'dark' ? 'dark' : 'light'}}" isBlock>
+        <block wx:for="{{ratioOptions}}" wx:key="value" wx:for-item="option">
+          <sr-button
+            class="flex-1"
+            color="{{ratioMode === option.value ? 'primary' : 'default'}}"
+            variant="{{ratioMode === option.value ? 'solid' : 'flat'}}"
+            data-value="{{option.value}}"
+            bind:tap="handleRatioModeTap"
+          >
+            {{option.label}}
+          </sr-button>
+        </block>
+      </sr-button-group>
+
+      <sr-button-group class="w-full" size="sm" tone="{{tone === 'dark' ? 'dark' : 'light'}}" isBlock>
+        <block wx:for="{{radiusOptions}}" wx:key="value" wx:for-item="option">
+          <sr-button
+            class="flex-1"
+            color="{{radiusMode === option.value ? 'primary' : 'default'}}"
+            variant="{{radiusMode === option.value ? 'solid' : 'flat'}}"
+            data-value="{{option.value}}"
+            bind:tap="handleRadiusModeTap"
+          >
+            {{option.label}}
+          </sr-button>
+        </block>
+      </sr-button-group>
+
+      <sr-button-group class="w-full" size="sm" tone="{{tone === 'dark' ? 'dark' : 'light'}}" isBlock>
+        <block wx:for="{{fitOptions}}" wx:key="value" wx:for-item="option">
+          <sr-button
+            class="flex-1"
+            color="{{fitMode === option.value ? 'primary' : 'default'}}"
+            variant="{{fitMode === option.value ? 'solid' : 'flat'}}"
+            data-value="{{option.value}}"
+            bind:tap="handleFitModeTap"
+          >
+            {{option.label}}
+          </sr-button>
+        </block>
+      </sr-button-group>
+    </view>
+  </view>
+
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
+    <view class="text-sm font-semibold">Preview</view>
+    <view class="mt-3 grid grid-cols-2 gap-0 overflow-hidden rounded-2xl">
+      <view>
+        <sr-image
+          tone="{{tone}}"
+          src="{{coverUrl}}"
+          is-previewable="{{true}}"
+          className="w-full aspect-square"
+          preview-urls="{{previewUrls}}"
+        />
+      </view>
+      <view>
+        <sr-image
+          tone="{{tone}}"
+          src="{{photoUrl}}"
+          className="w-full aspect-square"
+          ratio="square"
+          is-previewable="{{true}}"
+          preview-src="{{photoUrl}}"
+        />
       </view>
     </view>
   </view>

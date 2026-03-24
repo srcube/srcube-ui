@@ -58,6 +58,7 @@
                   data-disabled="{{cell.disabled}}"
                   bindtap="handleDayTap"
                 >
+                  <view class="sr-calendar__day-pill"></view>
                   <text class="sr-calendar__day-text {{cell.classes.dayText}}">{{cell.label}}</text>
                 </view>
               </view>

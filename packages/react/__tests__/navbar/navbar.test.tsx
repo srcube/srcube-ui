@@ -48,8 +48,11 @@ it('keeps centered title class when using default back', () => {
     <Navbar withBack title="Centered Back" titleAlign="center" />,
   );
 
-  expect(container.innerHTML).toContain('left-1/2');
-  expect(container.innerHTML).toContain('-translate-x-1/2');
+  expect(container.innerHTML).toContain('absolute');
+  expect(container.innerHTML).toContain('inset-x-0');
+  expect(container.innerHTML).toContain('top-1/2');
+  expect(container.innerHTML).toContain('-translate-y-1/2');
+  expect(container.innerHTML).toContain('text-center');
 });
 
 it('supports dark tone', () => {

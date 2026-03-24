@@ -10,7 +10,7 @@ type SampleApp = WechatMiniprogram.App.Instance<{
 
 function resolvePageClassName(tone: SampleTone) {
   return tone === 'dark'
-    ? 'min-h-screen bg-zinc-950 text-zinc-50 pb-safe'
+    ? 'min-h-screen bg-zinc-900 text-zinc-50 pb-safe'
     : 'min-h-screen bg-slate-100 text-slate-900 pb-safe';
 }
 

@@ -3,12 +3,12 @@ import { tv, type VariantClasses, type VariantProps } from "../../shared/tv";
 export const navbar = tv({
   slots: {
     base: "w-full",
-    inner: "relative flex w-full items-center gap-3 px-3 py-2",
-    start: "flex min-w-[2.75rem] shrink-0 items-center justify-start",
-    title: "min-w-0 truncate font-semibold",
-    end: "flex min-w-[2.75rem] shrink-0 items-center justify-end",
-    placeholder: "inline-flex h-10 w-11 shrink-0",
-    back: "relative z-[1] inline-flex h-10 w-11 shrink-0 items-center justify-center rounded-full transition-colors duration-150",
+    inner: "flex w-full items-center gap-2 px-3 min-h-[var(--navbar-height)]",
+    start: "flex min-w-0 flex-1 items-center justify-start gap-1",
+    title: "min-w-0 flex-1 truncate font-semibold",
+    end: "flex min-w-0 flex-1 items-center justify-end gap-1",
+    placeholder: "inline-flex h-10 w-10 shrink-0",
+    back: "inline-flex h-10 w-10 shrink-0 items-center justify-center self-center rounded-full transition-colors duration-150",
     _iBack: "icon-chevron-left text-2xl leading-none",
   },
   variants: {
@@ -27,26 +27,20 @@ export const navbar = tv({
     size: {
       sm: {
         inner: "min-h-11",
-        start: "min-w-[2.5rem]",
-        end: "min-w-[2.5rem]",
-        placeholder: "h-9 w-10",
-        back: "h-9 w-10",
+        placeholder: "h-9 w-9",
+        back: "h-9 w-9",
         title: "text-sm",
       },
       md: {
         inner: "min-h-12",
-        start: "min-w-[2.75rem]",
-        end: "min-w-[2.75rem]",
-        placeholder: "h-10 w-11",
-        back: "h-10 w-11",
+        placeholder: "h-10 w-10",
+        back: "h-10 w-10",
         title: "text-base",
       },
       lg: {
         inner: "min-h-14",
-        start: "min-w-[3rem]",
-        end: "min-w-[3rem]",
-        placeholder: "h-11 w-12",
-        back: "h-11 w-12",
+        placeholder: "h-11 w-11",
+        back: "h-11 w-11",
         title: "text-lg",
       },
     },
@@ -57,30 +51,24 @@ export const navbar = tv({
       false: {},
     },
     hasSafeTop: {
-      true: {
-        base: "pt-safe",
-        inner: "pt-1",
-      },
+      true: {},
       false: {},
     },
     titleAlign: {
       start: {
-        title: "flex-1 text-left",
+        title: "text-left",
       },
       center: {
-        start: "grow basis-0",
-        end: "grow basis-0 justify-end",
-        title:
-          "pointer-events-none absolute left-1/2 right-1/2 z-0 w-max max-w-[calc(100%-7rem)] -translate-x-1/2 text-center",
+        title: "text-center",
       },
       end: {
-        title: "flex-1 text-right",
+        title: "text-right",
       },
       left: {
-        title: "flex-1 text-left",
+        title: "text-left",
       },
       right: {
-        title: "flex-1 text-right",
+        title: "text-right",
       },
     },
   },

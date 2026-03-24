@@ -3,13 +3,6 @@ import { navbar } from '@srcube-ui/styles/components/navbar/style';
 import type { NavbarMiniProps } from './props';
 import { navbarMiniProps } from './props';
 
-type MenuButtonMetrics = {
-  top: number;
-  height: number;
-  width: number;
-  right: number;
-};
-
 function readNavbarMetrics() {
   const windowInfo = wx.getWindowInfo?.();
   const systemInfo = windowInfo ?? wx.getSystemInfoSync();
@@ -33,6 +26,7 @@ function readNavbarMetrics() {
       }
     : null;
 
+  const windowWidth = Number(windowInfo?.windowWidth ?? systemInfo.windowWidth ?? 0);
   const isValidMenuButton = Boolean(
     rawMenuButton &&
       rawMenuButton.width > 0 &&
@@ -44,11 +38,13 @@ function readNavbarMetrics() {
   if (!isValidMenuButton || !rawMenuButton) {
     return {
       statusBarHeight,
-      contentHeight: 44,
-      horizontalInset: 12,
+      safeTopHeight: statusBarHeight,
+      capsuleHeight: 44,
+      capsuleWidth: 88,
+      sideInset: 12,
       debug: {
         statusBarHeight,
-        windowWidth: Number(windowInfo?.windowWidth ?? systemInfo.windowWidth ?? 0),
+        windowWidth,
         safeArea: systemInfo.safeArea ?? null,
         menuButton: rawMenuButton,
         valid: false,
@@ -57,26 +53,26 @@ function readNavbarMetrics() {
   }
 
   const verticalGap = Math.max(0, rawMenuButton.top - statusBarHeight);
-  const contentHeight = Math.max(44, Math.round(rawMenuButton.height + verticalGap * 2));
-  const rightInset = windowInfo
-    ? Math.max(12, Math.round(windowInfo.windowWidth - rawMenuButton.right + 8))
-    : 12;
-  const horizontalInset = Math.max(12, rightInset + rawMenuButton.width);
+  const capsuleHeight = Math.max(32, Math.round(rawMenuButton.height + verticalGap * 2));
+  const capsuleWidth = Math.max(88, Math.round(rawMenuButton.width));
+  const sideInset = Math.max(12, Math.round(windowWidth - rawMenuButton.right + 8));
 
   return {
     statusBarHeight,
-    contentHeight,
-    horizontalInset,
+    safeTopHeight: statusBarHeight,
+    capsuleHeight,
+    capsuleWidth,
+    sideInset,
     debug: {
       statusBarHeight,
-      windowWidth: Number(windowInfo?.windowWidth ?? systemInfo.windowWidth ?? 0),
+      windowWidth,
       safeArea: systemInfo.safeArea ?? null,
       menuButton: rawMenuButton,
       valid: true,
       verticalGap,
-      rightInset,
-      contentHeight,
-      horizontalInset,
+      capsuleHeight,
+      capsuleWidth,
+      sideInset,
     },
   };
 }
@@ -91,8 +87,10 @@ UIComponent({
     navbarMiniProps satisfies WechatMiniprogram.Component.PropertyOption,
 
   data: {
-    _contentHeight: 48,
-    _horizontalInset: 56,
+    _safeTopHeight: 0,
+    _capsuleHeight: 44,
+    _capsuleWidth: 88,
+    _sideInset: 12,
     _debugMetrics: '',
   },
 
@@ -119,9 +117,6 @@ UIComponent({
 
       const custom = (data.classNames ?? {}) as Record<string, string | undefined>;
 
-      const contentHeight = Number((data as typeof data & { _contentHeight?: number })._contentHeight ?? 48);
-      const horizontalInset = Number((data as typeof data & { _horizontalInset?: number })._horizontalInset ?? 56);
-
       return {
         base: slots.base({ class: [custom.base, data.className] }),
         inner: slots.inner({ class: custom.inner }),
@@ -139,8 +134,10 @@ UIComponent({
     syncMetrics(stage = 'unknown') {
       const metrics = readNavbarMetrics();
       this.setData({
-        _contentHeight: metrics.contentHeight,
-        _horizontalInset: metrics.horizontalInset,
+        _safeTopHeight: metrics.safeTopHeight,
+        _capsuleHeight: metrics.capsuleHeight,
+        _capsuleWidth: metrics.capsuleWidth,
+        _sideInset: metrics.sideInset,
         _debugMetrics: JSON.stringify({ stage, ...metrics.debug }),
       });
     },

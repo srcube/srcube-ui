@@ -1,5 +1,5 @@
 <app-page title="Button" description="用于触发操作，支持统一的样式、尺寸和状态。适合主流程操作、次级操作和成组按钮。" tone="{{tone}}" withBack="{{true}}">
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Colors</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color + variant=solid + tone={{buttonTone}}</view>
     <view class="mt-3 flex flex-wrap gap-2">
@@ -12,7 +12,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Variants</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
     <view class="mt-3 flex flex-wrap gap-2">
@@ -23,7 +23,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Sizes</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
     <view class="mt-3 flex flex-wrap gap-2">
@@ -33,7 +33,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Radius</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
     <view class="mt-3 flex flex-wrap gap-2">
@@ -45,7 +45,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">States</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
     <view class="mt-3 flex flex-wrap gap-2">
@@ -58,7 +58,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">OpenType</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
     <view class="mt-3 flex flex-wrap gap-2">
@@ -68,7 +68,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Icon</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
     <view class="mt-3 flex flex-wrap gap-2">
@@ -82,7 +82,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Block</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">color=default + tone={{buttonTone}}</view>
     <view class="mt-3 flex flex-col gap-2">
@@ -91,7 +91,7 @@
     </view>
   </view>
 
-  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+  <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">ButtonGroup</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-300' : 'text-slate-500'}}">group tone = {{buttonTone}}</view>
     <view class="mt-3 flex flex-col gap-3">
@@ -104,9 +104,9 @@
         <sr-button class="flex-1">Yes</sr-button>
         <sr-button variant="outline" class="flex-1">No</sr-button>
       </sr-button-group>
-      <sr-button-group color="primary" tone="{{buttonTone}}" isBlock>
-        <sr-button class="flex-1">Accept</sr-button>
-        <sr-button variant="outline" class="flex-1">Later</sr-button>
+      <sr-button-group tone="{{buttonTone}}" isBlock>
+        <sr-button color="primary" class="flex-1">Accept</sr-button>
+        <sr-button color="primary" variant="outline" class="flex-1">Later</sr-button>
       </sr-button-group>
     </view>
   </view>

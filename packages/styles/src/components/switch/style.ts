@@ -34,9 +34,9 @@ export const switchStyle = tv({
       },
       dark: {
         track: "bg-zinc-700",
-        thumb: "bg-zinc-50",
-        _iThumb: "text-zinc-600",
-        _iLoading: "text-zinc-600",
+        thumb: "bg-white",
+        _iThumb: "text-zinc-500",
+        _iLoading: "text-zinc-500",
         content: "text-zinc-50",
       },
     },
@@ -133,8 +133,9 @@ export const switchStyle = tv({
       tone: "dark",
       class: {
         track: "bg-zinc-500",
-        _iThumb: "text-zinc-700",
-        _iLoading: "text-zinc-700",
+        thumb: "bg-zinc-100",
+        _iThumb: "text-zinc-600",
+        _iLoading: "text-zinc-600",
       },
     },
     {
@@ -153,6 +154,7 @@ export const switchStyle = tv({
       tone: "dark",
       class: {
         track: "bg-primary-600",
+        thumb: "bg-primary-100",
         _iThumb: "text-primary-600",
         _iLoading: "text-primary-600",
       },
@@ -173,6 +175,7 @@ export const switchStyle = tv({
       tone: "dark",
       class: {
         track: "bg-secondary-600",
+        thumb: "bg-secondary-100",
         _iThumb: "text-secondary-600",
         _iLoading: "text-secondary-600",
       },
@@ -193,6 +196,7 @@ export const switchStyle = tv({
       tone: "dark",
       class: {
         track: "bg-success-600",
+        thumb: "bg-success-100",
         _iThumb: "text-success-600",
         _iLoading: "text-success-600",
       },
@@ -213,6 +217,7 @@ export const switchStyle = tv({
       tone: "dark",
       class: {
         track: "bg-warning-600",
+        thumb: "bg-warning-100",
         _iThumb: "text-warning-600",
         _iLoading: "text-warning-600",
       },
@@ -233,6 +238,7 @@ export const switchStyle = tv({
       tone: "dark",
       class: {
         track: "bg-danger-600",
+        thumb: "bg-danger-100",
         _iThumb: "text-danger-600",
         _iLoading: "text-danger-600",
       },

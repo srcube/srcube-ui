@@ -17,7 +17,7 @@ export const fieldStyle = tv({
     startContent: "flex shrink-0 items-center justify-center",
     endContent: "flex shrink-0 items-center justify-center",
     clearButton:
-      "flex shrink-0 items-center justify-center leading-none opacity-70 transition-opacity duration-150 active:opacity-100",
+      "flex shrink-0 items-center justify-center leading-none opacity-70 transition-[opacity,color] duration-150 active:opacity-100",
     _iClear: "icon-clear size-[1em]",
   },
   variants: {
@@ -60,7 +60,7 @@ export const fieldStyle = tv({
       dark: {
         label: "text-zinc-50",
         description: "text-zinc-400",
-        clearButton: "text-zinc-500",
+        clearButton: "text-zinc-400",
         control: "text-zinc-100",
         input: "text-zinc-100",
         placeholder: "text-zinc-500",
@@ -216,6 +216,7 @@ export const fieldStyle = tv({
       color: "default",
       class: {
         controlWrapper: "bg-zinc-900 text-zinc-100",
+        clearButton: "text-zinc-300",
       },
     },
     {

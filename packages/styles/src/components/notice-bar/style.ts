@@ -13,7 +13,7 @@ export const noticeBar = tv({
     action:
       "inline-flex shrink-0 items-center text-xs font-medium leading-none",
     close:
-      "inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-transparent opacity-70 transition-opacity duration-150 hover:opacity-100",
+      "inline-flex h-6 min-w-6 w-6 shrink-0 items-center justify-center rounded-full border border-transparent opacity-70 transition-[opacity,border-color,background-color] duration-150 hover:opacity-100",
     closeIcon: "icon-close text-sm leading-none",
   },
   variants: {
@@ -58,6 +58,7 @@ export const noticeBar = tv({
       tone: "default",
       class: {
         base: "border-slate-200 bg-slate-50 text-slate-700",
+        close: "border-slate-200/70 text-slate-500 active:bg-slate-100",
       },
     },
     {
@@ -65,6 +66,7 @@ export const noticeBar = tv({
       tone: "dark",
       class: {
         base: "border-zinc-700 bg-zinc-900 text-zinc-100",
+        close: "border-zinc-700 text-zinc-300 active:bg-zinc-800",
       },
     },
     {
@@ -72,6 +74,7 @@ export const noticeBar = tv({
       tone: "default",
       class: {
         base: "border-primary/30 bg-primary/10 text-primary",
+        close: "border-primary/25 text-primary/80 active:bg-primary/10",
       },
     },
     {
@@ -79,6 +82,7 @@ export const noticeBar = tv({
       tone: "dark",
       class: {
         base: "border-primary-800 bg-primary-950 text-primary-100",
+        close: "border-primary-800 text-primary-200 active:bg-primary-900/50",
       },
     },
     {
@@ -86,6 +90,7 @@ export const noticeBar = tv({
       tone: "default",
       class: {
         base: "border-success/30 bg-success/10 text-success",
+        close: "border-success/25 text-success/80 active:bg-success/10",
       },
     },
     {
@@ -93,6 +98,7 @@ export const noticeBar = tv({
       tone: "dark",
       class: {
         base: "border-success-800 bg-success-950 text-success-100",
+        close: "border-success-800 text-success-200 active:bg-success-900/50",
       },
     },
     {
@@ -100,6 +106,7 @@ export const noticeBar = tv({
       tone: "default",
       class: {
         base: "border-warning/30 bg-warning/10 text-warning",
+        close: "border-warning/30 text-warning/80 active:bg-warning/10",
       },
     },
     {
@@ -107,6 +114,7 @@ export const noticeBar = tv({
       tone: "dark",
       class: {
         base: "border-warning-800 bg-warning-950 text-warning-100",
+        close: "border-warning-800 text-warning-200 active:bg-warning-900/50",
       },
     },
     {
@@ -114,6 +122,7 @@ export const noticeBar = tv({
       tone: "default",
       class: {
         base: "border-danger/30 bg-danger/10 text-danger",
+        close: "border-danger/25 text-danger/80 active:bg-danger/10",
       },
     },
     {
@@ -121,6 +130,7 @@ export const noticeBar = tv({
       tone: "dark",
       class: {
         base: "border-danger-800 bg-danger-950 text-danger-100",
+        close: "border-danger-800 text-danger-200 active:bg-danger-900/50",
       },
     },
   ],

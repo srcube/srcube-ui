@@ -13,7 +13,7 @@ type SampleApp = WechatMiniprogram.App.Instance<{
 
 function resolvePageClassName(tone: SampleTone) {
   return tone === 'dark'
-    ? 'min-h-screen bg-zinc-950 text-zinc-50 pb-safe'
+    ? 'min-h-screen bg-zinc-900 text-zinc-50 pb-safe'
     : 'min-h-screen bg-slate-50 text-slate-900 pb-safe';
 }
 
@@ -47,10 +47,6 @@ Page({
     ],
     components: [
       {
-        title: 'Theme Center',
-        url: '/pages/theme/index',
-      },
-      {
         title: 'Action Sheet',
         url: '/packages/action-sheet/pages/sample/index',
       },
@@ -79,6 +75,10 @@ Page({
         url: '/packages/collapse/pages/sample/index',
       },
       {
+        title: 'Contrastbox',
+        url: '/packages/contrastbox/pages/sample/index',
+      },
+      {
         title: 'Drawer',
         url: '/packages/drawer/pages/sample/index',
       },
@@ -103,8 +103,8 @@ Page({
         url: '/packages/listbox/pages/sample/index',
       },
       {
-        title: 'Popup',
-        url: '/packages/popup/pages/sample/index',
+        title: 'Menu',
+        url: '/packages/menu/pages/sample/index',
       },
       {
         title: 'Navbar',
@@ -119,12 +119,20 @@ Page({
         url: '/packages/pickbox/pages/sample/index',
       },
       {
+        title: 'Pickbox Lab',
+        url: '/packages/pickbox/pages/lab/index',
+      },
+      {
+        title: 'Vibration Lab',
+        url: '/packages/pickbox/pages/lab/index',
+      },
+      {
         title: 'Picker',
         url: '/packages/picker/pages/sample/index',
       },
       {
-        title: 'Menu',
-        url: '/packages/menu/pages/sample/index',
+        title: 'Popup',
+        url: '/packages/popup/pages/sample/index',
       },
       {
         title: 'Radio',
@@ -171,16 +179,20 @@ Page({
         url: '/packages/textarea/pages/sample/index',
       },
       {
+        title: 'Theme Center',
+        url: '/pages/theme/index',
+      },
+      {
         title: 'Timeline',
         url: '/packages/timeline/pages/sample/index',
       },
       {
-        title: 'Tour',
-        url: '/packages/tour/pages/sample/index',
-      },
-      {
         title: 'Toaster',
         url: '/packages/toaster/pages/sample/index',
+      },
+      {
+        title: 'Tour',
+        url: '/packages/tour/pages/sample/index',
       },
       {
         title: 'Uploader',

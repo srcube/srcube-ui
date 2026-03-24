@@ -66,7 +66,7 @@ const TAB_TONES = [
     color: "default",
     containerBg: "bg-zinc-950",
     defaultIndicatorBg: "bg-zinc-900",
-    twotoneIndicatorBg: "bg-zinc-950",
+    twotoneIndicatorBg: "bg-zinc-900/80",
     indicatorBorder: "border-zinc-700",
     defaultText: "text-zinc-50",
     text: "text-zinc-100",
@@ -127,7 +127,7 @@ export const tabs = tv({
   slots: {
     base: "flex w-full min-w-0",
     tabsWrapper:
-      "relative inline-flex w-fit max-w-full overflow-hidden border-0",
+      "relative inline-flex w-fit max-w-full overflow-hidden border-0 isolate",
     $scrollbox: "",
     scrollbox: "h-full overflow-visible",
     scrollboxContent: "",
@@ -136,7 +136,7 @@ export const tabs = tv({
     tabLabel:
       "relative z-10 w-full whitespace-nowrap text-center transition-colors",
     indicator:
-      "pointer-events-none absolute left-0 top-0 z-0 origin-center border border-transparent transition-[transform,width,height,left,top,background-color,border-color] duration-200 ease-out scale-[1.1]",
+      "pointer-events-none absolute left-0 top-0 z-0 origin-center border border-transparent transition-[transform,width,height,left,top,background-color,border-color] duration-200 ease-out scale-100",
     panels: "min-w-0 flex-1",
     panel: "w-full px-1 py-3",
   },
@@ -358,6 +358,22 @@ export const tabs = tv({
         },
       },
     ]),
+    {
+      tone: "dark",
+      color: "default",
+      variant: "default",
+      class: {
+        tabsWrapper: "bg-zinc-900",
+      },
+    },
+    {
+      tone: "dark",
+      color: "default",
+      variant: "underline",
+      class: {
+        indicator: "border-zinc-500",
+      },
+    },
     {
       variant: "twotone",
       class: {

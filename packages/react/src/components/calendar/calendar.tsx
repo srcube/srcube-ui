@@ -1,8 +1,6 @@
 import { calendarStyle } from '@srcube-ui/styles/components/calendar';
 import * as React from 'react';
 import { Button } from '../button';
-import { Listbox, type ListboxItem } from '../listbox';
-import { Pickbox, type PickboxColumn, type PickboxValue } from '../pickbox';
 import type {
   CalendarRangeReactProps,
   CalendarRangeValue,
@@ -21,23 +19,7 @@ type CalendarDayCell = {
   key: string;
   label: number;
   isToday: boolean;
-};
-
-type CalendarMonthPanel = {
-  monthDate: Date;
-  monthKey: string;
-  monthTitle: string;
-  headerId: string;
-  bodyId: string;
-  weeks: Array<Array<CalendarDayCell | null>>;
-  bodyHeight: number;
-  sectionHeight: number;
-};
-
-type CalendarMonthListItem = ListboxItem & {
-  type: 'header' | 'body';
-  monthIndex: number;
-  month: CalendarMonthPanel;
+  isCurrentMonth: boolean;
 };
 
 type CalendarDayVisual = {
@@ -46,21 +28,7 @@ type CalendarDayVisual = {
   isRangeEnd?: boolean;
 };
 
-type MonthBounds = {
-  startMonth: Date;
-  endMonth: Date;
-};
-
-type SizeMetrics = {
-  headerHeight: number;
-  dayHeight: number;
-  rowGap: number;
-  bodyPaddingBottom: number;
-};
-
 const WEEK_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const;
-
-const MONTH_WINDOW = 12;
 const DEFAULT_MIN_DATE_KEY = '1900-01-01';
 const DEFAULT_MAX_DATE_KEY = '2099-12-31';
 
@@ -130,6 +98,18 @@ function startOfMonth(date: Date) {
   return new Date(date.getFullYear(), date.getMonth(), 1);
 }
 
+function endOfMonth(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+}
+
+function addDays(date: Date, amount: number) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() + amount);
+}
+
+function addMonths(date: Date, amount: number) {
+  return new Date(date.getFullYear(), date.getMonth() + amount, 1);
+}
+
 function toDateKey(date: Date) {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
@@ -147,21 +127,6 @@ function compareDate(a: Date, b: Date) {
   }
 
   return left < right ? -1 : 1;
-}
-
-function compareMonth(a: Date, b: Date) {
-  const left = a.getFullYear() * 12 + a.getMonth();
-  const right = b.getFullYear() * 12 + b.getMonth();
-
-  if (left === right) {
-    return 0;
-  }
-
-  return left < right ? -1 : 1;
-}
-
-function addMonths(date: Date, amount: number) {
-  return new Date(date.getFullYear(), date.getMonth() + amount, 1);
 }
 
 function isSameDate(a: Date, b: Date) {
@@ -207,6 +172,8 @@ function resolveWeekLabels(weekStartsOn: number) {
 function resolveInitialMonth(params: {
   month?: string;
   fallbackDate?: string;
+  minDate?: string;
+  maxDate?: string;
 }) {
   const fromMonth = parseMonthKey(params.month);
   if (fromMonth) {
@@ -218,283 +185,62 @@ function resolveInitialMonth(params: {
     return startOfMonth(fromDate);
   }
 
+  const minDate = parseDateKey(params.minDate);
+  if (minDate) {
+    return startOfMonth(minDate);
+  }
+
+  const maxDate = parseDateKey(params.maxDate);
+  if (maxDate) {
+    return startOfMonth(maxDate);
+  }
+
   return startOfMonth(new Date());
 }
 
-function resolveSizeMetrics(size?: 'sm' | 'md' | 'lg' | null): SizeMetrics {
-  if (size === 'sm') {
-    return {
-      headerHeight: 32,
-      dayHeight: 32,
-      rowGap: 4,
-      bodyPaddingBottom: 4,
-    };
+function clampMonth(month: Date, minDate?: Date | null, maxDate?: Date | null) {
+  const minMonth = minDate ? startOfMonth(minDate) : null;
+  const maxMonth = maxDate ? startOfMonth(maxDate) : null;
+
+  if (minMonth && month.getTime() < minMonth.getTime()) {
+    return minMonth;
   }
 
-  if (size === 'lg') {
-    return {
-      headerHeight: 40,
-      dayHeight: 40,
-      rowGap: 4,
-      bodyPaddingBottom: 12,
-    };
+  if (maxMonth && month.getTime() > maxMonth.getTime()) {
+    return maxMonth;
   }
 
-  return {
-    headerHeight: 36,
-    dayHeight: 36,
-    rowGap: 4,
-    bodyPaddingBottom: 8,
-  };
+  return startOfMonth(month);
 }
 
-function resolveButtonTone(tone?: 'default' | 'dark' | null) {
-  return tone === 'dark' ? 'dark' : 'light';
+function formatMonthTitle(date: Date) {
+  return new Intl.DateTimeFormat('en', {
+    year: 'numeric',
+    month: 'long',
+  }).format(date);
 }
 
-function resolveMonthBounds(params: {
-  minDate?: string;
-  maxDate?: string;
-  focusMonth: Date;
-}): MonthBounds {
-  const focusMonth = startOfMonth(params.focusMonth);
-  const minDate =
-    parseDateKey(params.minDate) ?? parseDateKey(DEFAULT_MIN_DATE_KEY);
-  const maxDate =
-    parseDateKey(params.maxDate) ?? parseDateKey(DEFAULT_MAX_DATE_KEY);
+function buildMonthGrid(params: {
+  month: Date;
+  weekStartsOn: number;
+}) {
+  const month = startOfMonth(params.month);
+  const firstDay = month.getDay();
+  const startOffset = (firstDay - params.weekStartsOn + 7) % 7;
+  const gridStart = addDays(month, -startOffset);
 
-  let startMonth = minDate ? startOfMonth(minDate) : null;
-  let endMonth = maxDate ? startOfMonth(maxDate) : null;
-
-  if (startMonth && endMonth && compareMonth(startMonth, endMonth) > 0) {
-    const cache = startMonth;
-    startMonth = endMonth;
-    endMonth = cache;
-  }
-
-  if (!startMonth && !endMonth) {
-    return {
-      startMonth: addMonths(focusMonth, -MONTH_WINDOW),
-      endMonth: addMonths(focusMonth, MONTH_WINDOW),
-    };
-  }
-
-  if (startMonth && !endMonth) {
-    endMonth = addMonths(startMonth, MONTH_WINDOW * 2);
-  }
-
-  if (!startMonth && endMonth) {
-    startMonth = addMonths(endMonth, -MONTH_WINDOW * 2);
-  }
-
-  if (!startMonth || !endMonth) {
-    return {
-      startMonth: addMonths(focusMonth, -MONTH_WINDOW),
-      endMonth: addMonths(focusMonth, MONTH_WINDOW),
-    };
-  }
-
-  if (compareMonth(focusMonth, startMonth) < 0) {
-    startMonth = focusMonth;
-  }
-
-  if (compareMonth(focusMonth, endMonth) > 0) {
-    endMonth = focusMonth;
-  }
-
-  if (compareMonth(startMonth, endMonth) > 0) {
-    return {
-      startMonth: endMonth,
-      endMonth: startMonth,
-    };
-  }
-
-  return {
-    startMonth,
-    endMonth,
-  };
-}
-
-function clampMonth(value: Date, bounds: MonthBounds) {
-  if (compareMonth(value, bounds.startMonth) < 0) {
-    return bounds.startMonth;
-  }
-
-  if (compareMonth(value, bounds.endMonth) > 0) {
-    return bounds.endMonth;
-  }
-
-  return value;
-}
-
-function buildMonthWeeks(monthDate: Date, weekStartsOn: number) {
-  const firstDay = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
-  const daysInMonth = new Date(
-    monthDate.getFullYear(),
-    monthDate.getMonth() + 1,
-    0,
-  ).getDate();
-  const leadingBlank = (firstDay.getDay() - weekStartsOn + 7) % 7;
-  const totalCells = leadingBlank + daysInMonth;
-  const weekCount = Math.ceil(totalCells / 7);
-  const today = startOfDay(new Date());
-
-  return Array.from({ length: weekCount }, (_, weekIndex) =>
+  return Array.from({ length: 6 }, (_, weekIndex) =>
     Array.from({ length: 7 }, (_, dayIndex) => {
-      const dateNumber = weekIndex * 7 + dayIndex - leadingBlank + 1;
-      if (dateNumber < 1 || dateNumber > daysInMonth) {
-        return null;
-      }
-
-      const date = new Date(
-        monthDate.getFullYear(),
-        monthDate.getMonth(),
-        dateNumber,
-      );
-
+      const date = addDays(gridStart, weekIndex * 7 + dayIndex);
       return {
         date,
         key: toDateKey(date),
-        label: dateNumber,
-        isToday: isSameDate(date, today),
+        label: date.getDate(),
+        isToday: isSameDate(date, new Date()),
+        isCurrentMonth: date.getMonth() === month.getMonth(),
       } satisfies CalendarDayCell;
     }),
   );
-}
-
-function buildMonthPanels(params: {
-  bounds: MonthBounds;
-  weekStartsOn: number;
-  metrics: SizeMetrics;
-}) {
-  const { bounds, weekStartsOn, metrics } = params;
-  const months: CalendarMonthPanel[] = [];
-  let current = bounds.startMonth;
-
-  while (compareMonth(current, bounds.endMonth) <= 0) {
-    const monthKey = toMonthKey(current);
-    const weeks = buildMonthWeeks(current, weekStartsOn);
-    const bodyHeight =
-      weeks.length * metrics.dayHeight +
-      Math.max(0, weeks.length - 1) * metrics.rowGap +
-      metrics.bodyPaddingBottom;
-
-    months.push({
-      monthDate: current,
-      monthKey,
-      monthTitle: monthKey,
-      headerId: `sr-calendar-month-header-${monthKey}`,
-      bodyId: `sr-calendar-month-body-${monthKey}`,
-      weeks,
-      bodyHeight,
-      sectionHeight: metrics.headerHeight + bodyHeight,
-    });
-
-    current = addMonths(current, 1);
-  }
-
-  return months;
-}
-
-function buildMonthOffsets(months: CalendarMonthPanel[]) {
-  const offsets: number[] = [];
-  let acc = 0;
-
-  for (const month of months) {
-    offsets.push(acc);
-    acc += month.sectionHeight;
-  }
-
-  return offsets;
-}
-
-function resolveMonthIndexByOffset(offsets: number[], scrollTop: number) {
-  if (offsets.length === 0) {
-    return -1;
-  }
-
-  let left = 0;
-  let right = offsets.length - 1;
-  let result = 0;
-
-  while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-    if ((offsets[mid] ?? 0) <= scrollTop + 1) {
-      result = mid;
-      left = mid + 1;
-    } else {
-      right = mid - 1;
-    }
-  }
-
-  return result;
-}
-
-function resolvePickerColumns(params: {
-  bounds: MonthBounds;
-  draftYear: number;
-}) {
-  const { bounds, draftYear } = params;
-  const startYear = bounds.startMonth.getFullYear();
-  const endYear = bounds.endMonth.getFullYear();
-
-  const years = Array.from({ length: endYear - startYear + 1 }, (_, index) => {
-    const year = startYear + index;
-    return {
-      id: year,
-      label: String(year),
-    };
-  });
-
-  const months = Array.from({ length: 12 }, (_, index) => {
-    const month = index + 1;
-    const monthDate = new Date(draftYear, index, 1);
-    const isDisabled =
-      compareMonth(monthDate, bounds.startMonth) < 0 ||
-      compareMonth(monthDate, bounds.endMonth) > 0;
-
-    return {
-      id: month,
-      label: pad(month),
-      isDisabled,
-    };
-  });
-
-  return [
-    {
-      id: 'year',
-      items: years,
-    },
-    {
-      id: 'month',
-      items: months,
-    },
-  ] satisfies PickboxColumn[];
-}
-
-function normalizePickerDraft(params: {
-  value: PickboxValue;
-  bounds: MonthBounds;
-}) {
-  const { value, bounds } = params;
-  const fallbackMonth = bounds.startMonth;
-
-  const maybeYear = Number(value[0]);
-  const maybeMonth = Number(value[1]);
-
-  const year = Number.isFinite(maybeYear)
-    ? maybeYear
-    : fallbackMonth.getFullYear();
-  const month = Number.isFinite(maybeMonth)
-    ? maybeMonth
-    : fallbackMonth.getMonth() + 1;
-
-  const clamped = clampMonth(new Date(year, month - 1, 1), bounds);
-  return [clamped.getFullYear(), clamped.getMonth() + 1] as PickboxValue;
-}
-
-function toPickerDraft(date: Date): PickboxValue {
-  return [date.getFullYear(), date.getMonth() + 1];
 }
 
 function isDateDisabled(params: {
@@ -504,7 +250,6 @@ function isDateDisabled(params: {
   disabledSet: Set<string>;
 }) {
   const { date, minDate, maxDate, disabledSet } = params;
-
   if (minDate && compareDate(date, minDate) < 0) {
     return true;
   }
@@ -516,30 +261,28 @@ function isDateDisabled(params: {
   return disabledSet.has(toDateKey(date));
 }
 
+function resolveButtonTone(tone?: 'default' | 'dark' | null) {
+  return tone === 'dark' ? 'dark' : 'light';
+}
+
 type CalendarPanelProps = {
   month?: string;
+  fallbackDate?: string;
   minDate?: string;
   maxDate?: string;
   disabledDates?: string[];
-  weekStartsOn?: number;
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   helperText?: React.ReactNode;
   onMonthChange?: (month: string) => void;
-  size?: 'sm' | 'md' | 'lg';
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
-  color?:
-    | 'default'
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'warning'
-    | 'danger';
-  tone?: 'default' | 'dark';
+  size?: CalendarReactProps['size'];
+  radius?: CalendarReactProps['radius'];
+  color?: CalendarReactProps['color'];
+  tone?: CalendarReactProps['tone'];
   className?: string;
   classNames?: CalendarReactProps['classNames'];
   style?: React.CSSProperties;
-  rootRef?: React.Ref<HTMLDivElement>;
-  rootProps?: Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
-  fallbackDate?: string;
+  rootRef: React.ForwardedRef<HTMLDivElement>;
+  rootProps?: React.HTMLAttributes<HTMLDivElement>;
   onDayPress: (day: CalendarDayCell) => void;
   resolveDayVisual: (
     day: CalendarDayCell,
@@ -550,297 +293,87 @@ type CalendarPanelProps = {
 function CalendarPanel(props: CalendarPanelProps) {
   const {
     month,
+    fallbackDate,
     minDate,
     maxDate,
     disabledDates,
-    weekStartsOn,
+    weekStartsOn = 0,
     helperText,
     onMonthChange,
-    size,
-    radius,
-    color,
-    tone,
+    size = 'md',
+    radius = 'lg',
+    color = 'primary',
+    tone = 'default',
     className,
     classNames,
     style,
     rootRef,
     rootProps,
-    fallbackDate,
     onDayPress,
     resolveDayVisual,
   } = props;
 
-  const weekStart = React.useMemo(
-    () => resolveWeekStart(weekStartsOn),
-    [weekStartsOn],
+  const minDateObj = React.useMemo(
+    () => parseDateKey(minDate ?? DEFAULT_MIN_DATE_KEY),
+    [minDate],
   );
-  const weekLabels = React.useMemo(
-    () => resolveWeekLabels(weekStart),
-    [weekStart],
+  const maxDateObj = React.useMemo(
+    () => parseDateKey(maxDate ?? DEFAULT_MAX_DATE_KEY),
+    [maxDate],
   );
-
-  const [visibleMonthKey, setVisibleMonthKey] = React.useState(() =>
-    toMonthKey(resolveInitialMonth({ month, fallbackDate })),
-  );
-  const [anchorMonthKey, setAnchorMonthKey] = React.useState(() =>
-    toMonthKey(resolveInitialMonth({ month, fallbackDate })),
-  );
-  const [isPickerOpen, setIsPickerOpen] = React.useState(false);
-  const [pickerDraft, setPickerDraft] = React.useState<PickboxValue>(() => {
-    const initial = resolveInitialMonth({ month, fallbackDate });
-    return toPickerDraft(initial);
-  });
-  const [listScrollTop, setListScrollTop] = React.useState(0);
-
-  const visibleMonthDate = React.useMemo(() => {
-    const parsed = parseMonthKey(visibleMonthKey);
-    return parsed
-      ? startOfMonth(parsed)
-      : resolveInitialMonth({ month, fallbackDate });
-  }, [fallbackDate, month, visibleMonthKey]);
-
-  const anchorMonthDate = React.useMemo(() => {
-    const parsed = parseMonthKey(anchorMonthKey);
-    if (parsed) {
-      return startOfMonth(parsed);
-    }
-
-    return visibleMonthDate;
-  }, [anchorMonthKey, visibleMonthDate]);
-
-  const metrics = React.useMemo(() => resolveSizeMetrics(size), [size]);
-
-  const bounds = React.useMemo(
-    () =>
-      resolveMonthBounds({
-        minDate,
-        maxDate,
-        focusMonth: anchorMonthDate,
-      }),
-    [anchorMonthDate, maxDate, minDate],
-  );
-
-  const monthPanels = React.useMemo(
-    () =>
-      buildMonthPanels({
-        bounds,
-        weekStartsOn: weekStart,
-        metrics,
-      }),
-    [bounds, metrics, weekStart],
-  );
-
-  const monthOffsets = React.useMemo(
-    () => buildMonthOffsets(monthPanels),
-    [monthPanels],
-  );
-
-  const monthIndexByKey = React.useMemo(() => {
-    const map = new Map<string, number>();
-    monthPanels.forEach((item, index) => {
-      map.set(item.monthKey, index);
-    });
-    return map;
-  }, [monthPanels]);
-
-  const visibleMonthRef = React.useRef(visibleMonthKey);
-  React.useEffect(() => {
-    visibleMonthRef.current = visibleMonthKey;
-  }, [visibleMonthKey]);
-
-  const notifyVisibleMonth = React.useCallback(
-    (nextMonthKey: string) => {
-      if (visibleMonthRef.current === nextMonthKey) {
-        return;
-      }
-      visibleMonthRef.current = nextMonthKey;
-      setVisibleMonthKey(nextMonthKey);
-      onMonthChange?.(nextMonthKey);
-    },
-    [onMonthChange],
-  );
-
-  const syncVisibleMonth = React.useCallback((nextMonthKey: string) => {
-    if (visibleMonthRef.current === nextMonthKey) {
-      return;
-    }
-    visibleMonthRef.current = nextMonthKey;
-    setVisibleMonthKey(nextMonthKey);
-  }, []);
-
-  const jumpToMonth = React.useCallback(
-    (nextMonthKey: string, shouldNotify: boolean) => {
-      const index = monthIndexByKey.get(nextMonthKey);
-      if (index === undefined) {
-        return;
-      }
-
-      setListScrollTop(monthOffsets[index] ?? 0);
-
-      if (shouldNotify) {
-        notifyVisibleMonth(nextMonthKey);
-        return;
-      }
-
-      syncVisibleMonth(nextMonthKey);
-    },
-    [monthIndexByKey, monthOffsets, notifyVisibleMonth, syncVisibleMonth],
+  const [visibleMonth, setVisibleMonth] = React.useState(() =>
+    clampMonth(
+      resolveInitialMonth({ month, fallbackDate, minDate, maxDate }),
+      minDateObj,
+      maxDateObj,
+    ),
   );
 
   React.useEffect(() => {
-    if (monthPanels.length === 0) {
-      return;
-    }
-
-    const current = parseMonthKey(visibleMonthRef.current) ?? bounds.startMonth;
-    const clamped = clampMonth(current, bounds);
-    const clampedKey = toMonthKey(clamped);
-
-    if (clampedKey !== visibleMonthRef.current) {
-      jumpToMonth(clampedKey, false);
-    }
-  }, [bounds, jumpToMonth, monthPanels.length]);
-
-  React.useEffect(() => {
-    if (!month) {
-      return;
-    }
-
-    const parsed = parseMonthKey(month);
-    if (!parsed) {
-      return;
-    }
-
-    setAnchorMonthKey(toMonthKey(parsed));
-    const clamped = clampMonth(parsed, bounds);
-    jumpToMonth(toMonthKey(clamped), false);
-  }, [bounds, jumpToMonth, month]);
-
-  const hasInitializedPositionRef = React.useRef(false);
-  React.useEffect(() => {
-    if (hasInitializedPositionRef.current) {
-      return;
-    }
-
-    hasInitializedPositionRef.current = true;
-
-    const initialMonth = clampMonth(visibleMonthDate, bounds);
-    jumpToMonth(toMonthKey(initialMonth), false);
-  }, [bounds, jumpToMonth, visibleMonthDate]);
-
-  const monthItems = React.useMemo<CalendarMonthListItem[]>(
-    () =>
-      monthPanels.flatMap((monthPanel, monthIndex) => {
-        const monthLabel = monthPanel.monthTitle;
-
-        return [
-          {
-            id: monthPanel.headerId,
-            label: monthLabel,
-            isSticky: true,
-            type: 'header',
-            monthIndex,
-            month: monthPanel,
-          },
-          {
-            id: monthPanel.bodyId,
-            label: monthLabel,
-            type: 'body',
-            monthIndex,
-            month: monthPanel,
-          },
-        ];
-      }),
-    [monthPanels],
-  );
-
-  const estimateMonthItemSize = React.useCallback(
-    (itemIndex: number) => {
-      const item = monthItems[itemIndex];
-      if (!item) {
-        return 1;
-      }
-
-      return item.type === 'header'
-        ? metrics.headerHeight
-        : item.month.bodyHeight;
-    },
-    [metrics.headerHeight, monthItems],
-  );
-
-  const handleListScroll = React.useCallback(
-    (event: React.UIEvent<HTMLDivElement>) => {
-      if (monthPanels.length === 0) {
-        return;
-      }
-
-      const nextIndex = resolveMonthIndexByOffset(
-        monthOffsets,
-        Number(event.currentTarget.scrollTop ?? 0),
-      );
-
-      if (nextIndex < 0) {
-        return;
-      }
-
-      const nextMonth = monthPanels[nextIndex];
-      if (!nextMonth) {
-        return;
-      }
-
-      notifyVisibleMonth(nextMonth.monthKey);
-    },
-    [monthOffsets, monthPanels, notifyVisibleMonth],
-  );
+    const nextMonth = clampMonth(
+      resolveInitialMonth({ month, fallbackDate, minDate, maxDate }),
+      minDateObj,
+      maxDateObj,
+    );
+    setVisibleMonth(nextMonth);
+  }, [fallbackDate, month, maxDate, maxDateObj, minDate, minDateObj]);
 
   const disabledSet = React.useMemo(
     () => new Set((disabledDates ?? []).filter(Boolean)),
     [disabledDates],
   );
-
-  const minDateObj = React.useMemo(() => parseDateKey(minDate), [minDate]);
-  const maxDateObj = React.useMemo(() => parseDateKey(maxDate), [maxDate]);
-
-  const currentVisibleMonth = React.useMemo(() => {
-    const parsed = parseMonthKey(visibleMonthKey);
-    return parsed ? parsed : bounds.startMonth;
-  }, [bounds.startMonth, visibleMonthKey]);
-
-  const pickerColumns = React.useMemo(
-    () =>
-      resolvePickerColumns({
-        bounds,
-        draftYear: Number(pickerDraft[0]) || currentVisibleMonth.getFullYear(),
-      }),
-    [bounds, currentVisibleMonth, pickerDraft],
+  const resolvedWeekStart = resolveWeekStart(weekStartsOn);
+  const weekLabels = React.useMemo(
+    () => resolveWeekLabels(resolvedWeekStart),
+    [resolvedWeekStart],
+  );
+  const monthGrid = React.useMemo(
+    () => buildMonthGrid({ month: visibleMonth, weekStartsOn: resolvedWeekStart }),
+    [resolvedWeekStart, visibleMonth],
   );
 
-  const closePickerAndApply = React.useCallback(() => {
-    const normalized = normalizePickerDraft({
-      value: pickerDraft,
-      bounds,
-    });
-    const nextMonth = new Date(
-      Number(normalized[0]),
-      Number(normalized[1]) - 1,
-      1,
-    );
-    const nextMonthKey = toMonthKey(nextMonth);
-
-    setPickerDraft(normalized);
-    setIsPickerOpen(false);
-    jumpToMonth(nextMonthKey, true);
-  }, [bounds, jumpToMonth, pickerDraft]);
-
-  const handlePickerToggle = React.useCallback(() => {
-    if (isPickerOpen) {
-      closePickerAndApply();
-      return;
+  const canGoPrev = React.useMemo(() => {
+    if (!minDateObj) {
+      return true;
     }
+    return startOfMonth(visibleMonth).getTime() > startOfMonth(minDateObj).getTime();
+  }, [minDateObj, visibleMonth]);
 
-    setPickerDraft(toPickerDraft(currentVisibleMonth));
-    setIsPickerOpen(true);
-  }, [closePickerAndApply, currentVisibleMonth, isPickerOpen]);
+  const canGoNext = React.useMemo(() => {
+    if (!maxDateObj) {
+      return true;
+    }
+    return startOfMonth(visibleMonth).getTime() < startOfMonth(maxDateObj).getTime();
+  }, [maxDateObj, visibleMonth]);
+
+  const updateMonth = React.useCallback(
+    (next: Date) => {
+      const nextMonth = clampMonth(next, minDateObj, maxDateObj);
+      setVisibleMonth(nextMonth);
+      onMonthChange?.(toMonthKey(nextMonth));
+    },
+    [maxDateObj, minDateObj, onMonthChange],
+  );
 
   const rootSlots = React.useMemo(
     () =>
@@ -849,9 +382,9 @@ function CalendarPanel(props: CalendarPanelProps) {
         radius,
         color,
         tone,
-        isPickerOpen,
+        isPickerOpen: false,
       }),
-    [color, isPickerOpen, radius, size, tone],
+    [color, radius, size, tone],
   );
 
   return (
@@ -862,26 +395,58 @@ function CalendarPanel(props: CalendarPanelProps) {
       {...rootProps}
     >
       <div className={rootSlots.header({ class: classNames?.header })}>
-        <Button
-          color="default"
-          tone={resolveButtonTone(tone)}
-          variant="flat"
-          radius="full"
-          size={size}
-          className={rootSlots.pickerTrigger({
-            class: classNames?.pickerTrigger,
-          })}
-          onTap={handlePickerToggle}
-        >
-          <span className={rootSlots.title({ class: classNames?.title })}>
-            {toMonthKey(currentVisibleMonth)}
-          </span>
-          <span
-            className={rootSlots.pickerIcon({ class: classNames?.pickerIcon })}
+        <div className="flex items-center gap-2 px-1">
+          <button
+            type="button"
+            aria-label="Previous month"
+            disabled={!canGoPrev}
+            onClick={() => {
+              if (!canGoPrev) {
+                return;
+              }
+              updateMonth(addMonths(visibleMonth, -1));
+            }}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
           >
-            <span className="icon-chevron-down" />
-          </span>
-        </Button>
+            <span className="icon-chevron-left" />
+          </button>
+
+          <div className="min-w-0 flex-1">
+            <div className={rootSlots.title({ class: classNames?.title })}>
+              {formatMonthTitle(visibleMonth)}
+            </div>
+            <div className="mt-1 text-xs text-slate-400">{toMonthKey(visibleMonth)}</div>
+          </div>
+
+          <Button
+            color="default"
+            tone={resolveButtonTone(tone)}
+            variant="flat"
+            radius="full"
+            size={size}
+            className={rootSlots.pickerTrigger({ class: classNames?.pickerTrigger })}
+            onTap={() => {
+              updateMonth(startOfMonth(new Date()));
+            }}
+          >
+            Today
+          </Button>
+
+          <button
+            type="button"
+            aria-label="Next month"
+            disabled={!canGoNext}
+            onClick={() => {
+              if (!canGoNext) {
+                return;
+              }
+              updateMonth(addMonths(visibleMonth, 1));
+            }}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            <span className="icon-chevron-right" />
+          </button>
+        </div>
       </div>
 
       <div className={rootSlots.panel({ class: classNames?.panel })}>
@@ -896,174 +461,57 @@ function CalendarPanel(props: CalendarPanelProps) {
           ))}
         </div>
 
-        <Listbox
-          items={monthItems}
-          estimateSize={estimateMonthItemSize}
-          overscan={8}
-          hideMasks
-          scrollTop={listScrollTop}
-          scrollWithAnimation={false}
-          onScroll={handleListScroll}
-          classNames={{
-            base: rootSlots.monthList({ class: classNames?.monthList }),
-            content: 'w-full',
-            item: 'items-stretch px-0 min-h-0',
-            itemLabel: 'contents',
-            stickyItem: 'bg-transparent',
-          }}
-          renderItem={(item: ListboxItem) => {
-            const monthItem = item as CalendarMonthListItem;
+        <div className="grid grid-cols-7 gap-y-1">
+          {monthGrid.flatMap((week) => week).map((day) => {
+            const disabled = isDateDisabled({
+              date: day.date,
+              minDate: minDateObj,
+              maxDate: maxDateObj,
+              disabledSet,
+            });
 
-            if (monthItem.type === 'header') {
-              return (
-                <div
-                  id={monthItem.month.headerId}
-                  className={rootSlots.monthHeader({
-                    class: classNames?.monthHeader,
-                  })}
-                  style={{ height: `${metrics.headerHeight}px` }}
-                >
-                  {monthItem.month.monthTitle}
-                </div>
-              );
-            }
+            const visual = resolveDayVisual(day, disabled);
+            const daySlots = calendarStyle({
+              size,
+              radius,
+              color,
+              tone,
+              dayStatus: visual.dayStatus,
+              isRangeStart: Boolean(visual.isRangeStart),
+              isRangeEnd: Boolean(visual.isRangeEnd),
+            });
 
             return (
               <div
-                id={monthItem.month.bodyId}
-                className={rootSlots.monthBody({
-                  class: classNames?.monthBody,
-                })}
-                style={{ height: `${monthItem.month.bodyHeight}px` }}
+                key={day.key}
+                className={daySlots.dayCell({ class: classNames?.dayCell })}
               >
-                <div className={rootSlots.grid({ class: classNames?.grid })}>
-                  {monthItem.month.weeks.map(
-                    (week: Array<CalendarDayCell | null>, weekIndex: number) =>
-                      week.map(
-                        (cell: CalendarDayCell | null, dayIndex: number) => {
-                          if (!cell) {
-                            return (
-                              <div
-                                key={`${monthItem.month.monthKey}-${weekIndex}-${dayIndex}`}
-                                className={rootSlots.dayPlaceholder({
-                                  class: classNames?.dayPlaceholder,
-                                })}
-                              />
-                            );
-                          }
-
-                          const disabled = isDateDisabled({
-                            date: cell.date,
-                            minDate: minDateObj,
-                            maxDate: maxDateObj,
-                            disabledSet,
-                          });
-
-                          const visual = resolveDayVisual(cell, disabled);
-                          const daySlots = calendarStyle({
-                            size,
-                            radius,
-                            color,
-                            tone,
-                            dayStatus: visual.dayStatus,
-                            isRangeStart: Boolean(visual.isRangeStart),
-                            isRangeEnd: Boolean(visual.isRangeEnd),
-                          });
-
-                          return (
-                            <div
-                              key={cell.key}
-                              className={daySlots.dayCell({
-                                class: classNames?.dayCell,
-                              })}
-                            >
-                              <button
-                                type="button"
-                                className={daySlots.dayButton({
-                                  class: classNames?.dayButton,
-                                })}
-                                disabled={disabled}
-                                onClick={() => {
-                                  if (disabled) {
-                                    return;
-                                  }
-
-                                  onDayPress(cell);
-                                }}
-                              >
-                                <span
-                                  className={daySlots.dayText({
-                                    class: classNames?.dayText,
-                                  })}
-                                >
-                                  {cell.label}
-                                </span>
-                              </button>
-                            </div>
-                          );
-                        },
-                      ),
-                  )}
-                </div>
+                <button
+                  type="button"
+                  disabled={disabled}
+                  onClick={() => {
+                    if (disabled) {
+                      return;
+                    }
+                    onDayPress(day);
+                  }}
+                  className={daySlots.dayButton({ class: classNames?.dayButton })}
+                >
+                  <span
+                    className={daySlots.dayText({
+                      class: [
+                        classNames?.dayText,
+                        !day.isCurrentMonth ? 'opacity-35' : '',
+                      ],
+                    })}
+                  >
+                    {day.label}
+                  </span>
+                </button>
               </div>
             );
-          }}
-        />
-
-        {isPickerOpen ? (
-          <>
-            <button
-              type="button"
-              aria-label="Close year month picker"
-              className={rootSlots.pickerBackdrop({
-                class: classNames?.pickerBackdrop,
-              })}
-              onClick={closePickerAndApply}
-            />
-
-            <div
-              className={rootSlots.pickerOverlay({
-                class: classNames?.pickerOverlay,
-              })}
-            >
-              <div
-                className={rootSlots.pickerPanel({
-                  class: classNames?.pickerPanel,
-                })}
-              >
-                <Pickbox
-                  className={rootSlots.pickerPickbox({
-                    class: classNames?.pickerPickbox,
-                  })}
-                  classNames={{
-                    base: 'border-none shadow-none',
-                  }}
-                  size={size}
-                  color={color === 'default' ? 'default' : color}
-                  tone={tone}
-                  columns={pickerColumns}
-                  value={pickerDraft}
-                  scrollEndDelay={100}
-                  onValueChange={(next: PickboxValue) => {
-                    const normalized = normalizePickerDraft({
-                      value: next,
-                      bounds,
-                    });
-                    const nextMonthDate = new Date(
-                      Number(normalized[0]),
-                      Number(normalized[1]) - 1,
-                      1,
-                    );
-                    const nextMonthKey = toMonthKey(nextMonthDate);
-
-                    setPickerDraft(normalized);
-                    jumpToMonth(nextMonthKey, true);
-                  }}
-                />
-              </div>
-            </div>
-          </>
-        ) : null}
+          })}
+        </div>
       </div>
 
       {helperText ? (
@@ -1100,11 +548,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarReactProps>(
     } = props;
     void _children;
 
-    const [internalValue, setInternalValue] = React.useState(
-      defaultValue ?? '',
-    );
+    const [internalValue, setInternalValue] = React.useState(defaultValue ?? '');
     const selectedValue = value ?? internalValue;
-
     const selectedDate = React.useMemo(
       () => parseDateKey(selectedValue),
       [selectedValue],
@@ -1133,31 +578,19 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarReactProps>(
           if (value === undefined) {
             setInternalValue(day.key);
           }
-
           onValueChange?.(day.key);
         }}
         resolveDayVisual={(day, isDisabled) => {
           if (isDisabled) {
-            return {
-              dayStatus: 'disabled',
-            };
+            return { dayStatus: 'disabled' };
           }
-
           if (selectedDate && isSameDate(day.date, selectedDate)) {
-            return {
-              dayStatus: 'selected',
-            };
+            return { dayStatus: 'selected' };
           }
-
           if (day.isToday) {
-            return {
-              dayStatus: 'today',
-            };
+            return { dayStatus: 'today' };
           }
-
-          return {
-            dayStatus: 'normal',
-          };
+          return { dayStatus: 'normal' };
         }}
       />
     );
@@ -1206,7 +639,6 @@ export const CalendarRange = React.forwardRef<
     () => parseDateKey(selectedValue.start),
     [selectedValue.start],
   );
-
   const selectedEnd = React.useMemo(
     () => parseDateKey(selectedValue.end),
     [selectedValue.end],
@@ -1220,8 +652,7 @@ export const CalendarRange = React.forwardRef<
       disabledDates={disabledDates}
       weekStartsOn={weekStartsOn}
       helperText={
-        helperText ??
-        `${selectedValue.start ?? '--'} ~ ${selectedValue.end ?? '--'}`
+        helperText ?? `${selectedValue.start ?? '--'} ~ ${selectedValue.end ?? '--'}`
       }
       onMonthChange={onMonthChange}
       size={size}
@@ -1241,17 +672,13 @@ export const CalendarRange = React.forwardRef<
       }
       onDayPress={(day) => {
         let nextValue: CalendarRangeValue;
-        if (
-          !selectedValue.start ||
-          (selectedValue.start && selectedValue.end)
-        ) {
+        if (!selectedValue.start || (selectedValue.start && selectedValue.end)) {
           nextValue = {
             start: day.key,
             end: undefined,
           };
         } else {
           const startDate = parseDateKey(selectedValue.start);
-
           if (!startDate) {
             nextValue = {
               start: day.key,
@@ -1274,19 +701,14 @@ export const CalendarRange = React.forwardRef<
         if (value === undefined) {
           setInternalValue(normalized);
         }
-
         onValueChange?.(normalized);
       }}
       resolveDayVisual={(day, isDisabled) => {
         if (isDisabled) {
-          return {
-            dayStatus: 'disabled',
-          };
+          return { dayStatus: 'disabled' };
         }
 
-        const isStart = selectedStart
-          ? isSameDate(day.date, selectedStart)
-          : false;
+        const isStart = selectedStart ? isSameDate(day.date, selectedStart) : false;
         const isEnd = selectedEnd ? isSameDate(day.date, selectedEnd) : false;
         const isEdge = isStart || isEnd;
         const isSelectedRange = Boolean(
@@ -1305,20 +727,14 @@ export const CalendarRange = React.forwardRef<
         }
 
         if (isSelectedRange) {
-          return {
-            dayStatus: 'inRange',
-          };
+          return { dayStatus: 'inRange' };
         }
 
         if (day.isToday) {
-          return {
-            dayStatus: 'today',
-          };
+          return { dayStatus: 'today' };
         }
 
-        return {
-          dayStatus: 'normal',
-        };
+        return { dayStatus: 'normal' };
       }}
     />
   );

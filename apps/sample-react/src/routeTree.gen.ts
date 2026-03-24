@@ -39,6 +39,7 @@ import { Route as DrawerRouteRouteImport } from './routes/drawer/route'
 import { Route as CollapseRouteRouteImport } from './routes/collapse/route'
 import { Route as CheckboxRouteRouteImport } from './routes/checkbox/route'
 import { Route as CardRouteRouteImport } from './routes/card/route'
+import { Route as CalendarLabRouteRouteImport } from './routes/calendar-lab/route'
 import { Route as CalendarRouteRouteImport } from './routes/calendar/route'
 import { Route as ButtonRouteRouteImport } from './routes/button/route'
 import { Route as AvatarRouteRouteImport } from './routes/avatar/route'
@@ -195,6 +196,11 @@ const CardRouteRoute = CardRouteRouteImport.update({
   path: '/card',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalendarLabRouteRoute = CalendarLabRouteRouteImport.update({
+  id: '/calendar-lab',
+  path: '/calendar-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CalendarRouteRoute = CalendarRouteRouteImport.update({
   id: '/calendar',
   path: '/calendar',
@@ -227,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/avatar': typeof AvatarRouteRoute
   '/button': typeof ButtonRouteRoute
   '/calendar': typeof CalendarRouteRoute
+  '/calendar-lab': typeof CalendarLabRouteRoute
   '/card': typeof CardRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/collapse': typeof CollapseRouteRoute
@@ -264,6 +271,7 @@ export interface FileRoutesByTo {
   '/avatar': typeof AvatarRouteRoute
   '/button': typeof ButtonRouteRoute
   '/calendar': typeof CalendarRouteRoute
+  '/calendar-lab': typeof CalendarLabRouteRoute
   '/card': typeof CardRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/collapse': typeof CollapseRouteRoute
@@ -302,6 +310,7 @@ export interface FileRoutesById {
   '/avatar': typeof AvatarRouteRoute
   '/button': typeof ButtonRouteRoute
   '/calendar': typeof CalendarRouteRoute
+  '/calendar-lab': typeof CalendarLabRouteRoute
   '/card': typeof CardRouteRoute
   '/checkbox': typeof CheckboxRouteRoute
   '/collapse': typeof CollapseRouteRoute
@@ -341,6 +350,7 @@ export interface FileRouteTypes {
     | '/avatar'
     | '/button'
     | '/calendar'
+    | '/calendar-lab'
     | '/card'
     | '/checkbox'
     | '/collapse'
@@ -378,6 +388,7 @@ export interface FileRouteTypes {
     | '/avatar'
     | '/button'
     | '/calendar'
+    | '/calendar-lab'
     | '/card'
     | '/checkbox'
     | '/collapse'
@@ -415,6 +426,7 @@ export interface FileRouteTypes {
     | '/avatar'
     | '/button'
     | '/calendar'
+    | '/calendar-lab'
     | '/card'
     | '/checkbox'
     | '/collapse'
@@ -453,6 +465,7 @@ export interface RootRouteChildren {
   AvatarRouteRoute: typeof AvatarRouteRoute
   ButtonRouteRoute: typeof ButtonRouteRoute
   CalendarRouteRoute: typeof CalendarRouteRoute
+  CalendarLabRouteRoute: typeof CalendarLabRouteRoute
   CardRouteRoute: typeof CardRouteRoute
   CheckboxRouteRoute: typeof CheckboxRouteRoute
   CollapseRouteRoute: typeof CollapseRouteRoute
@@ -697,6 +710,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calendar-lab': {
+      id: '/calendar-lab'
+      path: '/calendar-lab'
+      fullPath: '/calendar-lab'
+      preLoaderRoute: typeof CalendarLabRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calendar': {
       id: '/calendar'
       path: '/calendar'
@@ -741,6 +761,7 @@ const rootRouteChildren: RootRouteChildren = {
   AvatarRouteRoute: AvatarRouteRoute,
   ButtonRouteRoute: ButtonRouteRoute,
   CalendarRouteRoute: CalendarRouteRoute,
+  CalendarLabRouteRoute: CalendarLabRouteRoute,
   CardRouteRoute: CardRouteRoute,
   CheckboxRouteRoute: CheckboxRouteRoute,
   CollapseRouteRoute: CollapseRouteRoute,

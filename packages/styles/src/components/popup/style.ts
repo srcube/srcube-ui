@@ -45,10 +45,10 @@ export const popup = tv({
         backdrop: "bg-transparent",
       },
       opaque: {
-        backdrop: "bg-zinc-900/25",
+        backdrop: "bg-zinc-900/30",
       },
       blur: {
-        backdrop: "bg-zinc-900/25 backdrop-blur-sm",
+        backdrop: "bg-zinc-900/30 backdrop-blur-sm",
       },
     },
     tone: {
@@ -79,14 +79,14 @@ export const popup = tv({
       tone: "dark",
       backdrop: "opaque",
       class: {
-        backdrop: "bg-black/45",
+        backdrop: "bg-zinc-950/56",
       },
     },
     {
       tone: "dark",
       backdrop: "blur",
       class: {
-        backdrop: "bg-black/45 backdrop-blur-sm",
+        backdrop: "bg-zinc-950/52 backdrop-blur-sm",
       },
     },
   ],

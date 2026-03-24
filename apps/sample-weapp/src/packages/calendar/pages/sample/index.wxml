@@ -1,6 +1,6 @@
-<app-page title="Calendar" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Calendar" description="用于在结构化日历视图中浏览和选择日期，适合日程安排、可用性展示和日期相关流程。" tone="{{tone}}" withBack="{{true}}">
   <view class="p-4 space-y-6">
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Single</view>
       <view class="mt-3">
         <sr-calendar
@@ -14,7 +14,7 @@
       </view>
     </view>
 
-    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
+    <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'border border-zinc-800 bg-black text-zinc-50 shadow-black/30' : 'bg-white text-slate-900'}}">
       <view class="text-sm font-semibold">Range</view>
       <view class="mt-3">
         <sr-calendar

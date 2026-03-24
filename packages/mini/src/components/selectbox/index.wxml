@@ -21,7 +21,7 @@
     scrollIntoView="{{scrollIntoView}}"
     scrollWithAnimation="{{scrollWithAnimation}}"
     enableBackToTop="{{enableBackToTop}}"
-    showScrollbar="{{showScrollbar}}"
+    showScrollbar="{{orientation === 'x' ? true : showScrollbar}}"
     enhanced="{{enhanced}}"
     bounces="{{bounces}}"
     pagingEnabled="{{pagingEnabled}}"

@@ -29,7 +29,10 @@ export const stepperStyle = tv({
     tone: {
       default: {},
       dark: {
-        input: "placeholder:text-zinc-400 text-zinc-100",
+        decrementButton: "text-white",
+        incrementButton: "text-white",
+        valueWrap: "text-white",
+        input: "placeholder:text-zinc-400 text-white",
       },
     },
     size: {

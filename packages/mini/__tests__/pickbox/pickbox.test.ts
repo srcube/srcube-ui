@@ -42,6 +42,7 @@ it('renders indicator and binds scroll/touch handlers in template', () => {
   expect(template).toContain('show-scrollbar="{{false}}"');
   expect(template).toContain('binddragstart="handleColumnDragStart"');
   expect(template).toContain('binddragend="handleColumnDragEnd"');
+  expect(template).toContain('class="sr-pickbox__column {{$classNames.column}}"');
   expect(template).toContain('bindtouchstart="handleColumnTouchStart"');
   expect(template).toContain('bindtouchmove="handleColumnTouchMove"');
   expect(template).toContain('bindtouchend="handleColumnTouchEnd"');
@@ -74,9 +75,7 @@ it('initializes uncontrolled value with first enabled item', async () => {
   comp.detach();
 });
 
-it('snaps to nearest enabled item after scroll end', async () => {
-  vi.useFakeTimers();
-
+it('updates virtual window from passive native scroll events without changing committed selection', async () => {
   const comp = renderPickbox({
     columns: [
       {
@@ -88,7 +87,7 @@ it('snaps to nearest enabled item after scroll end', async () => {
         ],
       },
     ],
-    scrollEndDelay: 100,
+    value: ['a'],
   });
 
   const instance = comp.instance as {
@@ -106,8 +105,6 @@ it('snaps to nearest enabled item after scroll end', async () => {
   });
   instance.recomputeVirtualColumns();
 
-  vi.runOnlyPendingTimers();
-
   instance.handleColumnScroll({
     currentTarget: {
       dataset: {
@@ -118,15 +115,21 @@ it('snaps to nearest enabled item after scroll end', async () => {
       scrollTop: 40,
     },
   } as WechatMiniprogram.CustomEvent<{ scrollTop: number }>);
-
-  vi.advanceTimersByTime(100);
   await tick();
 
-  const data = comp.data as { innerValue: Array<string | number | null> };
-  expect(data.innerValue).toEqual(['b']);
+  const data = comp.data as {
+    renderColumns: Array<{
+      items: Array<{
+        id: string | number;
+        className: string;
+      }>;
+    }>;
+  };
+  const selectedItem = data.renderColumns[0]?.items.find((item) => item.id === 'a');
+  expect(selectedItem?.className).not.toContain('font-semibold');
+  expect(data.renderColumns[0]?.items.some((item) => item.id === 'b')).toBe(true);
 
   comp.detach();
-  vi.useRealTimers();
 });
 
 it('keeps selected text style during auto align animation', async () => {
@@ -169,6 +172,143 @@ it('keeps selected text style during auto align animation', async () => {
   expect(selectedItem?.className).toContain('font-semibold');
 
   comp.detach();
+});
+
+it('commits selected item and vibrates only when anchor index changes', async () => {
+  const vibrateShort = vi.fn();
+  vi.stubGlobal('wx', {
+    vibrateShort,
+  });
+
+  const valuechange = vi.fn();
+  const comp = renderPickbox({
+    columns: [
+      {
+        id: 'day',
+        items: [
+          { id: 'a', label: 'A' },
+          { id: 'b', label: 'B' },
+          { id: 'c', label: 'C' },
+        ],
+      },
+    ],
+  });
+  comp.addEventListener('valuechange', valuechange);
+
+  const instance = comp.instance as {
+    handleColumnTouchStart: (event: WechatMiniprogram.TouchEvent) => void;
+    handleColumnTouchMove: (event: WechatMiniprogram.TouchEvent) => void;
+    handleColumnTouchEnd: (event: WechatMiniprogram.TouchEvent) => void;
+  };
+
+  instance.handleColumnTouchStart({
+    currentTarget: {
+      dataset: {
+        columnIndex: 0,
+      },
+    },
+    touches: [{ clientY: 0 }],
+  } as unknown as WechatMiniprogram.TouchEvent);
+  instance.handleColumnTouchMove({
+    currentTarget: {
+      dataset: {
+        columnIndex: 0,
+      },
+    },
+    touches: [{ clientY: -50 }],
+  } as unknown as WechatMiniprogram.TouchEvent);
+  instance.handleColumnTouchEnd({
+    currentTarget: {
+      dataset: {
+        columnIndex: 0,
+      },
+    },
+  } as WechatMiniprogram.TouchEvent);
+  await tick();
+
+  expect((comp.data as { innerValue: Array<string | number | null> }).innerValue).toEqual(['b']);
+  expect(vibrateShort).toHaveBeenCalledTimes(1);
+  expect(valuechange).toHaveBeenCalled();
+
+  comp.detach();
+  vi.unstubAllGlobals();
+});
+
+it('keeps virtual window following current anchor while dragging', async () => {
+  const vibrateShort = vi.fn();
+  vi.stubGlobal('wx', {
+    vibrateShort,
+  });
+
+  const valuechange = vi.fn();
+  const comp = renderPickbox({
+    columns: [
+      {
+        id: 'long',
+        items: Array.from({ length: 60 }, (_, index) => ({
+          id: `item-${index}`,
+          label: `Item ${index}`,
+        })),
+      },
+    ],
+    value: ['item-0'],
+    overscan: 2,
+  });
+  comp.addEventListener('valuechange', valuechange);
+
+  comp.setData({
+    containerHeight: 220,
+    resolvedPadding: 88,
+    resolvedEstimateSize: 44,
+    resolvedIndicatorHeight: 44,
+  });
+
+  const instance = comp.instance as {
+    recomputeVirtualColumns: () => void;
+    handleColumnTouchStart: (event: WechatMiniprogram.TouchEvent) => void;
+    handleColumnTouchMove: (event: WechatMiniprogram.TouchEvent) => void;
+  };
+
+  instance.recomputeVirtualColumns();
+  instance.handleColumnTouchStart({
+    currentTarget: {
+      dataset: {
+        columnIndex: 0,
+      },
+    },
+    touches: [{ clientY: 0 }],
+  } as unknown as WechatMiniprogram.TouchEvent);
+  instance.handleColumnTouchMove({
+    currentTarget: {
+      dataset: {
+        columnIndex: 0,
+      },
+    },
+    touches: [{ clientY: -440 }],
+  } as unknown as WechatMiniprogram.TouchEvent);
+  await tick();
+
+  const data = comp.data as {
+    renderColumns: Array<{
+      items: Array<{
+        id: string | number;
+      }>;
+    }>;
+  };
+
+  expect(data.renderColumns[0]?.items[0]?.id).not.toBe('item-0');
+  expect(data.renderColumns[0]?.items.some((item) => item.id === 'item-10')).toBe(true);
+  expect(vibrateShort).toHaveBeenCalled();
+  expect(valuechange).toHaveBeenCalledWith(
+    expect.objectContaining({
+      detail: expect.objectContaining({
+        itemId: 'item-10',
+      }),
+    }),
+  );
+
+  comp.detach();
+  vi.unstubAllGlobals();
 });
 
 it('uses dark tone classes when tone is dark', async () => {
@@ -247,16 +387,18 @@ it('cancels pending auto align on touchstart for short swipe', async () => {
       },
     },
   } as WechatMiniprogram.TouchEvent);
-  instance.handleColumnScroll({
+  instance.handleColumnTouchMove({
     currentTarget: {
       dataset: {
         columnIndex: 0,
       },
     },
-    detail: {
-      scrollTop: 160,
-    },
-  } as WechatMiniprogram.CustomEvent<{ scrollTop: number }>);
+    touches: [
+      {
+        clientY: -160,
+      },
+    ],
+  } as unknown as WechatMiniprogram.TouchEvent);
   await tick();
 
   const data = comp.data as {
@@ -264,9 +406,105 @@ it('cancels pending auto align on touchstart for short swipe', async () => {
       scrollTop: number;
     }>;
   };
-  expect(data.renderColumns[0]?.scrollTop).toBe(160);
+  expect(data.renderColumns[0]?.scrollTop).toBe(88);
 
   comp.detach();
+});
+
+it('commits selected item from scroll events after touch release', async () => {
+  const vibrateShort = vi.fn();
+  vi.stubGlobal('wx', {
+    vibrateShort,
+  });
+
+  const valuechange = vi.fn();
+  const comp = renderPickbox({
+    columns: [
+      {
+        id: 'long',
+        items: Array.from({ length: 80 }, (_, index) => ({
+          id: `item-${index}`,
+          label: `Item ${index}`,
+        })),
+      },
+    ],
+    value: ['item-0'],
+    overscan: 2,
+  });
+  comp.addEventListener('valuechange', valuechange);
+
+  comp.setData({
+    containerHeight: 220,
+    resolvedPadding: 88,
+    resolvedEstimateSize: 44,
+    resolvedIndicatorHeight: 44,
+  });
+
+  const instance = comp.instance as {
+    recomputeVirtualColumns: () => void;
+    handleColumnTouchStart: (event: WechatMiniprogram.TouchEvent) => void;
+    handleColumnTouchEnd: (event: WechatMiniprogram.TouchEvent) => void;
+    handleColumnScroll: (
+      event: WechatMiniprogram.CustomEvent<{
+        scrollTop: number;
+      }>,
+    ) => void;
+  };
+
+  instance.recomputeVirtualColumns();
+  instance.handleColumnTouchStart({
+    currentTarget: {
+      dataset: {
+        columnIndex: 0,
+      },
+    },
+    touches: [{ clientY: 0 }],
+  } as unknown as WechatMiniprogram.TouchEvent);
+  instance.handleColumnTouchEnd({
+    currentTarget: {
+      dataset: {
+        columnIndex: 0,
+      },
+    },
+  } as WechatMiniprogram.TouchEvent);
+  instance.handleColumnScroll({
+    currentTarget: {
+      dataset: {
+        columnIndex: 0,
+      },
+    },
+    detail: {
+      scrollTop: 440,
+    },
+  } as unknown as WechatMiniprogram.CustomEvent<{
+    scrollTop: number;
+  }>);
+  await tick();
+
+  const data = comp.data as {
+    renderColumns: Array<{
+      items: Array<{
+        id: string | number;
+        className: string;
+      }>;
+    }>;
+  };
+  const selectedItem = data.renderColumns[0]?.items.find(
+    (item) => item.id === 'item-10',
+  );
+
+  expect(selectedItem?.className).toContain('font-semibold');
+  expect(valuechange).toHaveBeenCalledWith(
+    expect.objectContaining({
+      detail: expect.objectContaining({
+        itemId: 'item-10',
+      }),
+    }),
+  );
+  expect(vibrateShort).toHaveBeenCalled();
+
+  comp.detach();
+  vi.unstubAllGlobals();
 });
 
 it('resolves default metric by size variant', async () => {

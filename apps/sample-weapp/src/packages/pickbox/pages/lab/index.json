@@ -1,0 +1,10 @@
+{
+  "$schema": "https://vite.icebreaker.top/page.json",
+  "usingComponents": {
+    "app-page": "../../../../components/app-page/index",
+    "sr-button": "@srcube-ui/mini/button/index"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "Vibration Lab",
+  "backgroundColor": "#f1f5f9"
+}

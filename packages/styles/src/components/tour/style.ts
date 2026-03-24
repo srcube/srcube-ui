@@ -26,11 +26,12 @@ export const tour = tv({
     tone: {
       default: {},
       dark: {
-        highlight: "shadow-[0_0_0_9999px_rgba(2,6,23,0.72)]",
+        highlight: "shadow-[0_0_0_9999px_rgba(9,9,11,0.78)]",
         popover: "bg-zinc-900 border-zinc-700",
         title: "text-white",
         description: "text-zinc-100",
-        progress: "text-slate-300",
+        progress: "text-zinc-300",
+        skipButton: "text-zinc-300",
       },
     },
     isInteractive: {

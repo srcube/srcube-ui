@@ -1,33 +1,22 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { beforeAll, expect, it, vi } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import { Calendar, CalendarRange } from '../../src/components/calendar';
 
 void React;
 
-beforeAll(() => {
-  if (!HTMLElement.prototype.scrollTo) {
-    // @ts-expect-error -- jsdom mock
-    HTMLElement.prototype.scrollTo = () => {};
-  }
-});
-
-it('renders month trigger and no prev next actions', () => {
+it('renders current month key and month navigation actions', () => {
   render(<Calendar month="2026-02" minDate="2026-02-01" maxDate="2026-02-28" />);
 
-  expect(screen.getAllByText('2026-02').length).toBeGreaterThan(0);
-  expect(screen.queryByLabelText('Previous month')).toBeNull();
-  expect(screen.queryByLabelText('Next month')).toBeNull();
+  expect(screen.getByText('2026-02')).toBeTruthy();
+  expect(screen.getByLabelText('Previous month')).toBeTruthy();
+  expect(screen.getByLabelText('Next month')).toBeTruthy();
 });
 
-it('opens and closes year month picker panel', () => {
+it('renders today quick action', () => {
   render(<Calendar month="2026-02" minDate="2026-01-01" maxDate="2026-12-31" />);
 
-  fireEvent.click(screen.getAllByText('2026-02')[0] as HTMLElement);
-  expect(screen.getByLabelText('Close year month picker')).toBeTruthy();
-
-  fireEvent.click(screen.getByLabelText('Close year month picker'));
-  expect(screen.queryByLabelText('Close year month picker')).toBeNull();
+  expect(screen.getByText('Today')).toBeTruthy();
 });
 
 it('calls onValueChange when selecting a day', () => {

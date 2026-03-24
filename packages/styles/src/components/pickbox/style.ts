@@ -7,7 +7,7 @@ export const pickbox = tv({
     column: 'relative min-w-0 flex-1',
     columnScroll: 'h-full overflow-y-auto scrollbar-none outline-none',
     columnContent: 'relative w-full',
-    item: 'absolute left-0 right-0 flex select-none origin-center items-center justify-center transition-colors duration-200',
+    item: 'relative flex w-full select-none origin-center items-center justify-center transition-colors duration-200',
     itemLabel: 'truncate',
     indicator:
       'pointer-events-none absolute inset-0 top-1/2 z-0 w-full -translate-y-1/2 border border-transparent',
