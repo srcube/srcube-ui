@@ -1,4 +1,4 @@
-<app-page title="Tour" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Tour" description="用于通过锚点指引一步步介绍产品功能，适合新手引导、功能教学和功能发现。" tone="{{tone}}" withBack="{{true}}">
   <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Controls</view>
     <view class="mt-1 text-xs {{tone === 'dark' ? 'text-zinc-400' : 'text-slate-500'}}">open tour / open from step</view>

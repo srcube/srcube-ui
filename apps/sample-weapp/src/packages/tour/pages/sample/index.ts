@@ -1,39 +1,43 @@
-import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
-import type { SampleTone } from '../../../../shared/sample-theme';
+import {
+  attachSampleTone,
+  detachSampleTone,
+} from "../../../../shared/sample-theme-page";
+import type { SampleTone } from "../../../../shared/sample-theme";
 
 Page({
   data: {
     isOpen: false,
     currentStep: 0,
-    tone: 'default' as SampleTone,
-    lastEvent: 'idle',
+    tone: "default" as SampleTone,
+    lastEvent: "idle",
     steps: [
       {
-        selector: '#tour-target-search',
-        title: 'Search',
-        description: 'Use this input to quickly locate records.',
-        placement: 'bottom',
+        selector: "#tour-target-search",
+        title: "Search",
+        description: "Use this input to quickly locate records.",
+        skipText: "跳过",
+        placement: "bottom",
         radius: 16,
       },
       {
-        selector: '#tour-target-filter',
-        title: 'Filter',
-        description: 'Switch status and tags with one tap.',
-        placement: 'bottom',
+        selector: "#tour-target-filter",
+        title: "Filter",
+        description: "Switch status and tags with one tap.",
+        placement: "bottom",
         radius: 16,
       },
       {
-        selector: '#tour-target-list',
-        title: 'List',
-        description: 'Long content area supports auto scroll positioning.',
-        placement: 'top',
+        selector: "#tour-target-list",
+        title: "List",
+        description: "Long content area supports auto scroll positioning.",
+        placement: "top",
         radius: 16,
       },
       {
-        selector: '#tour-target-submit',
-        title: 'Submit',
-        description: 'Final action button near page bottom.',
-        placement: 'top',
+        selector: "#tour-target-submit",
+        title: "Submit",
+        description: "Final action button near page bottom.",
+        placement: "top",
         radius: 16,
       },
     ],
@@ -59,7 +63,7 @@ Page({
     this.setData({
       isOpen: true,
       currentStep: 0,
-      lastEvent: 'start',
+      lastEvent: "start",
     });
   },
 
@@ -67,7 +71,7 @@ Page({
     this.setData({
       isOpen: true,
       currentStep: 2,
-      lastEvent: 'start-step-3',
+      lastEvent: "start-step-3",
     });
   },
 
@@ -79,7 +83,7 @@ Page({
   ) {
     this.setData({
       isOpen: Boolean(event.detail?.isOpen),
-      lastEvent: event.detail?.reason || 'openchange',
+      lastEvent: event.detail?.reason || "openchange",
     });
   },
 
@@ -91,19 +95,19 @@ Page({
   ) {
     this.setData({
       currentStep: Number(event.detail?.stepIndex ?? 0),
-      lastEvent: event.detail?.reason || 'stepchange',
+      lastEvent: event.detail?.reason || "stepchange",
     });
   },
 
   handleSkip() {
     this.setData({
-      lastEvent: 'skip',
+      lastEvent: "skip",
     });
   },
 
   handleFinish() {
     this.setData({
-      lastEvent: 'finish',
+      lastEvent: "finish",
       isOpen: false,
     });
   },
