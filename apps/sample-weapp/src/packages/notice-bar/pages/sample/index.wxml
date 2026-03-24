@@ -1,4 +1,4 @@
-<app-page title="Notice Bar" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Notice Bar" description="用于展示不打断流程的轻提示信息，适合公告、提醒和状态通知。" tone="{{tone}}" withBack="{{true}}">
   <view class="rounded-2xl p-4 shadow-sm {{tone === 'dark' ? 'bg-zinc-900 text-zinc-50 shadow-black/20' : 'bg-white text-slate-900'}}">
     <view class="text-sm font-semibold">Basic</view>
     <view class="mt-3">
