@@ -1,5 +1,8 @@
-import { attachSampleTone, detachSampleTone } from '../../../../shared/sample-theme-page';
-import type { SampleTone } from '../../../../shared/sample-theme';
+import {
+  attachSampleTone,
+  detachSampleTone,
+} from "../../../../shared/sample-theme-page";
+import type { SampleTone } from "../../../../shared/sample-theme";
 
 type DemoTabValue = string;
 
@@ -98,7 +101,7 @@ Page({
           : "h-full rounded-2xl border border-slate-200 bg-white p-4 text-sm",
       externalPanelClassName:
         tone === "dark"
-          ? "mt-3 rounded-2xl border border-dashed border-zinc-700 bg-zinc-950 p-4 text-sm text-zinc-300"
+          ? "mt-3 rounded-2xl border border-dashed border-zinc-700 bg-zinc-900 p-4 text-sm text-zinc-200"
           : "mt-3 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600",
       metaTextClassName:
         tone === "dark"
@@ -155,7 +158,7 @@ Page({
           color?: TabsColor;
         };
       };
-    }
+    },
   ) {
     const color = e.currentTarget?.dataset?.color;
     if (!color) {
@@ -174,7 +177,7 @@ Page({
           variant?: TabsVariant;
         };
       };
-    }
+    },
   ) {
     const variant = e.currentTarget?.dataset?.variant;
     if (!variant) {
@@ -193,7 +196,7 @@ Page({
           placement?: TabsPlacement;
         };
       };
-    }
+    },
   ) {
     const placement = e.currentTarget?.dataset?.placement;
     if (!placement) {

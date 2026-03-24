@@ -1,4 +1,4 @@
-<app-page title="Tabs" tone="{{tone}}" withBack="{{true}}">
+<app-page title="Tabs" description="用于把相关内容组织成可快速切换的并列分区，适合分段视图、筛选和内容分组。" tone="{{tone}}" withBack="{{true}}">
   <view class="{{surfaceClassName}}">
     <view class="{{titleClassName}}">Basic</view>
     <view class="{{descriptionClassName}}">horizontal + panel (size=md radius=full)</view>
